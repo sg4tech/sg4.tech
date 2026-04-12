@@ -27,7 +27,7 @@ export default tseslint.config(
         ...globals.node
       },
       parserOptions: {
-        project: "./tsconfig.json"
+        project: "./tsconfig.typecheck.json"
       }
     },
     rules: {

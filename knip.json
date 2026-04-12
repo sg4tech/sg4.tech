@@ -1,10 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
   "entry": [
-    "app/**/*.tsx",
-    "components/**/*.tsx",
-    "lib/**/*.ts",
-    "tests/**/*.test.ts"
+    "app/**/*.tsx"
   ],
   "project": [
     "app/**/*.{ts,tsx,mdx}",
