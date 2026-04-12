@@ -1,0 +1,48 @@
+import nextPlugin from "@next/eslint-plugin-next";
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+
+const projectIgnores = [
+  ".next/**",
+  "node_modules/**",
+  "coverage/**",
+  "next-env.d.ts"
+];
+
+export default tseslint.config(
+  {
+    ignores: projectIgnores
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: {
+      "@next/next": nextPlugin
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      },
+      parserOptions: {
+        project: "./tsconfig.json"
+      }
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      complexity: ["error", 10],
+      "max-depth": ["error", 4],
+      "max-lines-per-function": [
+        "error",
+        {
+          max: 80,
+          skipBlankLines: true,
+          skipComments: true
+        }
+      ]
+    }
+  }
+);

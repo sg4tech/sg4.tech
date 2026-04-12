@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": [
+    "app/**/*.tsx",
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "tests/**/*.test.ts"
+  ],
+  "project": [
+    "app/**/*.{ts,tsx,mdx}",
+    "components/**/*.{ts,tsx}",
+    "content/**/*.mdx",
+    "lib/**/*.ts",
+    "tests/**/*.test.ts"
+  ]
+}
