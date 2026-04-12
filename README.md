@@ -72,6 +72,12 @@ Context:
 
 ---
 
+## ✅ Engineering Checks
+
+Project verification rules and required automated checks are documented in `docs/engineering-checks.md`.
+
+---
+
 ## 📁 Project Structure
 
 ```id="8r5t7w"
