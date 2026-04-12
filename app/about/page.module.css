@@ -1,0 +1,36 @@
+.page {
+  display: grid;
+  gap: 2rem;
+  padding: 3rem 0 4rem;
+}
+
+.hero {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.kicker {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+}
+
+.hero p,
+.copy {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
