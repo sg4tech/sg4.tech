@@ -13,7 +13,7 @@ const requiredCopy = [
   "https://t.me/sg4tech?start=site_hero",
   "https://t.me/sg4tech?start=site_final",
   "cta_click",
-  "https://habr.com/ru/users/sg4tech/",
+  "https://habr.com/users/sg4tech/",
   "https://t.me/cto_lifehacks",
   "https://medium.com/@sg4tech",
   "https://www.linkedin.com/in/victor-demin/",

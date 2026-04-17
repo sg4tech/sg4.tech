@@ -174,7 +174,7 @@ const insightTopics = [
 const insightLinks = [
   {
     label: "Habr",
-    href: "https://habr.com/ru/users/sg4tech/",
+    href: "https://habr.com/users/sg4tech/",
     description: "Long-form breakdowns of delivery systems, bottlenecks, and engineering management patterns."
   },
   {
@@ -271,7 +271,7 @@ const structuredData = {
         "https://github.com/sg4tech/",
         "https://www.linkedin.com/in/victor-demin/",
         "https://t.me/cto_lifehacks",
-        "https://habr.com/ru/users/sg4tech/",
+        "https://habr.com/users/sg4tech/",
         "https://medium.com/@sg4tech"
       ]
     },
