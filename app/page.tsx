@@ -504,8 +504,8 @@ function ResultsSection() {
 
 function TrustSection() {
   return (
-    <section className={styles.section}>
-      <h2>Why me</h2>
+    <section className={`${styles.section} ${styles.trustSection}`}>
+      <h2 className={styles.trustHeading}>Why me</h2>
       <SectionIntro>
         Victor Demin — operator-level engineering leader focused on fixing delivery systems, not decorating process.
       </SectionIntro>
@@ -555,9 +555,9 @@ function FitSection() {
   return (
     <section id="fit" className={styles.section}>
       <h2>Who I work with</h2>
-      <div className={styles.stageGrid}>
+      <div className={styles.fitGrid}>
         {fitGroups.map((group) => (
-          <article key={group.title} className={styles.card}>
+          <article key={group.title} className={styles.fitCard}>
             <h3>{group.title}</h3>
             <ul className={styles.bulletList}>
               {group.points.map((point) => (
@@ -611,7 +611,7 @@ function FinalCtaSection() {
     <section id="final-cta" className={styles.finalCta}>
       <h2>Describe your situation — I'll tell you where your system breaks.</h2>
       <p>Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.</p>
-      <div className={styles.heroActions}>
+      <div className={styles.finalActions}>
         <TrackedLink
           href={finalCtaHref}
           className={styles.primaryButton}
