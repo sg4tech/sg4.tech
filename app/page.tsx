@@ -192,6 +192,45 @@ const insightLinks = [
   }
 ];
 
+const footerLinks = [
+  {
+    label: "GitHub",
+    href: "https://github.com/sg4tech/",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M12 1.5A10.5 10.5 0 0 0 8.676 22c.525.098.72-.227.72-.507 0-.249-.009-.909-.014-1.784-2.93.637-3.549-1.412-3.549-1.412-.48-1.218-1.17-1.543-1.17-1.543-.957-.654.072-.641.072-.641 1.058.074 1.615 1.087 1.615 1.087.94 1.61 2.466 1.145 3.067.876.095-.681.368-1.145.669-1.409-2.339-.266-4.798-1.169-4.798-5.202 0-1.149.411-2.089 1.085-2.826-.109-.266-.47-1.337.103-2.787 0 0 .885-.283 2.9 1.08A10.09 10.09 0 0 1 12 6.614a10.1 10.1 0 0 1 2.64.355c2.014-1.363 2.897-1.08 2.897-1.08.575 1.45.214 2.521.105 2.787.676.737 1.083 1.677 1.083 2.826 0 4.043-2.464 4.933-4.81 5.194.378.325.714.967.714 1.949 0 1.408-.012 2.544-.012 2.889 0 .282.192.61.726.506A10.5 10.5 0 0 0 12 1.5Z"
+          fill="currentColor"
+        />
+      </svg>
+    )
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/victor-demin/",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3Zm14.19 9.84c0-3.45-1.84-5.05-4.3-5.05-1.98 0-2.86 1.09-3.36 1.86V8.5H8.4c.04.76 0 11.5 0 11.5h3.38v-6.42c0-.343.025-.685.126-.93.276-.686.905-1.396 1.963-1.396 1.384 0 1.938 1.053 1.938 2.597V20h3.38l.001-7.16Z"
+          fill="currentColor"
+        />
+      </svg>
+    )
+  },
+  {
+    label: "Telegram",
+    href: "https://t.me/cto_lifehacks",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M20.665 4.717 3.93 11.172c-1.142.458-1.135 1.094-.208 1.378l4.294 1.34 1.654 5.177c.2.553.102.772.682.772.448 0 .646-.204.897-.446l2.083-2.023 4.334 3.2c.8.441 1.375.214 1.575-.743l2.85-13.425c.292-1.173-.448-1.704-1.426-1.26ZM8.694 13.58l9.965-6.289c.496-.301.95-.139.577.192l-8.53 7.699-.332 3.512-1.68-5.115Z"
+          fill="currentColor"
+        />
+      </svg>
+    )
+  }
+];
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -491,6 +530,21 @@ function FinalCtaSection() {
   );
 }
 
+function FooterSection() {
+  return (
+    <footer className={styles.footer} aria-label="Footer">
+      <div className={styles.footerLinks}>
+        {footerLinks.map((link) => (
+          <a key={link.label} href={link.href} className={styles.footerLink} target="_blank" rel="noreferrer">
+            <span className={styles.footerIcon}>{link.icon}</span>
+            <span>{link.label}</span>
+          </a>
+        ))}
+      </div>
+    </footer>
+  );
+}
+
 export default function HomePage() {
   return (
     <main className={styles.page}>
@@ -509,6 +563,7 @@ export default function HomePage() {
       <FitSection />
       <InsightsSection />
       <FinalCtaSection />
+      <FooterSection />
     </main>
   );
 }
