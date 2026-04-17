@@ -57,3 +57,6 @@ To enable deployment:
 3. Set `Source` to `GitHub Actions`
 
 The workflow builds a static export and deploys it automatically on pushes to `master`.
+
+For a custom domain like `sg4.tech`, the site should be deployed from the root path with no `basePath`.
+If you ever switch back to the default GitHub Pages project URL (`username.github.io/repo-name`), set `PAGES_BASE_PATH=/repo-name` in the workflow before building.

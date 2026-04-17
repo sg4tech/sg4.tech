@@ -36,8 +36,6 @@ jobs:
         run: npm ci
 
       - name: Build static export
-        env:
-          PAGES_BASE_PATH: /sg4.tech
         run: npm run build
 
       - name: Upload Pages artifact
