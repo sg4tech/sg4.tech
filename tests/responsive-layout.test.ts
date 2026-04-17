@@ -4,7 +4,9 @@ import { describe, expect, it } from "vitest";
 
 describe("responsive layout guardrails", () => {
   it("keeps the dedicated mobile navigation and CTA rules", () => {
+    const pagePath = join(process.cwd(), "app", "page.tsx");
     const filePath = join(process.cwd(), "app", "page.module.css");
+    const pageContent = readFileSync(pagePath, "utf8");
     const content = readFileSync(filePath, "utf8");
     const tabletSection = content.split("@media (max-width: 860px)")[1] ?? "";
     const mobileSection = content.split("@media (max-width: 640px)")[1] ?? "";
@@ -13,6 +15,10 @@ describe("responsive layout guardrails", () => {
     expect(content).toContain("@media (max-width: 860px)");
     expect(content).toContain("grid-template-columns: repeat(2, minmax(0, 1fr));");
     expect(content).toContain("min-height: 2.75rem;");
+    expect(pageContent).toContain('mobileNav: "primary"');
+    expect(pageContent).toContain('mobileNav: "secondary"');
+    expect(pageContent).toContain("data-mobile-nav={item.mobileNav}");
+    expect(tabletSection).toContain('a[data-mobile-nav="secondary"]');
     expect(tabletSection).toContain("display: none;");
     expect(mobileSection).toContain("display: flex;");
     expect(mobileSection).toContain("flex-wrap: nowrap;");

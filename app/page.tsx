@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { siHabr, siMedium, siTelegram } from "simple-icons";
 import TrackedLink from "./TrackedLink";
 import styles from "./page.module.css";
 
@@ -8,13 +9,13 @@ const heroCtaHref = "https://t.me/sg4tech?start=site_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_final";
 
 const navigationItems = [
-  { href: "#problem", label: "Problem" },
-  { href: "#solution", label: "Solution" },
-  { href: "#results", label: "Results" },
-  { href: "#process", label: "How I work" },
-  { href: "#fit", label: "Who I work with" },
-  { href: "#insights", label: "Insights" },
-  { href: "#final-cta", label: "Contact" }
+  { href: "#problem", label: "Problem", mobileNav: "primary" },
+  { href: "#solution", label: "Solution", mobileNav: "secondary" },
+  { href: "#results", label: "Results", mobileNav: "primary" },
+  { href: "#process", label: "How I work", mobileNav: "primary" },
+  { href: "#fit", label: "Who I work with", mobileNav: "secondary" },
+  { href: "#insights", label: "Insights", mobileNav: "secondary" },
+  { href: "#final-cta", label: "Contact", mobileNav: "primary" }
 ];
 
 const stageProblems = [
@@ -175,21 +176,26 @@ const insightLinks = [
   {
     label: "Habr",
     href: "https://habr.com/users/sg4tech/",
+    iconPath: siHabr.path,
     description: "Long-form breakdowns of delivery systems, bottlenecks, and engineering management patterns."
   },
   {
     label: "Telegram",
     href: "https://t.me/cto_lifehacks",
+    iconPath: siTelegram.path,
     description: "Short practical notes on CTO work, delivery friction, and system-level decisions."
   },
   {
     label: "Medium",
     href: "https://medium.com/@sg4tech",
+    iconPath: siMedium.path,
     description: "English-language writing on product delivery, AI leverage, and predictable engineering flow."
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/victor-demin/",
+    iconPath:
+      "M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3Zm14.19 9.84c0-3.45-1.84-5.05-4.3-5.05-1.98 0-2.86 1.09-3.36 1.86V8.5H8.4c.04.76 0 11.5 0 11.5h3.38v-6.42c0-.343.025-.685.126-.93.276-.686.905-1.396 1.963-1.396 1.384 0 1.938 1.053 1.938 2.597V20h3.38l.001-7.16Z",
     description: "Operator perspective, case-based observations, and updates on engineering leadership."
   }
 ];
@@ -330,6 +336,17 @@ function SectionIntro({ children }: { children: string }) {
   return <p className={styles.sectionIntro}>{children}</p>;
 }
 
+function BrandIcon({ label, path }: { label: string; path: string }) {
+  return (
+    <span className={styles.brandIcon} aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <title>{label}</title>
+        <path d={path} fill="currentColor" />
+      </svg>
+    </span>
+  );
+}
+
 function TopNavigation() {
   return (
     <nav className={styles.nav} aria-label="Section navigation">
@@ -339,7 +356,7 @@ function TopNavigation() {
         </Link>
         <div className={styles.navLinks}>
           {navigationItems.map((item) => (
-            <a key={item.href} href={item.href}>
+            <a key={item.href} href={item.href} data-mobile-nav={item.mobileNav}>
               {item.label}
             </a>
           ))}
@@ -353,31 +370,37 @@ function HeroSection() {
   return (
     <section className={styles.hero}>
       <p className={styles.eyebrow}>Fractional CTO consulting</p>
-      <h1>I turn slow, expensive engineering into fast, predictable delivery systems.</h1>
-      <p className={styles.heroLead}>AI alone won't fix your delivery. But combined with the right system — it will.</p>
-      <p className={styles.heroText}>
-        Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
-      </p>
-      <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
-      <ul className={styles.heroMetrics} aria-label="Key outcomes">
-        <li>2–3x faster delivery ⚡</li>
-        <li>Up to 10x fewer bugs and downtime 🐞</li>
-        <li>Higher predictability 📈</li>
-      </ul>
-      <div className={styles.heroActions}>
-        <TrackedLink
-          href={heroCtaHref}
-          className={styles.primaryButton}
-          target="_blank"
-          rel="noreferrer"
-          eventName="cta_click"
-          payload={{ location: "hero" }}
-        >
-          Book a diagnostic call
-        </TrackedLink>
-        <Link href={secondaryCtaHref} className={styles.secondaryButton}>
-          See how I work
-        </Link>
+      <div className={styles.heroLayout}>
+        <div className={styles.heroPrimary}>
+          <h1>I turn slow, expensive engineering into fast, predictable delivery systems.</h1>
+        </div>
+        <div className={styles.heroSecondary}>
+          <p className={styles.heroLead}>AI alone won't fix your delivery. But combined with the right system — it will.</p>
+          <p className={styles.heroText}>
+            Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
+          </p>
+          <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
+          <ul className={styles.heroMetrics} aria-label="Key outcomes">
+            <li>2–3x faster delivery ⚡</li>
+            <li>Up to 10x fewer bugs and downtime 🐞</li>
+            <li>Higher predictability 📈</li>
+          </ul>
+          <div className={styles.heroActions}>
+            <TrackedLink
+              href={heroCtaHref}
+              className={styles.primaryButton}
+              target="_blank"
+              rel="noreferrer"
+              eventName="cta_click"
+              payload={{ location: "hero" }}
+            >
+              Book a diagnostic call
+            </TrackedLink>
+            <Link href={secondaryCtaHref} className={styles.secondaryButton}>
+              See how I work
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -571,7 +594,10 @@ function InsightsSection() {
             target="_blank"
             rel="noreferrer"
           >
-            <span className={styles.insightLabel}>{link.label}</span>
+            <span className={styles.insightHeader}>
+              <BrandIcon label={link.label} path={link.iconPath} />
+              <span className={styles.insightLabel}>{link.label}</span>
+            </span>
             <span className={styles.insightDescription}>{link.description}</span>
           </a>
         ))}
