@@ -5,14 +5,14 @@ import styles from "./page.module.css";
 
 export const metadata = createPageMetadata({
   title: "About",
-  description: "About SG4 Tech and the consulting posture behind the platform."
+  description: "About Victor Demin and the consulting posture behind the platform."
 });
 
 export default function AboutPage() {
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
-        <p className={styles.kicker}>About SG4 Tech</p>
+        <p className={styles.kicker}>About Victor Demin</p>
         <h1>Operator-level engineering diagnostics for business leaders.</h1>
         <p>
           This platform is built to translate delivery failures into decisions a founder or CEO can act on. The

@@ -5,8 +5,8 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://sg4.tech"),
   title: {
-    default: "SG4 Tech",
-    template: "%s | SG4 Tech"
+    default: "Victor Demin",
+    template: "%s | Victor Demin"
   },
   description:
     "Business-first engineering diagnostics for founders and CEOs who need product delivery to become predictable again."
