@@ -360,9 +360,9 @@ function HeroSection() {
       </p>
       <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
       <ul className={styles.heroMetrics} aria-label="Key outcomes">
-        <li>2–3x faster delivery</li>
-        <li>Up to 10x fewer bugs and downtime</li>
-        <li>Higher predictability</li>
+        <li>2–3x faster delivery ⚡</li>
+        <li>Up to 10x fewer bugs and downtime 🐞</li>
+        <li>Higher predictability 📈</li>
       </ul>
       <div className={styles.heroActions}>
         <TrackedLink
