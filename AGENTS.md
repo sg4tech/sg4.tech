@@ -52,6 +52,24 @@
 - Distinguish clearly between lint, unit tests, integration checks, build, release, and live runtime verification.
 - A successful build or deploy command does not prove the live system works.
 
+## Layout and Visual QA Rules
+
+- Do not constrain large headings with a rigid `max-width` without checking wide desktop rendering.
+- If awkward wrapping appears in multiple sections, fix the typography rules rather than patching headings one by one.
+- If the same visual defect appears more than once, stop patching individual components and define a system-level rule before continuing.
+- Treat `hero h1`, section headings, and CTA headings as separate layout objects with separate wrapping and width rules.
+- Do not reuse a single typography constraint across all major headings.
+- Check not only the mobile breakpoint, but also the wide desktop layout.
+- Evaluate any layout or typography change in at least 3 modes: `320–390px`, `~768px`, and `>=1200px`.
+- Design mobile navigation as a first-screen UX element, not as a compressed desktop navigation.
+- Secondary sections must not compete with the hero and final CTA for attention.
+- FAQ, footer links, and insights should remain secondary in the visual hierarchy.
+- If the same visual defect appears twice, stop and turn it into a design-system rule.
+- For UI changes, rely on real rendered output and screenshots, not only on reading JSX or CSS.
+- For UI work, code inspection is not sufficient evidence.
+- Validate against rendered output before considering the change complete.
+- When visual behavior is under discussion, screenshots outrank code assumptions.
+
 ## Retros Rules
 
 - Log retros for live incidents, schema/data mistakes, and recurring failure modes.
