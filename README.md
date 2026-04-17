@@ -45,3 +45,15 @@ npm run typecheck
 npm run test
 npm run build
 ```
+
+## GitHub Pages
+
+The repository includes a GitHub Pages workflow in `.github/workflows/pages.yml`.
+
+To enable deployment:
+
+1. Open repository settings in GitHub
+2. Go to `Pages`
+3. Set `Source` to `GitHub Actions`
+
+The workflow builds a static export and deploys it automatically on pushes to `master`.
