@@ -6,9 +6,9 @@ import styles from "./page.module.css";
 const problemPages = [
   {
     href: "/why-engineering-is-slow",
-    title: "Why Engineering Is Slow",
+    title: "Start Here: Why Engineering Feels Slow",
     description:
-      "A page for founders who feel every roadmap item takes too long even with a full team."
+      "The main diagnosis page for founders who feel delivery is slower, less predictable, and less explainable than it should be."
   },
   {
     href: "/why-nothing-ships",
@@ -29,16 +29,16 @@ export default function HomePage() {
     <main className={styles.page}>
       <section className={styles.hero}>
         <p className={styles.eyebrow}>Hybrid Gen SEO + Consulting</p>
-        <h1>Engineering delivery problems, explained in business terms.</h1>
+        <h1>Why delivery breaks, in language a founder can actually use.</h1>
         <p className={styles.lead}>
-          SG4 Tech is a focused platform for founders and CEOs who need to understand why product delivery feels
-          slow, unclear, and difficult to trust.
+          SG4 Tech is not a general engineering blog. It is a focused set of diagnostic pages for founders and CEOs
+          who need to understand why product delivery feels slow, unclear, and difficult to trust.
         </p>
       </section>
 
       <Section
-        title="Problem Pages"
-        intro="Each page is designed to help a decision-maker recognize a delivery failure, understand what causes it, and see what effective diagnosis looks like."
+        title="Start With the Core Problem"
+        intro="The fastest path to product signal is one strong entry page, not three weak ones. The primary page is now the anchor for the MVP."
       >
         <div className={styles.grid}>
           {problemPages.map((page) => (
@@ -51,20 +51,20 @@ export default function HomePage() {
       </Section>
 
       <Section
-        title="Who This Is For"
-        intro="The MVP speaks to startup and growth-stage leaders who already have an engineering team but still cannot get a reliable answer to simple business questions about delivery."
+        title="What the Product Needs to Do"
+        intro="Each page should help a business leader do three things quickly: recognize the pattern, understand the cause, and decide whether a deeper diagnostic conversation is worth having."
       >
         <ul className={styles.list}>
-          <li>Founders with a team of 10 to 100 engineers</li>
-          <li>CEOs whose roadmap feels slower than revenue or market pressure allows</li>
-          <li>Leaders who want diagnosis and leverage, not generic engineering advice</li>
+          <li>Give founders language for a delivery problem they already feel but cannot frame cleanly</li>
+          <li>Translate engineering friction into business consequences and tradeoffs</li>
+          <li>Earn enough trust that a soft consulting CTA feels natural instead of promotional</li>
         </ul>
       </Section>
 
       <CTA
-        text="If your team is busy but delivery still feels opaque, I can help diagnose what is actually slowing things down."
-        href="/about"
-        linkLabel="Learn more about the consulting angle"
+        text="If your team is busy but delivery still feels opaque, start with the flagship diagnosis page and see whether the pattern matches your situation."
+        href="/why-engineering-is-slow"
+        linkLabel="Read the core diagnosis"
       />
     </main>
   );
