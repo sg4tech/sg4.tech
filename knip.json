@@ -4,10 +4,7 @@
     "app/**/*.tsx"
   ],
   "project": [
-    "app/**/*.{ts,tsx,mdx}",
-    "components/**/*.{ts,tsx}",
-    "content/**/*.mdx",
-    "lib/**/*.ts",
+    "app/**/*.{ts,tsx}",
     "tests/**/*.test.ts"
   ]
 }

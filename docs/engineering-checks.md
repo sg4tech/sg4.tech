@@ -2,6 +2,8 @@
 
 This project uses a mandatory automated verification flow.
 
+The current product shape is intentionally small: one public landing page in `app/page.tsx`.
+
 ## Required checks
 
 Run all checks:
@@ -37,8 +39,9 @@ npm run build
 ## Important configuration decisions
 
 - `typecheck` uses `tsconfig.typecheck.json`, not runtime-generated `.next` artifacts.
-- `mdx.d.ts` provides stable MDX module typing for standalone type checks.
-- `knip` treats only `app/**` as entrypoints so unused code in `components` and `lib` remains detectable.
+- `typecheck` only covers the current TypeScript app and test files; there is no MDX layer in the current project shape.
+- `knip` treats only `app/**/*.tsx` as entrypoints because the site is currently a single-page landing page.
+- `depcruise` validates the active app graph only, which keeps the check aligned with the live code path.
 - ESLint enforces:
   - `complexity`
   - `max-depth`
@@ -49,4 +52,3 @@ npm run build
 The same gates run in GitHub Actions:
 
 - workflow: `.github/workflows/ci.yml`
-

@@ -6,19 +6,16 @@
     "dev": "next dev",
     "build": "next build --no-lint",
     "start": "next start",
-    "lint": "eslint app components lib tests --ext .ts,.tsx --max-warnings=0",
+    "lint": "eslint app tests --ext .ts,.tsx --max-warnings=0",
     "security:audit": "npm audit --audit-level=high",
-    "security:code": "eslint app components lib tests --ext .ts,.tsx --config eslint.security.config.mjs --max-warnings=0",
+    "security:code": "eslint app tests --ext .ts,.tsx --config eslint.security.config.mjs --max-warnings=0",
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
     "test": "vitest run --passWithNoTests=false",
     "knip": "knip",
-    "depcruise": "depcruise --config .dependency-cruiser.cjs app components lib",
+    "depcruise": "depcruise --config .dependency-cruiser.cjs app",
     "check": "npm run lint && npm run security:audit && npm run security:code && npm run typecheck && npm run test && npm run knip && npm run depcruise && npm run build"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.1.0",
-    "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^15.3.0",
     "next": "^15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -26,7 +23,6 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@next/eslint-plugin-next": "^15.5.15",
-    "@types/mdx": "^2.0.13",
     "@types/node": "^22.14.0",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
