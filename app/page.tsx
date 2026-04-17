@@ -20,7 +20,7 @@ const navigationItems = [
 
 const stageProblems = [
   {
-    title: "Early-stage 🚀",
+    title: "🚀 Early-stage",
     points: [
       "MVP takes longer than expected",
       "Everything depends on a few key people",
@@ -30,7 +30,7 @@ const stageProblems = [
     closing: "You're moving — but not fast enough."
   },
   {
-    title: "Growth-stage 📈",
+    title: "📈 Growth-stage",
     points: [
       "Features take too long to ship",
       "Deadlines slip — even with planning",
@@ -41,7 +41,7 @@ const stageProblems = [
     closing: "You have a team. You have processes. But it still doesn't work."
   },
   {
-    title: "Scale 🏗️",
+    title: "🏗️ Scale",
     points: [
       "Too many processes, but no real visibility",
       "Coordination overhead slows everything down",
@@ -137,7 +137,7 @@ const expectationPoints = [
 
 const fitGroups = [
   {
-    title: "Best fit",
+    title: "🎯 Best fit",
     points: [
       "Product companies (B2B / SaaS / platforms) with 5–50 engineers",
       "Already shipping, but struggling with delivery speed, predictability, or engineering efficiency",
@@ -145,7 +145,7 @@ const fitGroups = [
     ]
   },
   {
-    title: "Typical triggers",
+    title: "⚠️ Typical triggers",
     points: [
       "Delivery is too slow",
       "Deadlines are unpredictable",
@@ -155,7 +155,7 @@ const fitGroups = [
     ]
   },
   {
-    title: "Not a good fit",
+    title: "🚫 Not a good fit",
     points: [
       "No product / no team",
       "Looking for staff augmentation or pure hands-on coding",
