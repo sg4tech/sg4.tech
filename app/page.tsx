@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import TrackedLink from "./TrackedLink";
 import styles from "./page.module.css";
 
-const primaryCtaHref = "https://t.me/sg4tech";
 const secondaryCtaHref = "#process";
+const heroCtaHref = "https://t.me/sg4tech?start=site_hero";
+const finalCtaHref = "https://t.me/sg4tech?start=site_final";
 
 const navigationItems = [
   { href: "#problem", label: "Problem" },
@@ -231,16 +233,79 @@ const footerLinks = [
   }
 ];
 
+const faqItems = [
+  {
+    question: "What does a fractional CTO help with?",
+    answer:
+      "I help product companies fix slow, unpredictable delivery systems. That includes bottlenecks, delivery metrics, engineering efficiency, flow, and applying AI where it creates real leverage."
+  },
+  {
+    question: "When are you the right fit?",
+    answer:
+      "Best fit is product companies with 5–50 engineers that are already shipping but struggling with delivery speed, predictability, or engineering efficiency."
+  },
+  {
+    question: "When are you not the right fit?",
+    answer:
+      "Not a fit if you only need staff augmentation, pure hands-on coding, or expect instant results without process and operating model changes."
+  },
+  {
+    question: "How fast can we see results?",
+    answer:
+      "First insights usually appear within 1–2 weeks. Visible improvements often start within weeks, not months, depending on the system and adoption speed."
+  }
+];
+
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Victor Demin",
-  url: "https://sg4.tech",
-  serviceType: "Fractional CTO and engineering delivery consulting",
-  description:
-    "Fractional CTO consulting for product teams that need faster, more predictable software delivery using system thinking, delivery metrics, and AI.",
-  areaServed: "Global",
-  email: "hello@sg4.tech"
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://sg4.tech/#person",
+      name: "Victor Demin",
+      url: "https://sg4.tech",
+      jobTitle: "Fractional CTO",
+      description:
+        "Engineering delivery consultant helping product teams improve speed, predictability, and efficiency through system thinking, metrics, and AI.",
+      sameAs: [
+        "https://github.com/sg4tech/",
+        "https://www.linkedin.com/in/victor-demin/",
+        "https://t.me/cto_lifehacks",
+        "https://habr.com/ru/users/sg4tech/",
+        "https://medium.com/@sg4tech"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://sg4.tech/#service",
+      name: "Victor Demin Fractional CTO Consulting",
+      url: "https://sg4.tech",
+      serviceType: "Fractional CTO and engineering delivery consulting",
+      description:
+        "Fractional CTO consulting for product teams that need faster, more predictable software delivery using system thinking, delivery metrics, and AI.",
+      areaServed: "Global",
+      founder: {
+        "@id": "https://sg4.tech/#person"
+      },
+      sameAs: [
+        "https://github.com/sg4tech/",
+        "https://www.linkedin.com/in/victor-demin/",
+        "https://t.me/cto_lifehacks"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://sg4.tech/#faq",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    }
+  ]
 };
 
 export const metadata: Metadata = {
@@ -300,9 +365,16 @@ function HeroSection() {
         <li>Higher predictability</li>
       </ul>
       <div className={styles.heroActions}>
-        <Link href={primaryCtaHref} className={styles.primaryButton} target="_blank" rel="noreferrer">
+        <TrackedLink
+          href={heroCtaHref}
+          className={styles.primaryButton}
+          target="_blank"
+          rel="noreferrer"
+          eventName="cta_click"
+          payload={{ location: "hero" }}
+        >
           Book a diagnostic call
-        </Link>
+        </TrackedLink>
         <Link href={secondaryCtaHref} className={styles.secondaryButton}>
           See how I work
         </Link>
@@ -430,7 +502,7 @@ function ProcessSection() {
   return (
     <section id="process" className={styles.section}>
       <h2>How I work</h2>
-      <div className={styles.stack}>
+      <div className={styles.processGrid}>
         {workSteps.map((step) => (
           <article key={step.title} className={styles.step}>
             <h3>{step.title}</h3>
@@ -444,6 +516,14 @@ function ProcessSection() {
         ))}
       </div>
       <p className={styles.processNote}>No magic. Just a system that works.</p>
+      <div className={styles.expectationBox}>
+        <h3>What to expect</h3>
+        <ul className={styles.bulletList}>
+          {expectationPoints.map((point) => (
+            <li key={point}>{point}</li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
@@ -464,19 +544,6 @@ function FitSection() {
           </article>
         ))}
       </div>
-    </section>
-  );
-}
-
-function ExpectationsSection() {
-  return (
-    <section className={styles.section}>
-      <h2>What to expect</h2>
-      <ul className={styles.bulletList}>
-        {expectationPoints.map((point) => (
-          <li key={point}>{point}</li>
-        ))}
-      </ul>
     </section>
   );
 }
@@ -519,12 +586,35 @@ function FinalCtaSection() {
       <h2>Describe your situation — I'll tell you where your system breaks.</h2>
       <p>Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.</p>
       <div className={styles.heroActions}>
-        <Link href={primaryCtaHref} className={styles.primaryButton} target="_blank" rel="noreferrer">
+        <TrackedLink
+          href={finalCtaHref}
+          className={styles.primaryButton}
+          target="_blank"
+          rel="noreferrer"
+          eventName="cta_click"
+          payload={{ location: "final" }}
+        >
           Get a delivery diagnosis
-        </Link>
+        </TrackedLink>
         <Link href={secondaryCtaHref} className={styles.secondaryButton}>
           See how I work
         </Link>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section className={styles.section} aria-labelledby="faq-title">
+      <h2 id="faq-title">FAQ</h2>
+      <div className={styles.faqList}>
+        {faqItems.map((item) => (
+          <article key={item.question} className={styles.faqItem}>
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </article>
+        ))}
       </div>
     </section>
   );
@@ -559,9 +649,9 @@ export default function HomePage() {
       <TrustSection />
       <ResultsSection />
       <ProcessSection />
-      <ExpectationsSection />
       <FitSection />
       <InsightsSection />
+      <FaqSection />
       <FinalCtaSection />
       <FooterSection />
     </main>

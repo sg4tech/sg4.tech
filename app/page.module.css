@@ -1,5 +1,5 @@
 .page {
-  width: min(100% - 2rem, 56rem);
+  width: min(100% - 2rem, 62rem);
   margin: 0 auto;
   padding: 1rem 0 4rem;
 }
@@ -192,6 +192,12 @@
   margin-top: 1.5rem;
 }
 
+.processGrid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 .card,
 .step,
 .caseStudy,
@@ -275,6 +281,20 @@
   font-weight: 600;
 }
 
+.expectationBox {
+  margin-top: 1.25rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface-alt);
+}
+
+.expectationBox h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
 .insightGrid {
   display: grid;
   gap: 0.85rem;
@@ -308,6 +328,31 @@
 .insightDescription {
   color: var(--muted);
   line-height: 1.65;
+}
+
+.faqList {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.faqItem {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+}
+
+.faqItem h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.faqItem p {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .finalCta {
@@ -376,16 +421,57 @@
     flex-direction: column;
   }
 
+  .navLinks {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .navLinks a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--surface);
+  }
+
+  .navLinks a:hover,
+  .navLinks a:focus-visible {
+    background: var(--surface-alt);
+  }
+
+  .navLinks a:nth-child(2),
+  .navLinks a:nth-child(5),
+  .navLinks a:nth-child(6) {
+    display: none;
+  }
+
   .stageGrid,
-  .caseGrid {
+  .caseGrid,
+  .processGrid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
   .page {
-    width: min(100% - 1.25rem, 56rem);
+    width: min(100% - 1.25rem, 62rem);
     padding-bottom: 3rem;
+  }
+
+  .navInner {
+    gap: 0.8rem;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .brand {
+    font-size: 1rem;
   }
 
   .hero,
@@ -396,11 +482,28 @@
 
   .heroActions {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .primaryButton,
-  .secondaryButton {
+  .primaryButton {
     width: 100%;
+  }
+
+  .secondaryButton {
+    width: auto;
+    min-height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--muted);
+    justify-content: flex-start;
+  }
+
+  .secondaryButton:hover,
+  .secondaryButton:focus-visible {
+    background: transparent;
+    color: var(--text-strong);
   }
 
   .footer {
@@ -417,5 +520,26 @@
 
   .footerLink + .footerLink::before {
     content: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .navLinks {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  .page {
+    width: min(100% - 3rem, 72rem);
+  }
+
+  .processGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .step {
+    min-height: 100%;
   }
 }

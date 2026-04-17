@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import type { ReactNode } from "react";
 import "./globals.css";
 
@@ -19,7 +20,14 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="e6f16f01-14da-478f-95c7-d574ee9122c2"
+        />
+      </body>
     </html>
   );
 }
