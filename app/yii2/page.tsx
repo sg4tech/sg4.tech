@@ -53,7 +53,7 @@ const credibilityMetrics = [
     iconPath: "M9 7c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2M5 8l2 2M19 8l-2 2M5 16l2-1M19 16l-2-1M5 12h2M17 12h2M9 11h6M12 11v9M9 13a3 3 0 0 0 6 0v-2H9v2z"
   },
   {
-    number: "10×",
+    number: "5×",
     caption: "less downtime, more predictable releases",
     iconPath: "M3 12h4l2-6 6 12 2-6h4"
   },
@@ -444,13 +444,7 @@ function HeroSection() {
             <p className={styles.heroPromise}>
               I find it, fix it, and leave you with a system that runs without me.
             </p>
-          </div>
-          <div className={styles.heroAside}>
-            <div className={styles.heroInlineVisual}>
-              <DeliveryTransformationVisual />
-            </div>
             <HeroSignalsBar />
-            <HeroMetricList />
             <div className={styles.actions}>
               <TrackedLink
                 href={heroCtaHref}
@@ -466,6 +460,12 @@ function HeroSection() {
                 How it works
               </Link>
             </div>
+          </div>
+          <div className={styles.heroAside}>
+            <div className={styles.heroInlineVisual}>
+              <DeliveryTransformationVisual />
+            </div>
+            <HeroMetricList />
           </div>
         </div>
       </div>

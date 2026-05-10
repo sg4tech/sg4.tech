@@ -300,7 +300,7 @@
 .heroStatement {
   max-width: 29rem;
   margin: 1.4rem 0 0;
-  color: var(--muted);
+  color: var(--text-strong);
   font-size: 1.02rem;
   line-height: 1.75;
 }
@@ -918,7 +918,6 @@
   .cardGrid,
   .linkGrid,
   .processGrid,
-  .metricList,
   .proofColumns {
     grid-template-columns: 1fr;
   }
@@ -964,6 +963,10 @@
   .heroPanel {
     padding: 1rem;
     border-radius: 1.2rem;
+  }
+
+  .metricList {
+    grid-template-columns: 1fr;
   }
 
   .actions {
