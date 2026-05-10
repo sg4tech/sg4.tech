@@ -190,6 +190,9 @@ export const metadata: Metadata = {
   title: "Yii2 Consulting for Faster Delivery and Better Quality",
   description:
     "A dedicated landing page for Yii2 projects: I help teams remove delivery bottlenecks through guardrails, CI/CD, monitoring, delivery metrics, and AI.",
+  alternates: {
+    canonical: "/yii2"
+  },
   openGraph: {
     title: "Yii2 Consulting for Faster Delivery and Better Quality",
     description:

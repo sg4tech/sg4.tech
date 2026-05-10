@@ -326,6 +326,9 @@ export const metadata: Metadata = {
   title: "Fractional CTO Consulting for Faster, Predictable Delivery",
   description:
     "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic.",
+  alternates: {
+    canonical: "/"
+  },
   openGraph: {
     title: "Fractional CTO Consulting for Faster, Predictable Delivery",
     description:
