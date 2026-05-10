@@ -359,13 +359,17 @@ function HeroSection() {
   return (
     <section className={styles.hero}>
       <Link href="/" className={styles.backLink}>
-        Back to main consulting page
+        <span aria-hidden="true" className={styles.backLinkArrow}>←</span>
+        Back to main consulting
       </Link>
       <p className={styles.eyebrow}>Yii2 delivery consulting</p>
       <div className={styles.heroPanel}>
         <div className={styles.heroLayout}>
           <div className={styles.heroMain}>
-            <h1>Is your Yii2 project slowing the business down?</h1>
+            <h1>
+              Is your Yii2 project<br />
+              slowing the business down?
+            </h1>
             <p className={styles.heroStatement}>For most companies, the real cost is not legacy itself. It is slow release flow, fragile quality, and lost business momentum.</p>
           </div>
           <div className={styles.heroAside}>
