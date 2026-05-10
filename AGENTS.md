@@ -16,6 +16,12 @@
 - Prefer small, reversible, observable changes over clever rewrites.
 - Preserve the working path until the replacement is proven.
 
+## Content Language
+
+- All public-facing project content must be in English.
+- Do not add Russian copy to routes, metadata, CTAs, structured data, or public UI text unless the user explicitly approves a bilingual or non-English exception.
+- Treat language choice as a product decision: default to English across pages, docs that describe the public site, and marketing assets in this repo.
+
 ## Engineering Quality
 
 - Default to test-first development and move as close to TDD as practical.

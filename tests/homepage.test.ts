@@ -32,7 +32,10 @@ const requiredCopy = [
   "Victor Demin",
   "15+ years in engineering",
   "8+ years in leadership",
-  "Describe your situation — I'll tell you where your system breaks."
+  "Describe your situation — I'll tell you where your system breaks.",
+  "Running a Yii2 project?",
+  "/yii2",
+  "There is a dedicated landing page for Yii2 delivery consulting"
 ];
 
 describe("homepage landing page", () => {

@@ -14,13 +14,13 @@ It should:
 
 ## Current Product Shape
 
-Only one public page matters right now:
+Primary public pages:
 
 ```text
 /
+/yii2
 ```
-
-There are no secondary article or about routes in the current iteration. If content marketing returns later, add it back deliberately rather than keeping placeholder pages live.
+There are still no article or about routes in the current iteration. Public URLs should stay intentional and conversion-focused.
 
 ## Stack
 
@@ -34,6 +34,7 @@ There are no secondary article or about routes in the current iteration. If cont
 * optimize for conversion, not page count
 * prefer one strong landing page over several weak supporting pages
 * avoid placeholder content on public routes
+* keep all public-facing site copy in English unless a deliberate bilingual strategy is explicitly approved
 
 ## Verification
 

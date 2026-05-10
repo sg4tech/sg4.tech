@@ -2,7 +2,7 @@
 
 This project uses a mandatory automated verification flow.
 
-The current product shape is intentionally small: one public landing page in `app/page.tsx`.
+The current product shape is intentionally small: two public landing pages in `app/page.tsx` and `app/yii2/page.tsx`.
 
 ## Required checks
 
@@ -40,7 +40,7 @@ npm run build
 
 - `typecheck` uses `tsconfig.typecheck.json`, not runtime-generated `.next` artifacts.
 - `typecheck` only covers the current TypeScript app and test files; there is no MDX layer in the current project shape.
-- `knip` treats only `app/**/*.tsx` as entrypoints because the site is currently a single-page landing page.
+- `knip` treats `app/**/*.tsx` as entrypoints because the site is currently a very small multi-route landing setup.
 - `depcruise` validates the active app graph only, which keeps the check aligned with the live code path.
 - ESLint enforces:
   - `complexity`

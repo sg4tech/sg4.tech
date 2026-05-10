@@ -172,6 +172,14 @@ const insightTopics = [
   "AI in engineering: leverage or noise?"
 ];
 
+const specializationLinks = [
+  {
+    href: "/yii2",
+    title: "Running a Yii2 project?",
+    description: "There is a dedicated landing page for Yii2 delivery consulting: quality, release predictability, speed, and modernization without defaulting to a rewrite."
+  }
+];
+
 const insightLinks = [
   {
     label: "Habr",
@@ -571,6 +579,24 @@ function FitSection() {
   );
 }
 
+function SpecializationSection() {
+  return (
+    <section className={styles.section}>
+      <h2>Specialized offers</h2>
+      <SectionIntro>If your situation is more specific than a general delivery problem, start with the offer tailored to that system.</SectionIntro>
+      <div className={styles.specializationGrid}>
+        {specializationLinks.map((link) => (
+          <Link key={link.href} href={link.href} className={styles.specializationCard}>
+            <span className={styles.specializationLabel}>Dedicated page</span>
+            <span className={styles.specializationTitle}>{link.title}</span>
+            <span className={styles.specializationDescription}>{link.description}</span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function InsightsSection() {
   return (
     <section id="insights" className={styles.section}>
@@ -676,6 +702,7 @@ export default function HomePage() {
       <ResultsSection />
       <ProcessSection />
       <FitSection />
+      <SpecializationSection />
       <InsightsSection />
       <FaqSection />
       <FinalCtaSection />
