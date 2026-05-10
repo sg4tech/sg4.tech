@@ -245,11 +245,10 @@ function DeliveryTransformationDiagram() {
       <rect x="40" y="92" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
       <rect x="186" y="132" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
       <rect x="72" y="210" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <circle cx="308" cy="102" r="10" className={styles.visualAlertDot} />
-      <circle cx="56" cy="190" r="8" className={styles.visualAlertDotSoft} />
-      <path d="M166 121 C190 108, 182 150, 210 161" className={styles.visualLineWarm} />
-      <path d="M250 190 C224 196, 206 232, 198 238" className={styles.visualLineWarm} />
-      <path d="M132 209 C132 182, 94 170, 62 182" className={styles.visualLineWarm} />
+      <circle cx="300" cy="98" r="9" className={styles.visualAlertDot} />
+      <path d="M166 132 C 178 138, 184 150, 186 161" className={styles.visualLineWarm} />
+      <path d="M249 190 C 240 200, 220 212, 198 218" className={styles.visualLineWarm} />
+      <path d="M85 210 C 65 192, 70 168, 95 150" className={styles.visualLineWarm} />
       <text x="58" y="124" className={styles.visualTextStrong}>
         manual checks
       </text>
@@ -295,15 +294,15 @@ function DeliveryTransformationVisual() {
       </div>
       <DeliveryTransformationDiagram />
       <div className={styles.visualFooter}>
-        <div className={styles.visualStat}>
+        <div className={styles.visualStat} data-state="before">
           <span className={styles.visualStatValue}>before</span>
           <span className={styles.visualStatLabel}>risky releases and reactive work</span>
         </div>
-        <div className={styles.visualStat}>
+        <div className={styles.visualStat} data-state="after">
           <span className={styles.visualStatValue}>after</span>
           <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
         </div>
-        <div className={styles.visualStat}>
+        <div className={styles.visualStat} data-state="goal">
           <span className={styles.visualStatValue}>goal</span>
           <span className={styles.visualStatLabel}>faster shipping without chaos</span>
         </div>
@@ -371,7 +370,12 @@ function HeroSection() {
               slowing your business.
             </h1>
             <p className={styles.heroAction}>I find what&apos;s actually broken — and fix it.</p>
-            <p className={styles.heroStatement}>What&apos;s slowing you down is rarely the codebase — it&apos;s the delivery system around it. I find it, fix it, and leave you with a system that runs without me.</p>
+            <p className={styles.heroStatement}>
+              What&apos;s slowing you down is rarely the codebase — it&apos;s the delivery system around it.
+            </p>
+            <p className={styles.heroPromise}>
+              I find it, fix it, and leave you with a system that runs without me.
+            </p>
           </div>
           <div className={styles.heroAside}>
             <div className={styles.heroInlineVisual}>

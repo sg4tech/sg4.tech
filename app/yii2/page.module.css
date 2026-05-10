@@ -187,7 +187,6 @@
 }
 
 .visualAlertDot,
-.visualAlertDotSoft,
 .visualStatusDot {
   stroke: #fff;
   stroke-width: 3;
@@ -195,10 +194,6 @@
 
 .visualAlertDot {
   fill: #d76d43;
-}
-
-.visualAlertDotSoft {
-  fill: rgba(215, 109, 67, 0.5);
 }
 
 .visualStatusDot {
@@ -228,10 +223,35 @@
   display: grid;
   gap: 0.35rem;
   min-height: 100%;
-  padding: 0.8rem 0.85rem;
+  padding: 0.8rem 0.85rem 0.8rem 1rem;
   border: 1px solid var(--border);
+  border-left-width: 3px;
   border-radius: 0.95rem;
   background: rgba(255, 255, 255, 0.8);
+}
+
+.visualStat[data-state="before"] {
+  border-left-color: #d76d43;
+}
+
+.visualStat[data-state="after"] {
+  border-left-color: #6b7280;
+}
+
+.visualStat[data-state="goal"] {
+  border-left-color: #2f7a59;
+}
+
+.visualStat[data-state="before"] .visualStatValue {
+  color: #b85a35;
+}
+
+.visualStat[data-state="after"] .visualStatValue {
+  color: #4b5563;
+}
+
+.visualStat[data-state="goal"] .visualStatValue {
+  color: #1f5a40;
 }
 
 .visualStatValue {
@@ -280,9 +300,20 @@
 .heroStatement {
   max-width: 29rem;
   margin: 1.4rem 0 0;
-  color: var(--text-strong);
+  color: var(--muted);
   font-size: 1.02rem;
   line-height: 1.75;
+}
+
+.heroPromise {
+  max-width: 29rem;
+  margin: 0.85rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--border-strong);
+  color: var(--text-strong);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.65;
 }
 
 .heroAside {
