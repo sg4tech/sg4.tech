@@ -8,7 +8,7 @@ const renames = [
   ["yii2/opengraph-image", "yii2/opengraph-image.png"]
 ];
 
-const htmlFiles = ["index.html", "yii2.html"];
+const htmlFiles = ["index.html", "yii2/index.html"];
 
 const PATTERN = "/opengraph-image?";
 const REPLACEMENT = "/opengraph-image.png?";

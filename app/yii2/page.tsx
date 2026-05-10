@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import TrackedLink from "../TrackedLink";
@@ -19,54 +20,121 @@ const navigationItems = [
 ];
 
 const painPoints = [
-  "New functionality in Yii2 ships slower and slower.",
-  "Every release increases the risk of bugs, regressions, and manual firefighting.",
-  "Legacy code, manual checks, and chaotic process slow the business down more than it seems.",
-  "The team stays busy, but product delivery speed still feels unacceptable."
+  {
+    text: "New functionality in Yii2 ships slower and slower.",
+    iconPath: "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+  },
+  {
+    text: "Every release increases the risk of bugs, regressions, and manual firefighting.",
+    iconPath: "M12 8v5M12 17h.01M2.5 17.5L11 4l8.5 13.5h-17z"
+  },
+  {
+    text: "Legacy code, manual checks, and chaotic process slow the business down more than it seems.",
+    iconPath: "M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0zM12 7v5l3 3M5 5l4 4M19 5l-4 4M5 19l4-4M19 19l-4-4"
+  },
+  {
+    text: "The team stays busy, but product delivery speed still feels unacceptable.",
+    iconPath: "M3 12h4l3-7 4 14 3-7h4"
+  }
 ];
 
 const qualityLevers = [
-  "guardrails in code and process so predictable mistakes never reach production",
-  "CI/CD that checks critical scenarios before release instead of after an incident",
-  "monitoring and alerts that surface degradation before customers notice it",
-  "AI and focused automation for routine checks, regressions, and legacy support"
+  {
+    text: "guardrails in code and process so predictable mistakes never reach production",
+    iconPath: "M12 3 4 6v6c0 5 3 8 8 9 5-1 8-4 8-9V6l-8-3zM9 12l2 2 4-4"
+  },
+  {
+    text: "CI/CD that checks critical scenarios before release instead of after an incident",
+    iconPath: "M5 5h4v4H5zM15 5h4v4h-4zM5 15h4v4H5zM15 15h4v4h-4zM9 7h6M17 9v6M9 17H7a4 4 0 0 1 0-8h2"
+  },
+  {
+    text: "monitoring and alerts that surface degradation before customers notice it",
+    iconPath: "M3 13h4l2-7 6 14 2-7h4"
+  },
+  {
+    text: "AI and focused automation for routine checks, regressions, and legacy support",
+    iconPath: "M9 4l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3zM18 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z"
+  }
 ];
 
 const speedLevers = [
-  "I find where the real slowdown lives: queues, manual approvals, and hidden dependencies",
-  "I set up delivery metrics so the bottleneck becomes visible instead of debated",
-  "I align people, process, and priorities around one delivery flow",
-  "I introduce AI agents where they remove manual work and shorten the cycle"
+  {
+    text: "I find where the real slowdown lives: queues, manual approvals, and hidden dependencies",
+    iconPath: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5"
+  },
+  {
+    text: "I set up delivery metrics so the bottleneck becomes visible instead of debated",
+    iconPath: "M3 21V5M3 21h18M8 21V14M13 21V9M18 21V11"
+  },
+  {
+    text: "I align people, process, and priorities around one delivery flow",
+    iconPath: "M3 7h12l-3-3M15 7l-3 3M3 12h18l-3-3M21 12l-3 3M3 17h12l-3-3M15 17l-3 3"
+  },
+  {
+    text: "I introduce AI agents where they remove manual work and shorten the cycle",
+    iconPath: "M13 3 4 14h6l-1 7 9-12h-6z"
+  }
 ];
 
 const whyMePoints = [
-  "15+ years in the industry.",
-  "I have fixed delivery systems many times where speed and quality were working against each other.",
-  "I work both hands-on and system-level: architecture, process, metrics, and management.",
-  "Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation)."
+  {
+    text: "15+ years in the industry.",
+    iconPath: "M8 2v4M16 2v4M3 9h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
+  },
+  {
+    text: "I have fixed delivery systems many times where speed and quality were working against each other.",
+    iconPath: "M14 3l-1 5h6l-9 13 1-7H5l9-11z"
+  },
+  {
+    text: "I work both hands-on and system-level: architecture, process, metrics, and management.",
+    iconPath: "M3 12l9-9 9 9-9 9-9-9zM12 3v18M3 12h18"
+  },
+  {
+    text: "Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation).",
+    iconPath: "M3 21h18M3 7h18v14H3zM7 7V3h10v4M9 11h2M13 11h2M9 15h2M13 15h2"
+  }
 ];
 
 const credibilityMetrics = [
-  "fewer bugs and production incidents",
-  "higher uptime and more predictable releases",
-  "faster delivery without chaotic hiring"
+  {
+    number: "10×",
+    caption: "fewer bugs and production incidents",
+    iconPath: "M9 7c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2M5 8l2 2M19 8l-2 2M5 16l2-1M19 16l-2-1M5 12h2M17 12h2M9 11h6M12 11v9M9 13a3 3 0 0 0 6 0v-2H9v2z"
+  },
+  {
+    number: "5×",
+    caption: "less downtime, more predictable releases",
+    iconPath: "M3 12h4l2-6 6 12 2-6h4"
+  },
+  {
+    number: "2–3×",
+    caption: "faster delivery without extra hiring",
+    iconPath: "M13 3 4 14h6l-1 7 9-12h-6z"
+  }
 ];
 
-const heroSignals = ["Wowworks", "Skyeng", "PHPConf speaker"];
+const heroSignals = [
+  { label: "Wowworks", logo: "/logos/wowworks.svg", logoWidth: 104, logoHeight: 30 },
+  { label: "Skyeng", logo: "/logos/skyeng.svg", logoWidth: 185, logoHeight: 56 },
+  { label: "PHP Russia speaker", logo: "/logos/php-russia.svg", logoWidth: 24, logoHeight: 24, labelAfterLogo: true }
+];
 
 const workSteps = [
   {
     title: "1. Audit (1-2 weeks)",
+    iconPath: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5",
     points: ["Review the codebase and deployment health", "Find the real bottlenecks", "Assess release risk, quality, and coverage"],
     output: "a clear diagnosis and a prioritized action list"
   },
   {
     title: "2. Quality foundation",
+    iconPath: "M12 3 4 6v6c0 5 3 8 8 9 5-1 8-4 8-9V6l-8-3zM9 12l2 2 4-4",
     points: ["Add CI/CD and guardrails", "Set up monitoring and alerts", "Reduce the probability of production incidents"],
     output: "stable, lower-risk releases"
   },
   {
     title: "3. Delivery acceleration",
+    iconPath: "M13 3 4 14h6l-1 7 9-12h-6z",
     points: ["Fix the team flow", "Introduce delivery metrics", "Apply AI where it creates real leverage"],
     output: "faster, more predictable delivery"
   }
@@ -222,7 +290,7 @@ function BrandIcon({ label, path }: { label: string; path: string }) {
 
 function DeliveryTransformationDiagram() {
   return (
-    <svg viewBox="0 0 760 340" className={styles.visualSvg} focusable="false">
+    <svg viewBox="0 0 640 260" className={styles.visualSvg} focusable="false">
       <defs>
         <linearGradient id="panelWarm" x1="0%" x2="100%" y1="0%" y2="100%">
           <stop offset="0%" stopColor="#f6efe7" />
@@ -233,53 +301,52 @@ function DeliveryTransformationDiagram() {
           <stop offset="100%" stopColor="#ffffff" />
         </linearGradient>
       </defs>
-      <rect x="12" y="20" width="340" height="300" rx="28" fill="url(#panelWarm)" stroke="#d8d3cb" />
-      <rect x="408" y="20" width="340" height="300" rx="28" fill="url(#panelCool)" stroke="#d8d3cb" />
-      <text x="40" y="60" className={styles.visualTextMuted}>
+      <rect x="8" y="8" width="300" height="244" rx="22" fill="url(#panelWarm)" stroke="#d8d3cb" />
+      <rect x="332" y="8" width="300" height="244" rx="22" fill="url(#panelCool)" stroke="#d8d3cb" />
+      <text x="24" y="34" className={styles.visualTextMuted}>
         FIRE FIGHTING MODE
       </text>
-      <text x="436" y="60" className={styles.visualTextMuted}>
+      <text x="348" y="34" className={styles.visualTextMuted}>
         DELIVERY SYSTEM MODE
       </text>
 
-      <rect x="40" y="92" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <rect x="186" y="132" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <rect x="72" y="210" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <circle cx="308" cy="102" r="10" className={styles.visualAlertDot} />
-      <circle cx="56" cy="190" r="8" className={styles.visualAlertDotSoft} />
-      <path d="M166 121 C190 108, 182 150, 210 161" className={styles.visualLineWarm} />
-      <path d="M250 190 C224 196, 206 232, 198 238" className={styles.visualLineWarm} />
-      <path d="M132 209 C132 182, 94 170, 62 182" className={styles.visualLineWarm} />
-      <text x="58" y="124" className={styles.visualTextStrong}>
+      <rect x="36" y="58" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
+      <rect x="148" y="118" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
+      <rect x="60" y="180" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
+      <circle cx="270" cy="138" r="8" className={styles.visualAlertDot} />
+      <path d="M174 86 C 200 96, 195 110, 175 118" className={styles.visualLineWarm} />
+      <path d="M180 162 C 178 172, 165 175, 158 180" className={styles.visualLineWarm} />
+      <path d="M70 180 C 30 168, 32 110, 52 92" className={styles.visualLineWarm} />
+      <text x="50" y="86" className={styles.visualTextStrong}>
         manual checks
       </text>
-      <text x="204" y="164" className={styles.visualTextStrong}>
+      <text x="166" y="146" className={styles.visualTextStrong}>
         hidden queue
       </text>
-      <text x="90" y="242" className={styles.visualTextStrong}>
+      <text x="98" y="208" className={styles.visualTextStrong}>
         hotfixes
       </text>
 
-      <rect x="436" y="92" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="584" y="92" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="510" y="176" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="486" y="254" width="170" height="40" rx="14" className={styles.visualOutcomeNode} />
-      <path d="M558 121 H584" className={styles.visualLineCool} />
-      <path d="M646 150 C646 168, 604 170, 584 182" className={styles.visualLineCool} />
-      <path d="M570 234 V254" className={styles.visualLineCool} />
-      <circle cx="570" cy="121" r="8" className={styles.visualStatusDot} />
-      <circle cx="646" cy="121" r="8" className={styles.visualStatusDot} />
-      <circle cx="570" cy="205" r="8" className={styles.visualStatusDot} />
-      <text x="464" y="124" className={styles.visualTextStrong}>
+      <rect x="358" y="58" width="116" height="44" rx="14" className={styles.visualNodeCool} />
+      <rect x="490" y="58" width="116" height="44" rx="14" className={styles.visualNodeCool} />
+      <rect x="424" y="118" width="116" height="44" rx="14" className={styles.visualNodeCool} />
+      <rect x="402" y="180" width="160" height="40" rx="14" className={styles.visualOutcomeNode} />
+      <path d="M474 80 H490" className={styles.visualLineCool} />
+      <path d="M416 102 C 416 110, 432 114, 450 118" className={styles.visualLineCool} />
+      <path d="M548 102 C 548 110, 532 114, 514 118" className={styles.visualLineCool} />
+      <path d="M482 162 V180" className={styles.visualLineCool} />
+      <circle cx="482" cy="80" r="6" className={styles.visualStatusDot} />
+      <circle cx="482" cy="140" r="6" className={styles.visualStatusDot} />
+      <text x="378" y="86" className={styles.visualTextStrong}>
         guardrails
       </text>
-      <text x="615" y="124" className={styles.visualTextStrong}>
+      <text x="525" y="86" className={styles.visualTextStrong}>
         CI/CD
       </text>
-      <text x="536" y="208" className={styles.visualTextStrong}>
+      <text x="448" y="146" className={styles.visualTextStrong}>
         monitoring
       </text>
-      <text x="502" y="280" className={styles.visualTextOutcome}>
+      <text x="420" y="206" className={styles.visualTextOutcome}>
         predictable releases
       </text>
     </svg>
@@ -295,16 +362,31 @@ function DeliveryTransformationVisual() {
       </div>
       <DeliveryTransformationDiagram />
       <div className={styles.visualFooter}>
-        <div className={styles.visualStat}>
-          <span className={styles.visualStatValue}>before</span>
+        <div className={styles.visualStat} data-state="before">
+          <span className={styles.visualStatHeader}>
+            <svg className={styles.visualStatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 8v5M12 17h.01M2.5 17.5L11 4l8.5 13.5h-17z" />
+            </svg>
+            <span className={styles.visualStatValue}>before</span>
+          </span>
           <span className={styles.visualStatLabel}>risky releases and reactive work</span>
         </div>
-        <div className={styles.visualStat}>
-          <span className={styles.visualStatValue}>after</span>
+        <div className={styles.visualStat} data-state="after">
+          <span className={styles.visualStatHeader}>
+            <svg className={styles.visualStatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 3l8 4v6c0 5-3 8-8 9-5-1-8-4-8-9V7l8-4zM9 12l2 2 4-4" />
+            </svg>
+            <span className={styles.visualStatValue}>after</span>
+          </span>
           <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
         </div>
-        <div className={styles.visualStat}>
-          <span className={styles.visualStatValue}>goal</span>
+        <div className={styles.visualStat} data-state="goal">
+          <span className={styles.visualStatHeader}>
+            <svg className={styles.visualStatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 12h.01" />
+            </svg>
+            <span className={styles.visualStatValue}>goal</span>
+          </span>
           <span className={styles.visualStatLabel}>faster shipping without chaos</span>
         </div>
       </div>
@@ -355,6 +437,58 @@ function TopNavigation() {
   );
 }
 
+function HeroSignalsBar() {
+  return (
+    <div className={styles.heroSignals} aria-label="Selected credibility signals">
+      {heroSignals.map((item) => (
+        <span key={item.label} className={styles.heroSignal}>
+          {item.logo && (
+            <Image
+              src={item.logo}
+              alt={item.label}
+              width={item.logoWidth}
+              height={item.logoHeight}
+              className={item.labelAfterLogo ? styles.heroSignalIcon : styles.heroSignalLogo}
+              unoptimized
+            />
+          )}
+          {(!item.logo || item.labelAfterLogo) && (
+            <span className={styles.heroSignalLabel}>{item.label}</span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function HeroMetricList() {
+  return (
+    <ul className={styles.metricList} aria-label="Key outcomes">
+      {credibilityMetrics.map((item) => (
+        <li key={item.caption}>
+          <span className={styles.metricHeader}>
+            <svg
+              className={styles.metricIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d={item.iconPath} />
+            </svg>
+            <span className={styles.metricNumber}>{item.number}</span>
+          </span>
+          <span className={styles.metricCaption}>{item.caption}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function HeroSection() {
   return (
     <section className={styles.hero}>
@@ -367,32 +501,17 @@ function HeroSection() {
         <div className={styles.heroLayout}>
           <div className={styles.heroMain}>
             <h1>
-              Is your Yii2 project<br />
-              slowing the business down?
+              Your Yii2 project is<br />
+              slowing your business.
             </h1>
-            <p className={styles.heroStatement}>For most companies, the real cost is not legacy itself. It is slow release flow, fragile quality, and lost business momentum.</p>
-          </div>
-          <div className={styles.heroAside}>
-            <p className={styles.heroLead}>Usually the problem is not one bug or one developer. It is the delivery system around the project that makes every release slow, risky, and expensive.</p>
-            <p className={styles.heroText}>
-              I help turn Yii2 delivery into a system that works: fewer incidents, more predictable releases, and faster shipping without defaulting to a rewrite-first strategy.
+            <p className={styles.heroAction}>I find what&apos;s actually broken — and fix it.</p>
+            <p className={styles.heroStatement}>
+              What&apos;s slowing you down is rarely the codebase — it&apos;s the delivery system around it.
             </p>
-            <p className={styles.heroNote}>This is not a framework migration pitch. It is a delivery transformation offer for a live business system.</p>
-            <div className={styles.heroInlineVisual}>
-              <DeliveryTransformationVisual />
-            </div>
-            <div className={styles.heroSignals} aria-label="Selected credibility signals">
-              {heroSignals.map((item) => (
-                <span key={item} className={styles.heroSignal}>
-                  {item}
-                </span>
-              ))}
-            </div>
-            <ul className={styles.metricList} aria-label="Key outcomes">
-              {credibilityMetrics.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <p className={styles.heroPromise}>
+              I find it, fix it, and leave you with a system that runs without me.
+            </p>
+            <HeroSignalsBar />
             <div className={styles.actions}>
               <TrackedLink
                 href={heroCtaHref}
@@ -409,6 +528,12 @@ function HeroSection() {
               </Link>
             </div>
           </div>
+          <div className={styles.heroAside}>
+            <div className={styles.heroInlineVisual}>
+              <DeliveryTransformationVisual />
+            </div>
+            <HeroMetricList />
+          </div>
         </div>
       </div>
     </section>
@@ -419,13 +544,34 @@ function ProblemSection() {
   return (
     <section id="problem" className={styles.section}>
       <h2>When a Yii2 project has been around for years, the problem is almost never just the code.</h2>
-      <ul className={styles.problemList}>
-        {painPoints.map((point) => (
-          <li key={point}>{point}</li>
+      <ul className={styles.iconList} data-tone="warm">
+        {painPoints.map((item) => (
+          <li key={item.text}>
+            <CardIcon path={item.iconPath} />
+            <span>{item.text}</span>
+          </li>
         ))}
       </ul>
       <p className={styles.callout}>If development has become the bottleneck, the code is not the only thing that is broken. The delivery system is breaking too.</p>
     </section>
+  );
+}
+
+function CardIcon({ path }: { path: string }) {
+  return (
+    <svg
+      className={styles.cardIcon}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d={path} />
+    </svg>
   );
 }
 
@@ -436,8 +582,9 @@ function QualitySection() {
       <p className={styles.sectionIntro}>With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem.</p>
       <div className={`${styles.cardGrid} ${styles.cardGridQuality}`}>
         {qualityLevers.map((item) => (
-          <article key={item} className={styles.card}>
-            <p>{item}</p>
+          <article key={item.text} className={styles.card}>
+            <CardIcon path={item.iconPath} />
+            <p>{item.text}</p>
           </article>
         ))}
       </div>
@@ -454,8 +601,9 @@ function SpeedSection() {
       </p>
       <div className={`${styles.cardGrid} ${styles.cardGridSpeed}`}>
         {speedLevers.map((item) => (
-          <article key={item} className={styles.card}>
-            <p>{item}</p>
+          <article key={item.text} className={styles.card}>
+            <CardIcon path={item.iconPath} />
+            <p>{item.text}</p>
           </article>
         ))}
       </div>
@@ -476,9 +624,12 @@ function WhyMeSection() {
           <p className={styles.profileRole}>Fractional CTO / engineering delivery consultant</p>
         </div>
         <div className={styles.profileBody}>
-          <ul className={styles.problemList}>
+          <ul className={styles.iconList}>
             {whyMePoints.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item.text}>
+                <CardIcon path={item.iconPath} />
+                <span>{item.text}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -498,7 +649,10 @@ function ProcessSection() {
       <div className={styles.processGrid}>
         {workSteps.map((step) => (
           <article key={step.title} className={styles.card}>
-            <h3>{step.title}</h3>
+            <div className={styles.cardHeader}>
+              <CardIcon path={step.iconPath} />
+              <h3>{step.title}</h3>
+            </div>
             <ul className={styles.problemList}>
               {step.points.map((point) => (
                 <li key={point}>{point}</li>

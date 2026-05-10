@@ -60,6 +60,9 @@
 
 ## Layout and Visual QA Rules
 
+- Default to visualization, not text. On landing and marketing pages, every list, card, and feature block must carry a visual anchor (icon, pictogram, or diagram) — humans skim first and read second, so the idea has to be recognisable at a glance.
+- A bullet list with no visual anchor reads as agent output, not human-facing content. When converting prose into a public block, attach an icon or pictogram before each item or pair the block with a diagram.
+- Text-only blocks are acceptable only where the content is intrinsically text-bound (Q&A, body paragraphs, captions, plain links).
 - Do not constrain large headings with a rigid `max-width` without checking wide desktop rendering.
 - If awkward wrapping appears in multiple sections, fix the typography rules rather than patching headings one by one.
 - If the same visual defect appears more than once, stop patching individual components and define a system-level rule before continuing.

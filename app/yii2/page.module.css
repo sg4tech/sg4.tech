@@ -187,7 +187,6 @@
 }
 
 .visualAlertDot,
-.visualAlertDotSoft,
 .visualStatusDot {
   stroke: #fff;
   stroke-width: 3;
@@ -195,10 +194,6 @@
 
 .visualAlertDot {
   fill: #d76d43;
-}
-
-.visualAlertDotSoft {
-  fill: rgba(215, 109, 67, 0.5);
 }
 
 .visualStatusDot {
@@ -228,10 +223,59 @@
   display: grid;
   gap: 0.35rem;
   min-height: 100%;
-  padding: 0.8rem 0.85rem;
+  padding: 0.8rem 0.85rem 0.8rem 1rem;
   border: 1px solid var(--border);
+  border-left-width: 3px;
   border-radius: 0.95rem;
   background: rgba(255, 255, 255, 0.8);
+}
+
+.visualStat[data-state="before"] {
+  border-left-color: #d76d43;
+}
+
+.visualStat[data-state="after"] {
+  border-left-color: #6b7280;
+}
+
+.visualStat[data-state="goal"] {
+  border-left-color: #2f7a59;
+}
+
+.visualStat[data-state="before"] .visualStatValue {
+  color: #b85a35;
+}
+
+.visualStat[data-state="after"] .visualStatValue {
+  color: #4b5563;
+}
+
+.visualStat[data-state="goal"] .visualStatValue {
+  color: #1f5a40;
+}
+
+.visualStatHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.visualStatIcon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+.visualStat[data-state="before"] .visualStatIcon {
+  color: #b85a35;
+}
+
+.visualStat[data-state="after"] .visualStatIcon {
+  color: #4b5563;
+}
+
+.visualStat[data-state="goal"] .visualStatIcon {
+  color: #1f5a40;
 }
 
 .visualStatValue {
@@ -262,17 +306,38 @@
 }
 
 .hero h1 {
-  font-size: clamp(2.1rem, 6vw, 4rem);
-  line-height: 1;
+  font-size: clamp(1.85rem, 6vw, 3rem);
+  line-height: 1.05;
+  text-wrap: pretty;
+}
+
+.heroAction {
+  margin: 0.6rem 0 0;
+  color: var(--text-strong);
+  font-size: clamp(1.3rem, 3.4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
 .heroStatement {
   max-width: 29rem;
-  margin: 0;
+  margin: 1.4rem 0 0;
   color: var(--text-strong);
   font-size: 1.02rem;
   line-height: 1.75;
+}
+
+.heroPromise {
+  max-width: 29rem;
+  margin: 0.85rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--border-strong);
+  color: var(--text-strong);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.65;
 }
 
 .heroAside {
@@ -281,20 +346,6 @@
 
 .heroInlineVisual {
   margin-top: 1.1rem;
-}
-
-.heroLead {
-  margin: 0;
-  font-size: 1.2rem;
-  line-height: 1.65;
-  color: var(--text-strong);
-}
-
-.heroNote {
-  margin: 1rem 0 0;
-  color: var(--muted);
-  font-size: 0.96rem;
-  line-height: 1.7;
 }
 
 .heroSignals {
@@ -307,8 +358,9 @@
 .heroSignal {
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   min-height: 2rem;
-  padding: 0.35rem 0.7rem;
+  padding: 0.35rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.86);
@@ -318,7 +370,36 @@
   letter-spacing: 0.02em;
 }
 
-.heroText,
+.heroSignalLogo,
+.heroSignalIcon {
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.18s ease;
+}
+
+.heroSignalLogo {
+  width: auto;
+  height: 1.1rem;
+  max-width: 7rem;
+}
+
+.heroSignalIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.heroSignalLabel {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.heroSignal:hover .heroSignalLogo,
+.heroSignal:focus-within .heroSignalLogo,
+.heroSignal:hover .heroSignalIcon,
+.heroSignal:focus-within .heroSignalIcon {
+  opacity: 0.92;
+}
+
 .sectionIntro,
 .finalText,
 .card p,
@@ -348,12 +429,44 @@
 }
 
 .metricList li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   min-height: 100%;
-  padding: 0.9rem 0.95rem;
+  padding: 0.95rem 1rem;
   border: 1px solid var(--border);
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
+}
+
+.metricHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.metricIcon {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--text-strong);
+  opacity: 0.55;
+  flex: 0 0 auto;
+}
+
+.metricNumber {
+  color: var(--text-strong);
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.metricCaption {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
 }
 
 .actions {
@@ -403,9 +516,9 @@
 
 .section h2,
 .finalCta h2 {
-  max-width: 18ch;
+  max-width: 32ch;
   font-size: clamp(1.8rem, 5vw, 3rem);
-  line-height: 1.05;
+  line-height: 1.1;
   text-wrap: pretty;
 }
 
@@ -415,6 +528,34 @@
 
 .problemList {
   max-width: 50rem;
+}
+
+.iconList {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 50rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.iconList li {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.iconList .cardIcon {
+  margin-top: 0.1rem;
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.iconList[data-tone="warm"] .cardIcon {
+  color: #b85a35;
 }
 
 .callout {
@@ -440,6 +581,14 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.cardGridQuality .card,
+.cardGridSpeed .card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.85rem;
+}
+
 .cardGridQuality .card {
   background:
     linear-gradient(180deg, rgba(247, 247, 245, 0.95) 0%, rgba(255, 255, 255, 1) 100%);
@@ -460,11 +609,44 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
   padding: 1.2rem;
 }
 
 .card p {
   margin-top: 0;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.cardHeader h3 {
+  margin: 0;
+}
+
+.card .output {
+  margin: 0;
+}
+
+.cardIcon {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--text-strong);
+  opacity: 0.7;
+  flex: 0 0 auto;
+}
+
+.cardGridQuality .cardIcon {
+  color: #1f5a40;
+}
+
+.cardGridSpeed .cardIcon {
+  color: #b85a35;
 }
 
 .whyGrid {
@@ -829,7 +1011,6 @@
   .cardGrid,
   .linkGrid,
   .processGrid,
-  .metricList,
   .proofColumns {
     grid-template-columns: 1fr;
   }
@@ -875,6 +1056,10 @@
   .heroPanel {
     padding: 1rem;
     border-radius: 1.2rem;
+  }
+
+  .metricList {
+    grid-template-columns: 1fr;
   }
 
   .actions {
