@@ -55,7 +55,7 @@ const credibilityMetrics = [
 const heroSignals = [
   { label: "Wowworks", logo: "/logos/wowworks.svg" },
   { label: "Skyeng", logo: "/logos/skyeng.svg" },
-  { label: "PHPConf speaker" }
+  { label: "PHP Russia speaker", logo: "/logos/php-russia.svg", labelAfterLogo: true }
 ];
 
 const workSteps = [
@@ -388,17 +388,18 @@ function HeroSection() {
             <div className={styles.heroSignals} aria-label="Selected credibility signals">
               {heroSignals.map((item) => (
                 <span key={item.label} className={styles.heroSignal}>
-                  {item.logo ? (
+                  {item.logo && (
                     // eslint-disable-next-line @next/next/no-img-element -- static SVG logos, no next/image gain on a static export
                     <img
                       src={item.logo}
                       alt={item.label}
-                      className={styles.heroSignalLogo}
+                      className={item.labelAfterLogo ? styles.heroSignalIcon : styles.heroSignalLogo}
                       loading="lazy"
                       decoding="async"
                     />
-                  ) : (
-                    item.label
+                  )}
+                  {(!item.logo || item.labelAfterLogo) && (
+                    <span className={styles.heroSignalLabel}>{item.label}</span>
                   )}
                 </span>
               ))}
