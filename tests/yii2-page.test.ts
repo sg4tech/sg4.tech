@@ -6,7 +6,8 @@ const requiredAnchors = ['id="problem"', 'id="quality"', 'id="speed"', 'id="why-
 
 const requiredCopy = [
   "Yii2 delivery consulting",
-  "Is your Yii2 project slowing the business down?",
+  "Is your Yii2 project",
+  "slowing the business down?",
   "Usually the problem is not one bug or one developer.",
   "I help turn Yii2 delivery into a system that works",
   "First we fix quality: uptime, bugs, and release predictability.",
@@ -33,7 +34,7 @@ const requiredCopy = [
   "https://t.me/sg4tech?start=site_yii2_hero",
   "https://t.me/sg4tech?start=site_yii2_final",
   'href="/"',
-  "Back to main consulting page",
+  "Back to main consulting",
   "cta_click",
   "Discuss the project",
   "Get an action plan",
