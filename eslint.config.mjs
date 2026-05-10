@@ -44,5 +44,11 @@ export default tseslint.config(
         }
       ]
     }
+  },
+  {
+    files: ["app/_og/**/*.{ts,tsx}", "app/**/opengraph-image.tsx"],
+    rules: {
+      "@next/next/no-img-element": "off"
+    }
   }
 );

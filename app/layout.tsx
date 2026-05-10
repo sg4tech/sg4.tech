@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     template: "%s | Victor Demin"
   },
   description:
-    "Business-first engineering diagnostics for founders and CEOs who need product delivery to become predictable again."
+    "Business-first engineering diagnostics for founders and CEOs who need product delivery to become predictable again.",
+  icons: {
+    icon: [{ url: "/brand/logo.svg", type: "image/svg+xml" }]
+  }
 };
 
 type RootLayoutProps = {
