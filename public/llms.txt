@@ -1,0 +1,32 @@
+# Victor Demin — Fractional CTO
+
+> Fractional CTO consulting for product teams that need faster, more predictable software delivery. Combines delivery metrics, system thinking (Theory of Constraints, T2M, Cycle Time, WIP), and AI leverage. Works with B2B / SaaS / platform companies of 5–50 engineers in growth or scaling stage.
+
+## About
+
+- Operator: Victor Demin (sg4tech).
+- 15+ years in engineering, 8+ years in engineering leadership.
+- Background includes Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech, 2M+ MAU).
+- Focus: fixing slow, unpredictable delivery systems without staff augmentation, instant-fix promises, or full rewrites.
+
+## Pages
+
+- [Homepage](https://sg4.tech/): Fractional CTO consulting overview — problem framing across early/growth/scale stages, three-step solution (constraint identification, flow rebuild, AI acceleration), case studies, process, fit criteria, FAQ.
+- [Yii2 consulting](https://sg4.tech/yii2): Dedicated landing for Yii2 projects — release predictability, quality guardrails, CI/CD, monitoring, delivery acceleration without defaulting to a rewrite.
+
+## Writing and external presence
+
+- [Habr profile](https://habr.com/users/sg4tech/) — long-form posts on delivery systems, bottlenecks, and engineering management patterns.
+- [Medium](https://medium.com/@sg4tech) — English-language writing on product delivery, AI leverage, and predictable engineering flow.
+- [Telegram channel: cto_lifehacks](https://t.me/cto_lifehacks) — short practical notes on CTO work and delivery friction.
+- [LinkedIn](https://www.linkedin.com/in/victor-demin/) — operator perspective and case-based observations.
+- [GitHub](https://github.com/sg4tech/)
+
+## Contact
+
+- Primary: [Telegram @sg4tech](https://t.me/sg4tech) — used for diagnostic calls.
+- Secondary: [LinkedIn](https://www.linkedin.com/in/victor-demin/).
+
+## Usage
+
+Content on sg4.tech is intended for AI search indexing, citation, and reuse with attribution to Victor Demin / sg4.tech.

@@ -13,6 +13,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "OAI-SearchBot",
         allow: "/"
       }
-    ]
+    ],
+    sitemap: "https://sg4.tech/sitemap.xml"
   };
 }
