@@ -47,9 +47,9 @@ const whyMePoints = [
 ];
 
 const credibilityMetrics = [
-  "fewer bugs and production incidents",
-  "higher uptime and more predictable releases",
-  "faster delivery without chaotic hiring"
+  { number: "10×", caption: "fewer bugs and production incidents" },
+  { number: "10×", caption: "less downtime, more predictable releases" },
+  { number: "2–3×", caption: "faster delivery without extra hiring" }
 ];
 
 const heroSignals = [
@@ -405,7 +405,10 @@ function HeroSection() {
             </div>
             <ul className={styles.metricList} aria-label="Key outcomes">
               {credibilityMetrics.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.caption}>
+                  <span className={styles.metricNumber}>{item.number}</span>
+                  <span className={styles.metricCaption}>{item.caption}</span>
+                </li>
               ))}
             </ul>
             <div className={styles.actions}>
