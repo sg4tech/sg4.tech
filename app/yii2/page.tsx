@@ -26,17 +26,41 @@ const painPoints = [
 ];
 
 const qualityLevers = [
-  "guardrails in code and process so predictable mistakes never reach production",
-  "CI/CD that checks critical scenarios before release instead of after an incident",
-  "monitoring and alerts that surface degradation before customers notice it",
-  "AI and focused automation for routine checks, regressions, and legacy support"
+  {
+    text: "guardrails in code and process so predictable mistakes never reach production",
+    iconPath: "M12 3 4 6v6c0 5 3 8 8 9 5-1 8-4 8-9V6l-8-3zM9 12l2 2 4-4"
+  },
+  {
+    text: "CI/CD that checks critical scenarios before release instead of after an incident",
+    iconPath: "M5 5h4v4H5zM15 5h4v4h-4zM5 15h4v4H5zM15 15h4v4h-4zM9 7h6M17 9v6M9 17H7a4 4 0 0 1 0-8h2"
+  },
+  {
+    text: "monitoring and alerts that surface degradation before customers notice it",
+    iconPath: "M3 13h4l2-7 6 14 2-7h4"
+  },
+  {
+    text: "AI and focused automation for routine checks, regressions, and legacy support",
+    iconPath: "M9 4l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3zM18 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z"
+  }
 ];
 
 const speedLevers = [
-  "I find where the real slowdown lives: queues, manual approvals, and hidden dependencies",
-  "I set up delivery metrics so the bottleneck becomes visible instead of debated",
-  "I align people, process, and priorities around one delivery flow",
-  "I introduce AI agents where they remove manual work and shorten the cycle"
+  {
+    text: "I find where the real slowdown lives: queues, manual approvals, and hidden dependencies",
+    iconPath: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5"
+  },
+  {
+    text: "I set up delivery metrics so the bottleneck becomes visible instead of debated",
+    iconPath: "M3 21V5M3 21h18M8 21V14M13 21V9M18 21V11"
+  },
+  {
+    text: "I align people, process, and priorities around one delivery flow",
+    iconPath: "M3 7h12l-3-3M15 7l-3 3M3 12h18l-3-3M21 12l-3 3M3 17h12l-3-3M15 17l-3 3"
+  },
+  {
+    text: "I introduce AI agents where they remove manual work and shorten the cycle",
+    iconPath: "M13 3 4 14h6l-1 7 9-12h-6z"
+  }
 ];
 
 const whyMePoints = [
@@ -311,15 +335,30 @@ function DeliveryTransformationVisual() {
       <DeliveryTransformationDiagram />
       <div className={styles.visualFooter}>
         <div className={styles.visualStat} data-state="before">
-          <span className={styles.visualStatValue}>before</span>
+          <span className={styles.visualStatHeader}>
+            <svg className={styles.visualStatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 8v5M12 17h.01M2.5 17.5L11 4l8.5 13.5h-17z" />
+            </svg>
+            <span className={styles.visualStatValue}>before</span>
+          </span>
           <span className={styles.visualStatLabel}>risky releases and reactive work</span>
         </div>
         <div className={styles.visualStat} data-state="after">
-          <span className={styles.visualStatValue}>after</span>
+          <span className={styles.visualStatHeader}>
+            <svg className={styles.visualStatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 3l8 4v6c0 5-3 8-8 9-5-1-8-4-8-9V7l8-4zM9 12l2 2 4-4" />
+            </svg>
+            <span className={styles.visualStatValue}>after</span>
+          </span>
           <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
         </div>
         <div className={styles.visualStat} data-state="goal">
-          <span className={styles.visualStatValue}>goal</span>
+          <span className={styles.visualStatHeader}>
+            <svg className={styles.visualStatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 12h.01" />
+            </svg>
+            <span className={styles.visualStatValue}>goal</span>
+          </span>
           <span className={styles.visualStatLabel}>faster shipping without chaos</span>
         </div>
       </div>
@@ -487,6 +526,24 @@ function ProblemSection() {
   );
 }
 
+function CardIcon({ path }: { path: string }) {
+  return (
+    <svg
+      className={styles.cardIcon}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d={path} />
+    </svg>
+  );
+}
+
 function QualitySection() {
   return (
     <section id="quality" className={styles.section}>
@@ -494,8 +551,9 @@ function QualitySection() {
       <p className={styles.sectionIntro}>With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem.</p>
       <div className={`${styles.cardGrid} ${styles.cardGridQuality}`}>
         {qualityLevers.map((item) => (
-          <article key={item} className={styles.card}>
-            <p>{item}</p>
+          <article key={item.text} className={styles.card}>
+            <CardIcon path={item.iconPath} />
+            <p>{item.text}</p>
           </article>
         ))}
       </div>
@@ -512,8 +570,9 @@ function SpeedSection() {
       </p>
       <div className={`${styles.cardGrid} ${styles.cardGridSpeed}`}>
         {speedLevers.map((item) => (
-          <article key={item} className={styles.card}>
-            <p>{item}</p>
+          <article key={item.text} className={styles.card}>
+            <CardIcon path={item.iconPath} />
+            <p>{item.text}</p>
           </article>
         ))}
       </div>
