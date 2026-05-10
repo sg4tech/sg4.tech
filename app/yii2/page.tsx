@@ -52,7 +52,11 @@ const credibilityMetrics = [
   "faster delivery without chaotic hiring"
 ];
 
-const heroSignals = ["Wowworks", "Skyeng", "PHPConf speaker"];
+const heroSignals = [
+  { label: "Wowworks", logo: "/logos/wowworks.svg" },
+  { label: "Skyeng", logo: "/logos/skyeng.svg" },
+  { label: "PHPConf speaker" }
+];
 
 const workSteps = [
   {
@@ -383,8 +387,19 @@ function HeroSection() {
             </div>
             <div className={styles.heroSignals} aria-label="Selected credibility signals">
               {heroSignals.map((item) => (
-                <span key={item} className={styles.heroSignal}>
-                  {item}
+                <span key={item.label} className={styles.heroSignal}>
+                  {item.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- static SVG logos, no next/image gain on a static export
+                    <img
+                      src={item.logo}
+                      alt={item.label}
+                      className={styles.heroSignalLogo}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    item.label
+                  )}
                 </span>
               ))}
             </div>
