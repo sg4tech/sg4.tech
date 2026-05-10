@@ -619,6 +619,20 @@
   margin-top: 0;
 }
 
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.cardHeader h3 {
+  margin: 0;
+}
+
+.card .output {
+  margin: 0;
+}
+
 .cardIcon {
   width: 1.6rem;
   height: 1.6rem;

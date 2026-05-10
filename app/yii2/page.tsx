@@ -649,8 +649,10 @@ function ProcessSection() {
       <div className={styles.processGrid}>
         {workSteps.map((step) => (
           <article key={step.title} className={styles.card}>
-            <CardIcon path={step.iconPath} />
-            <h3>{step.title}</h3>
+            <div className={styles.cardHeader}>
+              <CardIcon path={step.iconPath} />
+              <h3>{step.title}</h3>
+            </div>
             <ul className={styles.problemList}>
               {step.points.map((point) => (
                 <li key={point}>{point}</li>
