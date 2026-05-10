@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import TrackedLink from "../TrackedLink";
@@ -89,9 +90,9 @@ const credibilityMetrics = [
 ];
 
 const heroSignals = [
-  { label: "Wowworks", logo: "/logos/wowworks.svg" },
-  { label: "Skyeng", logo: "/logos/skyeng.svg" },
-  { label: "PHP Russia speaker", logo: "/logos/php-russia.svg", labelAfterLogo: true }
+  { label: "Wowworks", logo: "/logos/wowworks.svg", logoWidth: 104, logoHeight: 30 },
+  { label: "Skyeng", logo: "/logos/skyeng.svg", logoWidth: 185, logoHeight: 56 },
+  { label: "PHP Russia speaker", logo: "/logos/php-russia.svg", logoWidth: 24, logoHeight: 24, labelAfterLogo: true }
 ];
 
 const workSteps = [
@@ -415,13 +416,13 @@ function HeroSignalsBar() {
       {heroSignals.map((item) => (
         <span key={item.label} className={styles.heroSignal}>
           {item.logo && (
-            // eslint-disable-next-line @next/next/no-img-element -- static SVG logos, no next/image gain on a static export
-            <img
+            <Image
               src={item.logo}
               alt={item.label}
+              width={item.logoWidth}
+              height={item.logoHeight}
               className={item.labelAfterLogo ? styles.heroSignalIcon : styles.heroSignalLogo}
-              loading="lazy"
-              decoding="async"
+              unoptimized
             />
           )}
           {(!item.logo || item.labelAfterLogo) && (
