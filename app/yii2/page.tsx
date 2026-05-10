@@ -47,9 +47,21 @@ const whyMePoints = [
 ];
 
 const credibilityMetrics = [
-  { number: "10×", caption: "fewer bugs and production incidents" },
-  { number: "10×", caption: "less downtime, more predictable releases" },
-  { number: "2–3×", caption: "faster delivery without extra hiring" }
+  {
+    number: "10×",
+    caption: "fewer bugs and production incidents",
+    iconPath: "M9 7c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2M5 8l2 2M19 8l-2 2M5 16l2-1M19 16l-2-1M5 12h2M17 12h2M9 11h6M12 11v9M9 13a3 3 0 0 0 6 0v-2H9v2z"
+  },
+  {
+    number: "10×",
+    caption: "less downtime, more predictable releases",
+    iconPath: "M3 12h4l2-6 6 12 2-6h4"
+  },
+  {
+    number: "2–3×",
+    caption: "faster delivery without extra hiring",
+    iconPath: "M13 3 4 14h6l-1 7 9-12h-6z"
+  }
 ];
 
 const heroSignals = [
@@ -226,7 +238,7 @@ function BrandIcon({ label, path }: { label: string; path: string }) {
 
 function DeliveryTransformationDiagram() {
   return (
-    <svg viewBox="0 0 760 340" className={styles.visualSvg} focusable="false">
+    <svg viewBox="0 0 640 260" className={styles.visualSvg} focusable="false">
       <defs>
         <linearGradient id="panelWarm" x1="0%" x2="100%" y1="0%" y2="100%">
           <stop offset="0%" stopColor="#f6efe7" />
@@ -237,52 +249,52 @@ function DeliveryTransformationDiagram() {
           <stop offset="100%" stopColor="#ffffff" />
         </linearGradient>
       </defs>
-      <rect x="12" y="20" width="340" height="300" rx="28" fill="url(#panelWarm)" stroke="#d8d3cb" />
-      <rect x="408" y="20" width="340" height="300" rx="28" fill="url(#panelCool)" stroke="#d8d3cb" />
-      <text x="40" y="60" className={styles.visualTextMuted}>
+      <rect x="8" y="8" width="300" height="244" rx="22" fill="url(#panelWarm)" stroke="#d8d3cb" />
+      <rect x="332" y="8" width="300" height="244" rx="22" fill="url(#panelCool)" stroke="#d8d3cb" />
+      <text x="24" y="34" className={styles.visualTextMuted}>
         FIRE FIGHTING MODE
       </text>
-      <text x="436" y="60" className={styles.visualTextMuted}>
+      <text x="348" y="34" className={styles.visualTextMuted}>
         DELIVERY SYSTEM MODE
       </text>
 
-      <rect x="40" y="92" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <rect x="186" y="132" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <rect x="72" y="210" width="126" height="58" rx="16" className={styles.visualNodeWarm} />
-      <circle cx="300" cy="98" r="9" className={styles.visualAlertDot} />
-      <path d="M166 132 C 178 138, 184 150, 186 161" className={styles.visualLineWarm} />
-      <path d="M249 190 C 240 200, 220 212, 198 218" className={styles.visualLineWarm} />
-      <path d="M85 210 C 65 192, 70 168, 95 150" className={styles.visualLineWarm} />
-      <text x="58" y="124" className={styles.visualTextStrong}>
+      <rect x="36" y="58" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
+      <rect x="148" y="118" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
+      <rect x="60" y="180" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
+      <circle cx="270" cy="138" r="8" className={styles.visualAlertDot} />
+      <path d="M174 86 C 200 96, 195 110, 175 118" className={styles.visualLineWarm} />
+      <path d="M180 162 C 178 172, 165 175, 158 180" className={styles.visualLineWarm} />
+      <path d="M70 180 C 30 168, 32 110, 52 92" className={styles.visualLineWarm} />
+      <text x="50" y="86" className={styles.visualTextStrong}>
         manual checks
       </text>
-      <text x="204" y="164" className={styles.visualTextStrong}>
+      <text x="166" y="146" className={styles.visualTextStrong}>
         hidden queue
       </text>
-      <text x="90" y="242" className={styles.visualTextStrong}>
+      <text x="98" y="208" className={styles.visualTextStrong}>
         hotfixes
       </text>
 
-      <rect x="436" y="92" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="584" y="92" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="510" y="176" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="486" y="254" width="170" height="40" rx="14" className={styles.visualOutcomeNode} />
-      <path d="M558 121 H584" className={styles.visualLineCool} />
-      <path d="M646 150 C646 168, 604 170, 584 182" className={styles.visualLineCool} />
-      <path d="M570 234 V254" className={styles.visualLineCool} />
-      <circle cx="570" cy="121" r="8" className={styles.visualStatusDot} />
-      <circle cx="646" cy="121" r="8" className={styles.visualStatusDot} />
-      <circle cx="570" cy="205" r="8" className={styles.visualStatusDot} />
-      <text x="464" y="124" className={styles.visualTextStrong}>
+      <rect x="358" y="58" width="116" height="44" rx="14" className={styles.visualNodeCool} />
+      <rect x="490" y="58" width="116" height="44" rx="14" className={styles.visualNodeCool} />
+      <rect x="424" y="118" width="116" height="44" rx="14" className={styles.visualNodeCool} />
+      <rect x="402" y="180" width="160" height="40" rx="14" className={styles.visualOutcomeNode} />
+      <path d="M474 80 H490" className={styles.visualLineCool} />
+      <path d="M416 102 C 416 110, 432 114, 450 118" className={styles.visualLineCool} />
+      <path d="M548 102 C 548 110, 532 114, 514 118" className={styles.visualLineCool} />
+      <path d="M482 162 V180" className={styles.visualLineCool} />
+      <circle cx="482" cy="80" r="6" className={styles.visualStatusDot} />
+      <circle cx="482" cy="140" r="6" className={styles.visualStatusDot} />
+      <text x="378" y="86" className={styles.visualTextStrong}>
         guardrails
       </text>
-      <text x="615" y="124" className={styles.visualTextStrong}>
+      <text x="525" y="86" className={styles.visualTextStrong}>
         CI/CD
       </text>
-      <text x="536" y="208" className={styles.visualTextStrong}>
+      <text x="448" y="146" className={styles.visualTextStrong}>
         monitoring
       </text>
-      <text x="502" y="280" className={styles.visualTextOutcome}>
+      <text x="420" y="206" className={styles.visualTextOutcome}>
         predictable releases
       </text>
     </svg>
@@ -358,6 +370,58 @@ function TopNavigation() {
   );
 }
 
+function HeroSignalsBar() {
+  return (
+    <div className={styles.heroSignals} aria-label="Selected credibility signals">
+      {heroSignals.map((item) => (
+        <span key={item.label} className={styles.heroSignal}>
+          {item.logo && (
+            // eslint-disable-next-line @next/next/no-img-element -- static SVG logos, no next/image gain on a static export
+            <img
+              src={item.logo}
+              alt={item.label}
+              className={item.labelAfterLogo ? styles.heroSignalIcon : styles.heroSignalLogo}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+          {(!item.logo || item.labelAfterLogo) && (
+            <span className={styles.heroSignalLabel}>{item.label}</span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function HeroMetricList() {
+  return (
+    <ul className={styles.metricList} aria-label="Key outcomes">
+      {credibilityMetrics.map((item) => (
+        <li key={item.caption}>
+          <span className={styles.metricHeader}>
+            <svg
+              className={styles.metricIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d={item.iconPath} />
+            </svg>
+            <span className={styles.metricNumber}>{item.number}</span>
+          </span>
+          <span className={styles.metricCaption}>{item.caption}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function HeroSection() {
   return (
     <section className={styles.hero}>
@@ -385,33 +449,8 @@ function HeroSection() {
             <div className={styles.heroInlineVisual}>
               <DeliveryTransformationVisual />
             </div>
-            <div className={styles.heroSignals} aria-label="Selected credibility signals">
-              {heroSignals.map((item) => (
-                <span key={item.label} className={styles.heroSignal}>
-                  {item.logo && (
-                    // eslint-disable-next-line @next/next/no-img-element -- static SVG logos, no next/image gain on a static export
-                    <img
-                      src={item.logo}
-                      alt={item.label}
-                      className={item.labelAfterLogo ? styles.heroSignalIcon : styles.heroSignalLogo}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  )}
-                  {(!item.logo || item.labelAfterLogo) && (
-                    <span className={styles.heroSignalLabel}>{item.label}</span>
-                  )}
-                </span>
-              ))}
-            </div>
-            <ul className={styles.metricList} aria-label="Key outcomes">
-              {credibilityMetrics.map((item) => (
-                <li key={item.caption}>
-                  <span className={styles.metricNumber}>{item.number}</span>
-                  <span className={styles.metricCaption}>{item.caption}</span>
-                </li>
-              ))}
-            </ul>
+            <HeroSignalsBar />
+            <HeroMetricList />
             <div className={styles.actions}>
               <TrackedLink
                 href={heroCtaHref}
