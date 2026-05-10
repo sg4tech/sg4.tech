@@ -22,7 +22,7 @@ export function OgCard({ eyebrow, title, subtitle, footer, logoSrc }: OgCardProp
         padding: "72px 96px",
         background: "#0a0a0a",
         color: "#ffffff",
-        fontFamily: "sans-serif"
+        fontFamily: "Inter"
       }}
     >
       <div
