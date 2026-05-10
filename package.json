@@ -12,6 +12,7 @@
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
     "test": "vitest run --passWithNoTests=false",
     "knip": "knip",
+    "optimize:svg": "svgo --multipass public/brand/logo.svg",
     "depcruise": "depcruise --config .dependency-cruiser.cjs app",
     "check": "npm run lint && npm run security:audit && npm run security:code && npm run typecheck && npm run test && npm run knip && npm run depcruise && npm run build"
   },
