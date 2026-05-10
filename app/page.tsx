@@ -333,7 +333,9 @@ export const metadata: Metadata = {
     title: "Fractional CTO Consulting for Faster, Predictable Delivery",
     description:
       "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic.",
-    type: "website"
+    type: "website",
+    siteName: "sg4.tech",
+    locale: "en_US"
   },
   twitter: {
     card: "summary_large_image",

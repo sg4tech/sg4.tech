@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   },
   description:
     "Business-first engineering diagnostics for founders and CEOs who need product delivery to become predictable again.",
+  authors: [{ name: "Victor Demin", url: "https://sg4.tech" }],
+  creator: "Victor Demin",
+  publisher: "Victor Demin",
   icons: {
     icon: [{ url: "/brand/logo.svg", type: "image/svg+xml" }]
   }

@@ -197,7 +197,9 @@ export const metadata: Metadata = {
     title: "Yii2 Consulting for Faster Delivery and Better Quality",
     description:
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting.",
-    type: "website"
+    type: "website",
+    siteName: "sg4.tech",
+    locale: "en_US"
   },
   twitter: {
     card: "summary_large_image",
