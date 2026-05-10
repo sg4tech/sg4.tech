@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --no-lint",
+    "build": "next build --no-lint && node scripts/postbuild-og.mjs",
     "start": "next start",
     "lint": "eslint app tests --ext .ts,.tsx --max-warnings=0",
     "security:audit": "npm audit --audit-level=high",
