@@ -8,14 +8,14 @@ const heroCtaHref = "https://t.me/sg4tech?start=site_yii2_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_yii2_final";
 
 const navigationItems = [
-  { href: "#problem", label: "Problem" },
-  { href: "#quality", label: "Quality" },
-  { href: "#speed", label: "Speed" },
-  { href: "#why-me", label: "Why me" },
-  { href: "#process", label: "How I work" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#proof", label: "Proof" },
-  { href: "#final-cta", label: "Contact" }
+  { href: "#problem", label: "Problem", mobileNav: "primary" },
+  { href: "#quality", label: "Quality", mobileNav: "secondary" },
+  { href: "#speed", label: "Speed", mobileNav: "secondary" },
+  { href: "#why-me", label: "Why me", mobileNav: "secondary" },
+  { href: "#process", label: "How I work", mobileNav: "primary" },
+  { href: "#faq", label: "FAQ", mobileNav: "primary" },
+  { href: "#proof", label: "Proof", mobileNav: "secondary" },
+  { href: "#final-cta", label: "Contact", mobileNav: "primary" }
 ];
 
 const painPoints = [
@@ -263,7 +263,7 @@ function DeliveryTransformationDiagram() {
       <rect x="436" y="92" width="122" height="58" rx="16" className={styles.visualNodeCool} />
       <rect x="584" y="92" width="122" height="58" rx="16" className={styles.visualNodeCool} />
       <rect x="510" y="176" width="122" height="58" rx="16" className={styles.visualNodeCool} />
-      <rect x="510" y="254" width="122" height="40" rx="14" className={styles.visualOutcomeNode} />
+      <rect x="486" y="254" width="170" height="40" rx="14" className={styles.visualOutcomeNode} />
       <path d="M558 121 H584" className={styles.visualLineCool} />
       <path d="M646 150 C646 168, 604 170, 584 182" className={styles.visualLineCool} />
       <path d="M570 234 V254" className={styles.visualLineCool} />
@@ -279,8 +279,8 @@ function DeliveryTransformationDiagram() {
       <text x="536" y="208" className={styles.visualTextStrong}>
         monitoring
       </text>
-      <text x="526" y="280" className={styles.visualTextOutcome}>
-        predictable release flow
+      <text x="502" y="280" className={styles.visualTextOutcome}>
+        predictable releases
       </text>
     </svg>
   );
@@ -345,7 +345,7 @@ function TopNavigation() {
         </Link>
         <div className={styles.navLinks}>
           {navigationItems.map((item) => (
-            <a key={item.href} href={item.href}>
+            <a key={item.href} href={item.href} data-mobile-nav={item.mobileNav}>
               {item.label}
             </a>
           ))}

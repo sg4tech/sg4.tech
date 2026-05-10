@@ -812,6 +812,10 @@
     background: var(--surface);
   }
 
+  .navLinks a[data-mobile-nav="secondary"] {
+    display: none;
+  }
+
   .cardGrid,
   .linkGrid,
   .processGrid,
