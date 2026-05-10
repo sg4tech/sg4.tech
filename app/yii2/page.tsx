@@ -20,10 +20,22 @@ const navigationItems = [
 ];
 
 const painPoints = [
-  "New functionality in Yii2 ships slower and slower.",
-  "Every release increases the risk of bugs, regressions, and manual firefighting.",
-  "Legacy code, manual checks, and chaotic process slow the business down more than it seems.",
-  "The team stays busy, but product delivery speed still feels unacceptable."
+  {
+    text: "New functionality in Yii2 ships slower and slower.",
+    iconPath: "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+  },
+  {
+    text: "Every release increases the risk of bugs, regressions, and manual firefighting.",
+    iconPath: "M12 8v5M12 17h.01M2.5 17.5L11 4l8.5 13.5h-17z"
+  },
+  {
+    text: "Legacy code, manual checks, and chaotic process slow the business down more than it seems.",
+    iconPath: "M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0zM12 7v5l3 3M5 5l4 4M19 5l-4 4M5 19l4-4M19 19l-4-4"
+  },
+  {
+    text: "The team stays busy, but product delivery speed still feels unacceptable.",
+    iconPath: "M3 12h4l3-7 4 14 3-7h4"
+  }
 ];
 
 const qualityLevers = [
@@ -65,10 +77,22 @@ const speedLevers = [
 ];
 
 const whyMePoints = [
-  "15+ years in the industry.",
-  "I have fixed delivery systems many times where speed and quality were working against each other.",
-  "I work both hands-on and system-level: architecture, process, metrics, and management.",
-  "Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation)."
+  {
+    text: "15+ years in the industry.",
+    iconPath: "M8 2v4M16 2v4M3 9h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
+  },
+  {
+    text: "I have fixed delivery systems many times where speed and quality were working against each other.",
+    iconPath: "M14 3l-1 5h6l-9 13 1-7H5l9-11z"
+  },
+  {
+    text: "I work both hands-on and system-level: architecture, process, metrics, and management.",
+    iconPath: "M3 12l9-9 9 9-9 9-9-9zM12 3v18M3 12h18"
+  },
+  {
+    text: "Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation).",
+    iconPath: "M3 21h18M3 7h18v14H3zM7 7V3h10v4M9 11h2M13 11h2M9 15h2M13 15h2"
+  }
 ];
 
 const credibilityMetrics = [
@@ -98,16 +122,19 @@ const heroSignals = [
 const workSteps = [
   {
     title: "1. Audit (1-2 weeks)",
+    iconPath: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5",
     points: ["Review the codebase and deployment health", "Find the real bottlenecks", "Assess release risk, quality, and coverage"],
     output: "a clear diagnosis and a prioritized action list"
   },
   {
     title: "2. Quality foundation",
+    iconPath: "M12 3 4 6v6c0 5 3 8 8 9 5-1 8-4 8-9V6l-8-3zM9 12l2 2 4-4",
     points: ["Add CI/CD and guardrails", "Set up monitoring and alerts", "Reduce the probability of production incidents"],
     output: "stable, lower-risk releases"
   },
   {
     title: "3. Delivery acceleration",
+    iconPath: "M13 3 4 14h6l-1 7 9-12h-6z",
     points: ["Fix the team flow", "Introduce delivery metrics", "Apply AI where it creates real leverage"],
     output: "faster, more predictable delivery"
   }
@@ -517,9 +544,12 @@ function ProblemSection() {
   return (
     <section id="problem" className={styles.section}>
       <h2>When a Yii2 project has been around for years, the problem is almost never just the code.</h2>
-      <ul className={styles.problemList}>
-        {painPoints.map((point) => (
-          <li key={point}>{point}</li>
+      <ul className={styles.iconList} data-tone="warm">
+        {painPoints.map((item) => (
+          <li key={item.text}>
+            <CardIcon path={item.iconPath} />
+            <span>{item.text}</span>
+          </li>
         ))}
       </ul>
       <p className={styles.callout}>If development has become the bottleneck, the code is not the only thing that is broken. The delivery system is breaking too.</p>
@@ -594,9 +624,12 @@ function WhyMeSection() {
           <p className={styles.profileRole}>Fractional CTO / engineering delivery consultant</p>
         </div>
         <div className={styles.profileBody}>
-          <ul className={styles.problemList}>
+          <ul className={styles.iconList}>
             {whyMePoints.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item.text}>
+                <CardIcon path={item.iconPath} />
+                <span>{item.text}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -616,6 +649,7 @@ function ProcessSection() {
       <div className={styles.processGrid}>
         {workSteps.map((step) => (
           <article key={step.title} className={styles.card}>
+            <CardIcon path={step.iconPath} />
             <h3>{step.title}</h3>
             <ul className={styles.problemList}>
               {step.points.map((point) => (
