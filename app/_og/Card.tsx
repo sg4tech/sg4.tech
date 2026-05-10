@@ -42,10 +42,7 @@ export function OgCard({ eyebrow, title, subtitle, footer, logoSrc }: OgCardProp
         >
           {eyebrow}
         </span>
-        {logoSrc ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={logoSrc} alt="" width={LOGO_SIZE} height={LOGO_SIZE} />
-        ) : null}
+        {logoSrc ? <img src={logoSrc} alt="" width={LOGO_SIZE} height={LOGO_SIZE} /> : null}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
         <div
