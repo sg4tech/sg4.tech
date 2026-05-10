@@ -367,17 +367,13 @@ function HeroSection() {
         <div className={styles.heroLayout}>
           <div className={styles.heroMain}>
             <h1>
-              Is your Yii2 project<br />
-              slowing the business down?
+              Your Yii2 project is<br />
+              slowing your business.
             </h1>
-            <p className={styles.heroStatement}>For most companies, the real cost is not legacy itself. It is slow release flow, fragile quality, and lost business momentum.</p>
+            <p className={styles.heroAction}>I find what&apos;s actually broken — and fix it.</p>
+            <p className={styles.heroStatement}>What&apos;s slowing you down is rarely the codebase — it&apos;s the delivery system around it. I find it, fix it, and leave you with a system that runs without me.</p>
           </div>
           <div className={styles.heroAside}>
-            <p className={styles.heroLead}>Usually the problem is not one bug or one developer. It is the delivery system around the project that makes every release slow, risky, and expensive.</p>
-            <p className={styles.heroText}>
-              I help turn Yii2 delivery into a system that works: fewer incidents, more predictable releases, and faster shipping without defaulting to a rewrite-first strategy.
-            </p>
-            <p className={styles.heroNote}>This is not a framework migration pitch. It is a delivery transformation offer for a live business system.</p>
             <div className={styles.heroInlineVisual}>
               <DeliveryTransformationVisual />
             </div>
