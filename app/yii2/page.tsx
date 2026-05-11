@@ -521,7 +521,7 @@ function HeroSection() {
                 eventName="cta_click"
                 payload={{ location: "yii2_hero" }}
               >
-                Discuss the project
+                DM me your situation
               </TrackedLink>
               <Link href="#quality" className={styles.secondaryButton}>
                 How it works
@@ -643,7 +643,7 @@ function ProcessSection() {
     <section id="process" className={styles.section}>
       <h2>How I work</h2>
       <p className={styles.sectionIntro}>
-        No magic, and no rewrite for the sake of rewriting. First we make the system observable and safe. Then we speed up the delivery flow.
+        No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow.
       </p>
       <ProcessVisual />
       <div className={styles.processGrid}>
@@ -739,9 +739,9 @@ function ProofSection() {
 function FinalCtaSection() {
   return (
     <section id="final-cta" className={styles.finalCta}>
-      <h2>If your Yii2 project is slowing the business down, you do not need to rewrite it. You need to turn it into a working system.</h2>
+      <h2>You don&apos;t need a six-month strategy debate. You need a diagnosis — and a fix.</h2>
       <p className={styles.finalText}>
-        Share the team context, release pain, and the main symptoms. I will help you identify the bottleneck and the fastest high-leverage next step.
+        Tell me what&apos;s hurting most — and what you want instead. I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
       </p>
       <div className={styles.actions}>
         <TrackedLink
@@ -752,11 +752,8 @@ function FinalCtaSection() {
           eventName="cta_click"
           payload={{ location: "yii2_final" }}
         >
-          Get an action plan
+          Tell me where it hurts
         </TrackedLink>
-        <Link href="#problem" className={styles.secondaryButton}>
-          Review the symptoms
-        </Link>
       </div>
     </section>
   );
