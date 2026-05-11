@@ -22,6 +22,38 @@
 - Do not add Russian copy to routes, metadata, CTAs, structured data, or public UI text unless the user explicitly approves a bilingual or non-English exception.
 - Treat language choice as a product decision: default to English across pages, docs that describe the public site, and marketing assets in this repo.
 
+## Project Conventions (sg4tech)
+
+### Design tokens — CSS literals are blocked in CI
+
+- All `color`, `fill`, `stroke`, `font-size`, `line-height`, and `border-radius` values must reference a `var(--*)` token defined in `app/globals.css`.
+- Stylelint (`npm run lint:css`) fails CI on raw hex / rem / unitless literals on these properties. Do NOT disable the rule to bypass — extend the token set in `app/globals.css` instead.
+- Before introducing a new token, scan `app/globals.css`. The vocabulary covers a 7-step typography scale, leading scale, 8px spacing scale, radii, motion, and a Yii2 visualization sub-palette. Reuse what exists.
+- The exception file is `app/globals.css` itself — token definitions live there as literals (hex, rem) by design. Stylelint overrides exempt that file only.
+- See `docs/design-best-practices.md` for the design theory backing the token choices.
+
+### Where shared code lives
+
+- `app/components/` — reusable UI components (JSX). Extract a component here when the same JSX appears in more than one page.
+- `app/lib/` — pure data and utilities, no JSX (e.g., shared SVG path constants, formatters, type definitions).
+- Brand and social-network SVG paths must live as named constants in `app/lib/social-icons.ts`. Never inline a brand icon path inside a page or component file.
+- Page-specific data arrays (case studies, FAQ, nav items) stay inside the page TSX. Only promote them to `app/content/` if multiple pages start sharing the same content.
+- Do not create empty placeholder directories under `app/`. A directory without a `page.tsx` produces no route and just clutters the tree — leave a TODO in `docs/` instead if a future route is planned.
+
+### Pre-commit local checks
+
+- `npm run lint` — ESLint + Stylelint, both must pass.
+- `npm run typecheck` — TypeScript strict.
+- `npm run test` — Vitest.
+- `npm run check` runs the full pre-commit chain (lint, security, typecheck, test, knip, depcruise, build). Use this before any non-trivial PR.
+- `npm run lighthouse` runs Lighthouse CI against the static export with 0.95 thresholds (performance / accessibility / best-practices / SEO). It is excluded from `check` because it takes ~3 minutes; CI runs it on every PR.
+- For UI changes, verify in the dev preview at both 375px and 1280px viewports before considering the change complete.
+
+### Reference docs
+
+- `docs/design-best-practices.md` — 16-section design theory (typography, hierarchy, persuasion, motion, a11y, color, performance, etc.). Consult before introducing new typography scales, color usage, motion durations, or interaction patterns.
+- `docs/engineering-checks.md` — what each `npm run` check covers and the mobile QA expectations.
+
 ## Engineering Quality
 
 - Default to test-first development and move as close to TDD as practical.
