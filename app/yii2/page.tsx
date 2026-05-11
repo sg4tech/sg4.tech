@@ -777,7 +777,7 @@ function FooterSection() {
 
 export default function Yii2Page() {
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
