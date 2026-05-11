@@ -7,6 +7,7 @@
     "build": "next build --no-lint && node scripts/postbuild-og.mjs",
     "start": "next start",
     "lint": "eslint app tests --ext .ts,.tsx --max-warnings=0",
+    "lint:css": "stylelint \"app/**/*.css\"",
     "security:audit": "npm audit --audit-level=high",
     "security:code": "eslint app tests --ext .ts,.tsx --config eslint.security.config.mjs --max-warnings=0",
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
@@ -14,7 +15,7 @@
     "knip": "knip",
     "optimize:svg": "svgo --multipass public/brand/logo.svg",
     "depcruise": "depcruise --config .dependency-cruiser.cjs app",
-    "check": "npm run lint && npm run security:audit && npm run security:code && npm run typecheck && npm run test && npm run knip && npm run depcruise && npm run build"
+    "check": "npm run lint && npm run lint:css && npm run security:audit && npm run security:code && npm run typecheck && npm run test && npm run knip && npm run depcruise && npm run build"
   },
   "dependencies": {
     "next": "^15.3.0",
@@ -33,6 +34,10 @@
     "eslint-plugin-security": "^3.0.1",
     "globals": "^16.4.0",
     "knip": "^5.63.1",
+    "stylelint": "^17.11.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
+    "stylelint-value-no-unknown-custom-properties": "^6.1.1",
     "svgo": "^4.0.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.46.1",
