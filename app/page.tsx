@@ -3,6 +3,9 @@ import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import TrackedLink from "./TrackedLink";
 import { BrandIcon } from "./components/BrandIcon";
+import { FooterSection } from "./components/FooterSection";
+import { TopNavigation } from "./components/TopNavigation";
+import type { FooterLink, NavigationItem } from "./lib/navigation";
 import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
 
@@ -10,7 +13,7 @@ const secondaryCtaHref = "#process";
 const heroCtaHref = "https://t.me/sg4tech?start=site_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_final";
 
-const navigationItems = [
+const navigationItems: NavigationItem[] = [
   { href: "#problem", label: "Problem", mobileNav: "primary" },
   { href: "#solution", label: "Solution", mobileNav: "secondary" },
   { href: "#results", label: "Results", mobileNav: "primary" },
@@ -209,7 +212,7 @@ const insightLinks = [
   }
 ];
 
-const footerLinks = [
+const footerLinks: FooterLink[] = [
   { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/victor-demin/", iconPath: LINKEDIN_SVG_PATH },
   { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: TELEGRAM_SVG_PATH }
@@ -315,25 +318,6 @@ export const metadata: Metadata = {
 
 function SectionIntro({ children }: { children: string }) {
   return <p className={styles.sectionIntro}>{children}</p>;
-}
-
-function TopNavigation() {
-  return (
-    <nav className={styles.nav} aria-label="Section navigation">
-      <div className={styles.navInner}>
-        <Link href="/" className={styles.brand}>
-          Victor Demin
-        </Link>
-        <div className={styles.navLinks}>
-          {navigationItems.map((item) => (
-            <a key={item.href} href={item.href} data-mobile-nav={item.mobileNav}>
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </nav>
-  );
 }
 
 function HeroSection() {
@@ -634,21 +618,6 @@ function FaqSection() {
   );
 }
 
-function FooterSection() {
-  return (
-    <footer className={styles.footer} aria-label="Footer">
-      <div className={styles.footerLinks}>
-        {footerLinks.map((link) => (
-          <a key={link.label} href={link.href} className={styles.footerLink} target="_blank" rel="noreferrer">
-            <BrandIcon label={link.label} path={link.iconPath} className={styles.footerIcon} />
-            <span>{link.label}</span>
-          </a>
-        ))}
-      </div>
-    </footer>
-  );
-}
-
 export default function HomePage() {
   return (
     <main id="main" className={styles.page}>
@@ -656,7 +625,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation />
+      <TopNavigation items={navigationItems} ariaLabel="Section navigation" />
       <HeroSection />
       <ProblemSection />
       <SolutionSection />
@@ -668,7 +637,7 @@ export default function HomePage() {
       <InsightsSection />
       <FaqSection />
       <FinalCtaSection />
-      <FooterSection />
+      <FooterSection links={footerLinks} copyright="© 2026 Victor Demin" />
     </main>
   );
 }
