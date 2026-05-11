@@ -6,7 +6,7 @@ import TrackedLink from "../TrackedLink";
 import { BrandIcon } from "../components/BrandIcon";
 import { FooterSection } from "../components/FooterSection";
 import { TopNavigation } from "../components/TopNavigation";
-import { BRAND_COPYRIGHT, footerLinks } from "../lib/brand";
+import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import styles from "./page.module.css";
@@ -223,18 +223,7 @@ const structuredData = {
       description:
         "Consulting for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI."
     },
-    {
-      "@type": "Person",
-      "@id": "https://sg4.tech/#person",
-      name: "Victor Demin",
-      url: "https://sg4.tech",
-      sameAs: [
-        "https://habr.com/users/sg4tech/",
-        "https://t.me/cto_lifehacks",
-        "https://medium.com/@sg4tech",
-        "https://www.linkedin.com/in/victor-demin/"
-      ]
-    }
+    personSchema
   ]
 };
 

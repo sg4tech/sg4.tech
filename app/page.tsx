@@ -5,7 +5,7 @@ import TrackedLink from "./TrackedLink";
 import { BrandIcon } from "./components/BrandIcon";
 import { FooterSection } from "./components/FooterSection";
 import { TopNavigation } from "./components/TopNavigation";
-import { BRAND_COPYRIGHT, footerLinks } from "./lib/brand";
+import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -239,22 +239,7 @@ const faqItems = [
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Person",
-      "@id": "https://sg4.tech/#person",
-      name: "Victor Demin",
-      url: "https://sg4.tech",
-      jobTitle: "Fractional CTO",
-      description:
-        "Engineering delivery consultant helping product teams improve speed, predictability, and efficiency through system thinking, metrics, and AI.",
-      sameAs: [
-        "https://github.com/sg4tech/",
-        "https://www.linkedin.com/in/victor-demin/",
-        "https://t.me/cto_lifehacks",
-        "https://habr.com/users/sg4tech/",
-        "https://medium.com/@sg4tech"
-      ]
-    },
+    personSchema,
     {
       "@type": "ProfessionalService",
       "@id": "https://sg4.tech/#service",
