@@ -1,6 +1,6 @@
 # Design Best Practices
 
-Reference for landing-page and product UI work in this repo. Compiled from primary sources (W3C, Nielsen Norman Group, web.dev, MDN, Baymard, Smashing) — full source list at the bottom.
+Reference for landing-page and product UI work. Compiled from primary sources (W3C, Nielsen Norman Group, web.dev, MDN, Baymard, Smashing) — full source list at the bottom.
 
 Use as a checklist during design and review. Numbers in *italics* are verified against primary sources; numbers without provenance are intentionally omitted.
 
@@ -11,7 +11,7 @@ Use as a checklist during design and review. Numbers in *italics* are verified a
 ### Core levers
 - **One page, one goal.** Strip non-essential navigation. *Yuppiechef A/B test: removing the menu lifted conversion 3% → 6% (+100%) on a Wedding Registry landing — but VWO's case study reports no sample size, duration, or p-value, so treat it as suggestive, not definitive. HubSpot's multi-page test was more modest: +16–28% lift on MoF pages, ~0–4% on ToF pages.* Treat removing nav as a hypothesis to test, not a guaranteed double.
 - **Mobile-first, not "responsive-adjusted".** *StatCounter, April 2026: mobile 52.8% / desktop 45.61% / tablet 1.59% globally — with strong regional skew (Africa 79% mobile, Japan ~37%, US ~54%).* Design and review on a 375–390px viewport before desktop.
-- **Speed is conversion.** Track Core Web Vitals (see §6).
+- **Speed is conversion.** Track Core Web Vitals (see §8).
 - **Message-match.** The page headline must mirror the inbound ad/link/source promise. Mismatch is a top driver of bounce.
 - **Reduce form fields.** *MarketingExperiments: dropping from 11 fields to 4 lifted conversion 13.4% → ~12% became ~17% in some tests; reducing perceived form length lifted conversion 77% in another test; reducing checkout from 9 pages to 3 yielded +300%. Direction is consistent: fewer fields wins.*
 - **Social proof above the fold.** Logos, hard numbers, short quotes near the primary CTA. Stripe's hero pairs the headline with quantified proof ("$1.9T processed in 2025", "50% of Fortune 100").
@@ -25,7 +25,75 @@ Use as a checklist during design and review. Numbers in *italics* are verified a
 
 ---
 
-## 2. UX heuristics — Nielsen Norman, exact wording
+## 2. Persuasion psychology
+
+Rules below are anchored to primary sources. Where a number is widely repeated but not traceable to a primary study, it is omitted or flagged.
+
+### Cialdini's 7 principles (*Influence*, 1984; 7th in *Pre-Suasion*, 2016)
+- **Reciprocity** — people repay what they receive. *Landing:* ungated tool, template, calculator, or audit before any ask. Free first, ask second.
+- **Commitment & Consistency** — people honor prior small commitments. *Landing:* micro-yes ladder — newsletter → free tool → trial → paid. Multi-step forms with a trivial first step outperform single forms when the first step is the lowest-friction one (*suggestive — secondary case-study evidence; Cialdini, 1984, on the underlying mechanism*).
+- **Social Proof** — under uncertainty, people copy similar others. *Landing:* show specific, named, role-matched proof ("CTO at [company you've heard of]") above generic logo walls. Vanity counts ("10,000+ users") are weakest; outcome quotes from a peer ICP are strongest.
+- **Authority** — people defer to credible experts. *Landing:* surface credentials only when ICP recognizes them (certifications, named publications, conference talks). Generic "experts agree" badges read as noise.
+- **Liking** — people say yes to those they like. *Landing:* founder photo + first-person story; voice that matches the ICP's vocabulary; avoid corporate third-person on founder-led products.
+- **Scarcity** — people value what is rare. *Landing:* use only when genuine (seats in a cohort, fixed inventory, real deadline). Fabricated countdowns now fall under FTC and EDPB dark-pattern guidance — see below.
+- **Unity (2016)** — shared identity, not similarity. *Landing:* "for [specific identity]" framing ("for technical founders", "for indie SaaS") beats "for everyone." *Cialdini, Pre-Suasion, 2016.*
+
+### Fogg Behavior Model — B = MAP (BJ Fogg, *Tiny Habits*, 2019; behaviormodel.org)
+- **Behavior happens when Motivation, Ability, and Prompt converge at the same moment.** A missing prompt is the most common failure mode on landing pages — users with high motivation and ability still don't act without a clear, present CTA.
+- **Increase Ability before Motivation.** It is usually cheaper to reduce friction (autofill, SSO, fewer fields, no credit card) than to raise desire with more copy. The button people *can* click beats the button they *want* to click.
+- **Place the prompt where motivation peaks** — directly after the value proposition, after the proof block, and after the FAQ that resolved the last objection. Three prompts on a long page is normal; same label, same style.
+
+### Loss aversion & framing (Kahneman & Tversky, "Prospect Theory," *Econometrica* 47(2), 1979)
+- **Losses weigh roughly 2× equivalent gains** in the value function. *CTA copy:* "Stop losing leads" / "Don't miss…" can outperform "Get more leads" when the audience already feels the loss; "Get…" wins when they don't. Test against your ICP, not in the abstract. *Note: Prospect Theory is about decisions under risk — applying it to marketing copy is extrapolation, not direct finding.*
+- **Frame the cost of inaction concretely** — show what stays broken if they don't act, not abstract benefits if they do.
+
+### Anchoring (Tversky & Kahneman, "Judgment under Uncertainty," *Science* 185(4157), 1974)
+- **First number seen sets the reference.** On a pricing page, show the highest tier first (left in LTR, or as the visually heaviest) so the middle tier reads as reasonable.
+- **Decoy / asymmetric dominance:** an inferior third option near your target tier makes the target look better. *Huber, Payne & Puto, J. Consumer Research 9(1), 1982.* Use ethically — the decoy must be a real, available option.
+- **Anchoring is robust even when users know about it** (Tversky & Kahneman, 1974) — which is exactly why the EDPB flags manipulative defaults.
+
+### Social proof — what works
+- **Specific > generic.** Named person + role + company + outcome > "great product!" > star ratings > follower counts.
+- **Role-matched > prestigious.** A quote from a peer in the same ICP converts better than one from a famous name in a different segment (*suggestive — consistent with Cialdini's similarity finding, 1984*).
+- **Hard numbers only when verifiable.** "Processed $X in payments," "Cut onboarding from 3 days to 2 hours at [Company]" — vague "thousands of happy customers" reads as filler.
+- **Logo walls work only if the ICP recognizes the logos.** Otherwise they're decoration.
+
+### Scarcity & urgency — when ethical, when dark pattern
+- **Ethical:** real cohort size, real deadline, real inventory, real pricing change. State the reason ("12 seats per cohort so I can review each application").
+- **Dark pattern under EU and US guidance:** fake countdown timers that reset, "only 2 left!" with unlimited inventory, false low-stock messaging, false urgency banners. *FTC, Bringing Dark Patterns to Light, Sept 2022* — flags these as deceptive; *EDPB, Guidelines 03/2022 on deceptive design patterns, final v2.0, Feb 2023* — categorizes them as manipulative interface design.
+- **Test for dark-pattern risk:** if the scarcity claim would be false the moment a regulator measured it, remove it.
+
+### Reciprocity in B2B / SaaS
+- **Ungated > gated** for top-of-funnel content when the goal is trust. Gate only assets where the user's intent is already proven (templates that need integration, ROI calculators that need company data).
+- **Free tools > whitepapers.** A working tool delivers value in seconds; a 30-page PDF asks for a 20-minute investment in exchange for nothing returned yet.
+
+### Commitment & consistency — multi-step vs. single form
+- **Split the form when the first step is genuinely the easiest** (email only, or a single choice). Splitting a form into 5 equally hard steps just adds friction.
+- **Pre-fill what you can infer** (geo, currency, plan from the URL the user came from) so step 1 is review-and-confirm rather than entry.
+
+### Authority
+- **Credentials that match the buyer's vocabulary.** SOC 2 / ISO 27001 for security buyers; named conference talks for technical buyers; press logos only if the publication is one the ICP reads.
+- **Expert quotes need a face and a title** — anonymous "experts say" reads as fabricated.
+
+### Liking
+- **Founder photo + first-person story** on founder-led products. Replace stock photography with real team photos; users detect stock imagery and discount everything around it (*suggestive — strong heuristic, weak primary evidence*).
+
+### Peak–end rule (Kahneman, Fredrickson, Schreiber & Redelmeier, *Psychological Science* 4(6), 1993; Redelmeier & Kahneman, *Pain* 66(1), 1996)
+- **Design the peak and the end of every flow.** Post-purchase confirmation, error recovery, and empty states disproportionately shape memory of the product. A delightful success screen offsets a mediocre middle.
+- **End errors on a recovery action, not the apology.** "Couldn't save — [Retry] [Save as draft]" ends on capability, not failure.
+
+### Cognitive load (Sweller, "Cognitive load during problem solving," *Cognitive Science* 12(2), 1988)
+- **Reduce extraneous load:** remove decorative imagery near forms, collapse optional fields, use one column.
+- **Chunk by meaning, not by count.** Group fields by what the user is thinking about (contact info, billing, shipping), not by a fixed number per group.
+- **"Miller's 7±2" applied to nav is a misapplication** — Miller's 1956 paper was about working-memory span for digits/letters/words; Cowan (2001) revised the effective figure to ~4 chunks. Don't cite 7±2 to justify menu length. *Miller, Psychological Review 63(2), 1956; Cowan, Behavioral and Brain Sciences 24(1), 2001.*
+
+### Goal-gradient effect (Hull, *Journal of Comparative Psychology* 14, 1932; Kivetz, Urminsky & Zheng, *Journal of Marketing Research* 43(1), 2006)
+- **Effort accelerates near the goal.** Multi-step forms and onboarding should show progress and, where honest, start with the bar partially filled. Kivetz et al. (2006) showed coffee-card holders bought faster as they neared a reward, including with "endowed progress" (a card with 2-of-12 stamps pre-filled converted faster than a 0-of-10 card despite equal remaining work). *Transfer from loyalty cards to SaaS onboarding is plausible but not directly studied — treat as suggestive.*
+- **Progress UI must be honest about remaining work.** Faking a near-complete bar to push submission falls under the same dark-pattern category as fake urgency.
+
+---
+
+## 3. UX heuristics — Nielsen Norman, exact wording
 
 These are the canonical 10. Do not paraphrase the names; review against them by name.
 
@@ -44,18 +112,18 @@ These are the canonical 10. Do not paraphrase the names; review against them by 
 
 ---
 
-## 3. Information architecture & navigation
+## 4. Information architecture & navigation
 
 - **Pick the navigation pattern at launch** that fits the *expected* growth. Retrofitting nav is one of the most expensive redesigns.
 - **Vertical or hybrid nav** for B2B / docs / multi-service. **Horizontal minimal** for single-purpose landing.
 - **The 4 IA components** (Rosenfeld): organization, labeling, navigation, search. Audit each separately.
-- **Section anchors must use stable IDs and `scroll-margin-top`** so anchored landings don't hide under sticky headers (this repo already does this — see `globals.css`).
+- **Section anchors must use stable IDs and `scroll-margin-top`** so anchored landings don't hide under sticky headers.
 - **Breadcrumbs** for hierarchies > 2 levels deep; not needed on flat landing pages.
 - **One sticky element max** (header *or* CTA, not both, on mobile).
 
 ---
 
-## 4. Typography & spacing
+## 5. Typography & spacing
 
 | Property | Value | Source |
 |---|---|---|
@@ -74,7 +142,72 @@ These are the canonical 10. Do not paraphrase the names; review against them by 
 
 ---
 
-## 5. Color (OKLCH-first)
+## 6. Visual hierarchy
+
+Beyond type scale, hierarchy is built from perceptual grouping, pre-attentive features, and reading-pattern fit. Use the strongest cue for the most important element, not several weak ones layered.
+
+### Gestalt grouping (use on screen UI)
+- **Proximity over boxes.** Group related controls by spacing them ~2× closer to each other than to neighbors; only add borders/cards if proximity is not enough. *Wertheimer, "Untersuchungen zur Lehre von der Gestalt II," Psychologische Forschung, 1923; Koffka, Principles of Gestalt Psychology, 1935.*
+- **Similarity = same role.** Buttons that do the same job must share shape, color, and weight; differentiate visual style only when the action differs (primary vs. secondary vs. destructive). *Wertheimer, 1923.*
+- **Common region.** Wrap related items in a shared background/card before you reach for dividers — enclosure groups more strongly than lines. *Palmer, "Common region: A new principle of perceptual grouping," Cognitive Psychology 24(3), 1992.*
+- **Continuity.** Align CTAs, headings, and form fields on a small number of vertical axes; the eye follows the implied line and treats off-axis elements as a separate group. *Wertheimer, 1923.*
+- **Closure.** Partial shapes (a card with one open side, an arrow with a missing stroke) are perceived as complete — use to suggest "more" without drawing the whole control.
+- **Figure/ground.** Primary CTA must be unambiguous figure: solid fill, higher contrast, and no competing high-contrast element within the same viewport.
+- **Common fate (motion variant).** Elements that animate together read as one group; do not animate unrelated UI on the same trigger.
+
+### Pre-attentive features (processed in <250 ms, before conscious attention)
+- **Use one pre-attentive cue per emphasis.** Stacking color + size + weight on one element is fine; using all of them on three elements destroys hierarchy. Confirmed pre-attentive features include hue, intensity, orientation, length/size, curvature, enclosure, motion, and flicker. *Treisman & Gelade, "A feature-integration theory of attention," Cognitive Psychology 12(1), 1980; Healey & Enns, "Attention and Visual Memory in Visualization and Computer Graphics," IEEE TVCG 18(7), 2012.*
+- **Color hue is the strongest single emphasizer** on an otherwise neutral page — reserve one accent hue for the action you want taken. Adding a second accent halves its power.
+- **Enclosure beats underline.** A pill or chip around a label pops harder than bold or color on the label alone (Healey & Enns, 2012).
+- **Motion captures attention involuntarily** — use only for state changes the user needs to notice (errors, async completion). Idle animation near a CTA steals attention from it; respect `prefers-reduced-motion`.
+
+### Reading-pattern fit
+- **F-pattern applies to text-heavy, weakly-formatted pages** (blog, docs, long-form). Front-load the first 2–3 words of headings and paragraphs with the keyword. *Nielsen, "F-Shaped Pattern For Reading Web Content," NN/g, 2006; "How People Read Online: New and Old Findings," NN/g, 2019.*
+- **Good formatting prevents F-scanning.** Headings, bold lead-ins, and bullets shift users to "layer-cake" or "spotted" scanning, both of which retain more content. *NN/g, 2019.*
+- **Z-pattern is a design heuristic, not eye-tracking evidence.** Apply it only to sparse, single-screen layouts (hero + one CTA); do not cite it as research. *No primary eye-tracking source — suggestive, not definitive.*
+- **Above the fold still concentrates attention,** but less than it used to: ~57% of viewing time above the fold, ~74% in the first two screenfuls (≤2160 px). Put the value proposition and primary CTA in the first screen; do not assume nothing below is seen. *Fessenden, "Scrolling and Attention," NN/g, 2018.*
+
+### Fitts's Law (Fitts, "The information capacity of the human motor system," *Journal of Experimental Psychology* 47(6), 1954)
+- **MT = a + b·log₂(D/W + 1).** Acquisition time falls with larger targets and shorter travel. For the primary CTA: make it the largest interactive element in the viewport and place it on the dominant reading axis, not in a corner the user must cross the page to reach.
+- **Minimum target 24×24 CSS px (WCAG 2.2 AA, SC 2.5.8).** Aim 44×44 for primary touch targets (WCAG 2.5.5 AAA / Apple HIG). *W3C WCAG 2.2, 2023.*
+- **Screen edges are infinite targets** on desktop (cursor stops). Sticky bottom CTAs on mobile exploit the same property.
+
+### Hick's Law (Hick, "On the rate of gain of information," *QJEP* 4(1), 1952; Hyman, *JEP* 45(3), 1953)
+- **RT = b·log₂(n+1)** for equally probable, unfamiliar choices. Decision time grows logarithmically, not linearly, so 10 options ≠ 5× worse than 2 — but the law breaks down for familiar/well-organized lists. *Suggestive when applied to nav menus: Hick's experiments used unfamiliar light-key mappings, not labeled menu items.*
+- **Practical rule:** one primary CTA per viewport, ≤5 top-level nav items on a landing page, no parallel "or" choices in the hero. The constraint is attention budget more than literal reaction time.
+
+### Visual weight — priority order in practice
+When two elements compete, the higher-ranked wins. Order is a tie-breaker, not a law — context (idle dashboard vs. landing hero) can shift which cue dominates. Strongest first:
+1. **Motion / flicker** (involuntary capture; use sparingly).
+2. **Color contrast against the page** (hue + luminance vs. background).
+3. **Size** (largest object in the viewport).
+4. **Enclosure / solid fill** (pill, chip, filled button vs. ghost).
+5. **Position** (top-left in LTR; centered hero axis).
+6. **Whitespace around the element** (isolation = importance).
+7. **Weight / boldness of type.**
+8. **Underline / icon decoration.**
+
+*Ranking derived from Healey & Enns (2012) feature-conjunction findings + Gestalt figure/ground.*
+
+### Whitespace, alignment, grid
+- **Whitespace around an element raises its perceived importance** — isolate the CTA with ≥1.5× the spacing of surrounding elements. Comprehension research is mostly indirect (legibility, reading speed); treat conversion-lift claims for "more whitespace" as *suggestive*.
+- **Optical alignment beats mathematical alignment** for round shapes, triangles, and italic type — shift them ~1–2 px so they *look* aligned with rectangular neighbors.
+- **Use a baseline grid only when type-density justifies it** (editorial, docs). On product UI, an 8 px (or 4 px) spacing scale plus consistent line-height usually delivers the same calm without baseline-snapping overhead.
+- **Limit alignment axes.** A landing page should rarely use more than 2–3 vertical alignment lines; every extra axis is a new perceptual group.
+
+### Color and contrast as hierarchy (beyond a11y minima)
+- **WCAG 2.2 AA contrast is a floor, not a target:** 4.5:1 for body text, 3:1 for ≥24 px or ≥18.66 px bold, 3:1 for UI components and graphical objects. *W3C WCAG 2.2, SC 1.4.3 / 1.4.11.*
+- **One accent hue, one neutral ramp.** A second accent splits attention; if you need a second, desaturate it so only the primary reads as "action."
+- **Reserve maximum contrast for the primary CTA and critical errors.** Body text at maximum contrast competes with the CTA.
+
+### Mobile vs. desktop scanning
+- **Mobile readers spend more effort per word**: ~30 ms longer per word on difficult content than on desktop. Shorten sentences, front-load keywords, and chunk aggressively. *Pernice, "How People Read Online: The Eyetracking Evidence," NN/g, 2019 update.*
+- **Design and review on a 375–390 px viewport first.** Single-column, sticky primary CTA, tap targets ≥44 px, no hover-only affordances.
+- **Thumb zones matter more than visual centers** on mobile — keep primary action in the bottom third or as a sticky bar; relegate destructive actions away from the thumb arc.
+
+---
+
+## 7. Color (OKLCH-first)
 
 - **Use OKLCH for tokens, not HSL/RGB.** OKLCH is perceptually uniform: equal `L` shifts produce equal perceived lightness shifts across hues. HSL has "dead grey zones" in gradients and inconsistent lightness across hues. OKLCH is Baseline Widely Available since May 2023.
 - **Tokens shape**: `oklch(L C H)` with L in 0–100%, C in 0–0.4, H in 0–360°.
@@ -85,7 +218,7 @@ These are the canonical 10. Do not paraphrase the names; review against them by 
 
 ---
 
-## 6. Performance (Core Web Vitals — verified thresholds)
+## 8. Performance (Core Web Vitals — verified thresholds)
 
 Measured at the **75th percentile** across mobile and desktop, per web.dev.
 
@@ -98,13 +231,13 @@ Measured at the **75th percentile** across mobile and desktop, per web.dev.
 Operational rules:
 - Always set explicit `width`/`height` on `<img>` / `next/image` to reserve space → CLS stays low.
 - Self-host fonts or use `font-display: swap`; subset to needed glyphs.
-- Defer or async non-critical scripts (this repo's analytics already loads with `defer`).
+- Defer or async non-critical scripts (analytics, marketing pixels, third-party widgets).
 - For Next.js static export: avoid client-side JS for content that can be static.
 - Run Lighthouse on every UI change. Target Performance / Accessibility / Best Practices / SEO ≥ 95.
 
 ---
 
-## 7. Accessibility — WCAG 2.2 AA target
+## 9. Accessibility — WCAG 2.2 AA target
 
 Four principles: **P**erceivable, **O**perable, **U**nderstandable, **R**obust.
 
@@ -131,7 +264,7 @@ Bake into design tokens, components, and code review. Patches at the end of a pr
 
 ---
 
-## 8. Forms
+## 10. Forms
 
 Adapted from Baymard Institute, NN/g, Smashing/Wroblewski.
 
@@ -163,7 +296,7 @@ Adapted from Baymard Institute, NN/g, Smashing/Wroblewski.
 
 ---
 
-## 9. States: empty, loading, error, success
+## 11. States: empty, loading, error, success
 
 - **Empty state ≠ blank space.** Explain what would be here, why it's empty, and the next action ("Add your first project" + button).
 - **Loading**: real progress indicators when system is working. Never show a "no records" message before data arrives — NN/g flags this as a trust-killer.
@@ -173,7 +306,7 @@ Adapted from Baymard Institute, NN/g, Smashing/Wroblewski.
 
 ---
 
-## 10. Microcopy (NN/g rules, condensed)
+## 12. Microcopy (NN/g rules, condensed)
 
 - **Front-load.** First two words carry the line for scanners.
 - **Concrete > clever.** "Post-traumatic stress disorder healed by birds" beats "Alternative treatment for PTSD" (NN/g example).
@@ -183,7 +316,7 @@ Adapted from Baymard Institute, NN/g, Smashing/Wroblewski.
 
 ---
 
-## 11. Motion & animation
+## 13. Motion & animation
 
 Use a token scale, not magic numbers. The Material 3 motion spec (verified from `material-foundation/material-tokens`) is a sane default — copy or adapt it.
 
@@ -212,19 +345,19 @@ Use a token scale, not magic numbers. The Material 3 motion spec (verified from 
 
 ---
 
-## 12. SEO basics (verified Lighthouse audits)
+## 14. SEO basics (verified Lighthouse audits)
 
 - `<meta name="description">` non-empty, ~150–160 chars.
 - Canonical tag (`<link rel="canonical">`) on every page.
 - `hreflang` tags for multi-language sites.
-- Structured data (JSON-LD `@type` matching the page: `Person`, `ProfessionalService`, `FAQPage`, etc.) — this repo already does this in both landings.
+- Structured data (JSON-LD `@type` matching the page: `Person`, `ProfessionalService`, `FAQPage`, etc.).
 - Descriptive link text — never "click here" / "read more" alone.
 - Successful HTTP status; valid `robots.txt`; tap targets adequately sized.
-- Open Graph + Twitter card metadata for share previews (already wired in this repo's `metadata` exports).
+- Open Graph + Twitter card metadata for share previews.
 
 ---
 
-## 13. Internationalization (when adding RU/other locales)
+## 15. Internationalization (when adding RU/other locales)
 
 - `<html lang="…">` per W3C — keep BCP 47 tag minimal: `ru`, not `ru-RU`, unless dialect matters.
 - Plan for longer translated strings (commonly cited rule of thumb: ~30–40% expansion EN → RU/DE/FR — directional, not from a primary source). Hero/CTA layouts must not break on overflow.
@@ -242,7 +375,7 @@ Use system fonts (Arial, Verdana, Tahoma) only as **fallbacks** in the `font-fam
 
 ---
 
-## 14. Reference sites (look at these, don't reinvent)
+## 16. Reference sites (look at these, don't reinvent)
 
 | Site | What to study |
 |---|---|
@@ -264,115 +397,12 @@ Use system fonts (Arial, Verdana, Tahoma) only as **fallbacks** in the `font-fam
 
 ---
 
-## 15. Audit of this repo (state at writing — `codex/yii2` branch)
+## How to apply this
 
-Files reviewed: [`app/page.tsx`](../app/page.tsx), [`app/yii2/page.tsx`](../app/yii2/page.tsx), [`app/globals.css`](../app/globals.css), [`app/layout.tsx`](../app/layout.tsx), `app/page.module.css`, `app/yii2/page.module.css`.
-
-### Already strong
-- ✅ `<html lang="en">` set ([`app/layout.tsx:22`](../app/layout.tsx)).
-- ✅ Body 16px baseline, smooth scroll, `:focus-visible` outline with offset ([`app/globals.css:21,44`](../app/globals.css)).
-- ✅ Container `min(--max-width, calc(100% - 2rem))` — sane responsive container ([`app/globals.css:55`](../app/globals.css)).
-- ✅ Fluid typography via `clamp()` for hero headings — both pages.
-- ✅ Single primary CTA per section, repeated; secondary CTA goes to `#process`.
-- ✅ Structured data (JSON-LD `Person`, `ProfessionalService`, `FAQPage`) on both pages.
-- ✅ Open Graph + Twitter metadata via Next `metadata` export.
-- ✅ Analytics deferred (`<Script defer …>`).
-- ✅ `aria-label` on `<nav>`, `<footer>`, `<ul aria-label="Key outcomes">`. Decorative SVGs marked `aria-hidden`.
-- ✅ Each page has one `h1`; section anchors use stable ids.
-
-### Gaps / improvements
-
-1. **Design tokens are minimal and ad-hoc.** `globals.css` defines ~10 CSS variables; both `page.module.css` files use raw `rem`/`px`/colors directly (`0.95rem`, `0.85rem`, `0.78rem`, `1.18rem`, `1.65`, `1.75`, etc.). Promote a typed scale (`--fs-xs/sm/md/lg/xl`, `--lh-tight/normal/loose`, `--space-1/2/4/6/8`) and replace literals. Reduces drift between pages and makes the 8px rhythm enforceable.
-2. **Color tokens are hex, not OKLCH.** `--text: #202124`, `--muted: #555a61` etc. Migrate to OKLCH so future palette/dark-mode work uses relative-color math.
-3. **No dark mode.** Single light palette only. If on the roadmap, plan tokens around `light-dark()` or `prefers-color-scheme` now (cheap) rather than retrofit later.
-4. **No `prefers-reduced-motion` block.** `html { scroll-behavior: smooth; }` will animate anchor jumps for users who opted out. Wrap in `@media (prefers-reduced-motion: no-preference)`.
-5. **Missing `<meta name="viewport">` / theme-color override.** Next 15 sets viewport via `viewport` export — verify it's set; consider adding `themeColor` in metadata.
-6. **No skip link.** Add `<a href="#main" class="skip-link">Skip to main content</a>` as the first body element. Required for keyboard users.
-7. **Section anchors and sticky nav.** If/when the top nav becomes sticky, add `scroll-margin-top` to all `id`-bearing sections so WCAG 2.4.11 (focus not obscured) holds. Currently nav is non-sticky — fine, but document the constraint.
-8. **CTA target size on mobile — verify, don't assume.** `.primaryButton`/`.secondaryButton` padding `0.8rem 1.15rem` plus `~1rem` font-size and `~1.4` line-height computes to ~48 CSS px height — comfortably above WCAG 2.5.8 (24px) and Apple HIG (44pt). But the secondary button on the FAQ link block, footer link rows, and inline anchors should be measured directly in DevTools at 375px viewport. Lock the rule: every interactive target in CSS modules must compose to ≥44px tall.
-9. **Hero copy is dense.** Both pages have hero lead + hero text + hero credibility + metric list + dual CTAs in one viewport. Consider promoting outcome metrics above the fold and demoting credibility paragraphs to a tighter line.
-10. **Inline SVG icons are unlabelled when used as links.** Footer link `<a>` elements get visible label text alongside the icon — good. But verify every icon-only interactive element has an accessible name (none found in current code, but lock the rule for future work).
-11. **`scroll-margin-top: 5.5rem` on sections** — magic number. Tie it to the actual nav height variable so the two stay in sync.
-12. **No `lang` switching infra** — fine for now (English-only), but if RU is added per business plan, retrofit will touch `metadata`, JSON-LD, and `Intl.*` formatting. Plan once, not twice.
-13. **No automated a11y/Lighthouse gate.** `npm run check` covers lint/types/tests/build but not Lighthouse / axe. Adding `lhci` or `@axe-core/cli` to CI would catch contrast and tap-target regressions automatically.
-14. **Stale article routes.** `app/why-engineering-is-slow/`, `app/why-hiring-more-engineers-doesnt-help/`, `app/why-nothing-ships/`, `app/about/` exist but aren't in either landing's nav. Either link them (insights/blog index) or delete — invisible pages dilute SEO.
-
-### Concrete next changes (ordered by leverage)
-1. Add skip link + `prefers-reduced-motion` block to `globals.css`.
-2. Extract spacing/type tokens; replace literal `rem` values in module CSS.
-3. Migrate color tokens to OKLCH; add dark-mode tokens.
-4. Add Lighthouse CI gate to `npm run check`.
-5. Decide stale article routes: link or delete.
-
-### Sample token migration (drop-in for `globals.css`)
-
-```css
-:root {
-  /* Color — OKLCH, derived from current --text/--muted/--surface */
-  --color-text:           oklch(20% 0.01 270);   /* was #202124 */
-  --color-text-strong:    oklch(12% 0.01 270);   /* was #111111 */
-  --color-muted:          oklch(42% 0.01 260);   /* was #555a61 */
-  --color-border:         oklch(91% 0.005 260);  /* was #e3e5e8 */
-  --color-border-strong:  oklch(82% 0.01 260);   /* was #c9ced6 */
-  --color-surface:        oklch(100% 0 0);
-  --color-surface-alt:    oklch(97% 0.003 90);
-  --color-surface-strong: oklch(95% 0.005 90);
-  --color-bg:             oklch(100% 0 0);
-
-  /* Spacing — 8px rhythm (1 unit = 0.5rem = 8px) */
-  --space-1: 0.5rem;   --space-2: 1rem;     --space-3: 1.5rem;
-  --space-4: 2rem;     --space-6: 3rem;     --space-8: 4rem;
-  --space-12: 6rem;
-
-  /* Type scale */
-  --fs-xs:  0.85rem;   --fs-sm:  0.95rem;   --fs-md:  1rem;
-  --fs-lg:  1.18rem;   --fs-xl:  1.5rem;
-  --fs-h3:  clamp(1.4rem, 2.5vw, 1.8rem);
-  --fs-h2:  clamp(1.7rem, 5vw,   2.6rem);
-  --fs-h1:  clamp(2.5rem, 8vw,   4.8rem);
-
-  --lh-tight:  1.1;
-  --lh-normal: 1.5;
-  --lh-loose:  1.7;
-
-  /* Motion (Material 3 subset) */
-  --dur-short:    150ms;
-  --dur-medium:   300ms;
-  --dur-long:     500ms;
-  --ease-standard:           cubic-bezier(0.2, 0, 0, 1);
-  --ease-emphasized-enter:   cubic-bezier(0.05, 0.7, 0.1, 1);
-  --ease-emphasized-exit:    cubic-bezier(0.3, 0, 0.8, 0.15);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Skip link — first child of <body>, see audit gap #6 */
-.skip-link {
-  position: absolute; top: -40px; left: 0;
-  background: var(--color-text-strong); color: var(--color-surface);
-  padding: var(--space-1) var(--space-2);
-  z-index: 100;
-}
-.skip-link:focus-visible { top: 0; }
-```
-
-OKLCH values above are conservative conversions from the existing hex tokens; tune `L` and `C` once you have a target dark-mode pair.
-
----
-
-## How to apply this in this repo
-
-- Both landing pages must satisfy §1, §4, §6, §7 before any visual change is merged.
-- New components encode tokens (spacing, type scale, color) instead of literals — see audit gap #1.
-- Every UI task ends with: `npm run check` (see [`engineering-checks.md`](./engineering-checks.md)) + a Lighthouse pass.
-- New copy passes the §10 microcopy rules; new forms pass §8.
+- Treat §1, §2, §5, §6, §8, §9 as gating: a page that fails any of these isn't ready to ship.
+- Encode design decisions as tokens (spacing, type scale, color, motion); avoid literals in component CSS.
+- Every UI change ends with a verification pass: lint, type-check, automated tests, build, and Lighthouse (Performance / Accessibility / Best Practices / SEO ≥ 95).
+- Copy passes §12; forms pass §10; states pass §11.
 
 ---
 
@@ -409,6 +439,39 @@ OKLCH values above are conservative conversions from the existing hex tokens; tu
 ### Motion / design tokens
 - [Material Foundation — motion tokens JSON (verified durations + easings)](https://github.com/material-foundation/material-tokens/blob/json/json/motion.json)
 - [Material Design 3 — Easing & duration overview](https://m3.material.io/styles/motion/easing-and-duration/tokens-specs)
+
+### Persuasion psychology
+- Cialdini, *Influence: The Psychology of Persuasion*, 1984.
+- Cialdini, *Pre-Suasion: A Revolutionary Way to Influence and Persuade*, 2016.
+- [BJ Fogg Behavior Model — behaviormodel.org](https://behaviormodel.org/); Fogg, *Tiny Habits*, 2019.
+- Kahneman & Tversky, "Prospect Theory: An Analysis of Decision under Risk," *Econometrica* 47(2), 1979.
+- Tversky & Kahneman, "Judgment under Uncertainty: Heuristics and Biases," *Science* 185(4157), 1974.
+- Huber, Payne & Puto, "Adding Asymmetrically Dominated Alternatives," *Journal of Consumer Research* 9(1), 1982.
+- Kahneman, Fredrickson, Schreiber & Redelmeier, "When More Pain Is Preferred to Less," *Psychological Science* 4(6), 1993.
+- Redelmeier & Kahneman, "Patients' memories of painful medical treatments," *Pain* 66(1), 1996.
+- Miller, "The Magical Number Seven, Plus or Minus Two," *Psychological Review* 63(2), 1956.
+- Cowan, "The magical number 4 in short-term memory," *Behavioral and Brain Sciences* 24(1), 2001.
+- Sweller, "Cognitive load during problem solving," *Cognitive Science* 12(2), 1988.
+- Hull, "The goal-gradient hypothesis," *Journal of Comparative Psychology* 14, 1932.
+- Kivetz, Urminsky & Zheng, "The Goal-Gradient Hypothesis Resurrected," *Journal of Marketing Research* 43(1), 2006.
+
+### Visual hierarchy & perception
+- Wertheimer, "Untersuchungen zur Lehre von der Gestalt II," *Psychologische Forschung*, 1923.
+- Koffka, *Principles of Gestalt Psychology*, 1935.
+- Palmer, "Common region: A new principle of perceptual grouping," *Cognitive Psychology* 24(3), 1992.
+- Treisman & Gelade, "A feature-integration theory of attention," *Cognitive Psychology* 12(1), 1980.
+- [Healey & Enns, "Attention and Visual Memory in Visualization and Computer Graphics," IEEE TVCG 18(7), 2012](https://www.csc2.ncsu.edu/faculty/healey/download/tvcg.11.pdf)
+- Fitts, "The information capacity of the human motor system," *Journal of Experimental Psychology* 47(6), 1954.
+- Hick, "On the rate of gain of information," *Quarterly Journal of Experimental Psychology* 4(1), 1952.
+- Hyman, "Stimulus information as a determinant of reaction time," *Journal of Experimental Psychology* 45(3), 1953.
+- NN/g — Nielsen, "F-Shaped Pattern For Reading Web Content," 2006.
+- NN/g — "How People Read Online: New and Old Findings," 2019.
+- NN/g — Fessenden, "Scrolling and Attention," 2018.
+- NN/g — Pernice, "How People Read Online: The Eyetracking Evidence," 2019.
+
+### Dark patterns guidance
+- [FTC — Bringing Dark Patterns to Light, Sept 2022](https://www.ftc.gov/reports/bringing-dark-patterns-light)
+- EDPB — *Guidelines 03/2022 on deceptive design patterns in social media platform interfaces*, final v2.0, Feb 2023.
 
 ### Russian-language sources
 - [Habr 1027874 — Шрифты для сайтов в России в 2026](https://habr.com/ru/articles/1027874/)
