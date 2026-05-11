@@ -40,8 +40,12 @@ const requiredCopy = [
 
 describe("homepage landing page", () => {
   it("keeps the core lead-generation structure on the homepage", () => {
-    const filePath = join(process.cwd(), "app", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
+    // Read the page + the shared brand module: footer links + copyright live
+    // in app/lib/brand.ts, but the contract is still that they end up rendered
+    // on the homepage.
+    const pagePath = join(process.cwd(), "app", "page.tsx");
+    const brandPath = join(process.cwd(), "app", "lib", "brand.ts");
+    const content = `${readFileSync(pagePath, "utf8")}\n${readFileSync(brandPath, "utf8")}`;
 
     for (const anchor of requiredAnchors) {
       expect(content).toContain(anchor);

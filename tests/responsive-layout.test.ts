@@ -5,26 +5,38 @@ import { describe, expect, it } from "vitest";
 describe("responsive layout guardrails", () => {
   it("keeps the dedicated mobile navigation and CTA rules", () => {
     const pagePath = join(process.cwd(), "app", "page.tsx");
-    const filePath = join(process.cwd(), "app", "page.module.css");
-    const pageContent = readFileSync(pagePath, "utf8");
-    const content = readFileSync(filePath, "utf8");
-    const tabletSection = content.split("@media (max-width: 860px)")[1] ?? "";
-    const mobileSection = content.split("@media (max-width: 640px)")[1] ?? "";
+    const pageCssPath = join(process.cwd(), "app", "page.module.css");
+    const navTsxPath = join(process.cwd(), "app", "components", "TopNavigation.tsx");
+    const navCssPath = join(process.cwd(), "app", "components", "TopNavigation.module.css");
 
-    expect(content).toContain("@media (max-width: 640px)");
-    expect(content).toContain("@media (max-width: 860px)");
-    expect(content).toContain("grid-template-columns: repeat(2, minmax(0, 1fr));");
-    expect(content).toContain("min-height: 2.75rem;");
+    const pageContent = readFileSync(pagePath, "utf8");
+    const pageCss = readFileSync(pageCssPath, "utf8");
+    const navTsx = readFileSync(navTsxPath, "utf8");
+    const navCss = readFileSync(navCssPath, "utf8");
+
+    const navTabletSection = navCss.split("@media (max-width: 860px)")[1] ?? "";
+    const navMobileSection = navCss.split("@media (max-width: 640px)")[1] ?? "";
+    const pageMobileSection = pageCss.split("@media (max-width: 640px)")[1] ?? "";
+
+    // Nav data shape: items carry mobileNav role + the component honours it via data-attr.
     expect(pageContent).toContain('mobileNav: "primary"');
     expect(pageContent).toContain('mobileNav: "secondary"');
-    expect(pageContent).toContain("data-mobile-nav={item.mobileNav}");
-    expect(tabletSection).toContain('a[data-mobile-nav="secondary"]');
-    expect(tabletSection).toContain("display: none;");
-    expect(mobileSection).toContain("display: flex;");
-    expect(mobileSection).toContain("flex-wrap: nowrap;");
-    expect(mobileSection).toContain("overflow-x: auto;");
-    expect(mobileSection).toContain("white-space: nowrap;");
-    expect(mobileSection).toContain(".primaryButton {\n    width: 100%;");
-    expect(mobileSection).toContain(".secondaryButton {\n    width: auto;");
+    expect(navTsx).toContain("data-mobile-nav={item.mobileNav}");
+
+    // TopNavigation CSS exposes the 2-col grid layout at tablet and pill-scroll at mobile.
+    expect(navCss).toContain("@media (max-width: 640px)");
+    expect(navCss).toContain("@media (max-width: 860px)");
+    expect(navCss).toContain("grid-template-columns: repeat(2, minmax(0, 1fr));");
+    expect(navCss).toContain("min-height: 2.75rem;");
+    expect(navTabletSection).toContain('a[data-mobile-nav="secondary"]');
+    expect(navTabletSection).toContain("display: none;");
+    expect(navMobileSection).toContain("display: flex;");
+    expect(navMobileSection).toContain("flex-wrap: nowrap;");
+    expect(navMobileSection).toContain("overflow-x: auto;");
+    expect(navMobileSection).toContain("white-space: nowrap;");
+
+    // Page-level CTA collapse rules still live on the page module.
+    expect(pageMobileSection).toContain(".primaryButton {\n    width: 100%;");
+    expect(pageMobileSection).toContain(".secondaryButton {\n    width: auto;");
   });
 });

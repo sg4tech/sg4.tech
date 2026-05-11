@@ -35,6 +35,15 @@ export default tseslint.config(
       ...nextPlugin.configs["core-web-vitals"].rules,
       complexity: ["error", 10],
       "max-depth": ["error", 4],
+      // TODO: lower max back to 300 once page.tsx files are split into sections
+      "max-lines": [
+        "error",
+        {
+          max: 700,
+          skipBlankLines: true,
+          skipComments: true
+        }
+      ],
       "max-lines-per-function": [
         "error",
         {

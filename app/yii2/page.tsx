@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
-import TrackedLink from "../TrackedLink";
 import { BrandIcon } from "../components/BrandIcon";
-import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "../lib/social-icons";
+import TrackedLink from "../components/TrackedLink";
+import { FooterSection } from "../components/FooterSection";
+import { TopNavigation } from "../components/TopNavigation";
+import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
+import type { NavigationItem } from "../lib/navigation";
+import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import styles from "./page.module.css";
 
 const heroCtaHref = "https://t.me/sg4tech?start=site_yii2_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_yii2_final";
 
-const navigationItems = [
+const navigationItems: NavigationItem[] = [
   { href: "#problem", label: "Problem", mobileNav: "primary" },
   { href: "#quality", label: "Quality", mobileNav: "secondary" },
   { href: "#speed", label: "Speed", mobileNav: "secondary" },
@@ -207,12 +211,6 @@ const talkLinks = [
   }
 ];
 
-const footerLinks = [
-  { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/victor-demin/", iconPath: LINKEDIN_SVG_PATH },
-  { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: TELEGRAM_SVG_PATH }
-];
-
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -225,18 +223,7 @@ const structuredData = {
       description:
         "Consulting for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI."
     },
-    {
-      "@type": "Person",
-      "@id": "https://sg4.tech/#person",
-      name: "Victor Demin",
-      url: "https://sg4.tech",
-      sameAs: [
-        "https://habr.com/users/sg4tech/",
-        "https://t.me/cto_lifehacks",
-        "https://medium.com/@sg4tech",
-        "https://www.linkedin.com/in/victor-demin/"
-      ]
-    }
+    personSchema
   ]
 };
 
@@ -390,25 +377,6 @@ function ProcessVisual() {
         <p className={styles.processVisualText}>Shorten the path from request to production.</p>
       </div>
     </div>
-  );
-}
-
-function TopNavigation() {
-  return (
-    <nav className={styles.nav} aria-label="Yii2 landing page navigation">
-      <div className={styles.navInner}>
-        <Link href="/" className={styles.brand}>
-          Victor Demin
-        </Link>
-        <div className={styles.navLinks}>
-          {navigationItems.map((item) => (
-            <a key={item.href} href={item.href} data-mobile-nav={item.mobileNav}>
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </nav>
   );
 }
 
@@ -708,22 +676,6 @@ function FinalCtaSection() {
   );
 }
 
-function FooterSection() {
-  return (
-    <footer className={styles.footer} aria-label="Footer">
-      <p className={styles.footerCopy}>© 2026 Victor Demin</p>
-      <div className={styles.footerLinks}>
-        {footerLinks.map((link) => (
-          <a key={link.label} href={link.href} className={styles.footerLink} target="_blank" rel="noreferrer">
-            <BrandIcon label={link.label} path={link.iconPath} className={styles.footerIcon} />
-            <span>{link.label}</span>
-          </a>
-        ))}
-      </div>
-    </footer>
-  );
-}
-
 export default function Yii2Page() {
   return (
     <main id="main" className={styles.page}>
@@ -731,7 +683,7 @@ export default function Yii2Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation />
+      <TopNavigation items={navigationItems} ariaLabel="Yii2 landing page navigation" />
       <HeroSection />
       <ProblemSection />
       <QualitySection />
@@ -741,7 +693,7 @@ export default function Yii2Page() {
       <FaqSection />
       <ProofSection />
       <FinalCtaSection />
-      <FooterSection />
+      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
     </main>
   );
 }
