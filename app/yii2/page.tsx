@@ -6,8 +6,9 @@ import TrackedLink from "../TrackedLink";
 import { BrandIcon } from "../components/BrandIcon";
 import { FooterSection } from "../components/FooterSection";
 import { TopNavigation } from "../components/TopNavigation";
-import type { FooterLink, NavigationItem } from "../lib/navigation";
-import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "../lib/social-icons";
+import { BRAND_COPYRIGHT, footerLinks } from "../lib/brand";
+import type { NavigationItem } from "../lib/navigation";
+import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import styles from "./page.module.css";
 
 const heroCtaHref = "https://t.me/sg4tech?start=site_yii2_hero";
@@ -208,12 +209,6 @@ const talkLinks = [
     iconPath: siYoutube.path,
     description: "Watch the full talk recording on YouTube."
   }
-];
-
-const footerLinks: FooterLink[] = [
-  { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/victor-demin/", iconPath: LINKEDIN_SVG_PATH },
-  { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: TELEGRAM_SVG_PATH }
 ];
 
 const structuredData = {
@@ -709,7 +704,7 @@ export default function Yii2Page() {
       <FaqSection />
       <ProofSection />
       <FinalCtaSection />
-      <FooterSection links={footerLinks} copyright="© 2026 Victor Demin" />
+      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
     </main>
   );
 }
