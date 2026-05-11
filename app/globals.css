@@ -1,4 +1,9 @@
 :root {
+  /* ============ Layout ============ */
+  --max-width: 1120px;
+  --scroll-offset: 5.5rem;
+
+  /* ============ Colors — surfaces & text ============ */
   --background: #ffffff;
   --surface: #ffffff;
   --surface-alt: #f7f7f5;
@@ -10,7 +15,71 @@
   --border-strong: #c9ced6;
   --accent: #202124;
   --accent-strong: #111111;
-  --max-width: 1120px;
+  --on-strong: #ffffff;
+  --primary-hover-bg: #2d2d2d;
+
+  /* ============ Colors — Yii2 visualization palette ============ */
+  /* Used only by the warm/cool delivery-system diagram on /yii2. */
+  --viz-warm: #d76d43;
+  --viz-warm-strong: #b85a35;
+  --viz-cool: #2f7a59;
+  --viz-cool-strong: #1f5a40;
+  --viz-neutral: #6b7280;
+  --viz-neutral-strong: #4b5563;
+  --viz-night: #1d2430;
+  --viz-paper: #f7f8fb;
+  --viz-text: #191919;
+  --viz-warm-bg: #fafaf8;
+  --viz-warm-stroke: #d8d3cb;
+
+  /* ============ Typography — size scale ============ */
+  --text-xs: 0.78rem;
+  --text-sm: 0.85rem;
+  --text-md: 0.92rem;
+  --text-base: 1rem;
+  --text-lg: 1.05rem;
+  --text-xl: 1.18rem;
+  --text-2xl: 1.5rem;
+
+  --text-h3: clamp(1.4rem, 2.5vw, 1.8rem);
+  --text-h2: clamp(1.7rem, 5vw, 2.6rem);
+  --text-h1: clamp(2.5rem, 8vw, 4.8rem);
+
+  --text-h1-yii2: clamp(1.85rem, 6vw, 3rem);
+  --text-h2-yii2: clamp(1.8rem, 5vw, 3rem);
+  --text-hero-action: clamp(1.3rem, 3.4vw, 2rem);
+  --text-hero-metric: clamp(1.7rem, 3.6vw, 2.4rem);
+
+  /* ============ Typography — line heights ============ */
+  --leading-hero: 0.96;
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.15;
+  --leading-base: 1.45;
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.75;
+
+  /* ============ Spacing — 8px scale ============ */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+
+  /* ============ Border radii ============ */
+  --radius-sm: 0.8rem;
+  --radius-md: 0.9rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.6rem;
+  --radius-pill: 999px;
+
+  /* ============ Motion ============ */
+  --duration-fast: 150ms;
+  --duration-base: 180ms;
+  --ease-standard: ease;
 }
 
 * {
