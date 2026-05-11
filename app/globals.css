@@ -55,3 +55,33 @@ main {
   width: min(var(--max-width), calc(100% - 2rem));
   margin: 0 auto;
 }
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--text-strong);
+  color: var(--surface);
+  border-radius: 0 0 0.5rem 0;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

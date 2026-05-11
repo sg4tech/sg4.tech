@@ -695,39 +695,16 @@ function ProofSection() {
       <p className={styles.sectionIntro}>
         Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering.
       </p>
-      <div className={styles.proofColumns}>
-        <section className={`${styles.proofColumn} ${styles.proofColumnTalks}`} aria-labelledby="talks-title">
-          <p id="talks-title" className={styles.proofTitle}>
-            Talks
-          </p>
-          <div className={styles.linkGrid}>
-            {talkLinks.map((link) => (
-              <a key={link.label} href={link.href} className={styles.linkCard} target="_blank" rel="noreferrer">
-                <span className={styles.linkHeader}>
-                  <BrandIcon label={link.label} path={link.iconPath} />
-                  <span className={styles.linkLabel}>{link.label}</span>
-                </span>
-                <span className={styles.linkDescription}>{link.description}</span>
-              </a>
-            ))}
-          </div>
-        </section>
-        <section className={`${styles.proofColumn} ${styles.proofColumnWriting}`} aria-labelledby="writing-title">
-          <p id="writing-title" className={styles.proofTitle}>
-            Writing and profile
-          </p>
-          <div className={styles.linkGrid}>
-            {writingLinks.map((link) => (
-              <a key={link.label} href={link.href} className={styles.linkCard} target="_blank" rel="noreferrer">
-                <span className={styles.linkHeader}>
-                  <BrandIcon label={link.label} path={link.iconPath} />
-                  <span className={styles.linkLabel}>{link.label}</span>
-                </span>
-                <span className={styles.linkDescription}>{link.description}</span>
-              </a>
-            ))}
-          </div>
-        </section>
+      <div className={styles.proofGrid}>
+        {[...talkLinks, ...writingLinks].map((link) => (
+          <a key={link.label} href={link.href} className={styles.linkCard} target="_blank" rel="noreferrer">
+            <span className={styles.linkHeader}>
+              <BrandIcon label={link.label} path={link.iconPath} />
+              <span className={styles.linkLabel}>{link.label}</span>
+            </span>
+            <span className={styles.linkDescription}>{link.description}</span>
+          </a>
+        ))}
       </div>
     </section>
   );
@@ -738,7 +715,7 @@ function FinalCtaSection() {
     <section id="final-cta" className={styles.finalCta}>
       <h2>You don&apos;t need a six-month strategy debate. You need a diagnosis — and a fix.</h2>
       <p className={styles.finalText}>
-        Tell me what&apos;s hurting most — and what you want instead. I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
+        What&apos;s hurting most, and what you want instead? I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
       </p>
       <div className={styles.actions}>
         <TrackedLink
@@ -759,6 +736,7 @@ function FinalCtaSection() {
 function FooterSection() {
   return (
     <footer className={styles.footer} aria-label="Footer">
+      <p className={styles.footerCopy}>© 2026 Victor Demin</p>
       <div className={styles.footerLinks}>
         {footerLinks.map((link) => (
           <a key={link.label} href={link.href} className={styles.footerLink} target="_blank" rel="noreferrer">
@@ -777,7 +755,7 @@ function FooterSection() {
 
 export default function Yii2Page() {
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
