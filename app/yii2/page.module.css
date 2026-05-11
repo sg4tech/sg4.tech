@@ -422,6 +422,12 @@
   line-height: 1.75;
 }
 
+.sectionIntro,
+.finalText,
+.callout {
+  max-width: 65ch;
+}
+
 .metricList,
 .problemList {
   margin: 1.25rem 0 0;
@@ -887,16 +893,17 @@
   padding-bottom: 0;
 }
 
-.finalText {
-  max-width: 42rem;
-}
-
 .output,
 .processNote,
 .faqItem p,
 .footerLink {
   color: var(--muted);
   line-height: 1.7;
+}
+
+.processNote,
+.faqItem p {
+  max-width: 65ch;
 }
 
 .output,
@@ -1176,7 +1183,7 @@
   }
 
   .processGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;
   }
 

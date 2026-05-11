@@ -738,7 +738,7 @@ function FinalCtaSection() {
     <section id="final-cta" className={styles.finalCta}>
       <h2>You don&apos;t need a six-month strategy debate. You need a diagnosis — and a fix.</h2>
       <p className={styles.finalText}>
-        Tell me what&apos;s hurting most — and what you want instead. I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
+        What&apos;s hurting most, and what you want instead? I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
       </p>
       <div className={styles.actions}>
         <TrackedLink
