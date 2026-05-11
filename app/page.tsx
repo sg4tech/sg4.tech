@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
-import TrackedLink from "./TrackedLink";
 import { BrandIcon } from "./components/BrandIcon";
+import TrackedLink from "./components/TrackedLink";
 import { FooterSection } from "./components/FooterSection";
 import { TopNavigation } from "./components/TopNavigation";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
