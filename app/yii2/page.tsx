@@ -500,10 +500,7 @@ function HeroSection() {
       <div className={styles.heroPanel}>
         <div className={styles.heroLayout}>
           <div className={styles.heroMain}>
-            <h1>
-              Your Yii2 project is<br />
-              slowing your business.
-            </h1>
+            <h1>Your Yii2 project is slowing your business.</h1>
             <p className={styles.heroAction}>I find what&apos;s actually broken — and fix it.</p>
             <p className={styles.heroStatement}>
               What&apos;s slowing you down is rarely the codebase — it&apos;s the delivery system around it.
