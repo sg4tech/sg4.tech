@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { trackUmamiEvent } from "../analytics";
+import { trackUmamiEvent } from "../lib/analytics";
 
 type TrackedLinkProps = {
   children: ReactNode;

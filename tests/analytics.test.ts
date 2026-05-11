@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { trackUmamiEvent } from "@/app/analytics";
+import { trackUmamiEvent } from "@/app/lib/analytics";
 
 describe("trackUmamiEvent", () => {
   it("does not throw when umami is unavailable", () => {
