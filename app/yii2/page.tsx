@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
 import { Eyebrow } from "../components/Eyebrow";
@@ -255,21 +254,6 @@ export const metadata: Metadata = {
   }
 };
 
-type YiiSectionProps = {
-  id?: string;
-  children: ReactNode;
-  "aria-label"?: string;
-  "aria-labelledby"?: string;
-};
-
-function YiiSection({ id, children, ...aria }: YiiSectionProps) {
-  return (
-    <Section id={id} className={styles.yiiSection} {...aria}>
-      {children}
-    </Section>
-  );
-}
-
 function DeliveryTransformationDiagram() {
   return (
     <svg viewBox="0 0 640 260" className={styles.visualSvg} focusable="false">
@@ -502,7 +486,7 @@ function HeroSection() {
 
 function ProblemSection() {
   return (
-    <YiiSection id="problem">
+    <Section id="problem">
       <h2>When a Yii2 project has been around for years, the problem is almost never just the code.</h2>
       <ul className={styles.iconList} data-tone="warm">
         {painPoints.map((item) => (
@@ -513,7 +497,7 @@ function ProblemSection() {
         ))}
       </ul>
       <p className={styles.callout}>If development has become the bottleneck, the code is not the only thing that is broken. The delivery system is breaking too.</p>
-    </YiiSection>
+    </Section>
   );
 }
 
@@ -537,7 +521,7 @@ function CardIcon({ path }: { path: string }) {
 
 function QualitySection() {
   return (
-    <YiiSection id="quality">
+    <Section id="quality">
       <SectionHeader
         title="First we fix quality: uptime, bugs, and release predictability."
         intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
@@ -550,13 +534,13 @@ function QualitySection() {
           </article>
         ))}
       </div>
-    </YiiSection>
+    </Section>
   );
 }
 
 function SpeedSection() {
   return (
-    <YiiSection id="speed">
+    <Section id="speed">
       <SectionHeader
         title="Then we fix speed. Speed is not solved by code alone."
         intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
@@ -569,13 +553,13 @@ function SpeedSection() {
           </article>
         ))}
       </div>
-    </YiiSection>
+    </Section>
   );
 }
 
 function WhyMeSection() {
   return (
-    <YiiSection id="why-me">
+    <Section id="why-me">
       <SectionHeader
         title="Why me"
         intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
@@ -596,13 +580,13 @@ function WhyMeSection() {
           </ul>
         </div>
       </div>
-    </YiiSection>
+    </Section>
   );
 }
 
 function ProcessSection() {
   return (
-    <YiiSection id="process">
+    <Section id="process">
       <SectionHeader
         title="How I work"
         intro="No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow."
@@ -633,13 +617,13 @@ function ProcessSection() {
           <li>The pace depends on team size and the depth of accumulated debt</li>
         </ul>
       </div>
-    </YiiSection>
+    </Section>
   );
 }
 
 function FaqSection() {
   return (
-    <YiiSection id="faq" aria-labelledby="faq-title">
+    <Section id="faq" aria-labelledby="faq-title">
       <SectionHeader title="FAQ" id="faq-title" />
       <div className={styles.faqList}>
         {faqItems.map((item) => (
@@ -649,13 +633,13 @@ function FaqSection() {
           </article>
         ))}
       </div>
-    </YiiSection>
+    </Section>
   );
 }
 
 function ProofSection() {
   return (
-    <YiiSection id="proof">
+    <Section id="proof">
       <SectionHeader
         title="Proof and public material"
         intro="Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering."
@@ -671,7 +655,7 @@ function ProofSection() {
           </a>
         ))}
       </div>
-    </YiiSection>
+    </Section>
   );
 }
 

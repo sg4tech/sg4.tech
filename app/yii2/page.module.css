@@ -10,11 +10,6 @@
   border-top: 0;
 }
 
-.yiiSection h2 {
-  max-width: 32ch;
-  letter-spacing: -0.035em;
-}
-
 .hero h1 {
   margin: 0;
   color: var(--text-strong);
@@ -26,7 +21,6 @@
 
 .finalCta h2 {
   margin: 0;
-  max-width: 32ch;
   color: var(--text-strong);
   font-size: var(--text-h2);
   line-height: var(--leading-tight);
