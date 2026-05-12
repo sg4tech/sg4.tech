@@ -8,7 +8,11 @@ import {
   Clock,
   Cog,
   Compass,
+  Flame,
+  Folder,
   GitBranch,
+  Infinity as InfinityIcon,
+  Rocket,
   Search,
   ShieldCheck,
   Sparkles,
@@ -274,65 +278,111 @@ export const metadata: Metadata = {
   }
 };
 
-function DeliveryTransformationDiagram() {
+function FireFightingPanel() {
   return (
-    <svg viewBox="0 0 640 260" className={styles.visualSvg} focusable="false">
-      <defs>
-        <linearGradient id="panelWarm" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stopColor="#f6efe7" />
-          <stop offset="100%" stopColor="#ffffff" />
-        </linearGradient>
-        <linearGradient id="panelCool" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stopColor="#eef4f0" />
-          <stop offset="100%" stopColor="#ffffff" />
-        </linearGradient>
-      </defs>
-      <rect x="8" y="8" width="300" height="244" rx="22" fill="url(#panelWarm)" stroke="#d8d3cb" />
-      <rect x="332" y="8" width="300" height="244" rx="22" fill="url(#panelCool)" stroke="#d8d3cb" />
-      <text x="24" y="34" className={styles.visualTextMuted}>
-        FIRE FIGHTING MODE
-      </text>
-      <text x="348" y="34" className={styles.visualTextMuted}>
-        DELIVERY SYSTEM MODE
-      </text>
+    <div className={styles.visualPanel} data-mode="warm">
+      <p className={styles.panelTitle}>Fire fighting mode</p>
+      <div className={styles.panelBody}>
+        <svg
+          className={styles.panelConnectors}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          focusable="false"
+          aria-hidden="true"
+        >
+          <defs>
+            <marker id="arrow-warm" viewBox="0 0 6 6" markerWidth="5" markerHeight="5" refX="4" refY="3" orient="auto">
+              <path d="M0 0 L6 3 L0 6 Z" fill="var(--viz-warm-strong)" />
+            </marker>
+          </defs>
+          <path d="M 38 24 Q 62 28 62 42" markerEnd="url(#arrow-warm)" />
+          <path d="M 52 66 Q 42 76 36 80" markerEnd="url(#arrow-warm)" />
+          <path d="M 20 78 Q 4 50 18 28" markerEnd="url(#arrow-warm)" />
+        </svg>
+        <div className={styles.node} data-pos="top-left">
+          <span className={styles.nodeIcon}><Icon icon={Search} /></span>
+          <span className={styles.nodeLabel}>manual checks</span>
+        </div>
+        <div className={styles.node} data-pos="mid-right">
+          <span className={styles.nodeIcon}><Icon icon={Folder} /></span>
+          <span className={styles.nodeLabel}>hidden queue</span>
+        </div>
+        <div className={styles.node} data-pos="bottom-left">
+          <span className={styles.nodeIcon}><Icon icon={Flame} /></span>
+          <span className={styles.nodeLabel}>hotfixes</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-      <rect x="36" y="58" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
-      <rect x="148" y="118" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
-      <rect x="60" y="180" width="138" height="44" rx="14" className={styles.visualNodeWarm} />
-      <path d="M174 86 C 200 96, 195 110, 175 118" className={styles.visualLineWarm} />
-      <path d="M180 162 C 178 172, 165 175, 158 180" className={styles.visualLineWarm} />
-      <path d="M70 180 C 30 168, 32 110, 52 92" className={styles.visualLineWarm} />
-      <text x="50" y="78" className={styles.visualTextStrong}>
-        manual checks
-      </text>
-      <text x="166" y="138" className={styles.visualTextStrong}>
-        hidden queue
-      </text>
-      <text x="98" y="200" className={styles.visualTextStrong}>
-        hotfixes
-      </text>
+function DeliverySystemPanel() {
+  return (
+    <div className={styles.visualPanel} data-mode="cool">
+      <p className={styles.panelTitle}>Delivery system mode</p>
+      <div className={styles.panelBody}>
+        <svg
+          className={styles.panelConnectors}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          focusable="false"
+          aria-hidden="true"
+        >
+          <defs>
+            <marker id="arrow-cool" viewBox="0 0 6 6" markerWidth="5" markerHeight="5" refX="4" refY="3" orient="auto">
+              <path d="M0 0 L6 3 L0 6 Z" fill="var(--viz-cool-strong)" />
+            </marker>
+          </defs>
+          <path d="M 27 26 Q 38 38 48 48" markerEnd="url(#arrow-cool)" />
+          <path d="M 73 26 Q 62 38 52 48" markerEnd="url(#arrow-cool)" />
+          <path d="M 50 64 V 78" markerEnd="url(#arrow-cool)" />
+        </svg>
+        <div className={styles.node} data-pos="top-left">
+          <span className={styles.nodeIcon}><Icon icon={ShieldCheck} /></span>
+          <span className={styles.nodeLabel}>guardrails</span>
+        </div>
+        <div className={styles.node} data-pos="top-right">
+          <span className={styles.nodeIcon}><Icon icon={InfinityIcon} /></span>
+          <span className={styles.nodeLabel}>CI/CD</span>
+        </div>
+        <div className={styles.node} data-pos="mid-center">
+          <span className={styles.nodeIcon}><Icon icon={Activity} /></span>
+          <span className={styles.nodeLabel}>monitoring</span>
+        </div>
+        <div className={`${styles.node} ${styles.nodeOutcome}`} data-pos="bottom-center">
+          <span className={styles.nodeIcon}><Icon icon={Rocket} /></span>
+          <span className={styles.nodeLabel}>predictable releases</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-      <rect x="358" y="58" width="116" height="44" rx="14" className={styles.visualNodeCool} />
-      <rect x="490" y="58" width="116" height="44" rx="14" className={styles.visualNodeCool} />
-      <rect x="424" y="118" width="116" height="44" rx="14" className={styles.visualNodeCool} />
-      <rect x="402" y="180" width="160" height="40" rx="14" className={styles.visualOutcomeNode} />
-      <path d="M474 80 H490" className={styles.visualLineCool} />
-      <path d="M416 102 C 416 110, 432 114, 450 118" className={styles.visualLineCool} />
-      <path d="M548 102 C 548 110, 532 114, 514 118" className={styles.visualLineCool} />
-      <path d="M482 162 V180" className={styles.visualLineCool} />
-      <text x="378" y="78" className={styles.visualTextStrong}>
-        guardrails
-      </text>
-      <text x="525" y="78" className={styles.visualTextStrong}>
-        CI/CD
-      </text>
-      <text x="448" y="138" className={styles.visualTextStrong}>
-        monitoring
-      </text>
-      <text x="420" y="198" className={styles.visualTextOutcome}>
-        predictable releases
-      </text>
-    </svg>
+function VisualStateFooter() {
+  return (
+    <div className={styles.visualFooter}>
+      <div className={styles.visualStat} data-state="before">
+        <span className={styles.visualStatHeader}>
+          <Icon icon={AlertTriangle} className={styles.visualStatIcon} />
+          <span className={styles.visualStatValue}>before</span>
+        </span>
+        <span className={styles.visualStatLabel}>risky releases and reactive work</span>
+      </div>
+      <div className={styles.visualStat} data-state="after">
+        <span className={styles.visualStatHeader}>
+          <Icon icon={ShieldCheck} className={styles.visualStatIcon} />
+          <span className={styles.visualStatValue}>after</span>
+        </span>
+        <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
+      </div>
+      <div className={styles.visualStat} data-state="goal">
+        <span className={styles.visualStatHeader}>
+          <Icon icon={Target} className={styles.visualStatIcon} />
+          <span className={styles.visualStatValue}>goal</span>
+        </span>
+        <span className={styles.visualStatLabel}>faster shipping without chaos</span>
+      </div>
+    </div>
   );
 }
 
@@ -343,30 +393,11 @@ function DeliveryTransformationVisual() {
         <p className={styles.visualEyebrow}>From fragile release flow to an operating system for delivery</p>
         <p className={styles.visualSummary}>Legacy code is survivable. Unreliable delivery is what actually slows the business down.</p>
       </div>
-      <DeliveryTransformationDiagram />
-      <div className={styles.visualFooter}>
-        <div className={styles.visualStat} data-state="before">
-          <span className={styles.visualStatHeader}>
-            <Icon icon={AlertTriangle} className={styles.visualStatIcon} />
-            <span className={styles.visualStatValue}>before</span>
-          </span>
-          <span className={styles.visualStatLabel}>risky releases and reactive work</span>
-        </div>
-        <div className={styles.visualStat} data-state="after">
-          <span className={styles.visualStatHeader}>
-            <Icon icon={ShieldCheck} className={styles.visualStatIcon} />
-            <span className={styles.visualStatValue}>after</span>
-          </span>
-          <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
-        </div>
-        <div className={styles.visualStat} data-state="goal">
-          <span className={styles.visualStatHeader}>
-            <Icon icon={Target} className={styles.visualStatIcon} />
-            <span className={styles.visualStatValue}>goal</span>
-          </span>
-          <span className={styles.visualStatLabel}>faster shipping without chaos</span>
-        </div>
+      <div className={styles.visualPanels}>
+        <FireFightingPanel />
+        <DeliverySystemPanel />
       </div>
+      <VisualStateFooter />
     </div>
   );
 }
