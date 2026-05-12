@@ -389,16 +389,24 @@ function VisualStateFooter() {
 function DeliveryTransformationVisual() {
   return (
     <div className={styles.visualFrame} aria-hidden="true">
-      <div className={styles.visualHeader}>
-        <p className={styles.visualEyebrow}>From fragile release flow to an operating system for delivery</p>
-        <p className={styles.visualSummary}>Legacy code is survivable. Unreliable delivery is what actually slows the business down.</p>
-      </div>
       <div className={styles.visualPanels}>
         <FireFightingPanel />
         <DeliverySystemPanel />
       </div>
       <VisualStateFooter />
     </div>
+  );
+}
+
+function TransformationSection() {
+  return (
+    <Section id="transformation">
+      <SectionHeader
+        title="From fragile release flow to an operating system for delivery"
+        intro="Legacy code is survivable. Unreliable delivery is what actually slows the business down."
+      />
+      <DeliveryTransformationVisual />
+    </Section>
   );
 }
 
@@ -502,9 +510,6 @@ function HeroSection() {
             </div>
           </div>
           <div className={styles.heroAside}>
-            <div className={styles.heroInlineVisual}>
-              <DeliveryTransformationVisual />
-            </div>
             <HeroMetricList />
           </div>
         </div>
@@ -687,6 +692,7 @@ export default function Yii2Page() {
       />
       <TopNavigation items={navigationItems} ariaLabel="Yii2 landing page navigation" />
       <HeroSection />
+      <TransformationSection />
       <ProblemSection />
       <QualitySection />
       <SpeedSection />
