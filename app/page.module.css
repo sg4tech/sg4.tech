@@ -425,25 +425,6 @@
   margin-top: var(--space-3);
 }
 
-.faqItem {
-  padding: 1.1rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
-
-.faqItem h3 {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
-}
-
-.faqItem p {
-  margin: 0.7rem 0 0;
-  color: var(--muted);
-  line-height: var(--leading-loose);
-}
-
 .finalCta {
   padding-bottom: 0;
 }

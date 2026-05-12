@@ -13,6 +13,7 @@ import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
 import { Eyebrow } from "./components/Eyebrow";
+import { FaqItem } from "./components/FaqItem";
 import { FooterSection } from "./components/FooterSection";
 import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
@@ -623,10 +624,7 @@ function FaqSection() {
       <SectionHeader title="FAQ" id="faq-title" />
       <div className={styles.faqList}>
         {faqItems.map((item) => (
-          <article key={item.question} className={styles.faqItem}>
-            <h3>{item.question}</h3>
-            <p>{item.answer}</p>
-          </article>
+          <FaqItem key={item.question} question={item.question} answer={item.answer} />
         ))}
       </div>
     </Section>
