@@ -22,7 +22,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
-import { Eyebrow } from "../components/Eyebrow";
 import { FaqSection } from "../components/FaqSection";
 import { FooterSection } from "../components/FooterSection";
 import { Icon } from "../components/Icon";
@@ -446,7 +445,6 @@ function HeroSection() {
         <span aria-hidden="true" className={styles.backLinkArrow}>←</span>
         Back to main consulting
       </Link>
-      <Eyebrow>Yii2 delivery consulting</Eyebrow>
       <div className={styles.heroPanel}>
         <div className={styles.heroLayout}>
           <div className={styles.heroMain}>
