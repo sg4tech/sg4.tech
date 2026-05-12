@@ -138,30 +138,16 @@
 .visualLineCool {
   fill: none;
   stroke-linecap: round;
-  stroke-width: 4;
+  stroke-width: 2;
 }
 
 .visualLineWarm {
-  stroke: rgba(167, 111, 63, 0.45);
-  stroke-dasharray: 8 10;
+  stroke: rgba(167, 111, 63, 0.55);
+  stroke-dasharray: 6 8;
 }
 
 .visualLineCool {
-  stroke: rgba(41, 76, 55, 0.5);
-}
-
-.visualAlertDot,
-.visualStatusDot {
-  stroke: var(--surface);
-  stroke-width: 3;
-}
-
-.visualAlertDot {
-  fill: var(--viz-warm);
-}
-
-.visualStatusDot {
-  fill: var(--viz-cool);
+  stroke: rgba(41, 76, 55, 0.55);
 }
 
 .visualTextStrong,
