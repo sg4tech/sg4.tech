@@ -303,13 +303,13 @@ function DeliveryTransformationDiagram() {
       <path d="M174 86 C 200 96, 195 110, 175 118" className={styles.visualLineWarm} />
       <path d="M180 162 C 178 172, 165 175, 158 180" className={styles.visualLineWarm} />
       <path d="M70 180 C 30 168, 32 110, 52 92" className={styles.visualLineWarm} />
-      <text x="50" y="80" className={styles.visualTextStrong}>
+      <text x="50" y="78" className={styles.visualTextStrong}>
         manual checks
       </text>
-      <text x="166" y="140" className={styles.visualTextStrong}>
+      <text x="166" y="138" className={styles.visualTextStrong}>
         hidden queue
       </text>
-      <text x="98" y="202" className={styles.visualTextStrong}>
+      <text x="98" y="200" className={styles.visualTextStrong}>
         hotfixes
       </text>
 
@@ -321,16 +321,16 @@ function DeliveryTransformationDiagram() {
       <path d="M416 102 C 416 110, 432 114, 450 118" className={styles.visualLineCool} />
       <path d="M548 102 C 548 110, 532 114, 514 118" className={styles.visualLineCool} />
       <path d="M482 162 V180" className={styles.visualLineCool} />
-      <text x="378" y="80" className={styles.visualTextStrong}>
+      <text x="378" y="78" className={styles.visualTextStrong}>
         guardrails
       </text>
-      <text x="525" y="80" className={styles.visualTextStrong}>
+      <text x="525" y="78" className={styles.visualTextStrong}>
         CI/CD
       </text>
-      <text x="448" y="140" className={styles.visualTextStrong}>
+      <text x="448" y="138" className={styles.visualTextStrong}>
         monitoring
       </text>
-      <text x="420" y="200" className={styles.visualTextOutcome}>
+      <text x="420" y="198" className={styles.visualTextOutcome}>
         predictable releases
       </text>
     </svg>
