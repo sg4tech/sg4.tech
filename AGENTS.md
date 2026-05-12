@@ -36,6 +36,8 @@
 
 - `app/components/` — reusable UI components (JSX). Extract a component here when the same JSX appears in more than one page.
 - `app/lib/` — pure data and utilities, no JSX (e.g., shared SVG path constants, formatters, type definitions).
+- Layout primitives — `Page`, `Section`, `SectionHeader`, `Eyebrow`, `Icon`, `TopNavigation`, `FooterSection`, `BrandIcon`, `TrackedLink` — live in `app/components/`. New landing pages should compose these rather than re-implementing `.page` / `.section` / `.eyebrow` classes locally.
+- UI icons come from `lucide-react` via `<Icon icon={LucideIcon}>` from `app/components/Icon.tsx`, which forwards `strokeWidth=1.6` and `aria-hidden`. Don't inline raw SVG path strings for UI icons — pick a lucide icon by name. Brand/social logos are the exception: they come from `simple-icons` or the named constants in `app/lib/social-icons.ts`, rendered via `<BrandIcon>`.
 - Brand and social-network SVG paths must live as named constants in `app/lib/social-icons.ts`. Never inline a brand icon path inside a page or component file.
 - Page-specific data arrays (case studies, FAQ, nav items) stay inside the page TSX. Only promote them to `app/content/` if multiple pages start sharing the same content.
 - Do not create empty placeholder directories under `app/`. A directory without a `page.tsx` produces no route and just clutters the tree — leave a TODO in `docs/` instead if a future route is planned.
