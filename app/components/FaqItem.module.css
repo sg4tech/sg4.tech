@@ -12,7 +12,6 @@
 }
 
 .answer {
-  max-width: 65ch;
   margin: 0.7rem 0 0;
   color: var(--muted);
   line-height: var(--leading-loose);
