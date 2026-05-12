@@ -1,5 +1,5 @@
 .page {
-  width: min(100% - 2rem, 70rem);
+  width: min(100% - 2rem, var(--page-width));
   margin: 0 auto;
   padding: 1rem 0 4rem;
 }
@@ -8,7 +8,7 @@
 .section,
 .finalCta {
   scroll-margin-top: var(--scroll-offset);
-  padding: 2.2rem 0;
+  padding: var(--section-pad-y) 0;
   border-top: 1px solid var(--border);
 }
 
@@ -268,7 +268,7 @@
 }
 
 .hero h1 {
-  font-size: var(--text-h1-yii2);
+  font-size: var(--text-h1);
   line-height: var(--leading-tight);
   text-wrap: balance;
 }
@@ -485,7 +485,7 @@
 .section h2,
 .finalCta h2 {
   max-width: 32ch;
-  font-size: var(--text-h2-yii2);
+  font-size: var(--text-h2);
   line-height: var(--leading-tight);
   text-wrap: pretty;
 }
@@ -866,7 +866,7 @@
 
 @media (max-width: 640px) {
   .page {
-    width: min(100% - 1.25rem, 70rem);
+    width: min(100% - 1.25rem, var(--page-width));
     padding-bottom: var(--space-6);
   }
 
@@ -938,7 +938,7 @@
 
 @media (min-width: 1100px) {
   .page {
-    width: min(100% - 3rem, 74rem);
+    width: min(100% - 3rem, var(--page-width-wide));
   }
 
   .heroLayout {
