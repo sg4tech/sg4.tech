@@ -138,20 +138,21 @@
   pointer-events: none;
 }
 
-.panelConnectors path {
+.panelConnectors > path {
   fill: none;
-  stroke-width: 0.6;
+  stroke-width: 0.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.visualPanel[data-mode="warm"] .panelConnectors path {
+.visualPanel[data-mode="warm"] .panelConnectors > path {
   stroke: var(--viz-warm);
-  stroke-dasharray: 2 1.6;
+  stroke-dasharray: 1.5 1.2;
 }
 
-.visualPanel[data-mode="cool"] .panelConnectors path {
+.visualPanel[data-mode="cool"] .panelConnectors > path {
   stroke: var(--viz-cool);
+  opacity: 0.9;
 }
 
 .node {
@@ -186,7 +187,7 @@
 }
 
 .node[data-pos="mid-center"] {
-  top: 42%;
+  top: 37%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -197,7 +198,7 @@
 }
 
 .node[data-pos="bottom-center"] {
-  bottom: 5%;
+  bottom: 8%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -359,7 +360,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin-top: 1.1rem;
 }
 
 .heroSignal {
@@ -386,7 +386,7 @@
 
 .heroSignalLogo {
   width: auto;
-  height: 1.1rem;
+  height: 1.3rem;
   max-width: 7rem;
 }
 
@@ -955,6 +955,15 @@
 
   .heroAside {
     padding-top: 0.9rem;
+  }
+
+  .heroSignalLogo {
+    height: 1.7rem;
+  }
+
+  .heroSignalIcon {
+    width: 1.7rem;
+    height: 1.7rem;
   }
 
   .processVisual {

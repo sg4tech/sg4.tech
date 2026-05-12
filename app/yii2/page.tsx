@@ -9,8 +9,8 @@ import {
   Cog,
   Compass,
   Flame,
-  Folder,
   GitBranch,
+  Inbox,
   Infinity as InfinityIcon,
   Rocket,
   Search,
@@ -285,26 +285,25 @@ function FireFightingPanel() {
       <div className={styles.panelBody}>
         <svg
           className={styles.panelConnectors}
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
+          viewBox="0 0 100 80"
           focusable="false"
           aria-hidden="true"
         >
           <defs>
-            <marker id="arrow-warm" viewBox="0 0 6 6" markerWidth="5" markerHeight="5" refX="4" refY="3" orient="auto">
+            <marker id="arrow-warm" viewBox="0 0 6 6" markerWidth="5.5" markerHeight="5.5" refX="4" refY="3" orient="auto">
               <path d="M0 0 L6 3 L0 6 Z" fill="var(--viz-warm-strong)" />
             </marker>
           </defs>
-          <path d="M 38 24 Q 62 28 62 42" markerEnd="url(#arrow-warm)" />
-          <path d="M 52 66 Q 42 76 36 80" markerEnd="url(#arrow-warm)" />
-          <path d="M 20 78 Q 4 50 18 28" markerEnd="url(#arrow-warm)" />
+          <path d="M 30 9 Q 55 4 67 31" markerEnd="url(#arrow-warm)" />
+          <path d="M 70 42 Q 50 58 32 70" markerEnd="url(#arrow-warm)" />
+          <path d="M 10 72 Q 2 42 16 13.5" markerEnd="url(#arrow-warm)" />
         </svg>
         <div className={styles.node} data-pos="top-left">
           <span className={styles.nodeIcon}><Icon icon={Search} /></span>
           <span className={styles.nodeLabel}>manual checks</span>
         </div>
         <div className={styles.node} data-pos="mid-right">
-          <span className={styles.nodeIcon}><Icon icon={Folder} /></span>
+          <span className={styles.nodeIcon}><Icon icon={Inbox} /></span>
           <span className={styles.nodeLabel}>hidden queue</span>
         </div>
         <div className={styles.node} data-pos="bottom-left">
@@ -323,19 +322,18 @@ function DeliverySystemPanel() {
       <div className={styles.panelBody}>
         <svg
           className={styles.panelConnectors}
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
+          viewBox="0 0 100 80"
           focusable="false"
           aria-hidden="true"
         >
           <defs>
-            <marker id="arrow-cool" viewBox="0 0 6 6" markerWidth="5" markerHeight="5" refX="4" refY="3" orient="auto">
+            <marker id="arrow-cool" viewBox="0 0 6 6" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
               <path d="M0 0 L6 3 L0 6 Z" fill="var(--viz-cool-strong)" />
             </marker>
           </defs>
-          <path d="M 27 26 Q 38 38 48 48" markerEnd="url(#arrow-cool)" />
-          <path d="M 73 26 Q 62 38 52 48" markerEnd="url(#arrow-cool)" />
-          <path d="M 50 64 V 78" markerEnd="url(#arrow-cool)" />
+          <path d="M 22 11 Q 32 19.5 42 29" markerEnd="url(#arrow-cool)" />
+          <path d="M 82 11 Q 68 19.5 58 29" markerEnd="url(#arrow-cool)" />
+          <path d="M 50 40 Q 50.5 51 50 62" markerEnd="url(#arrow-cool)" />
         </svg>
         <div className={styles.node} data-pos="top-left">
           <span className={styles.nodeIcon}><Icon icon={ShieldCheck} /></span>
@@ -492,7 +490,6 @@ function HeroSection() {
             <p className={styles.heroPromise}>
               I find it, fix it, and leave you with a system that runs without me.
             </p>
-            <HeroSignalsBar />
             <div className={styles.actions}>
               <TrackedLink
                 href={heroCtaHref}
@@ -510,6 +507,7 @@ function HeroSection() {
             </div>
           </div>
           <div className={styles.heroAside}>
+            <HeroSignalsBar />
             <HeroMetricList />
           </div>
         </div>
