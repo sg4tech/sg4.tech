@@ -67,8 +67,13 @@ const requiredCopy = [
 
 describe("yii2 landing page", () => {
   it("keeps the dedicated Yii2 offer, proof points, and CTA structure", () => {
-    const filePath = join(process.cwd(), "app", "yii2", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
+    // Read the page + the shared FaqSection: the #faq anchor moved into
+    // app/components/FaqSection.tsx when the FAQ structure was extracted,
+    // but the assertion still belongs here because removing the anchor
+    // would break in-page nav on the Yii2 landing.
+    const pagePath = join(process.cwd(), "app", "yii2", "page.tsx");
+    const faqSectionPath = join(process.cwd(), "app", "components", "FaqSection.tsx");
+    const content = `${readFileSync(pagePath, "utf8")}\n${readFileSync(faqSectionPath, "utf8")}`;
 
     for (const anchor of requiredAnchors) {
       expect(content).toContain(anchor);

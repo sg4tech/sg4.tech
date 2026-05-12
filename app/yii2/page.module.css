@@ -512,8 +512,7 @@
 
 .cardGrid,
 .linkGrid,
-.processGrid,
-.faqList {
+.processGrid {
   display: grid;
   gap: var(--space-2);
   margin-top: var(--space-3);
@@ -777,21 +776,15 @@
 }
 
 .output,
-.processNote,
-.faqItem p {
+.processNote {
+  margin: var(--space-2) 0 0;
   color: var(--muted);
+  font-weight: 600;
   line-height: var(--leading-loose);
 }
 
-.processNote,
-.faqItem p {
-  max-width: 65ch;
-}
-
-.output,
 .processNote {
-  margin: var(--space-2) 0 0;
-  font-weight: 600;
+  max-width: 65ch;
 }
 
 .expectationBox {
@@ -803,7 +796,6 @@
 }
 
 .expectationBox h3,
-.faqItem h3,
 .card h3 {
   margin: 0;
   font-size: var(--text-base);
@@ -812,17 +804,6 @@
 
 .expectationBox .problemList {
   margin-bottom: 0;
-}
-
-.faqItem {
-  padding: 1.15rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
-
-.faqItem p {
-  margin: 0.7rem 0 0;
 }
 
 @media (max-width: 860px) {
