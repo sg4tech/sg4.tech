@@ -23,7 +23,7 @@ import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
 import { Eyebrow } from "../components/Eyebrow";
-import { FaqItem } from "../components/FaqItem";
+import { FaqSection } from "../components/FaqSection";
 import { FooterSection } from "../components/FooterSection";
 import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
@@ -606,18 +606,6 @@ function ProcessSection() {
   );
 }
 
-function FaqSection() {
-  return (
-    <Section id="faq" aria-labelledby="faq-title">
-      <SectionHeader title="FAQ" id="faq-title" />
-      <div className={styles.faqList}>
-        {faqItems.map((item) => (
-          <FaqItem key={item.question} question={item.question} answer={item.answer} />
-        ))}
-      </div>
-    </Section>
-  );
-}
 
 function ProofSection() {
   return (
@@ -678,7 +666,7 @@ export default function Yii2Page() {
       <SpeedSection />
       <WhyMeSection />
       <ProcessSection />
-      <FaqSection />
+      <FaqSection items={faqItems} id="faq" />
       <ProofSection />
       <FinalCtaSection />
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />

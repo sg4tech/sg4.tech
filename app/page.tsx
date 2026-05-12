@@ -13,7 +13,7 @@ import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
 import { Eyebrow } from "./components/Eyebrow";
-import { FaqItem } from "./components/FaqItem";
+import { FaqSection } from "./components/FaqSection";
 import { FooterSection } from "./components/FooterSection";
 import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
@@ -618,19 +618,6 @@ function FinalCtaSection() {
   );
 }
 
-function FaqSection() {
-  return (
-    <Section aria-labelledby="faq-title">
-      <SectionHeader title="FAQ" id="faq-title" />
-      <div className={styles.faqList}>
-        {faqItems.map((item) => (
-          <FaqItem key={item.question} question={item.question} answer={item.answer} />
-        ))}
-      </div>
-    </Section>
-  );
-}
-
 export default function HomePage() {
   return (
     <Page>
@@ -648,7 +635,7 @@ export default function HomePage() {
       <FitSection />
       <SpecializationSection />
       <InsightsSection />
-      <FaqSection />
+      <FaqSection items={faqItems} />
       <FinalCtaSection />
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
     </Page>
