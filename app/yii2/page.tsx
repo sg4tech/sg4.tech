@@ -666,7 +666,7 @@ export default function Yii2Page() {
       <SpeedSection />
       <WhyMeSection />
       <ProcessSection />
-      <FaqSection items={faqItems} id="faq" />
+      <FaqSection items={faqItems} />
       <ProofSection />
       <FinalCtaSection />
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />

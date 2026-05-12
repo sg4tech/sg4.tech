@@ -10,12 +10,11 @@ type FaqItemData = {
 
 type FaqSectionProps = {
   items: ReadonlyArray<FaqItemData>;
-  id?: string;
 };
 
-export function FaqSection({ items, id }: FaqSectionProps) {
+export function FaqSection({ items }: FaqSectionProps) {
   return (
-    <Section id={id} aria-labelledby="faq-title">
+    <Section id="faq" aria-labelledby="faq-title">
       <SectionHeader title="FAQ" id="faq-title" />
       <div className={styles.faqList}>
         {items.map((item) => (
