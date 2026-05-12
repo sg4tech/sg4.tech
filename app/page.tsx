@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
-import TrackedLink from "./components/TrackedLink";
+import { Eyebrow } from "./components/Eyebrow";
 import { FooterSection } from "./components/FooterSection";
+import { Page } from "./components/Page";
+import { Section } from "./components/Section";
+import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
+import TrackedLink from "./components/TrackedLink";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
@@ -296,14 +300,10 @@ export const metadata: Metadata = {
   }
 };
 
-function SectionIntro({ children }: { children: string }) {
-  return <p className={styles.sectionIntro}>{children}</p>;
-}
-
 function HeroSection() {
   return (
     <section className={styles.hero}>
-      <p className={styles.eyebrow}>Fractional CTO consulting</p>
+      <Eyebrow>Fractional CTO consulting</Eyebrow>
       <div className={styles.heroLayout}>
         <div className={styles.heroPrimary}>
           <h1>I turn slow, expensive engineering into fast, predictable delivery systems.</h1>
@@ -342,7 +342,7 @@ function HeroSection() {
 
 function ProblemSection() {
   return (
-    <section id="problem" className={styles.section}>
+    <Section id="problem">
       <h2>Most engineering problems look different on the surface — but the root is usually the same: a broken delivery system.</h2>
       <div className={styles.stageGrid}>
         {stageProblems.map((stage) => (
@@ -363,13 +363,13 @@ function ProblemSection() {
         <p>You tried hiring more engineers. You added process. It didn't fix the problem.</p>
         <p>It's a system problem.</p>
       </div>
-    </section>
+    </Section>
   );
 }
 
 function SolutionSection() {
   return (
-    <section id="solution" className={styles.section}>
+    <Section id="solution">
       <h2>I don't optimize developers. I fix the delivery system.</h2>
       <div className={styles.stack}>
         {solutionSteps.map((step) => (
@@ -387,15 +387,14 @@ function SolutionSection() {
           ))}
         </ul>
       </div>
-    </section>
+    </Section>
   );
 }
 
 function ResultsSection() {
   return (
-    <section id="results" className={styles.section}>
-      <h2>Results</h2>
-      <SectionIntro>Real examples of what changes when the system improves.</SectionIntro>
+    <Section id="results">
+      <SectionHeader title="Results" intro="Real examples of what changes when the system improves." />
       <div className={styles.stack}>
         {caseStudies.map((study) => (
           <article key={study.title} className={styles.caseStudy}>
@@ -432,17 +431,19 @@ function ResultsSection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function TrustSection() {
   return (
-    <section className={`${styles.section} ${styles.trustSection}`}>
-      <h2 className={styles.trustHeading}>Why me</h2>
-      <SectionIntro>
-        Victor Demin — operator-level engineering leader focused on fixing delivery systems, not decorating process.
-      </SectionIntro>
+    <Section className={styles.trustSection}>
+      <SectionHeader
+        title="Why me"
+        intro="Victor Demin — operator-level engineering leader focused on fixing delivery systems, not decorating process."
+        headingClassName={styles.trustHeading}
+        introClassName={styles.trustIntro}
+      />
       <div className={styles.trustCard}>
         <p className={styles.trustName}>Victor Demin</p>
         <ul className={styles.bulletList}>
@@ -451,13 +452,13 @@ function TrustSection() {
           ))}
         </ul>
       </div>
-    </section>
+    </Section>
   );
 }
 
 function ProcessSection() {
   return (
-    <section id="process" className={styles.section}>
+    <Section id="process">
       <h2>How I work</h2>
       <div className={styles.processGrid}>
         {workSteps.map((step) => (
@@ -481,13 +482,13 @@ function ProcessSection() {
           ))}
         </ul>
       </div>
-    </section>
+    </Section>
   );
 }
 
 function FitSection() {
   return (
-    <section id="fit" className={styles.section}>
+    <Section id="fit">
       <h2>Who I work with</h2>
       <div className={styles.fitGrid}>
         {fitGroups.map((group) => (
@@ -501,15 +502,17 @@ function FitSection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function SpecializationSection() {
   return (
-    <section className={styles.section}>
-      <h2>Specialized offers</h2>
-      <SectionIntro>If your situation is more specific than a general delivery problem, start with the offer tailored to that system.</SectionIntro>
+    <Section>
+      <SectionHeader
+        title="Specialized offers"
+        intro="If your situation is more specific than a general delivery problem, start with the offer tailored to that system."
+      />
       <div className={styles.specializationGrid}>
         {specializationLinks.map((link) => (
           <Link key={link.href} href={link.href} className={styles.specializationCard}>
@@ -519,17 +522,17 @@ function SpecializationSection() {
           </Link>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function InsightsSection() {
   return (
-    <section id="insights" className={styles.section}>
-      <h2>Insights / Writing</h2>
-      <SectionIntro>
-        I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows.
-      </SectionIntro>
+    <Section id="insights">
+      <SectionHeader
+        title="Insights / Writing"
+        intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
+      />
       <p className={styles.bodyCopy}>Not theory — practical patterns from real systems.</p>
       <ul className={styles.bulletList}>
         {insightTopics.map((topic) => (
@@ -554,7 +557,7 @@ function InsightsSection() {
           </a>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
@@ -584,8 +587,8 @@ function FinalCtaSection() {
 
 function FaqSection() {
   return (
-    <section className={styles.section} aria-labelledby="faq-title">
-      <h2 id="faq-title">FAQ</h2>
+    <Section aria-labelledby="faq-title">
+      <SectionHeader title="FAQ" id="faq-title" />
       <div className={styles.faqList}>
         {faqItems.map((item) => (
           <article key={item.question} className={styles.faqItem}>
@@ -594,13 +597,13 @@ function FaqSection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 export default function HomePage() {
   return (
-    <main id="main" className={styles.page}>
+    <Page>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -618,6 +621,6 @@ export default function HomePage() {
       <FaqSection />
       <FinalCtaSection />
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
-    </main>
+    </Page>
   );
 }

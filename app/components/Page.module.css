@@ -1,0 +1,18 @@
+.page {
+  width: min(100% - 2rem, var(--page-width));
+  margin: 0 auto;
+  padding: 1rem 0 4rem;
+}
+
+@media (max-width: 640px) {
+  .page {
+    width: min(100% - 1.25rem, var(--page-width));
+    padding-bottom: var(--space-6);
+  }
+}
+
+@media (min-width: 1100px) {
+  .page {
+    width: min(100% - 3rem, var(--page-width-wide));
+  }
+}
