@@ -1,9 +1,20 @@
+import {
+  AlertTriangle,
+  Ban,
+  Bug,
+  Layers,
+  Rocket,
+  Target,
+  TrendingUp,
+  Zap
+} from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
 import { Eyebrow } from "./components/Eyebrow";
 import { FooterSection } from "./components/FooterSection";
+import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
@@ -30,7 +41,8 @@ const navigationItems: NavigationItem[] = [
 
 const stageProblems = [
   {
-    title: "🚀 Early-stage",
+    title: "Early-stage",
+    icon: Rocket,
     points: [
       "MVP takes longer than expected",
       "Everything depends on a few key people",
@@ -40,7 +52,8 @@ const stageProblems = [
     closing: "You're moving — but not fast enough."
   },
   {
-    title: "📈 Growth-stage",
+    title: "Growth-stage",
+    icon: TrendingUp,
     points: [
       "Features take too long to ship",
       "Deadlines slip — even with planning",
@@ -51,7 +64,8 @@ const stageProblems = [
     closing: "You have a team. You have processes. But it still doesn't work."
   },
   {
-    title: "🏗️ Scale",
+    title: "Scale",
+    icon: Layers,
     points: [
       "Too many processes, but no real visibility",
       "Coordination overhead slows everything down",
@@ -75,6 +89,12 @@ const solutionSteps = [
     title: "3. Accelerate with AI",
     description: "Reduce manual work, speed up development, and improve consistency where AI creates real leverage."
   }
+];
+
+const heroMetrics = [
+  { text: "2–3x faster delivery", icon: Zap },
+  { text: "Up to 10x fewer bugs and downtime", icon: Bug },
+  { text: "Higher predictability", icon: TrendingUp }
 ];
 
 const credibilityPoints = [
@@ -147,7 +167,8 @@ const expectationPoints = [
 
 const fitGroups = [
   {
-    title: "🎯 Best fit",
+    title: "Best fit",
+    icon: Target,
     points: [
       "Product companies (B2B / SaaS / platforms) with 5–50 engineers",
       "Already shipping, but struggling with delivery speed, predictability, or engineering efficiency",
@@ -155,7 +176,8 @@ const fitGroups = [
     ]
   },
   {
-    title: "⚠️ Typical triggers",
+    title: "Typical triggers",
+    icon: AlertTriangle,
     points: [
       "Delivery is too slow",
       "Deadlines are unpredictable",
@@ -165,7 +187,8 @@ const fitGroups = [
     ]
   },
   {
-    title: "🚫 Not a good fit",
+    title: "Not a good fit",
+    icon: Ban,
     points: [
       "No product / no team",
       "Looking for staff augmentation or pure hands-on coding",
@@ -315,9 +338,12 @@ function HeroSection() {
           </p>
           <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
           <ul className={styles.heroMetrics} aria-label="Key outcomes">
-            <li>2–3x faster delivery ⚡</li>
-            <li>Up to 10x fewer bugs and downtime 🐞</li>
-            <li>Higher predictability 📈</li>
+            {heroMetrics.map((metric) => (
+              <li key={metric.text}>
+                <Icon icon={metric.icon} className={styles.heroMetricIcon} />
+                <span>{metric.text}</span>
+              </li>
+            ))}
           </ul>
           <div className={styles.heroActions}>
             <TrackedLink
@@ -347,7 +373,10 @@ function ProblemSection() {
       <div className={styles.stageGrid}>
         {stageProblems.map((stage) => (
           <article key={stage.title} className={styles.card}>
-            <h3>{stage.title}</h3>
+            <h3 className={styles.cardHeading}>
+              <Icon icon={stage.icon} className={styles.cardHeadingIcon} />
+              {stage.title}
+            </h3>
             <ul className={styles.bulletList}>
               {stage.points.map((point) => (
                 <li key={point}>{point}</li>
@@ -493,7 +522,10 @@ function FitSection() {
       <div className={styles.fitGrid}>
         {fitGroups.map((group) => (
           <article key={group.title} className={styles.fitCard}>
-            <h3>{group.title}</h3>
+            <h3 className={styles.cardHeading}>
+              <Icon icon={group.icon} className={styles.cardHeadingIcon} />
+              {group.title}
+            </h3>
             <ul className={styles.bulletList}>
               {group.points.map((point) => (
                 <li key={point}>{point}</li>
