@@ -1,3 +1,13 @@
+import {
+  AlertTriangle,
+  Ban,
+  Bug,
+  Layers,
+  Rocket,
+  Target,
+  TrendingUp,
+  Zap
+} from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
@@ -11,16 +21,6 @@ import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import TrackedLink from "./components/TrackedLink";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
-import {
-  ICON_ALERT_TRIANGLE,
-  ICON_BOLT,
-  ICON_BUG,
-  ICON_CIRCLE_SLASH,
-  ICON_LAYERS,
-  ICON_PAPER_PLANE,
-  ICON_TARGET,
-  ICON_TRENDING_UP
-} from "./lib/icons";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -42,7 +42,7 @@ const navigationItems: NavigationItem[] = [
 const stageProblems = [
   {
     title: "Early-stage",
-    iconPath: ICON_PAPER_PLANE,
+    icon: Rocket,
     points: [
       "MVP takes longer than expected",
       "Everything depends on a few key people",
@@ -53,7 +53,7 @@ const stageProblems = [
   },
   {
     title: "Growth-stage",
-    iconPath: ICON_TRENDING_UP,
+    icon: TrendingUp,
     points: [
       "Features take too long to ship",
       "Deadlines slip — even with planning",
@@ -65,7 +65,7 @@ const stageProblems = [
   },
   {
     title: "Scale",
-    iconPath: ICON_LAYERS,
+    icon: Layers,
     points: [
       "Too many processes, but no real visibility",
       "Coordination overhead slows everything down",
@@ -92,9 +92,9 @@ const solutionSteps = [
 ];
 
 const heroMetrics = [
-  { text: "2–3x faster delivery", iconPath: ICON_BOLT },
-  { text: "Up to 10x fewer bugs and downtime", iconPath: ICON_BUG },
-  { text: "Higher predictability", iconPath: ICON_TRENDING_UP }
+  { text: "2–3x faster delivery", icon: Zap },
+  { text: "Up to 10x fewer bugs and downtime", icon: Bug },
+  { text: "Higher predictability", icon: TrendingUp }
 ];
 
 const credibilityPoints = [
@@ -168,7 +168,7 @@ const expectationPoints = [
 const fitGroups = [
   {
     title: "Best fit",
-    iconPath: ICON_TARGET,
+    icon: Target,
     points: [
       "Product companies (B2B / SaaS / platforms) with 5–50 engineers",
       "Already shipping, but struggling with delivery speed, predictability, or engineering efficiency",
@@ -177,7 +177,7 @@ const fitGroups = [
   },
   {
     title: "Typical triggers",
-    iconPath: ICON_ALERT_TRIANGLE,
+    icon: AlertTriangle,
     points: [
       "Delivery is too slow",
       "Deadlines are unpredictable",
@@ -188,7 +188,7 @@ const fitGroups = [
   },
   {
     title: "Not a good fit",
-    iconPath: ICON_CIRCLE_SLASH,
+    icon: Ban,
     points: [
       "No product / no team",
       "Looking for staff augmentation or pure hands-on coding",
@@ -340,7 +340,7 @@ function HeroSection() {
           <ul className={styles.heroMetrics} aria-label="Key outcomes">
             {heroMetrics.map((metric) => (
               <li key={metric.text}>
-                <Icon path={metric.iconPath} className={styles.heroMetricIcon} />
+                <Icon icon={metric.icon} className={styles.heroMetricIcon} />
                 <span>{metric.text}</span>
               </li>
             ))}
@@ -374,7 +374,7 @@ function ProblemSection() {
         {stageProblems.map((stage) => (
           <article key={stage.title} className={styles.card}>
             <h3 className={styles.cardHeading}>
-              <Icon path={stage.iconPath} className={styles.cardHeadingIcon} />
+              <Icon icon={stage.icon} className={styles.cardHeadingIcon} />
               {stage.title}
             </h3>
             <ul className={styles.bulletList}>
@@ -523,7 +523,7 @@ function FitSection() {
         {fitGroups.map((group) => (
           <article key={group.title} className={styles.fitCard}>
             <h3 className={styles.cardHeading}>
-              <Icon path={group.iconPath} className={styles.cardHeadingIcon} />
+              <Icon icon={group.icon} className={styles.cardHeadingIcon} />
               {group.title}
             </h3>
             <ul className={styles.bulletList}>

@@ -1,3 +1,22 @@
+import {
+  Activity,
+  AlertTriangle,
+  BarChart3,
+  Building2,
+  Bug,
+  Calendar,
+  Clock,
+  Cog,
+  Compass,
+  GitBranch,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Workflow,
+  Wrench,
+  Zap
+} from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,25 +31,6 @@ import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import TrackedLink from "../components/TrackedLink";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
-import {
-  ICON_ALERT_TRIANGLE,
-  ICON_ARROWS_FLOW,
-  ICON_BAR_CHART,
-  ICON_BOLT,
-  ICON_BUG,
-  ICON_BUILDING,
-  ICON_BUSY_GEARS,
-  ICON_CALENDAR,
-  ICON_CLOCK,
-  ICON_DIAMOND_AXES,
-  ICON_LIGHTNING,
-  ICON_PIPELINE,
-  ICON_PULSE,
-  ICON_SEARCH,
-  ICON_SHIELD_CHECK,
-  ICON_SPARKLES,
-  ICON_TARGET
-} from "../lib/icons";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import styles from "./page.module.css";
@@ -52,76 +52,76 @@ const navigationItems: NavigationItem[] = [
 const painPoints = [
   {
     text: "New functionality in Yii2 ships slower and slower.",
-    iconPath: ICON_CLOCK
+    icon: Clock
   },
   {
     text: "Every release increases the risk of bugs, regressions, and manual firefighting.",
-    iconPath: ICON_ALERT_TRIANGLE
+    icon: AlertTriangle
   },
   {
     text: "Legacy code, manual checks, and chaotic process slow the business down more than it seems.",
-    iconPath: ICON_BUSY_GEARS
+    icon: Cog
   },
   {
     text: "The team stays busy, but product delivery speed still feels unacceptable.",
-    iconPath: ICON_PULSE
+    icon: Activity
   }
 ];
 
 const qualityLevers = [
   {
     text: "guardrails in code and process so predictable mistakes never reach production",
-    iconPath: ICON_SHIELD_CHECK
+    icon: ShieldCheck
   },
   {
     text: "CI/CD that checks critical scenarios before release instead of after an incident",
-    iconPath: ICON_PIPELINE
+    icon: GitBranch
   },
   {
     text: "monitoring and alerts that surface degradation before customers notice it",
-    iconPath: ICON_PULSE
+    icon: Activity
   },
   {
     text: "AI and focused automation for routine checks, regressions, and legacy support",
-    iconPath: ICON_SPARKLES
+    icon: Sparkles
   }
 ];
 
 const speedLevers = [
   {
     text: "I find where the real slowdown lives: queues, manual approvals, and hidden dependencies",
-    iconPath: ICON_SEARCH
+    icon: Search
   },
   {
     text: "I set up delivery metrics so the bottleneck becomes visible instead of debated",
-    iconPath: ICON_BAR_CHART
+    icon: BarChart3
   },
   {
     text: "I align people, process, and priorities around one delivery flow",
-    iconPath: ICON_ARROWS_FLOW
+    icon: Workflow
   },
   {
     text: "I introduce AI agents where they remove manual work and shorten the cycle",
-    iconPath: ICON_BOLT
+    icon: Zap
   }
 ];
 
 const whyMePoints = [
   {
     text: "15+ years in the industry.",
-    iconPath: ICON_CALENDAR
+    icon: Calendar
   },
   {
     text: "I have fixed delivery systems many times where speed and quality were working against each other.",
-    iconPath: ICON_LIGHTNING
+    icon: Wrench
   },
   {
     text: "I work both hands-on and system-level: architecture, process, metrics, and management.",
-    iconPath: ICON_DIAMOND_AXES
+    icon: Compass
   },
   {
     text: "Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation).",
-    iconPath: ICON_BUILDING
+    icon: Building2
   }
 ];
 
@@ -129,17 +129,17 @@ const credibilityMetrics = [
   {
     number: "10×",
     caption: "fewer bugs and production incidents",
-    iconPath: ICON_BUG
+    icon: Bug
   },
   {
     number: "5×",
     caption: "less downtime, more predictable releases",
-    iconPath: ICON_PULSE
+    icon: Activity
   },
   {
     number: "2–3×",
     caption: "faster delivery without extra hiring",
-    iconPath: ICON_BOLT
+    icon: Zap
   }
 ];
 
@@ -152,19 +152,19 @@ const heroSignals = [
 const workSteps = [
   {
     title: "1. Audit (1-2 weeks)",
-    iconPath: ICON_SEARCH,
+    icon: Search,
     points: ["Review the codebase and deployment health", "Find the real bottlenecks", "Assess release risk, quality, and coverage"],
     output: "a clear diagnosis and a prioritized action list"
   },
   {
     title: "2. Quality foundation",
-    iconPath: ICON_SHIELD_CHECK,
+    icon: ShieldCheck,
     points: ["Add CI/CD and guardrails", "Set up monitoring and alerts", "Reduce the probability of production incidents"],
     output: "stable, lower-risk releases"
   },
   {
     title: "3. Delivery acceleration",
-    iconPath: ICON_BOLT,
+    icon: Zap,
     points: ["Fix the team flow", "Introduce delivery metrics", "Apply AI where it creates real leverage"],
     output: "faster, more predictable delivery"
   }
@@ -350,21 +350,21 @@ function DeliveryTransformationVisual() {
       <div className={styles.visualFooter}>
         <div className={styles.visualStat} data-state="before">
           <span className={styles.visualStatHeader}>
-            <Icon path={ICON_ALERT_TRIANGLE} className={styles.visualStatIcon} />
+            <Icon icon={AlertTriangle} className={styles.visualStatIcon} />
             <span className={styles.visualStatValue}>before</span>
           </span>
           <span className={styles.visualStatLabel}>risky releases and reactive work</span>
         </div>
         <div className={styles.visualStat} data-state="after">
           <span className={styles.visualStatHeader}>
-            <Icon path={ICON_SHIELD_CHECK} className={styles.visualStatIcon} />
+            <Icon icon={ShieldCheck} className={styles.visualStatIcon} />
             <span className={styles.visualStatValue}>after</span>
           </span>
           <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
         </div>
         <div className={styles.visualStat} data-state="goal">
           <span className={styles.visualStatHeader}>
-            <Icon path={ICON_TARGET} className={styles.visualStatIcon} />
+            <Icon icon={Target} className={styles.visualStatIcon} />
             <span className={styles.visualStatValue}>goal</span>
           </span>
           <span className={styles.visualStatLabel}>faster shipping without chaos</span>
@@ -428,7 +428,7 @@ function HeroMetricList() {
       {credibilityMetrics.map((item) => (
         <li key={item.caption}>
           <span className={styles.metricHeader}>
-            <Icon path={item.iconPath} className={styles.metricIcon} />
+            <Icon icon={item.icon} className={styles.metricIcon} />
             <span className={styles.metricNumber}>{item.number}</span>
           </span>
           <span className={styles.metricCaption}>{item.caption}</span>
@@ -493,7 +493,7 @@ function ProblemSection() {
       <ul className={styles.iconList} data-tone="warm">
         {painPoints.map((item) => (
           <li key={item.text}>
-            <Icon path={item.iconPath} className={styles.cardIcon} />
+            <Icon icon={item.icon} className={styles.cardIcon} />
             <span>{item.text}</span>
           </li>
         ))}
@@ -513,7 +513,7 @@ function QualitySection() {
       <div className={`${styles.cardGrid} ${styles.cardGridQuality}`}>
         {qualityLevers.map((item) => (
           <article key={item.text} className={styles.card}>
-            <Icon path={item.iconPath} className={styles.cardIcon} />
+            <Icon icon={item.icon} className={styles.cardIcon} />
             <p>{item.text}</p>
           </article>
         ))}
@@ -532,7 +532,7 @@ function SpeedSection() {
       <div className={`${styles.cardGrid} ${styles.cardGridSpeed}`}>
         {speedLevers.map((item) => (
           <article key={item.text} className={styles.card}>
-            <Icon path={item.iconPath} className={styles.cardIcon} />
+            <Icon icon={item.icon} className={styles.cardIcon} />
             <p>{item.text}</p>
           </article>
         ))}
@@ -557,7 +557,7 @@ function WhyMeSection() {
           <ul className={styles.iconList}>
             {whyMePoints.map((item) => (
               <li key={item.text}>
-                <Icon path={item.iconPath} className={styles.cardIcon} />
+                <Icon icon={item.icon} className={styles.cardIcon} />
                 <span>{item.text}</span>
               </li>
             ))}
@@ -580,7 +580,7 @@ function ProcessSection() {
         {workSteps.map((step) => (
           <article key={step.title} className={styles.card}>
             <div className={styles.cardHeader}>
-              <Icon path={step.iconPath} className={styles.cardIcon} />
+              <Icon icon={step.icon} className={styles.cardIcon} />
               <h3>{step.title}</h3>
             </div>
             <ul className={styles.problemList}>
