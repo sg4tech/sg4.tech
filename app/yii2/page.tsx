@@ -3,9 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
-import TrackedLink from "../components/TrackedLink";
+import { Eyebrow } from "../components/Eyebrow";
 import { FooterSection } from "../components/FooterSection";
+import { Page } from "../components/Page";
+import { Section } from "../components/Section";
+import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
+import TrackedLink from "../components/TrackedLink";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
@@ -439,7 +443,7 @@ function HeroSection() {
         <span aria-hidden="true" className={styles.backLinkArrow}>←</span>
         Back to main consulting
       </Link>
-      <p className={styles.eyebrow}>Yii2 delivery consulting</p>
+      <Eyebrow>Yii2 delivery consulting</Eyebrow>
       <div className={styles.heroPanel}>
         <div className={styles.heroLayout}>
           <div className={styles.heroMain}>
@@ -482,7 +486,7 @@ function HeroSection() {
 
 function ProblemSection() {
   return (
-    <section id="problem" className={styles.section}>
+    <Section id="problem">
       <h2>When a Yii2 project has been around for years, the problem is almost never just the code.</h2>
       <ul className={styles.iconList} data-tone="warm">
         {painPoints.map((item) => (
@@ -493,7 +497,7 @@ function ProblemSection() {
         ))}
       </ul>
       <p className={styles.callout}>If development has become the bottleneck, the code is not the only thing that is broken. The delivery system is breaking too.</p>
-    </section>
+    </Section>
   );
 }
 
@@ -517,9 +521,11 @@ function CardIcon({ path }: { path: string }) {
 
 function QualitySection() {
   return (
-    <section id="quality" className={styles.section}>
-      <h2>First we fix quality: uptime, bugs, and release predictability.</h2>
-      <p className={styles.sectionIntro}>With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem.</p>
+    <Section id="quality">
+      <SectionHeader
+        title="First we fix quality: uptime, bugs, and release predictability."
+        intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
+      />
       <div className={`${styles.cardGrid} ${styles.cardGridQuality}`}>
         {qualityLevers.map((item) => (
           <article key={item.text} className={styles.card}>
@@ -528,17 +534,17 @@ function QualitySection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function SpeedSection() {
   return (
-    <section id="speed" className={styles.section}>
-      <h2>Then we fix speed. Speed is not solved by code alone.</h2>
-      <p className={styles.sectionIntro}>
-        Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting.
-      </p>
+    <Section id="speed">
+      <SectionHeader
+        title="Then we fix speed. Speed is not solved by code alone."
+        intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
+      />
       <div className={`${styles.cardGrid} ${styles.cardGridSpeed}`}>
         {speedLevers.map((item) => (
           <article key={item.text} className={styles.card}>
@@ -547,17 +553,17 @@ function SpeedSection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function WhyMeSection() {
   return (
-    <section id="why-me" className={styles.section}>
-      <h2>Why me</h2>
-      <p className={styles.sectionIntro}>
-        Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on.
-      </p>
+    <Section id="why-me">
+      <SectionHeader
+        title="Why me"
+        intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
+      />
       <div className={`${styles.whyGrid} ${styles.whySurface}`}>
         <div className={styles.profileCard}>
           <p className={styles.profileName}>Victor Demin</p>
@@ -574,17 +580,17 @@ function WhyMeSection() {
           </ul>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 
 function ProcessSection() {
   return (
-    <section id="process" className={styles.section}>
-      <h2>How I work</h2>
-      <p className={styles.sectionIntro}>
-        No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow.
-      </p>
+    <Section id="process">
+      <SectionHeader
+        title="How I work"
+        intro="No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow."
+      />
       <ProcessVisual />
       <div className={styles.processGrid}>
         {workSteps.map((step) => (
@@ -611,14 +617,14 @@ function ProcessSection() {
           <li>The pace depends on team size and the depth of accumulated debt</li>
         </ul>
       </div>
-    </section>
+    </Section>
   );
 }
 
 function FaqSection() {
   return (
-    <section id="faq" className={styles.section} aria-labelledby="faq-title">
-      <h2 id="faq-title">FAQ</h2>
+    <Section id="faq" aria-labelledby="faq-title">
+      <SectionHeader title="FAQ" id="faq-title" />
       <div className={styles.faqList}>
         {faqItems.map((item) => (
           <article key={item.question} className={styles.faqItem}>
@@ -627,17 +633,17 @@ function FaqSection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function ProofSection() {
   return (
-    <section id="proof" className={styles.section}>
-      <h2>Proof and public material</h2>
-      <p className={styles.sectionIntro}>
-        Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering.
-      </p>
+    <Section id="proof">
+      <SectionHeader
+        title="Proof and public material"
+        intro="Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering."
+      />
       <div className={styles.proofGrid}>
         {[...talkLinks, ...writingLinks].map((link) => (
           <a key={link.label} href={link.href} className={styles.linkCard} target="_blank" rel="noreferrer">
@@ -649,7 +655,7 @@ function ProofSection() {
           </a>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
@@ -678,7 +684,7 @@ function FinalCtaSection() {
 
 export default function Yii2Page() {
   return (
-    <main id="main" className={styles.page}>
+    <Page>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -694,6 +700,6 @@ export default function Yii2Page() {
       <ProofSection />
       <FinalCtaSection />
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
-    </main>
+    </Page>
   );
 }

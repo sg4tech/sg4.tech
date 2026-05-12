@@ -1,11 +1,4 @@
-.page {
-  width: min(100% - 2rem, var(--page-width));
-  margin: 0 auto;
-  padding: 1rem 0 4rem;
-}
-
 .hero,
-.section,
 .finalCta {
   scroll-margin-top: var(--scroll-offset);
   padding: var(--section-pad-y) 0;
@@ -15,6 +8,24 @@
 .hero {
   padding-top: 2.4rem;
   border-top: 0;
+}
+
+.hero h1 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.finalCta h2 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.035em;
+  text-wrap: pretty;
 }
 
 .backLink {
@@ -52,15 +63,6 @@
   background:
     radial-gradient(circle at top left, rgba(17, 17, 17, 0.06), transparent 32%),
     linear-gradient(180deg, var(--viz-warm-bg) 0%, var(--surface) 58%);
-}
-
-.eyebrow {
-  margin: 0 0 var(--space-2);
-  color: var(--muted);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 .heroLayout {
@@ -259,20 +261,6 @@
   gap: 1.15rem;
 }
 
-.hero h1,
-.section h2,
-.finalCta h2 {
-  margin: 0;
-  color: var(--text-strong);
-  letter-spacing: -0.035em;
-}
-
-.hero h1 {
-  font-size: var(--text-h1);
-  line-height: var(--leading-tight);
-  text-wrap: balance;
-}
-
 .heroAction {
   margin: 0.6rem 0 0;
   color: var(--text-strong);
@@ -362,7 +350,6 @@
   opacity: 0.92;
 }
 
-.sectionIntro,
 .finalText,
 .card p,
 .callout,
@@ -373,7 +360,6 @@
   line-height: var(--leading-loose);
 }
 
-.sectionIntro,
 .finalText,
 .callout {
   max-width: 65ch;
@@ -480,18 +466,6 @@
 .secondaryButton:hover,
 .secondaryButton:focus-visible {
   background: var(--surface-alt);
-}
-
-.section h2,
-.finalCta h2 {
-  max-width: 32ch;
-  font-size: var(--text-h2);
-  line-height: var(--leading-tight);
-  text-wrap: pretty;
-}
-
-.sectionIntro {
-  max-width: 46rem;
 }
 
 .problemList {
@@ -865,13 +839,7 @@
 }
 
 @media (max-width: 640px) {
-  .page {
-    width: min(100% - 1.25rem, var(--page-width));
-    padding-bottom: var(--space-6);
-  }
-
   .hero,
-  .section,
   .finalCta {
     padding: var(--space-3) 0;
   }
@@ -937,10 +905,6 @@
 }
 
 @media (min-width: 1100px) {
-  .page {
-    width: min(100% - 3rem, var(--page-width-wide));
-  }
-
   .heroLayout {
     grid-template-columns: minmax(0, 1.06fr) minmax(20rem, 0.94fr);
     align-items: start;
