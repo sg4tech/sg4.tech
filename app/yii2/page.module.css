@@ -155,6 +155,7 @@
   fill: var(--viz-text);
   font-size: var(--text-md);
   font-weight: 700;
+  dominant-baseline: middle;
 }
 
 .visualTextOutcome {
