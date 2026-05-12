@@ -2,6 +2,9 @@
   /* ============ Layout ============ */
   --max-width: 1120px;
   --scroll-offset: 5.5rem;
+  --page-width: 70rem;
+  --page-width-wide: 74rem;
+  --section-pad-y: var(--space-4);
 
   /* ============ Colors — surfaces & text ============ */
   --background: #fff;
@@ -42,11 +45,9 @@
   --text-2xl: 1.5rem;
 
   --text-h3: clamp(1.4rem, 2.5vw, 1.8rem);
-  --text-h2: clamp(1.7rem, 5vw, 2.6rem);
-  --text-h1: clamp(2.5rem, 8vw, 4.8rem);
+  --text-h2: clamp(1.75rem, 4vw, 2.5rem);
+  --text-h1: clamp(2rem, 5.5vw, 3rem);
 
-  --text-h1-yii2: clamp(1.85rem, 6vw, 3rem);
-  --text-h2-yii2: clamp(1.8rem, 5vw, 3rem);
   --text-hero-action: clamp(1.3rem, 3.4vw, 2rem);
   --text-hero-metric: clamp(1.7rem, 3.6vw, 2.4rem);
 
