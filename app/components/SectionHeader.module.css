@@ -3,7 +3,6 @@
 }
 
 .intro {
-  max-width: 46rem;
   margin: var(--space-2) 0 0;
   color: var(--muted);
   line-height: var(--leading-loose);

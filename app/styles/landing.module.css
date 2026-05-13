@@ -571,9 +571,6 @@
   line-height: var(--leading-loose);
 }
 
-.finalText {
-  max-width: 65ch;
-}
 
 .output,
 .processNote {
@@ -583,9 +580,6 @@
   line-height: var(--leading-loose);
 }
 
-.processNote {
-  max-width: 65ch;
-}
 
 /* ─── FinalCta overrides ───────────────────────────────────────────────────── */
 
