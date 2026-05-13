@@ -45,7 +45,6 @@ const heroCtaHref = "https://t.me/sg4tech?start=site_ai_vibecoding_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_ai_vibecoding_final";
 
 const navigationItems: NavigationItem[] = [
-  { href: "#problem", label: "Problem", mobileNav: "primary" },
   { href: "#guardrails", label: "The system", mobileNav: "primary" },
   { href: "#process", label: "How I work", mobileNav: "primary" },
   { href: "#why-me", label: "Why me", mobileNav: "secondary" },
@@ -94,7 +93,8 @@ const painPoints = [
 
 const workSteps = [
   {
-    title: "1. Diagnose (1-2 weeks)",
+    title: "Diagnose",
+    duration: "1–2 weeks",
     icon: Search,
     points: [
       "Audit codebase, dev workflow, and AI usage patterns",
@@ -104,7 +104,8 @@ const workSteps = [
     output: "A clear diagnosis and a prioritized fix plan"
   },
   {
-    title: "2. Safety net",
+    title: "Safety net",
+    duration: "Weeks to ~2 months",
     icon: ShieldCheck,
     points: [
       "Set up dev fundamentals: git, CI/CD, monitoring, logs",
@@ -114,7 +115,8 @@ const workSteps = [
     output: "Production-safe codebase, critical bugs fixed, AI works inside guardrails"
   },
   {
-    title: "3. Scale",
+    title: "Scale",
+    duration: "Ongoing — months",
     icon: TrendingUp,
     points: [
       "Define target architecture and refactor toward it safely",
@@ -264,17 +266,13 @@ function AiWithSystemPanel() {
       <div className={styles.flowList}>
         <FlowStep icon={Sparkles} title="AI generates code" />
         <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={ShieldCheck} title="Guardrails" desc="Rules, context, and self-checks keep AI on track" />
+        <FlowStep icon={ShieldCheck} title="Guardrails" />
         <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Code2} title="Tests" desc="Automated tests catch issues before they spread" />
+        <FlowStep icon={Code2} title="Tests" />
         <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={GitBranch} title="CI/CD" desc="Gates prevent bad releases from reaching production" />
+        <FlowStep icon={GitBranch} title="CI/CD" />
         <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Activity} title="Monitoring" desc="Real-time visibility before users are affected" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Layers} title="Architecture rules" desc="Boundaries and contracts keep the system maintainable" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={CheckCircle2} title="Safe, predictable production releases" variant="outcome" />
+        <FlowStep icon={CheckCircle2} title="Safe releases" variant="outcome" />
       </div>
       <p className={styles.flowFooter}>✓ Predictable. Scalable. Sustainable.</p>
     </div>
@@ -344,29 +342,6 @@ function SystemLayersVisual() {
   );
 }
 
-function ProcessVisual() {
-  return (
-    <div className={landing.processVisual} aria-hidden="true">
-      <div className={landing.processVisualStep}>
-        <span className={landing.processVisualIndex}>01</span>
-        <p className={landing.processVisualTitle}>Diagnose</p>
-        <p className={landing.processVisualText}>Find what&apos;s actually breaking.</p>
-      </div>
-      <div className={landing.processVisualArrow} />
-      <div className={landing.processVisualStep}>
-        <span className={landing.processVisualIndex}>02</span>
-        <p className={landing.processVisualTitle}>Safety net</p>
-        <p className={landing.processVisualText}>Build the layers AI doesn&apos;t ship.</p>
-      </div>
-      <div className={landing.processVisualArrow} />
-      <div className={landing.processVisualStep}>
-        <span className={landing.processVisualIndex}>03</span>
-        <p className={landing.processVisualTitle}>Scale</p>
-        <p className={landing.processVisualText}>Refactor architecture; hire only when needed.</p>
-      </div>
-    </div>
-  );
-}
 
 function HeroSignalsBar() {
   return (
@@ -439,9 +414,6 @@ function HeroSection() {
             <p className={landing.heroPromise}>
               I find what&apos;s missing, build it, and leave you with a codebase that ships without me.
             </p>
-            <p className={styles.outcomeCloser}>
-              So you can ship without fear of breaking what works.
-            </p>
             <HeroSignalsBar />
             <HeroMetricList />
             <div className={landing.actions}>
@@ -505,6 +477,7 @@ function WhyMeSection() {
       <SectionHeader
         title="Why me"
         intro="I don't replace your AI. I build the system around it. Same pattern as the startup-mode codebases I've cleaned up for years — different generator, same fix."
+        introClassName={styles.introWide}
       />
       <div className={`${landing.whyGrid} ${landing.whySurface}`}>
         <div className={landing.profileCard}>
@@ -543,8 +516,14 @@ function ProcessSection() {
         title="How I work"
         intro="No pre-decided fixes. First we see what's actually broken. Then we make changes safe to ship. Then we make the system one that scales."
       />
-      <ProcessVisual />
-      <div className={landing.processGrid}>
+      <div className={styles.processWrapper}>
+        {workSteps.map((step, i) => (
+          <div key={`h-${step.title}`} className={landing.processVisualStep}>
+            <span className={landing.processVisualIndex}>{String(i + 1).padStart(2, "0")}</span>
+            <p className={landing.processVisualTitle}>{step.title}</p>
+            <p className={landing.processVisualText}>{step.duration}</p>
+          </div>
+        ))}
         {workSteps.map((step) => (
           <article key={step.title} className={landing.card}>
             <div className={landing.cardHeader}>

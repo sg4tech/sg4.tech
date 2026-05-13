@@ -273,7 +273,6 @@
 /* ─── Callout ──────────────────────────────────────────────────────────────── */
 
 .callout {
-  max-width: 48rem;
   padding: var(--space-2) 1.1rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -395,6 +394,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.9);
+  text-align: center;
 }
 
 .processVisualIndex {
@@ -560,8 +560,7 @@
   line-height: var(--leading-loose);
 }
 
-.finalText,
-.callout {
+.finalText {
   max-width: 65ch;
 }
 

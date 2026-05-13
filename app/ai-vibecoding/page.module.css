@@ -313,17 +313,21 @@
   flex: 0 0 auto;
 }
 
-/* ─── Hero: outcome closer ───────────────────────────────────────────────── */
+/* ─── Process section: unified phase + card grid ─────────────────────────── */
 
-.outcomeCloser {
-  max-width: 29rem;
-  margin: 0.85rem 0 0;
-  padding-left: 0.9rem;
-  border-left: 2px solid var(--viz-cool);
-  color: var(--text-strong);
-  font-size: var(--text-lg);
-  font-style: italic;
-  line-height: var(--leading-relaxed);
+.processWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--space-2);
+  row-gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+
+/* ─── Section intro overrides ───────────────────────────────────────────── */
+
+.introWide {
+  max-width: none;
 }
 
 /* ─── Who not for ────────────────────────────────────────────────────────── */
@@ -347,6 +351,21 @@
 }
 
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .processWrapper {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* header[i] before card[i]: h0→1, h1→3, h2→5; c0→2, c1→4, c2→6 */
+  .processWrapper > *:nth-child(1) { order: 1; }
+  .processWrapper > *:nth-child(2) { order: 3; }
+  .processWrapper > *:nth-child(3) { order: 5; }
+  .processWrapper > *:nth-child(4) { order: 2; }
+  .processWrapper > *:nth-child(5) { order: 4; }
+  .processWrapper > *:nth-child(6) { order: 6; }
+}
 
 @media (max-width: 640px) {
   .transformFrame {
