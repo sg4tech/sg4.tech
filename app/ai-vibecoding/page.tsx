@@ -91,33 +91,6 @@ const painPoints = [
   }
 ];
 
-const guardrailCards = [
-  {
-    title: "AI-workflow guardrails",
-    text: "The rails AI was missing. Agent rule sets, context discipline, and self-check gates so AI doesn't undo last week's fix while making today's feature.",
-    icon: Sparkles
-  },
-  {
-    title: "Code-level guardrails",
-    text: "Linters, type checks, static analysis, security scans. The basics most vibecoded MVPs skip — and the reason fix-one-break-ten keeps happening.",
-    icon: Code2
-  },
-  {
-    title: "Test guardrails",
-    text: "Automated tests that don't trust the next generation. Unit, integration, and regression coverage — so adding one feature doesn't quietly break three.",
-    icon: ShieldCheck
-  },
-  {
-    title: "Pipeline guardrails",
-    text: "CI/CD gates that block bad releases. Monitoring that catches problems before customers — and before 3 AM.",
-    icon: GitBranch
-  },
-  {
-    title: "Architecture rules",
-    text: "Architecture that holds itself together. Boundaries, dependencies, contracts — encoded so AI agents work within them, not around them.",
-    icon: Layers
-  }
-];
 
 const workSteps = [
   {
@@ -321,11 +294,26 @@ function AiSystemTransformationVisual() {
 }
 
 const systemLayersStack = [
-  { icon: Layers,      label: "Architecture rules",      tag: "The system holds itself together" },
-  { icon: GitBranch,   label: "Pipeline guardrails",     tag: "Keep bad code out. Detect issues early" },
-  { icon: ShieldCheck, label: "Test guardrails",         tag: "Prove it works. Every time" },
-  { icon: Code2,       label: "Code-level guardrails",   tag: "Catch issues before they become bugs" },
-  { icon: Sparkles,    label: "AI-workflow guardrails",  tag: "Guide AI to work the right way, every time" },
+  {
+    icon: Layers, label: "Architecture rules",
+    text: "Architecture that holds itself together. Boundaries, dependencies, contracts — encoded so AI agents work within them, not around them."
+  },
+  {
+    icon: GitBranch, label: "Pipeline guardrails",
+    text: "CI/CD gates that block bad releases. Monitoring that catches problems before customers — and before 3 AM."
+  },
+  {
+    icon: ShieldCheck, label: "Test guardrails",
+    text: "Automated tests that don't trust the next generation. Unit, integration, and regression coverage — so adding one feature doesn't quietly break three."
+  },
+  {
+    icon: Code2, label: "Code-level guardrails",
+    text: "Linters, type checks, static analysis, security scans. The basics most vibecoded MVPs skip — and the reason fix-one-break-ten keeps happening."
+  },
+  {
+    icon: Sparkles, label: "AI-workflow guardrails",
+    text: "The rails AI was missing. Agent rule sets, context discipline, and self-check gates so AI doesn't undo last week's fix while making today's feature."
+  },
 ];
 
 function SystemLayersVisual() {
@@ -342,7 +330,7 @@ function SystemLayersVisual() {
             <span className={styles.layerRowIcon}><Icon icon={layer.icon} /></span>
             <div>
               <p className={styles.layerRowTitle}>{layer.label}</p>
-              <p className={styles.layerRowTag}>{layer.tag}</p>
+              <p className={styles.layerRowTag}>{layer.text}</p>
             </div>
           </div>
         </div>
@@ -507,17 +495,6 @@ function GuardrailsSection() {
         intro="Five separate layers, each enforces something AI doesn't. Together they're the system that keeps your codebase shipping."
       />
       <SystemLayersVisual />
-      <div className={`${landing.cardGrid} ${landing.cardGridQuality}`}>
-        {guardrailCards.map((card) => (
-          <article key={card.title} className={landing.card}>
-            <div className={landing.cardHeader}>
-              <Icon icon={card.icon} className={landing.cardIcon} />
-              <h3>{card.title}</h3>
-            </div>
-            <p>{card.text}</p>
-          </article>
-        ))}
-      </div>
     </Section>
   );
 }
