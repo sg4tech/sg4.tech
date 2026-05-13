@@ -211,6 +211,11 @@ const specializationLinks = [
     href: "/yii2",
     title: "Running a Yii2 project?",
     description: "There is a dedicated landing page for Yii2 delivery consulting: quality, release predictability, speed, and modernization without defaulting to a rewrite."
+  },
+  {
+    href: "/ai-vibecoding",
+    title: "Vibecoded MVP slowing you down?",
+    description: "Dedicated landing page for cleaning up AI-built MVPs without rewriting from scratch — I build the delivery system AI never shipped with the code."
   }
 ];
 
