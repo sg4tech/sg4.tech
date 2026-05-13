@@ -5,12 +5,12 @@ import { describe, expect, it } from "vitest";
 describe("responsive layout guardrails", () => {
   it("keeps the dedicated mobile navigation and CTA rules", () => {
     const pagePath = join(process.cwd(), "app", "page.tsx");
-    const pageCssPath = join(process.cwd(), "app", "page.module.css");
+    const buttonCssPath = join(process.cwd(), "app", "components", "Button.module.css");
     const navTsxPath = join(process.cwd(), "app", "components", "TopNavigation.tsx");
     const navCssPath = join(process.cwd(), "app", "components", "TopNavigation.module.css");
 
     const pageContent = readFileSync(pagePath, "utf8");
-    const pageCss = readFileSync(pageCssPath, "utf8");
+    const pageCss = readFileSync(buttonCssPath, "utf8");
     const navTsx = readFileSync(navTsxPath, "utf8");
     const navCss = readFileSync(navCssPath, "utf8");
 
@@ -35,8 +35,8 @@ describe("responsive layout guardrails", () => {
     expect(navMobileSection).toContain("overflow-x: auto;");
     expect(navMobileSection).toContain("white-space: nowrap;");
 
-    // Page-level CTA collapse rules still live on the page module.
-    expect(pageMobileSection).toContain(".primaryButton {\n    width: 100%;");
-    expect(pageMobileSection).toContain(".secondaryButton {\n    width: auto;");
+    // Button component collapse rules live in Button.module.css.
+    expect(pageMobileSection).toContain(".primary {\n    width: 100%;");
+    expect(pageMobileSection).toContain(".secondary {\n    width: auto;");
   });
 });

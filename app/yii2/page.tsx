@@ -33,7 +33,7 @@ import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
-import TrackedLink from "../components/TrackedLink";
+import { Button } from "../components/Button";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
@@ -491,19 +491,18 @@ function HeroSection() {
               I find it, fix it, and leave you with a system that runs without me.
             </p>
             <div className={styles.actions}>
-              <TrackedLink
+              <Button
                 href={heroCtaHref}
-                className={styles.primaryButton}
                 target="_blank"
                 rel="noreferrer"
                 eventName="cta_click"
                 payload={{ location: "yii2_hero" }}
               >
                 DM me your situation
-              </TrackedLink>
-              <Link href="#quality" className={styles.secondaryButton}>
+              </Button>
+              <Button variant="secondary" href="#quality">
                 How it works
-              </Link>
+              </Button>
             </div>
           </div>
           <div className={styles.heroAside}>
@@ -666,16 +665,15 @@ function FinalCtaSection() {
         Share what&apos;s hurting most — and what you want instead. I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
       </p>
       <div className={styles.actions}>
-        <TrackedLink
+        <Button
           href={finalCtaHref}
-          className={styles.primaryButton}
           target="_blank"
           rel="noreferrer"
           eventName="cta_click"
           payload={{ location: "yii2_final" }}
         >
           Tell me where it hurts
-        </TrackedLink>
+        </Button>
       </div>
     </section>
   );

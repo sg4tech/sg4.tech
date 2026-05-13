@@ -20,7 +20,7 @@ import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
-import TrackedLink from "./components/TrackedLink";
+import { Button } from "./components/Button";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
@@ -347,19 +347,18 @@ function HeroSection() {
             ))}
           </ul>
           <div className={styles.heroActions}>
-            <TrackedLink
+            <Button
               href={heroCtaHref}
-              className={styles.primaryButton}
               target="_blank"
               rel="noreferrer"
               eventName="cta_click"
               payload={{ location: "hero" }}
             >
               Book a diagnostic call
-            </TrackedLink>
-            <Link href={secondaryCtaHref} className={styles.secondaryButton}>
+            </Button>
+            <Button variant="secondary" href={secondaryCtaHref}>
               See how I work
-            </Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -600,19 +599,18 @@ function FinalCtaSection() {
       <h2>Describe your situation — I'll tell you where your system breaks.</h2>
       <p>Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.</p>
       <div className={styles.finalActions}>
-        <TrackedLink
+        <Button
           href={finalCtaHref}
-          className={styles.primaryButton}
           target="_blank"
           rel="noreferrer"
           eventName="cta_click"
           payload={{ location: "final" }}
         >
           Get a delivery diagnosis
-        </TrackedLink>
-        <Link href={secondaryCtaHref} className={styles.secondaryButton}>
+        </Button>
+        <Button variant="secondary" href={secondaryCtaHref}>
           See how I work
-        </Link>
+        </Button>
       </div>
     </section>
   );
