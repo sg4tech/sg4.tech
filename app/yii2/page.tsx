@@ -37,6 +37,7 @@ import { Button } from "../components/Button";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
+import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
 
 const heroCtaHref = "https://t.me/sg4tech?start=site_yii2_hero";
@@ -410,23 +411,23 @@ function TransformationSection() {
 
 function ProcessVisual() {
   return (
-    <div className={styles.processVisual} aria-hidden="true">
-      <div className={styles.processVisualStep}>
-        <span className={styles.processVisualIndex}>01</span>
-        <p className={styles.processVisualTitle}>Audit</p>
-        <p className={styles.processVisualText}>Find what is actually slowing delivery down.</p>
+    <div className={landing.processVisual} aria-hidden="true">
+      <div className={landing.processVisualStep}>
+        <span className={landing.processVisualIndex}>01</span>
+        <p className={landing.processVisualTitle}>Audit</p>
+        <p className={landing.processVisualText}>Find what is actually slowing delivery down.</p>
       </div>
-      <div className={styles.processVisualArrow} />
-      <div className={styles.processVisualStep}>
-        <span className={styles.processVisualIndex}>02</span>
-        <p className={styles.processVisualTitle}>Guardrails</p>
-        <p className={styles.processVisualText}>Reduce risk before the next release goes out.</p>
+      <div className={landing.processVisualArrow} />
+      <div className={landing.processVisualStep}>
+        <span className={landing.processVisualIndex}>02</span>
+        <p className={landing.processVisualTitle}>Guardrails</p>
+        <p className={landing.processVisualText}>Reduce risk before the next release goes out.</p>
       </div>
-      <div className={styles.processVisualArrow} />
-      <div className={styles.processVisualStep}>
-        <span className={styles.processVisualIndex}>03</span>
-        <p className={styles.processVisualTitle}>Acceleration</p>
-        <p className={styles.processVisualText}>Shorten the path from request to production.</p>
+      <div className={landing.processVisualArrow} />
+      <div className={landing.processVisualStep}>
+        <span className={landing.processVisualIndex}>03</span>
+        <p className={landing.processVisualTitle}>Acceleration</p>
+        <p className={landing.processVisualText}>Shorten the path from request to production.</p>
       </div>
     </div>
   );
@@ -434,21 +435,21 @@ function ProcessVisual() {
 
 function HeroSignalsBar() {
   return (
-    <div className={styles.heroSignals} aria-label="Selected credibility signals">
+    <div className={landing.heroSignals} aria-label="Selected credibility signals">
       {heroSignals.map((item) => (
-        <span key={item.label} className={styles.heroSignal}>
+        <span key={item.label} className={landing.heroSignal}>
           {item.logo && (
             <Image
               src={item.logo}
               alt={item.label}
               width={item.logoWidth}
               height={item.logoHeight}
-              className={item.labelAfterLogo ? styles.heroSignalIcon : styles.heroSignalLogo}
+              className={item.labelAfterLogo ? landing.heroSignalIcon : landing.heroSignalLogo}
               unoptimized
             />
           )}
           {(!item.logo || item.labelAfterLogo) && (
-            <span className={styles.heroSignalLabel}>{item.label}</span>
+            <span className={landing.heroSignalLabel}>{item.label}</span>
           )}
         </span>
       ))}
@@ -458,14 +459,14 @@ function HeroSignalsBar() {
 
 function HeroMetricList() {
   return (
-    <ul className={styles.metricList} aria-label="Key outcomes">
+    <ul className={landing.metricList} aria-label="Key outcomes">
       {credibilityMetrics.map((item) => (
         <li key={item.caption}>
-          <span className={styles.metricHeader}>
-            <Icon icon={item.icon} className={styles.metricIcon} />
-            <span className={styles.metricNumber}>{item.number}</span>
+          <span className={landing.metricHeader}>
+            <Icon icon={item.icon} className={landing.metricIcon} />
+            <span className={landing.metricNumber}>{item.number}</span>
           </span>
-          <span className={styles.metricCaption}>{item.caption}</span>
+          <span className={landing.metricCaption}>{item.caption}</span>
         </li>
       ))}
     </ul>
@@ -474,23 +475,23 @@ function HeroMetricList() {
 
 function HeroSection() {
   return (
-    <section className={styles.hero}>
-      <Link href="/" className={styles.backLink}>
-        <span aria-hidden="true" className={styles.backLinkArrow}>←</span>
+    <section className={landing.hero}>
+      <Link href="/" className={landing.backLink}>
+        <span aria-hidden="true" className={landing.backLinkArrow}>←</span>
         Back to main consulting
       </Link>
-      <div className={styles.heroPanel}>
-        <div className={styles.heroLayout}>
-          <div className={styles.heroMain}>
+      <div className={landing.heroPanel}>
+        <div className={landing.heroLayout}>
+          <div className={landing.heroMain}>
             <h1>Your Yii2 project is slowing your business.</h1>
-            <p className={styles.heroAction}>I find what&apos;s actually broken — and fix it.</p>
-            <p className={styles.heroStatement}>
+            <p className={landing.heroAction}>I find what&apos;s actually broken — and fix it.</p>
+            <p className={landing.heroStatement}>
               What&apos;s slowing you down is rarely the codebase — it&apos;s the delivery system around it.
             </p>
-            <p className={styles.heroPromise}>
+            <p className={landing.heroPromise}>
               I find it, fix it, and leave you with a system that runs without me.
             </p>
-            <div className={styles.actions}>
+            <div className={landing.actions}>
               <Button
                 href={heroCtaHref}
                 target="_blank"
@@ -505,7 +506,7 @@ function HeroSection() {
               </Button>
             </div>
           </div>
-          <div className={styles.heroAside}>
+          <div className={landing.heroAside}>
             <HeroSignalsBar />
             <HeroMetricList />
           </div>
@@ -519,15 +520,15 @@ function ProblemSection() {
   return (
     <Section id="problem">
       <h2>When a Yii2 project has been around for years, the problem is almost never just the code.</h2>
-      <ul className={styles.iconList} data-tone="warm">
+      <ul className={landing.iconList} data-tone="warm">
         {painPoints.map((item) => (
           <li key={item.text}>
-            <Icon icon={item.icon} className={styles.cardIcon} />
+            <Icon icon={item.icon} className={landing.cardIcon} />
             <span>{item.text}</span>
           </li>
         ))}
       </ul>
-      <p className={styles.callout}>If development has become the bottleneck, the code is not the only thing that is broken. The delivery system is breaking too.</p>
+      <p className={landing.callout}>If development has become the bottleneck, the code is not the only thing that is broken. The delivery system is breaking too.</p>
     </Section>
   );
 }
@@ -539,10 +540,10 @@ function QualitySection() {
         title="First we fix quality: uptime, bugs, and release predictability."
         intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
       />
-      <div className={`${styles.cardGrid} ${styles.cardGridQuality}`}>
+      <div className={`${landing.cardGrid} ${landing.cardGridQuality}`}>
         {qualityLevers.map((item) => (
-          <article key={item.text} className={styles.card}>
-            <Icon icon={item.icon} className={styles.cardIcon} />
+          <article key={item.text} className={landing.card}>
+            <Icon icon={item.icon} className={landing.cardIcon} />
             <p>{item.text}</p>
           </article>
         ))}
@@ -558,10 +559,10 @@ function SpeedSection() {
         title="Then we fix speed. Speed is not solved by code alone."
         intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
       />
-      <div className={`${styles.cardGrid} ${styles.cardGridSpeed}`}>
+      <div className={`${landing.cardGrid} ${landing.cardGridSpeed}`}>
         {speedLevers.map((item) => (
-          <article key={item.text} className={styles.card}>
-            <Icon icon={item.icon} className={styles.cardIcon} />
+          <article key={item.text} className={landing.card}>
+            <Icon icon={item.icon} className={landing.cardIcon} />
             <p>{item.text}</p>
           </article>
         ))}
@@ -577,16 +578,16 @@ function WhyMeSection() {
         title="Why me"
         intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
       />
-      <div className={`${styles.whyGrid} ${styles.whySurface}`}>
-        <div className={styles.profileCard}>
-          <p className={styles.profileName}>Victor Demin</p>
-          <p className={styles.profileRole}>Fractional CTO / engineering delivery consultant</p>
+      <div className={`${landing.whyGrid} ${landing.whySurface}`}>
+        <div className={landing.profileCard}>
+          <p className={landing.profileName}>Victor Demin</p>
+          <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
         </div>
-        <div className={styles.profileBody}>
-          <ul className={styles.iconList}>
+        <div className={landing.profileBody}>
+          <ul className={landing.iconList}>
             {whyMePoints.map((item) => (
               <li key={item.text}>
-                <Icon icon={item.icon} className={styles.cardIcon} />
+                <Icon icon={item.icon} className={landing.cardIcon} />
                 <span>{item.text}</span>
               </li>
             ))}
@@ -605,26 +606,26 @@ function ProcessSection() {
         intro="No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow."
       />
       <ProcessVisual />
-      <div className={styles.processGrid}>
+      <div className={landing.processGrid}>
         {workSteps.map((step) => (
-          <article key={step.title} className={styles.card}>
-            <div className={styles.cardHeader}>
-              <Icon icon={step.icon} className={styles.cardIcon} />
+          <article key={step.title} className={landing.card}>
+            <div className={landing.cardHeader}>
+              <Icon icon={step.icon} className={landing.cardIcon} />
               <h3>{step.title}</h3>
             </div>
-            <ul className={styles.problemList}>
+            <ul className={landing.problemList}>
               {step.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}
             </ul>
-            <p className={styles.output}>Output: {step.output}</p>
+            <p className={landing.output}>Output: {step.output}</p>
           </article>
         ))}
       </div>
-      <p className={styles.processNote}>The goal is not heroic effort. The goal is a delivery system that starts working for the business.</p>
-      <div className={styles.expectationBox}>
+      <p className={landing.processNote}>The goal is not heroic effort. The goal is a delivery system that starts working for the business.</p>
+      <div className={landing.expectationBox}>
         <h3>What to expect</h3>
-        <ul className={styles.problemList}>
+        <ul className={landing.problemList}>
           <li>First visible improvements in CI/CD and monitoring within 2-4 weeks</li>
           <li>Clear delivery improvements typically within months, not quarters</li>
           <li>The pace depends on team size and the depth of accumulated debt</li>
@@ -642,14 +643,14 @@ function ProofSection() {
         title="Proof and public material"
         intro="Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering."
       />
-      <div className={styles.proofGrid}>
+      <div className={landing.proofGrid}>
         {[...talkLinks, ...writingLinks].map((link) => (
-          <a key={link.label} href={link.href} className={styles.linkCard} target="_blank" rel="noreferrer">
-            <span className={styles.linkHeader}>
-              <BrandIcon label={link.label} path={link.iconPath} className={styles.brandIcon} />
-              <span className={styles.linkLabel}>{link.label}</span>
+          <a key={link.label} href={link.href} className={landing.linkCard} target="_blank" rel="noreferrer">
+            <span className={landing.linkHeader}>
+              <BrandIcon label={link.label} path={link.iconPath} className={landing.brandIcon} />
+              <span className={landing.linkLabel}>{link.label}</span>
             </span>
-            <span className={styles.linkDescription}>{link.description}</span>
+            <span className={landing.linkDescription}>{link.description}</span>
           </a>
         ))}
       </div>
@@ -659,12 +660,12 @@ function ProofSection() {
 
 function FinalCtaSection() {
   return (
-    <section id="final-cta" className={styles.finalCta}>
+    <section id="final-cta" className={landing.finalCta}>
       <h2>You don&apos;t need a six-month strategy debate. You need a diagnosis — and a fix.</h2>
-      <p className={styles.finalText}>
+      <p className={landing.finalText}>
         Share what&apos;s hurting most — and what you want instead. I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
       </p>
-      <div className={styles.actions}>
+      <div className={landing.actions}>
         <Button
           href={finalCtaHref}
           target="_blank"
