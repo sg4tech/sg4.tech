@@ -225,7 +225,8 @@
   gap: 0.5rem;
   padding: 0.45rem 0.85rem;
   border: 1px solid var(--viz-cool-35);
-  border-radius: var(--radius-pill);
+  border-left: 3px solid var(--viz-cool);
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
   background: var(--viz-cool-12);
   color: var(--viz-cool-strong);
   font-size: var(--text-sm);
@@ -242,7 +243,7 @@
   height: 1rem;
   display: flex;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: 0;
   font-size: var(--text-2xs);
   color: var(--viz-cool);
   line-height: var(--leading-none);
@@ -298,7 +299,8 @@
   gap: 0.5rem;
   padding: 0.45rem 0.85rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
+  border-left: 3px solid var(--viz-cool);
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
   background: var(--surface-alt);
   color: var(--text);
   font-size: var(--text-sm);
