@@ -6,3 +6,4 @@ node_modules/
 .codex/
 .claude/
 .lighthouseci/
+docs/private/
