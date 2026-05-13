@@ -110,6 +110,17 @@
   line-height: var(--leading-relaxed);
 }
 
+.heroOutcome {
+  max-width: 29rem;
+  margin: 0.85rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--viz-cool);
+  color: var(--text-strong);
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+}
+
 .heroAside {
   max-width: 39rem;
 }

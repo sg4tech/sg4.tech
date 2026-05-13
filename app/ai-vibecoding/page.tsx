@@ -414,6 +414,7 @@ function HeroSection() {
             <p className={landing.heroPromise}>
               I find what&apos;s missing, build it, and leave you with a codebase that ships without me.
             </p>
+            <p className={landing.heroOutcome}>So you can ship without fear of breaking what works.</p>
             <HeroSignalsBar />
             <HeroMetricList />
             <div className={landing.actions}>
