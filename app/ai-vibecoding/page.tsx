@@ -466,6 +466,7 @@ function GuardrailsSection() {
       <SectionHeader
         title="The five layers of system AI doesn't ship"
         intro="Five separate layers, each enforces something AI doesn't. Together they're the system that keeps your codebase shipping."
+        introClassName={styles.introWide}
       />
       <SystemLayersVisual />
     </Section>
@@ -532,6 +533,7 @@ function ProcessSection() {
       <SectionHeader
         title="How I work"
         intro="No pre-decided fixes. First we see what's actually broken. Then we make changes safe to ship. Then we make the system one that scales."
+        introClassName={styles.introWide}
       />
       <div className={styles.processWrapper}>
         {workSteps.map((step, i) => (

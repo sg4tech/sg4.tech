@@ -583,9 +583,6 @@
   line-height: var(--leading-loose);
 }
 
-.processNote {
-  max-width: 65ch;
-}
 
 /* ─── FinalCta overrides ───────────────────────────────────────────────────── */
 
