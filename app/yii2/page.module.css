@@ -487,43 +487,6 @@
   margin-top: 1.6rem;
 }
 
-.primaryButton,
-.secondaryButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.95rem;
-  padding: 0.8rem 1.15rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-strong);
-  font-weight: 600;
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
-}
-
-.primaryButton {
-  background: var(--text-strong);
-  border-color: var(--text-strong);
-  color: var(--on-strong);
-}
-
-.primaryButton:hover,
-.primaryButton:focus-visible {
-  background: var(--primary-hover-bg);
-  border-color: var(--primary-hover-bg);
-}
-
-.secondaryButton {
-  background: var(--surface);
-  color: var(--text);
-}
-
-.secondaryButton:hover,
-.secondaryButton:focus-visible {
-  background: var(--surface-alt);
-}
 
 .problemList {
   max-width: 50rem;
@@ -828,9 +791,6 @@
   margin-top: var(--space-4);
 }
 
-.finalCta .primaryButton {
-  min-width: 240px;
-}
 
 .output,
 .processNote {
@@ -898,27 +858,6 @@
 
   .heroStatement {
     max-width: none;
-  }
-
-  .primaryButton {
-    width: 100%;
-  }
-
-  .secondaryButton {
-    width: auto;
-    min-height: auto;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    color: var(--muted);
-    justify-content: flex-start;
-  }
-
-  .secondaryButton:hover,
-  .secondaryButton:focus-visible {
-    background: transparent;
-    color: var(--text-strong);
   }
 
   .processVisual {
