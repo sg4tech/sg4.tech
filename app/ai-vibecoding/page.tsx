@@ -1,6 +1,5 @@
 import {
   Activity,
-  AlertTriangle,
   BookOpen,
   Bot,
   Bug,
@@ -9,7 +8,6 @@ import {
   CheckCircle2,
   Clock,
   Code2,
-  Flame,
   GitBranch,
   HelpCircle,
   Layers,
@@ -231,64 +229,22 @@ function FlowStep({ icon, title, desc, variant }: {
   );
 }
 
-function AiWithoutSystemPanel() {
-  return (
-    <div className={styles.transformPanel} data-mode="warm">
-      <p className={styles.transformPanelTitle}>AI without system</p>
-      <p className={styles.transformPanelSubtitle}>You get code. Then the chaos begins.</p>
-      <div className={styles.flowList}>
-        <FlowStep icon={Sparkles} title="AI generates code" />
-        <div className={styles.flowArrow}>↓</div>
-        <div className={styles.loopBlock}>
-          <FlowStep icon={Wrench} title="Patch a bug" />
-          <div className={styles.flowArrow}>↓</div>
-          <FlowStep icon={AlertTriangle} title="Break a feature" />
-          <div className={styles.flowArrow}>↓</div>
-          <FlowStep icon={RefreshCw} title="Patch again" />
-          <div className={styles.flowArrow}>↓</div>
-          <FlowStep icon={Bug} title="More regressions" />
-        </div>
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Flame} title="Production issue at 3 AM" variant="warn" />
-      </div>
-      <p className={styles.flowFooter}>✕ Unpredictable. Expensive. Stressful.</p>
-    </div>
-  );
-}
-
-function AiWithSystemPanel() {
-  return (
-    <div className={styles.transformPanel} data-mode="cool">
-      <p className={styles.transformPanelTitle}>AI inside the system</p>
-      <p className={styles.transformPanelSubtitle}>AI moves fast. The system keeps it safe.</p>
-      <div className={styles.flowList}>
-        <FlowStep icon={Sparkles} title="AI generates code" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={ShieldCheck} title="Guardrails" desc="Rules, context, and self-checks keep AI on track" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Code2} title="Tests" desc="Automated tests catch issues before they spread" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={GitBranch} title="CI/CD" desc="Gates prevent bad releases from reaching production" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Activity} title="Monitoring" desc="Real-time visibility before users are affected" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={Layers} title="Architecture rules" desc="Boundaries and contracts keep the system maintainable" />
-        <div className={styles.flowArrow}>↓</div>
-        <FlowStep icon={CheckCircle2} title="Safe, predictable production releases" variant="outcome" />
-      </div>
-      <p className={styles.flowFooter}>✓ Predictable. Scalable. Sustainable.</p>
-    </div>
-  );
-}
-
-function AiSystemTransformationVisual() {
+function HeroFlowVisual() {
   return (
     <div className={styles.transformFrame} aria-hidden="true">
-      <div className={styles.transformPanels}>
-        <AiWithoutSystemPanel />
-        <AiWithSystemPanel />
+      <div className={styles.transformPanel} data-mode="cool">
+        <div className={styles.flowList}>
+          <FlowStep icon={Sparkles} title="AI generates code" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={ShieldCheck} title="Guardrails" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={Code2} title="Tests" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={GitBranch} title="CI/CD" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={CheckCircle2} title="Safe releases" variant="outcome" />
+        </div>
       </div>
-      <p className={styles.transformCaption}>Same AI. Different system around it.</p>
     </div>
   );
 }
@@ -460,7 +416,7 @@ function HeroSection() {
             </div>
           </div>
           <div className={landing.heroAside}>
-            <AiSystemTransformationVisual />
+            <HeroFlowVisual />
           </div>
         </div>
       </div>
