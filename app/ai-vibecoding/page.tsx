@@ -1,14 +1,18 @@
 import {
   Activity,
+  AlertTriangle,
   BookOpen,
   Bug,
   Building2,
   Calendar,
+  CheckCircle2,
   Clock,
   Code2,
+  Flame,
   GitBranch,
   HelpCircle,
   Layers,
+  LucideIcon,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -229,87 +233,87 @@ export const metadata: Metadata = {
   }
 };
 
-function AiWithoutGuardrailsPanel() {
+function FlowStep({ icon, title, desc, variant }: {
+  icon: LucideIcon;
+  title: string;
+  desc?: string;
+  variant?: "outcome" | "warn";
+}) {
+  const base = styles.flowStep;
+  const cls = variant === "outcome"
+    ? `${base} ${styles.flowStepOutcome}`
+    : variant === "warn"
+    ? `${base} ${styles.flowStepWarnOutcome}`
+    : base;
   return (
-    <div className={styles.visualPanel} data-mode="warm">
-      <p className={styles.panelTitle}>AI without guardrails</p>
-      <div className={styles.panelBody}>
-        <svg
-          className={styles.panelConnectors}
-          viewBox="0 0 100 80"
-          focusable="false"
-          aria-hidden="true"
-        >
-          <path d="M 30 9 Q 60 5 70 38" />
-          <path d="M 72 47 Q 62 58 54 68" />
-          <path d="M 16 14 Q 5 48 42 68" />
-        </svg>
-        <div className={styles.node} data-pos="top-left">
-          <span className={styles.nodeIcon}><Icon icon={Bug} /></span>
-          <span className={styles.nodeLabel}>fix-one-break-ten</span>
-        </div>
-        <div className={styles.node} data-pos="mid-right">
-          <span className={styles.nodeIcon}><Icon icon={RefreshCw} /></span>
-          <span className={styles.nodeLabel}>comprehension debt</span>
-        </div>
-        <div className={styles.node} data-pos="bottom-center">
-          <span className={styles.nodeIcon}><Icon icon={Clock} /></span>
-          <span className={styles.nodeLabel}>3 AM panics</span>
-        </div>
+    <div className={cls}>
+      <span className={styles.flowStepIcon}><Icon icon={icon} /></span>
+      <div className={styles.flowStepContent}>
+        <p className={styles.flowStepTitle}>{title}</p>
+        {desc && <p className={styles.flowStepDesc}>{desc}</p>}
       </div>
     </div>
   );
 }
 
-function AiInsideSystemPanel() {
+function AiWithoutSystemPanel() {
   return (
-    <div className={styles.visualPanel} data-mode="cool">
-      <p className={styles.panelTitle}>AI inside the system</p>
-      <div className={styles.panelBody}>
-        <svg
-          className={styles.panelConnectors}
-          viewBox="0 0 100 80"
-          focusable="false"
-          aria-hidden="true"
-        >
-          <defs>
-            <marker id="arrow-aicool" viewBox="0 0 6 6" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
-              <path d="M0 0 L6 3 L0 6 Z" fill="var(--viz-cool-strong)" />
-            </marker>
-          </defs>
-          <path d="M 22 13 Q 32 22 44 30" markerEnd="url(#arrow-aicool)" />
-          <path d="M 78 13 Q 68 22 56 30" markerEnd="url(#arrow-aicool)" />
-          <path d="M 50 42 Q 50 52 50 62" markerEnd="url(#arrow-aicool)" />
-        </svg>
-        <div className={styles.node} data-pos="top-left">
-          <span className={styles.nodeIcon}><Icon icon={ShieldCheck} /></span>
-          <span className={styles.nodeLabel}>guardrails</span>
+    <div className={styles.transformPanel} data-mode="warm">
+      <p className={styles.transformPanelTitle}>AI without system</p>
+      <p className={styles.transformPanelSubtitle}>You get code. Then the chaos begins.</p>
+      <div className={styles.flowList}>
+        <FlowStep icon={Sparkles} title="AI generates code" />
+        <div className={styles.flowArrow}>↓</div>
+        <div className={styles.loopBlock}>
+          <FlowStep icon={Wrench} title="Patch a bug" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={AlertTriangle} title="Break a feature" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={RefreshCw} title="Patch again" />
+          <div className={styles.flowArrow}>↓</div>
+          <FlowStep icon={Bug} title="More regressions" />
         </div>
-        <div className={styles.node} data-pos="top-right">
-          <span className={styles.nodeIcon}><Icon icon={GitBranch} /></span>
-          <span className={styles.nodeLabel}>tests</span>
-        </div>
-        <div className={styles.node} data-pos="mid-center">
-          <span className={styles.nodeIcon}><Icon icon={Activity} /></span>
-          <span className={styles.nodeLabel}>monitoring</span>
-        </div>
-        <div className={`${styles.node} ${styles.nodeOutcome}`} data-pos="bottom-center">
-          <span className={styles.nodeIcon}><Icon icon={Sparkles} /></span>
-          <span className={styles.nodeLabel}>ships predictably</span>
-        </div>
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={Flame} title="Production issue at 3 AM" variant="warn" />
       </div>
+      <p className={styles.flowFooter}>✕ Unpredictable. Expensive. Stressful.</p>
+    </div>
+  );
+}
+
+function AiWithSystemPanel() {
+  return (
+    <div className={styles.transformPanel} data-mode="cool">
+      <p className={styles.transformPanelTitle}>AI inside the system</p>
+      <p className={styles.transformPanelSubtitle}>AI moves fast. The system keeps it safe.</p>
+      <div className={styles.flowList}>
+        <FlowStep icon={Sparkles} title="AI generates code" />
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={ShieldCheck} title="Guardrails" desc="Rules, context, and self-checks keep AI on track" />
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={Code2} title="Tests" desc="Automated tests catch issues before they spread" />
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={GitBranch} title="CI/CD" desc="Gates prevent bad releases from reaching production" />
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={Activity} title="Monitoring" desc="Real-time visibility before users are affected" />
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={Layers} title="Architecture rules" desc="Boundaries and contracts keep the system maintainable" />
+        <div className={styles.flowArrow}>↓</div>
+        <FlowStep icon={CheckCircle2} title="Safe, predictable production releases" variant="outcome" />
+      </div>
+      <p className={styles.flowFooter}>✓ Predictable. Scalable. Sustainable.</p>
     </div>
   );
 }
 
 function AiSystemTransformationVisual() {
   return (
-    <div className={styles.visualFrame} aria-hidden="true">
-      <div className={styles.visualPanels}>
-        <AiWithoutGuardrailsPanel />
-        <AiInsideSystemPanel />
+    <div className={styles.transformFrame} aria-hidden="true">
+      <div className={styles.transformPanels}>
+        <AiWithoutSystemPanel />
+        <AiWithSystemPanel />
       </div>
-      <p className={styles.visualCaption}>Same AI. Different system around it.</p>
+      <p className={styles.transformCaption}>Same AI. Different system around it.</p>
     </div>
   );
 }
@@ -399,6 +403,18 @@ function ProcessVisual() {
   );
 }
 
+function TransformationSection() {
+  return (
+    <Section id="transformation">
+      <SectionHeader
+        title="From fix-one-break-ten to shipping predictably"
+        intro="The code AI generates is the same. What changes is the system around it."
+      />
+      <AiSystemTransformationVisual />
+    </Section>
+  );
+}
+
 function HeroSignalsBar() {
   return (
     <div className={landing.heroSignals} aria-label="Selected credibility signals">
@@ -473,8 +489,6 @@ function HeroSection() {
             <p className={styles.outcomeCloser}>
               So you can ship without fear of breaking what works.
             </p>
-            <HeroSignalsBar />
-            <HeroMetricList />
             <div className={landing.actions}>
               <Button
                 href={heroCtaHref}
@@ -485,13 +499,14 @@ function HeroSection() {
               >
                 DM me your situation
               </Button>
-              <Button variant="secondary" href="#guardrails">
-                How it works
+              <Button variant="secondary" href="#transformation">
+                See the difference
               </Button>
             </div>
           </div>
           <div className={landing.heroAside}>
-            <AiSystemTransformationVisual />
+            <HeroSignalsBar />
+            <HeroMetricList />
           </div>
         </div>
       </div>
@@ -661,6 +676,7 @@ export default function AiVibecodingPage() {
       />
       <TopNavigation items={navigationItems} ariaLabel="AI vibecoding landing page navigation" />
       <HeroSection />
+      <TransformationSection />
       <ProblemSection />
       <GuardrailsSection />
       <WhyMeSection />

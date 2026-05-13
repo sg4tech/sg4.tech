@@ -1,6 +1,6 @@
-/* ─── Visual 1: AiSystemTransformationVisual ─────────────────────────────── */
+/* ─── Visual 1: AiSystemTransformationVisual (vertical flow) ─────────────── */
 
-.visualFrame {
+.transformFrame {
   overflow: hidden;
   margin-top: var(--space-3);
   padding: var(--space-2);
@@ -14,31 +14,28 @@
     var(--shadow-lg);
 }
 
-.visualPanels {
+.transformPanels {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.7rem;
-  margin: 0 0 0.85rem;
 }
 
-.visualPanel {
-  position: relative;
-  overflow: hidden;
-  padding: 0.95rem 0.9rem 0.7rem;
+.transformPanel {
+  padding: 0.85rem 0.8rem 0.8rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 }
 
-.visualPanel[data-mode="warm"] {
-  background: linear-gradient(180deg, rgba(247, 239, 231, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+.transformPanel[data-mode="warm"] {
+  background: linear-gradient(180deg, rgba(247, 239, 231, 0.8) 0%, rgba(255, 255, 255, 0.95) 100%);
 }
 
-.visualPanel[data-mode="cool"] {
-  background: linear-gradient(180deg, rgba(238, 244, 240, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+.transformPanel[data-mode="cool"] {
+  background: linear-gradient(180deg, rgba(238, 244, 240, 0.8) 0%, rgba(255, 255, 255, 0.95) 100%);
 }
 
-.panelTitle {
-  margin: 0 0 0.5rem;
+.transformPanelTitle {
+  margin: 0;
   font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -46,136 +43,170 @@
   text-transform: uppercase;
 }
 
-.visualPanel[data-mode="warm"] .panelTitle {
+.transformPanel[data-mode="warm"] .transformPanelTitle {
   color: var(--viz-warm-strong);
 }
 
-.visualPanel[data-mode="cool"] .panelTitle {
+.transformPanel[data-mode="cool"] .transformPanelTitle {
   color: var(--viz-cool-strong);
 }
 
-.panelBody {
-  position: relative;
-  aspect-ratio: 5 / 4;
-}
-
-.panelConnectors {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.panelConnectors > path {
-  fill: none;
-  stroke-width: 0.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.visualPanel[data-mode="warm"] .panelConnectors > path {
-  stroke: var(--viz-warm);
-  stroke-dasharray: 1.5 1.2;
-}
-
-.visualPanel[data-mode="cool"] .panelConnectors > path {
-  stroke: var(--viz-cool);
-  opacity: 0.9;
-}
-
-.node {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.35rem 0.85rem 0.35rem 0.35rem;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  color: var(--text-strong);
-  font-size: var(--text-sm);
-  font-weight: 700;
+.transformPanelSubtitle {
+  margin: 0.25rem 0 0;
+  font-size: var(--text-xs);
+  color: var(--muted);
   line-height: var(--leading-base);
-  white-space: nowrap;
-  box-shadow: var(--shadow-sm);
 }
 
-.node[data-pos="top-left"] {
-  top: 5%;
-  left: 4%;
+.flowList {
+  margin: 0.65rem 0 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.node[data-pos="top-right"] {
-  top: 5%;
-  right: 4%;
+.flowStep {
+  display: grid;
+  grid-template-columns: 1.9rem 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
 }
 
-.node[data-pos="mid-right"] {
-  top: 40%;
-  right: 4%;
-}
-
-.node[data-pos="mid-center"] {
-  top: 37%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.node[data-pos="bottom-left"] {
-  bottom: 5%;
-  left: 10%;
-}
-
-.node[data-pos="bottom-center"] {
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.nodeIcon {
-  display: inline-flex;
-  flex: 0 0 auto;
+.flowStepIcon {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.85rem;
-  height: 1.85rem;
-  border-radius: var(--radius-pill);
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--radius-xs);
+  flex: 0 0 auto;
 }
 
-.visualPanel[data-mode="warm"] .nodeIcon {
-  background: rgba(215, 109, 67, 0.15);
+.transformPanel[data-mode="warm"] .flowStepIcon {
+  background: rgba(215, 109, 67, 0.12);
   color: var(--viz-warm-strong);
 }
 
-.visualPanel[data-mode="cool"] .nodeIcon {
-  background: rgba(47, 122, 89, 0.15);
+.transformPanel[data-mode="cool"] .flowStepIcon {
+  background: rgba(47, 122, 89, 0.12);
   color: var(--viz-cool-strong);
 }
 
-.nodeIcon svg {
+.flowStepIcon svg {
   width: 1rem;
   height: 1rem;
 }
 
-.nodeOutcome {
-  background: var(--viz-cool-strong);
-  color: var(--surface);
+.flowStepContent {
+  min-width: 0;
 }
 
-.visualPanel[data-mode="cool"] .nodeOutcome .nodeIcon {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--surface);
-}
-
-.visualCaption {
+.flowStepTitle {
   margin: 0;
-  padding: 0.65rem 0.2rem 0.3rem;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-strong);
+  line-height: var(--leading-base);
+}
+
+.flowStepDesc {
+  margin: 0.1rem 0 0;
+  font-size: var(--text-xs);
+  color: var(--muted);
+  line-height: var(--leading-base);
+}
+
+.flowArrow {
+  height: 0.7rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1.45rem;
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+.transformPanel[data-mode="warm"] .flowArrow {
+  color: var(--viz-warm);
+}
+
+.transformPanel[data-mode="cool"] .flowArrow {
+  color: var(--viz-cool);
+}
+
+.loopBlock {
+  position: relative;
+  padding-left: 0.6rem;
+  border-left: 2px dashed rgba(215, 109, 67, 0.45);
+  margin-left: 0.35rem;
+}
+
+.loopBlock::before {
+  content: "↺";
+  position: absolute;
+  top: -0.75rem;
+  left: -0.58rem;
+  font-size: 0.75rem;
+  color: var(--viz-warm-strong);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Outcome rows */
+
+.flowStepOutcome {
+  background: rgba(47, 122, 89, 0.08);
+  border-color: rgba(47, 122, 89, 0.3);
+}
+
+.flowStepOutcome .flowStepTitle {
+  color: var(--viz-cool-strong);
+}
+
+.transformPanel[data-mode="cool"] .flowStepOutcome .flowStepIcon {
+  background: rgba(47, 122, 89, 0.18);
+  color: var(--viz-cool-strong);
+}
+
+.flowStepWarnOutcome {
+  background: rgba(215, 109, 67, 0.08);
+  border-color: rgba(215, 109, 67, 0.3);
+}
+
+.flowStepWarnOutcome .flowStepTitle {
+  color: var(--viz-warm-strong);
+}
+
+.transformPanel[data-mode="warm"] .flowStepWarnOutcome .flowStepIcon {
+  background: rgba(215, 109, 67, 0.15);
+  color: var(--viz-warm-strong);
+}
+
+.transformCaption {
+  margin: 0.65rem 0 0;
   color: var(--muted);
   font-size: var(--text-sm);
   font-weight: 600;
   text-align: center;
   letter-spacing: 0.01em;
+}
+
+.flowFooter {
+  margin: 0.6rem 0 0;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-align: center;
+  line-height: var(--leading-base);
+}
+
+.transformPanel[data-mode="warm"] .flowFooter {
+  color: var(--viz-warm-strong);
+}
+
+.transformPanel[data-mode="cool"] .flowFooter {
+  color: var(--viz-cool-strong);
 }
 
 /* ─── Visual 2: SystemLayersVisual ───────────────────────────────────────── */
@@ -240,11 +271,11 @@
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
-  .visualFrame {
+  .transformFrame {
     padding: 0.85rem;
   }
 
-  .visualPanels {
+  .transformPanels {
     grid-template-columns: 1fr;
   }
 }
