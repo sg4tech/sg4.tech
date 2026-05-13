@@ -403,18 +403,6 @@ function ProcessVisual() {
   );
 }
 
-function TransformationSection() {
-  return (
-    <Section id="transformation">
-      <SectionHeader
-        title="From fix-one-break-ten to shipping predictably"
-        intro="The code AI generates is the same. What changes is the system around it."
-      />
-      <AiSystemTransformationVisual />
-    </Section>
-  );
-}
-
 function HeroSignalsBar() {
   return (
     <div className={landing.heroSignals} aria-label="Selected credibility signals">
@@ -489,6 +477,8 @@ function HeroSection() {
             <p className={styles.outcomeCloser}>
               So you can ship without fear of breaking what works.
             </p>
+            <HeroSignalsBar />
+            <HeroMetricList />
             <div className={landing.actions}>
               <Button
                 href={heroCtaHref}
@@ -499,14 +489,13 @@ function HeroSection() {
               >
                 DM me your situation
               </Button>
-              <Button variant="secondary" href="#transformation">
-                See the difference
+              <Button variant="secondary" href="#guardrails">
+                How it works
               </Button>
             </div>
           </div>
           <div className={landing.heroAside}>
-            <HeroSignalsBar />
-            <HeroMetricList />
+            <AiSystemTransformationVisual />
           </div>
         </div>
       </div>
@@ -676,7 +665,6 @@ export default function AiVibecodingPage() {
       />
       <TopNavigation items={navigationItems} ariaLabel="AI vibecoding landing page navigation" />
       <HeroSection />
-      <TransformationSection />
       <ProblemSection />
       <GuardrailsSection />
       <WhyMeSection />
