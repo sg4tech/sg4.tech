@@ -492,7 +492,23 @@ function WhyMeSection() {
             </li>
             <li>
               <Icon icon={Building2} className={landing.cardIcon} />
-              <span>I&apos;ve fixed this pattern at Wowworks (bugs ↓10×, delivery ↑3×, operational efficiency ↑4× — startup-mode codebase to EU-ready production) and at an EdTech scale-up (delivery ↑2×, downtime ↓10×, eNPS −100→100). The cleanup pattern is older than AI — different source, same fix.</span>
+              <div>
+                <span>I&apos;ve fixed this pattern at Wowworks — startup-mode codebase to EU-ready production — and at an EdTech scale-up. The cleanup pattern is older than AI — different source, same fix.</span>
+                <div className={styles.outcomeChipGroups}>
+                  <div className={styles.outcomeChipGroup}>
+                    <span className={styles.outcomeChipCompany}>Wowworks</span>
+                    <span className={styles.outcomeChip}>bugs ↓10×</span>
+                    <span className={styles.outcomeChip}>delivery ↑3×</span>
+                    <span className={styles.outcomeChip}>efficiency ↑4×</span>
+                  </div>
+                  <div className={styles.outcomeChipGroup}>
+                    <span className={styles.outcomeChipCompany}>EdTech</span>
+                    <span className={styles.outcomeChip}>delivery ↑2×</span>
+                    <span className={styles.outcomeChip}>downtime ↓10×</span>
+                    <span className={styles.outcomeChip}>eNPS −100→100</span>
+                  </div>
+                </div>
+              </div>
             </li>
             <li>
               <Icon icon={BookOpen} className={landing.cardIcon} />
