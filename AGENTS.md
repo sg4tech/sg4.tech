@@ -92,6 +92,11 @@
 - Distinguish clearly between lint, unit tests, integration checks, build, release, and live runtime verification.
 - A successful build or deploy command does not prove the live system works.
 
+## UI Change Protocol
+
+- For any UI request without an explicit form ("add a visual", "make it look better", "try something") — before writing code, state: "I'll do X, it will look like Y" and wait for OK.
+- Do not interpret an open-ended UI request as sufficient specification. Ambiguous form = ask first.
+
 ## Layout and Visual QA Rules
 
 - Default to visualization, not text. On landing and marketing pages, every list, card, and feature block must carry a visual anchor (icon, pictogram, or diagram) — humans skim first and read second, so the idea has to be recognisable at a glance.

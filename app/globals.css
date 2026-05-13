@@ -22,7 +22,6 @@
   --primary-hover-bg: #2d2d2d;
 
   /* ============ Colors — Yii2 visualization palette ============ */
-  /* Used only by the warm/cool delivery-system diagram on /yii2. */
   --viz-warm: #d76d43;
   --viz-warm-strong: #b85a35;
   --viz-cool: #2f7a59;
@@ -35,7 +34,24 @@
   --viz-warm-bg: #fafaf8;
   --viz-warm-stroke: #d8d3cb;
 
+  /* Alpha variants — use instead of raw rgba() on viz palette colors */
+  --viz-cool-07: rgba(47, 122, 89, 0.07);
+  --viz-cool-08: rgba(47, 122, 89, 0.08);
+  --viz-cool-10: rgba(47, 122, 89, 0.10);
+  --viz-cool-12: rgba(47, 122, 89, 0.12);
+  --viz-cool-15: rgba(47, 122, 89, 0.15);
+  --viz-cool-18: rgba(47, 122, 89, 0.18);
+  --viz-cool-25: rgba(47, 122, 89, 0.25);
+  --viz-cool-30: rgba(47, 122, 89, 0.30);
+  --viz-cool-35: rgba(47, 122, 89, 0.35);
+  --viz-warm-08: rgba(215, 109, 67, 0.08);
+  --viz-warm-12: rgba(215, 109, 67, 0.12);
+  --viz-warm-15: rgba(215, 109, 67, 0.15);
+  --viz-warm-30: rgba(215, 109, 67, 0.30);
+  --viz-warm-45: rgba(215, 109, 67, 0.45);
+
   /* ============ Typography — size scale ============ */
+  --text-2xs: 0.65rem;
   --text-xs: 0.78rem;
   --text-sm: 0.85rem;
   --text-md: 0.92rem;

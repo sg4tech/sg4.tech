@@ -144,12 +144,12 @@
 }
 
 .visualPanel[data-mode="warm"] .nodeIcon {
-  background: rgba(215, 109, 67, 0.15);
+  background: var(--viz-warm-15);
   color: var(--viz-warm-strong);
 }
 
 .visualPanel[data-mode="cool"] .nodeIcon {
-  background: rgba(47, 122, 89, 0.15);
+  background: var(--viz-cool-15);
   color: var(--viz-cool-strong);
 }
 
