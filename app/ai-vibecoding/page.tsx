@@ -2,6 +2,7 @@ import {
   Activity,
   AlertTriangle,
   BookOpen,
+  Bot,
   Bug,
   Building2,
   Calendar,
@@ -14,6 +15,7 @@ import {
   Layers,
   LucideIcon,
   RefreshCw,
+  Rocket,
   Search,
   ShieldCheck,
   Sparkles,
@@ -318,63 +320,38 @@ function AiSystemTransformationVisual() {
   );
 }
 
-const svgLayers = [
-  { x: 65, y: 47, w: 470, h: 416, label: "AI-workflow guardrails", fill: "rgba(47,122,89,0.04)", stroke: "rgba(47,122,89,0.20)" },
-  { x: 105, y: 85, w: 390, h: 340, label: "Pipeline guardrails", fill: "rgba(47,122,89,0.07)", stroke: "rgba(47,122,89,0.25)" },
-  { x: 145, y: 123, w: 310, h: 264, label: "Test guardrails", fill: "rgba(47,122,89,0.10)", stroke: "rgba(47,122,89,0.30)" },
-  { x: 185, y: 161, w: 230, h: 188, label: "Code-level guardrails", fill: "rgba(47,122,89,0.13)", stroke: "rgba(47,122,89,0.35)" },
-  { x: 225, y: 199, w: 150, h: 112, label: "Architecture rules", fill: "rgba(47,122,89,0.16)", stroke: "rgba(47,122,89,0.40)" }
+const systemLayersStack = [
+  { icon: Layers,      label: "Architecture rules",      tag: "The system holds itself together" },
+  { icon: GitBranch,   label: "Pipeline guardrails",     tag: "Keep bad code out. Detect issues early" },
+  { icon: ShieldCheck, label: "Test guardrails",         tag: "Prove it works. Every time" },
+  { icon: Code2,       label: "Code-level guardrails",   tag: "Catch issues before they become bugs" },
+  { icon: Sparkles,    label: "AI-workflow guardrails",  tag: "Guide AI to work the right way, every time" },
 ];
 
 function SystemLayersVisual() {
   return (
-    <div className={styles.layersVisualWrapper} aria-hidden="true">
-      <svg
-        className={styles.layersVisualSvg}
-        viewBox="0 0 600 490"
-        focusable="false"
-        aria-hidden="true"
-      >
-        {svgLayers.map((layer) => (
-          <g key={layer.label}>
-            <rect
-              x={layer.x}
-              y={layer.y}
-              width={layer.w}
-              height={layer.h}
-              rx={12}
-              fill={layer.fill}
-              stroke={layer.stroke}
-              strokeWidth={1}
-            />
-            <text
-              x={layer.x + 10}
-              y={layer.y + 16}
-              fontSize={9}
-              fontWeight={600}
-              fill="rgba(47,122,89,0.75)"
-              fontFamily="ui-sans-serif, system-ui, sans-serif"
-            >
-              {layer.label}
-            </text>
-          </g>
-        ))}
-
-        <rect x={265} y={237} width={70} height={36} rx={6} fill="rgba(47,122,89,0.22)" stroke="rgba(47,122,89,0.55)" strokeWidth={1} />
-        <text x={300} y={259} textAnchor="middle" fontSize={9} fontWeight={700} fill="rgba(47,122,89,0.85)" fontFamily="ui-sans-serif, system-ui, sans-serif">
-          codebase
-        </text>
-
-        <circle cx={565} cy={28} r={18} fill="rgba(47,122,89,0.10)" stroke="rgba(47,122,89,0.35)" strokeWidth={1} />
-        <text x={565} y={32} textAnchor="middle" fontSize={9} fontWeight={700} fill="rgba(47,122,89,0.80)" fontFamily="ui-sans-serif, system-ui, sans-serif">
-          AI
-        </text>
-
-        <line x1="549" y1="21" x2="536" y2="48" stroke="rgba(47,122,89,0.40)" strokeWidth="1.5" strokeDasharray="3 2.5" />
-        <line x1="553" y1="14" x2="514" y2="47" stroke="rgba(47,122,89,0.35)" strokeWidth="1.5" strokeDasharray="3 2.5" />
-        <line x1="547" y1="34" x2="535" y2="78" stroke="rgba(47,122,89,0.30)" strokeWidth="1.5" strokeDasharray="3 2.5" />
-      </svg>
-      <p className={styles.layersCaption}>5 layers between AI and your code.</p>
+    <div className={styles.layersStack} aria-hidden="true">
+      <div className={styles.layersProduction}>
+        <Icon icon={Rocket} className={styles.layersProductionIcon} />
+        Production
+      </div>
+      {systemLayersStack.map((layer) => (
+        <div key={layer.label}>
+          <div className={styles.layersConnector}>↑</div>
+          <div className={styles.layerRow}>
+            <span className={styles.layerRowIcon}><Icon icon={layer.icon} /></span>
+            <div>
+              <p className={styles.layerRowTitle}>{layer.label}</p>
+              <p className={styles.layerRowTag}>{layer.tag}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+      <div className={styles.layersConnector}>↑</div>
+      <div className={styles.layersAgents}>
+        <Icon icon={Bot} className={styles.layersAgentsIcon} />
+        AI agents
+      </div>
     </div>
   );
 }

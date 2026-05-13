@@ -211,28 +211,106 @@
 
 /* ─── Visual 2: SystemLayersVisual ───────────────────────────────────────── */
 
-.layersVisualWrapper {
+.layersStack {
   margin-top: var(--space-3);
-  margin-bottom: var(--space-3);
   padding: var(--space-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, rgba(238, 244, 240, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%);
 }
 
-.layersVisualSvg {
-  display: block;
-  width: 100%;
-  height: auto;
+.layersProduction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid rgba(47, 122, 89, 0.35);
+  border-radius: var(--radius-pill);
+  background: rgba(47, 122, 89, 0.12);
+  color: var(--viz-cool-strong);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: var(--leading-base);
 }
 
-.layersCaption {
-  margin: 0.65rem 0 0;
+.layersProductionIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.layersConnector {
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  font-size: 0.65rem;
+  color: var(--viz-cool);
+  line-height: 1;
+}
+
+.layerRow {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--viz-cool);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.layerRowIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-xs);
+  background: rgba(47, 122, 89, 0.10);
+  color: var(--viz-cool-strong);
+  flex: 0 0 auto;
+}
+
+.layerRowIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.layerRowTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-strong);
+  line-height: var(--leading-base);
+}
+
+.layerRowTag {
+  margin: 0.1rem 0 0;
+  font-size: var(--text-xs);
   color: var(--muted);
+  line-height: var(--leading-base);
+}
+
+.layersAgents {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface-alt);
+  color: var(--text);
   font-size: var(--text-sm);
   font-weight: 600;
-  text-align: center;
-  letter-spacing: 0.01em;
+  line-height: var(--leading-base);
+}
+
+.layersAgentsIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted);
+  flex: 0 0 auto;
 }
 
 /* ─── Hero: outcome closer ───────────────────────────────────────────────── */
