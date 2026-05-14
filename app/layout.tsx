@@ -15,7 +15,10 @@ export const metadata: Metadata = {
   creator: "Victor Demin",
   publisher: "Victor Demin",
   icons: {
-    icon: [{ url: "/brand/logo.svg", type: "image/svg+xml" }]
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/brand/logo.svg", type: "image/svg+xml" }
+    ]
   }
 };
 
