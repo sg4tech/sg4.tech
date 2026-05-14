@@ -13,6 +13,7 @@
 
 - [Homepage](https://sg4.tech/): Fractional CTO consulting overview — problem framing across early/growth/scale stages, three-step solution (constraint identification, flow rebuild, AI acceleration), case studies, process, fit criteria, FAQ.
 - [Yii2 consulting](https://sg4.tech/yii2): Dedicated landing for Yii2 projects — release predictability, quality guardrails, CI/CD, monitoring, delivery acceleration without defaulting to a rewrite.
+- [AI vibecoding cleanup](https://sg4.tech/ai-vibecoding): For founders with AI-built MVPs that have stopped shipping — adds the five delivery-system layers AI doesn't generate: architecture rules, pipeline guardrails, test coverage, code-level checks, and AI-workflow discipline.
 
 ## Writing and external presence
 
