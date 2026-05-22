@@ -6,12 +6,10 @@ import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
-import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import { blogPosts, formatPostDate } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
 import styles from "./page.module.css";
-
-const SITE_URL = "https://sg4.tech";
 
 const navigationItems: NavigationItem[] = [
   { href: "/", label: "Home", mobileNav: "primary" },
@@ -57,7 +55,7 @@ export const metadata: Metadata = {
     description:
       "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.",
     type: "website",
-    siteName: "sg4.tech",
+    siteName: BRAND_NAME,
     locale: "en_US",
     url: `${SITE_URL}/blog/`
   },

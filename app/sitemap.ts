@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "./lib/blog/posts";
+import { SITE_URL } from "./lib/brand";
 
 export const dynamic = "force-static";
-
-const baseUrl = "https://sg4.tech";
 
 // Explicit per-landing modifiedAt dates instead of `new Date()` at build time.
 // Why: marking every landing as "fresh-modified on every deploy" is a known SEO
@@ -43,7 +42,7 @@ function latestBlogModifiedAt(): string {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const landingEntries: MetadataRoute.Sitemap = landings.map((landing) => ({
-    url: `${baseUrl}${landing.path}`,
+    url: `${SITE_URL}${landing.path}`,
     lastModified: new Date(landing.modifiedAt),
     changeFrequency: landing.changeFrequency,
     priority: landing.priority
@@ -57,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ? []
       : [
           {
-            url: `${baseUrl}/blog`,
+            url: `${SITE_URL}/blog`,
             lastModified: new Date(latestBlogModifiedAt()),
             changeFrequency: "weekly",
             priority: 0.7
@@ -65,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ];
 
   const posts: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.modifiedAt),
     changeFrequency: "monthly",
     priority: 0.6

@@ -6,7 +6,7 @@ import { FooterSection } from "../../components/FooterSection";
 import { Page } from "../../components/Page";
 import { Section } from "../../components/Section";
 import { TopNavigation } from "../../components/TopNavigation";
-import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../../lib/brand";
 import type { NavigationItem } from "../../lib/navigation";
 import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/posts";
 import {
@@ -30,7 +30,6 @@ import {
 } from "./article-tail";
 import styles from "./page.module.css";
 
-const SITE_URL = "https://sg4.tech";
 // PostSlug-typed: a typo here fails the build via type-narrowed
 // getPostBySlug, not via runtime "cannot read 'title' of undefined".
 const SLUG: PostSlug = "diagnose-broken-engineering-delivery";
@@ -133,7 +132,7 @@ export const metadata: Metadata = {
     title: POST.title,
     description: POST.description,
     type: "article",
-    siteName: "sg4.tech",
+    siteName: BRAND_NAME,
     locale: "en_US",
     url: POST_URL,
     publishedTime: POST.publishedAt,

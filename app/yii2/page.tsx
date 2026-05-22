@@ -34,7 +34,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
-import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import landing from "../styles/landing.module.css";
@@ -245,9 +245,9 @@ const structuredData = {
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": "https://sg4.tech/yii2#service",
+      "@id": `${SITE_URL}/yii2#service`,
       name: "Yii2 Delivery Consulting",
-      url: "https://sg4.tech/yii2",
+      url: `${SITE_URL}/yii2`,
       serviceType: "Yii2 delivery consulting",
       description:
         "Consulting for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI."
@@ -268,7 +268,7 @@ export const metadata: Metadata = {
     description:
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting.",
     type: "website",
-    siteName: "sg4.tech",
+    siteName: BRAND_NAME,
     locale: "en_US"
   },
   twitter: {

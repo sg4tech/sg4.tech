@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import type { ReactNode } from "react";
+import { SITE_URL } from "./lib/brand";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sg4.tech"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Victor Demin",
     template: "%s | Victor Demin"

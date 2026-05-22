@@ -21,7 +21,7 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
-import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -283,15 +283,15 @@ const structuredData = {
     personSchema,
     {
       "@type": "ProfessionalService",
-      "@id": "https://sg4.tech/#service",
+      "@id": `${SITE_URL}/#service`,
       name: "Victor Demin Fractional CTO Consulting",
-      url: "https://sg4.tech",
+      url: SITE_URL,
       serviceType: "Fractional CTO and engineering delivery consulting",
       description:
         "Fractional CTO consulting for product teams that need faster, more predictable software delivery using system thinking, delivery metrics, and AI.",
       areaServed: "Global",
       founder: {
-        "@id": "https://sg4.tech/#person"
+        "@id": `${SITE_URL}/#person`
       },
       sameAs: [
         "https://github.com/sg4tech/",
@@ -301,7 +301,7 @@ const structuredData = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://sg4.tech/#faq",
+      "@id": `${SITE_URL}/#faq`,
       mainEntity: faqItems.map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -326,7 +326,7 @@ export const metadata: Metadata = {
     description:
       "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic.",
     type: "website",
-    siteName: "sg4.tech",
+    siteName: BRAND_NAME,
     locale: "en_US"
   },
   twitter: {

@@ -36,7 +36,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
-import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
@@ -176,9 +176,9 @@ const structuredData = {
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": "https://sg4.tech/ai-vibecoding#service",
+      "@id": `${SITE_URL}/ai-vibecoding#service`,
       name: "AI Vibecoding Cleanup",
-      url: "https://sg4.tech/ai-vibecoding",
+      url: `${SITE_URL}/ai-vibecoding`,
       serviceType: "AI vibecoding delivery consulting",
       description:
         "Consulting for founders with AI-built MVPs that have stopped shipping — I build the delivery system AI doesn't ship with the code."
@@ -199,7 +199,7 @@ export const metadata: Metadata = {
     description:
       "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code.",
     type: "website",
-    siteName: "sg4.tech",
+    siteName: BRAND_NAME,
     locale: "en_US"
   },
   twitter: {
