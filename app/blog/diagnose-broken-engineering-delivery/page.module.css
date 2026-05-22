@@ -129,7 +129,12 @@
   margin-top: 0;
 }
 
-.pullquote {
+/* `.body > .pullquote` / `.body > .formula` (specificity 0,2,0) instead of
+   bare class selectors so they beat `.body > p` (0,1,1) when these blocks
+   render as <p>. Without this, color/font-size/line-height collapse to
+   body-paragraph values and the visual emphasis is lost. The same pattern
+   applies to .diagnosticGrid below — see comments there. */
+.body > .pullquote {
   margin: var(--space-3) 0 0;
   padding: var(--space-2) var(--space-3);
   border-left: 3px solid var(--accent);
@@ -141,7 +146,7 @@
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
-.formula {
+.body > .formula {
   margin: var(--space-3) 0 0;
   padding: var(--space-2) var(--space-3);
   background: var(--surface-strong);
@@ -218,7 +223,9 @@
   text-align: center;
 }
 
-.diagnosticGrid {
+/* `.body > .diagnosticGrid` (0,2,0) beats `.body > ul` (0,1,1) so the grid
+   doesn't inherit body-list padding-left and list-style. */
+.body > .diagnosticGrid {
   display: grid;
   gap: 0.75rem;
   margin: var(--space-3) 0 0;
@@ -226,7 +233,11 @@
   list-style: none;
 }
 
-.diagnosticItem {
+/* `.body > .diagnosticGrid > .diagnosticItem` to override the body-list
+   `margin: 0.4rem 0 0` from `.body > ul > li` so items rely on grid gap
+   alone for spacing. */
+.body > .diagnosticGrid > .diagnosticItem {
+  margin: 0;
   padding: var(--space-2);
   background: var(--surface-alt);
   border: 1px solid var(--border);

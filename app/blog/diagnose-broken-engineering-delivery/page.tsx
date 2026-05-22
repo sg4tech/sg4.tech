@@ -32,7 +32,18 @@ import styles from "./page.module.css";
 
 const SITE_URL = "https://sg4.tech";
 const SLUG = "diagnose-broken-engineering-delivery";
-const POST = getPostBySlug(SLUG)!;
+
+// Explicit throw instead of non-null assertion so a slug/posts.ts mismatch
+// fails fast at build with a message that names both the cause and the fix,
+// rather than crashing later with "cannot read 'title' of undefined".
+const post = getPostBySlug(SLUG);
+if (!post) {
+  throw new Error(
+    `[blog] missing post metadata for slug "${SLUG}" — add an entry to app/lib/blog/posts.ts or delete this route folder`
+  );
+}
+const POST = post;
+
 const POST_URL = `${SITE_URL}/blog/${SLUG}/`;
 
 const navigationItems: NavigationItem[] = [

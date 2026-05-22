@@ -27,13 +27,12 @@ const landings: ReadonlyArray<Landing> = [
   { path: "/ai-vibecoding", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 }
 ];
 
+// Newest post's modifiedAt, used as the /blog index lastmod. Caller must
+// guard blogPosts.length > 0 — see sitemap() below. ISO-8601 YYYY-MM-DD
+// strings sort lexically the same as chronologically, so a plain .sort()
+// suffices (no Date object comparison needed).
 function latestBlogModifiedAt(): string {
-  if (blogPosts.length === 0) {
-    // No posts yet — fall back to a hard-coded "blog opened" date rather than
-    // new Date() so the sitemap stays honest even before any post exists.
-    return "2026-05-22";
-  }
-  return [...blogPosts].map((post) => post.modifiedAt).sort().at(-1)!;
+  return blogPosts.map((post) => post.modifiedAt).sort().at(-1)!;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -44,14 +43,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: landing.priority
   }));
 
-  const blogIndex: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(latestBlogModifiedAt()),
-      changeFrequency: "weekly",
-      priority: 0.7
-    }
-  ];
+  // /blog index is only advertised when there's at least one post. An empty
+  // blog index with a stale hardcoded date would be a worse SEO signal than
+  // simply omitting the URL until content exists.
+  const blogIndex: MetadataRoute.Sitemap =
+    blogPosts.length === 0
+      ? []
+      : [
+          {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date(latestBlogModifiedAt()),
+            changeFrequency: "weekly",
+            priority: 0.7
+          }
+        ];
 
   const posts: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
