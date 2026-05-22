@@ -7,11 +7,9 @@
 // mime mapping. So we rename every emitted asset to *.png and rewrite the
 // corresponding HTML references.
 //
-// Auto-discover (vs hardcoded route list) because the previous hardcoded
-// version silently skipped every newly added OG-emitting route: ai-vibecoding,
-// blog index, and the blog cornerstone all shipped extensionless until this
-// rewrite. Hardcoded lists are a structural footgun for this kind of cross-cutting
-// build step — auto-discover prevents the bug class entirely.
+// Auto-discover (vs a hardcoded route list) prevents a class of silent
+// regressions where new OG-emitting routes ship without their asset URLs
+// being normalized, because nobody remembered to update this script.
 
 import { readdir, readFile, rename, writeFile } from "node:fs/promises";
 import { join } from "node:path";

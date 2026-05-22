@@ -99,8 +99,9 @@
 }
 
 /* Direct-child selectors so prose styles don't leak into <aside> blocks
-   (CTA, Related) where we need contrasting text on dark/alt backgrounds.
-   See git history for the bug that motivated this. */
+   (CTA, Related) where the text sits on a dark accent background. With
+   the previous `.body p` selector the CTA paragraph inherited body color
+   and rendered as dark-on-dark — effectively invisible. */
 .body > p {
   margin: var(--space-2) 0 0;
   color: var(--text);
