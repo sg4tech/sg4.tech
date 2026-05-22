@@ -64,6 +64,19 @@
 - Use linters, type checks, and static analysis wherever the stack supports them.
 - Prefer explicit schemas, contracts, and strict typing over hidden assumptions.
 
+## Design Principles (DRY, SOLID, GRASP)
+
+- **DRY for constants, URLs, config**: any literal that appears in 2+ files belongs in a single source of truth. The canonical site URL and short brand name live in `app/lib/brand.ts` as `SITE_URL` and `BRAND_NAME`; domain migration is a one-file change. Apply the same discipline to any new repeated literal.
+- **Don't over-DRY layouts and JSX**: extract a shared component only when the same shape repeats 3+ times AND the variations are obvious. Two similar pages don't need a shared abstraction; five do.
+- **Single Responsibility per module**: data + its accessors + its formatters travel together (e.g., `app/lib/blog/posts.ts` exports `blogPosts`, `getPostBySlug`, `formatPostDate`). Rendering logic stays in components.
+- **Open/Closed via optional props with sensible defaults**: new props on shared components (`SectionHeader.level`, `FaqSection.contentWrapperClassName`) must be backward-compatible — existing callers keep working unchanged.
+- **Avoid props that conditionally control DOM structure**: if passing a className adds or removes a wrapper element, that's an implicit invariant the caller has to know. Render the wrapper unconditionally so the DOM shape stays stable.
+- **Information Expert (GRASP)**: put the function where the data lives. Date formatting belongs in the module that owns the dates, not in every page that renders one.
+- **High Cohesion**: types, data, and accessors that change together belong in the same file.
+- **Low Coupling**: pages depend on `lib/` abstractions; avoid cross-page imports. Shared primitives live in `app/components/` and `app/lib/`.
+- **Type-narrowed inputs over runtime guards**: literal unions (`PostSlug`, `Landing.priority: 0.6 | 0.7 | 0.8 | 1`) beat `string` + non-null assertion or `number` + range comment. The type system enforces what comments can only describe.
+- **Semantic HTML over visual approximation**: if data is tabular, use `<table>` with `<thead>`/`<tbody>`. If it's a list, use `<ul>` / `<ol>`. AI engines and screen readers cite structure, not just text content.
+
 ## Runtime Truth
 
 - Treat built artifacts and real endpoints as the source of runtime truth.
