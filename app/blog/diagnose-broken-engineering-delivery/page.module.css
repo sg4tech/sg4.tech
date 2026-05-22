@@ -2,6 +2,17 @@
   padding: 2.2rem 0 0;
 }
 
+/* Center every direct child of the article Section in a 42rem reading
+   column so the whole page (back link → header → body → CTA → related)
+   sits on a single visual axis instead of being left-anchored inside the
+   wider page container. This is what fixes the "chaotic" layout on
+   desktop, where the body was 672px anchored left and FAQ stretched to
+   the full 1184px page width. */
+.article > * {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
 .backLink {
   display: inline-flex;
   align-items: center;
@@ -18,8 +29,7 @@
 }
 
 .header {
-  max-width: 42rem;
-  margin: 0 0 var(--space-3);
+  margin: 0 auto var(--space-3);
 }
 
 .title {
@@ -28,7 +38,9 @@
   font-size: var(--text-h1);
   line-height: var(--leading-tight);
   letter-spacing: -0.02em;
-  text-wrap: pretty;
+  /* balance over pretty for headings: equalizes line widths so the title
+     doesn't end with an orphan-feeling short line. */
+  text-wrap: balance;
 }
 
 .lede {
@@ -78,7 +90,7 @@
   font-size: var(--text-h2);
   line-height: var(--leading-tight);
   letter-spacing: -0.015em;
-  text-wrap: pretty;
+  text-wrap: balance;
   scroll-margin-top: var(--scroll-offset);
 }
 
@@ -363,4 +375,21 @@
 .ctaButton:hover,
 .ctaButton:focus-visible {
   background: var(--surface-alt);
+}
+
+/* FAQ and attribution constrained to the same 42rem reading column as the
+   article body so the whole page reads on a single visual axis instead of
+   bouncing between narrow article and full-width sections.
+   .faqColumn is passed as innerClassName to FaqSection — wrapping both the
+   "FAQ" heading and the list so they share the same centered axis.
+   See FaqSection prop docs for why the constraint is scoped per-page
+   instead of applied globally to the component. */
+.faqColumn {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.attributionSection {
+  max-width: 42rem;
+  margin-inline: auto;
 }
