@@ -57,7 +57,7 @@ const faqItems = [
   {
     question: "What's a reasonable WIP limit for a team of N?",
     answer:
-      "A common starting point is one to two tasks per developer at most, with separate limits per stage (e.g., one or two in review, one or two in QA). For a team of six, that usually means a system-wide WIP of around eight to twelve, not eighty. The exact number matters less than the discipline of having one and enforcing it."
+      "Industry guidance ranges from one to three tasks per developer; software-dev teams typically run on the tighter end — one to two per dev. For a team of six, that lands you somewhere around six to twelve system-wide tasks, not eighty. The exact number matters less than the discipline of having one and enforcing it — most teams find their right level by starting tight and relaxing if work consistently stalls for non-WIP reasons."
   },
   {
     question: "How is this different from Scrum sprint capacity?",

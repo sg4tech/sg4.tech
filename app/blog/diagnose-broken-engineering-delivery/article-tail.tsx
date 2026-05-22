@@ -59,9 +59,9 @@ function WipSequenceList(): ReactNode {
         follow practices they understand far better than rules they don&apos;t.
       </li>
       <li>
-        <strong>Show real examples.</strong> Reference cases — your own past teams, posts like this one,
-        war stories from others — where introducing WIP limits cut lead time in half within a quarter.
-        Pattern-matching does most of the work that exhortation can&apos;t.
+        <strong>Show real examples.</strong> Reference cases where introducing WIP limits visibly changed
+        the system — your own past teams, posts like this one, war stories from others. Pattern-matching
+        does most of the work that exhortation can&apos;t.
       </li>
       <li>
         <strong>Bring the focus back, often.</strong> Whenever someone is about to pull a new task, ask:
@@ -191,7 +191,7 @@ export function SectionClosing(): ReactNode {
       <p>
         The metrics I&apos;ve walked through in this essay aren&apos;t new. T2M, Lead Time, Cycle Time, WIP,
         Throughput, eNPS — every operator has heard of them. The Theory of Constraints articulated this
-        thirty years ago in manufacturing. The Toyota Production System earlier than that. Kanban brought
+        back in the 1980s in manufacturing. The Toyota Production System earlier than that. Kanban brought
         the same ideas into software in the 2000s. Little&apos;s Law itself is from the 1960s.
       </p>
       <p>
