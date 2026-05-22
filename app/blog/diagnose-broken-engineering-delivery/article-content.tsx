@@ -264,20 +264,28 @@ export function SectionLeadTimeCycleTime(): ReactNode {
       <p>
         <strong>Quick diagnostic table</strong> for the first conversation with leadership:
       </p>
-      <ul className={styles.diagnosticGrid}>
-        <li className={styles.diagnosticItem}>
-          <strong>High Cycle Time</strong>
-          Execution problem — look inside dev.
-        </li>
-        <li className={styles.diagnosticItem}>
-          <strong>High Lead Time, normal Cycle Time</strong>
-          Demand exceeds capacity.
-        </li>
-        <li className={styles.diagnosticItem}>
-          <strong>Low Cycle Time, low Lead Time, high T2M</strong>
-          The bottleneck is in Discovery, not Delivery.
-        </li>
-      </ul>
+      <table className={styles.diagnosticTable}>
+        <thead>
+          <tr>
+            <th scope="col">What the metric shows</th>
+            <th scope="col">What it means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">High Cycle Time</th>
+            <td>Execution problem — look inside dev.</td>
+          </tr>
+          <tr>
+            <th scope="row">High Lead Time, normal Cycle Time</th>
+            <td>Demand exceeds capacity.</td>
+          </tr>
+          <tr>
+            <th scope="row">Low Cycle Time, low Lead Time, high T2M</th>
+            <td>The bottleneck is in Discovery, not Delivery.</td>
+          </tr>
+        </tbody>
+      </table>
       <p>
         That&apos;s three numbers. You can pull all of them from Jira or Linear in an afternoon, and
         they&apos;ll already tell you a different story than &quot;we need to hire.&quot;

@@ -224,34 +224,69 @@
   text-align: center;
 }
 
-/* `.body > .diagnosticGrid` (0,2,0) beats `.body > ul` (0,1,1) so the grid
-   doesn't inherit body-list padding-left and list-style. */
-.body > .diagnosticGrid {
-  display: grid;
-  gap: 0.75rem;
+/* 2-column "Condition / Diagnosis" table for the post-Cycle-Time
+   diagnostic. Mobile (<640px) stacks cells as block — keeps the table
+   readable on narrow viewports without a horizontal scroll. */
+.body > .diagnosticTable {
+  width: 100%;
   margin: var(--space-3) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* `.body > .diagnosticGrid > .diagnosticItem` to override the body-list
-   `margin: 0.4rem 0 0` from `.body > ul > li` so items rely on grid gap
-   alone for spacing. */
-.body > .diagnosticGrid > .diagnosticItem {
-  margin: 0;
-  padding: var(--space-2);
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-collapse: collapse;
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--text);
 }
 
-.diagnosticItem strong {
-  display: block;
-  margin-bottom: 0.25rem;
+.diagnosticTable thead th {
+  padding: 0.6rem var(--space-2);
+  background: var(--surface-strong);
   color: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.diagnosticTable tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.diagnosticTable tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.diagnosticTable tbody th {
+  padding: var(--space-2);
+  color: var(--text-strong);
+  font-weight: 600;
+  text-align: left;
+  vertical-align: top;
+  width: 45%;
+}
+
+.diagnosticTable tbody td {
+  padding: var(--space-2);
+  vertical-align: top;
+}
+
+@media (max-width: 640px) {
+  .diagnosticTable thead {
+    /* Hide header on mobile — row headers carry enough context */
+    display: none;
+  }
+
+  .diagnosticTable tbody tr {
+    display: block;
+    padding: var(--space-2) 0;
+  }
+
+  .diagnosticTable tbody th,
+  .diagnosticTable tbody td {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0;
+  }
 }
 
 .numericExample {
