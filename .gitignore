@@ -7,3 +7,4 @@ node_modules/
 .claude/
 .lighthouseci/
 docs/private/
+.DS_Store
