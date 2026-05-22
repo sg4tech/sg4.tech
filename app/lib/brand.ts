@@ -28,3 +28,4 @@ export const personSchema = {
     "https://medium.com/@sg4tech"
   ]
 };
+

@@ -1,0 +1,366 @@
+.article {
+  padding: 2.2rem 0 0;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  text-decoration: none;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  color: var(--text-strong);
+}
+
+.header {
+  max-width: 42rem;
+  margin: 0 0 var(--space-3);
+}
+
+.title {
+  margin: var(--space-2) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.lede {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
+}
+
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: var(--space-3) 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+}
+
+.bylineAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.bylineMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.bylineName {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.body {
+  max-width: 42rem;
+}
+
+.body h2 {
+  margin: var(--space-4) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  text-wrap: pretty;
+  scroll-margin-top: var(--scroll-offset);
+}
+
+.body h2:first-child {
+  margin-top: var(--space-3);
+}
+
+/* Direct-child selectors so prose styles don't leak into <aside> blocks
+   (CTA, Related) where we need contrasting text on dark/alt backgrounds.
+   See git history for the bug that motivated this. */
+.body > p {
+  margin: var(--space-2) 0 0;
+  color: var(--text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+  text-wrap: pretty;
+}
+
+.body strong {
+  color: var(--text-strong);
+}
+
+.body > ul {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.4rem;
+  color: var(--text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+}
+
+.body > ul > li {
+  margin: 0.4rem 0 0;
+}
+
+.body > ul > li:first-child {
+  margin-top: 0;
+}
+
+.pullquote {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--accent);
+  background: var(--surface-alt);
+  color: var(--text-strong);
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  font-weight: 600;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.formula {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-strong);
+  color: var(--text-strong);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  text-align: center;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.01em;
+}
+
+.timelineDiagram {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.timelineDiagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.timelineDiagram .tlSegmentDiscoveryBg {
+  fill: var(--surface-strong);
+}
+
+.timelineDiagram .tlSegmentWaitingBg {
+  fill: var(--surface-alt);
+}
+
+.timelineDiagram .tlSegmentCycleBg {
+  fill: var(--accent);
+}
+
+.timelineDiagram .tlSegmentLabel {
+  fill: var(--text-strong);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.timelineDiagram .tlSegmentLabelOnDark {
+  fill: var(--on-strong);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.timelineDiagram .tlMeasureBar {
+  fill: var(--surface-strong);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.timelineDiagram .tlMeasureLabel {
+  fill: var(--text);
+  font-size: var(--text-sm);
+}
+
+.timelineDiagram .tlGuide {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.timelineCaption {
+  margin: var(--space-1) 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  text-align: center;
+}
+
+.diagnosticGrid {
+  display: grid;
+  gap: 0.75rem;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diagnosticItem {
+  padding: var(--space-2);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text);
+}
+
+.diagnosticItem strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text-strong);
+}
+
+.numericExample {
+  display: grid;
+  gap: 0.4rem;
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: var(--text-base);
+  color: var(--text);
+  line-height: var(--leading-relaxed);
+}
+
+.numericExample p {
+  margin: 0;
+  font-size: var(--text-base);
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.related {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+}
+
+.relatedTitle {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+}
+
+.relatedIntro {
+  margin: var(--space-1) 0 0;
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.relatedList {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relatedLink {
+  display: block;
+  padding: var(--space-2);
+  color: inherit;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.18s ease;
+}
+
+.relatedLink:hover,
+.relatedLink:focus-visible {
+  border-color: var(--border-strong);
+}
+
+.relatedLinkTitle {
+  display: block;
+  color: var(--text-strong);
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.relatedLinkDescription {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.attribution {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.attribution a {
+  color: var(--text-strong);
+}
+
+.cta {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3);
+  background: var(--accent);
+  color: var(--on-strong);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.ctaHeading {
+  margin: 0;
+  color: var(--on-strong);
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+  text-wrap: pretty;
+}
+
+.ctaText {
+  margin: var(--space-1) 0 var(--space-2);
+  color: var(--on-strong);
+  opacity: 0.85;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  background: var(--on-strong);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: var(--text-base);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.ctaButton:hover,
+.ctaButton:focus-visible {
+  background: var(--surface-alt);
+}

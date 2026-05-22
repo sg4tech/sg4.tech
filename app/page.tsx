@@ -206,6 +206,14 @@ const insightTopics = [
   "AI in engineering: leverage or noise?"
 ];
 
+const featuredEssay = {
+  href: "/blog/diagnose-broken-engineering-delivery/",
+  label: "Featured essay",
+  title: "How to diagnose where engineering delivery is actually broken",
+  description:
+    "The full metrics playbook: T2M, Lead Time, Cycle Time, WIP, Little's Law, and how to introduce WIP limits without team revolt. ~4500 words, with FAQ."
+};
+
 const specializationLinks = [
   {
     href: "/yii2",
@@ -576,7 +584,16 @@ function InsightsSection() {
           <li key={topic}>{topic}</li>
         ))}
       </ul>
-      <p className={styles.bodyCopy}>If you want to understand how your system behaves — start here.</p>
+      <div className={styles.specializationGrid}>
+        <Link href={featuredEssay.href} className={styles.specializationCard}>
+          <span className={styles.specializationLabel}>{featuredEssay.label}</span>
+          <span className={styles.specializationTitle}>{featuredEssay.title}</span>
+          <span className={styles.specializationDescription}>{featuredEssay.description}</span>
+        </Link>
+      </div>
+      <p className={styles.bodyCopy}>
+        Or browse the full collection at <Link href="/blog/">sg4.tech/blog</Link>, and follow the channels below for short-form notes.
+      </p>
       <div className={styles.insightGrid} aria-label="Writing channels">
         {insightLinks.map((link) => (
           <a

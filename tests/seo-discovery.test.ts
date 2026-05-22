@@ -10,7 +10,13 @@ describe("sitemap", () => {
     const urls = entries.map((entry) => entry.url);
 
     expect(urls).toEqual(
-      expect.arrayContaining(["https://sg4.tech/", "https://sg4.tech/yii2"])
+      expect.arrayContaining([
+        "https://sg4.tech/",
+        "https://sg4.tech/yii2",
+        "https://sg4.tech/ai-vibecoding",
+        "https://sg4.tech/blog",
+        "https://sg4.tech/blog/diagnose-broken-engineering-delivery"
+      ])
     );
   });
 
@@ -44,6 +50,28 @@ describe("canonical metadata", () => {
 
     expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2"/);
   });
+
+  it("declares the blog index canonical", () => {
+    const filePath = join(process.cwd(), "app", "blog", "page.tsx");
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/blog\/"/);
+  });
+
+  it("declares the cornerstone article canonical", () => {
+    const filePath = join(
+      process.cwd(),
+      "app",
+      "blog",
+      "diagnose-broken-engineering-delivery",
+      "page.tsx"
+    );
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toMatch(
+      /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
+    );
+  });
 });
 
 describe("llms.txt", () => {
@@ -55,5 +83,32 @@ describe("llms.txt", () => {
     expect(content).toContain("https://sg4.tech/");
     expect(content).toContain("https://sg4.tech/yii2");
     expect(content).toContain("https://t.me/sg4tech");
+  });
+
+  it("advertises the blog index and the cornerstone article", () => {
+    const filePath = join(process.cwd(), "public", "llms.txt");
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toContain("https://sg4.tech/blog/");
+    expect(content).toContain(
+      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
+    );
+  });
+});
+
+describe("article schema", () => {
+  it("renders Article, FAQPage, and BreadcrumbList JSON-LD", () => {
+    const filePath = join(
+      process.cwd(),
+      "app",
+      "blog",
+      "diagnose-broken-engineering-delivery",
+      "page.tsx"
+    );
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toContain('"@type": "Article"');
+    expect(content).toContain('"@type": "FAQPage"');
+    expect(content).toContain('"@type": "BreadcrumbList"');
   });
 });
