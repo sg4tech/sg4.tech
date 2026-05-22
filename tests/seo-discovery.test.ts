@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
+import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -111,4 +112,24 @@ describe("article schema", () => {
     expect(content).toContain('"@type": "FAQPage"');
     expect(content).toContain('"@type": "BreadcrumbList"');
   });
+});
+
+describe("blog post metadata", () => {
+  // Per-post sanity: every slug in POST_SLUGS must resolve to a fully-formed
+  // BlogPost. Without this, an empty/typo'd entry in blogPosts would only
+  // surface as undefined-propagation through the Article JSON-LD (e.g.,
+  // `"headline": undefined`), which the substring schema test above wouldn't
+  // catch.
+  for (const slug of POST_SLUGS) {
+    it(`"${slug}" has complete required metadata`, () => {
+      const post = getPostBySlug(slug);
+
+      expect(post.title).toBeTruthy();
+      expect(post.description).toBeTruthy();
+      expect(post.publishedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(post.modifiedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(post.readingMinutes).toBeGreaterThan(0);
+      expect(post.tags.length).toBeGreaterThan(0);
+    });
+  }
 });

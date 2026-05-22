@@ -14,11 +14,17 @@ const baseUrl = "https://sg4.tech";
 //
 // /blog index isn't listed here because its modifiedAt is auto-derived from
 // the most recently modified post — no manual maintenance needed.
+// Tighter shape than the MetadataRoute.Sitemap entry:
+// - `path` is required to start with "/" via template literal type
+// - `priority` is a literal union of the sitemap-protocol values we
+//   actually use, blocking accidental NaN / out-of-range / typos
+//   (sitemap.org defines priority as 0.0 to 1.0; we use a discrete
+//   subset to encode landing weight)
 type Landing = {
-  path: string;
+  path: `/${string}`;
   modifiedAt: string;
   changeFrequency: "monthly" | "weekly";
-  priority: number;
+  priority: 0.6 | 0.7 | 0.8 | 1;
 };
 
 const landings: ReadonlyArray<Landing> = [

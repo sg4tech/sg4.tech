@@ -8,7 +8,7 @@ import { Section } from "../../components/Section";
 import { TopNavigation } from "../../components/TopNavigation";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../../lib/brand";
 import type { NavigationItem } from "../../lib/navigation";
-import { getPostBySlug } from "../../lib/blog/posts";
+import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/posts";
 import {
   ArticleHeader,
   IntroSection,
@@ -31,19 +31,10 @@ import {
 import styles from "./page.module.css";
 
 const SITE_URL = "https://sg4.tech";
-const SLUG = "diagnose-broken-engineering-delivery";
-
-// Explicit throw instead of non-null assertion so a slug/posts.ts mismatch
-// fails fast at build with a message that names both the cause and the fix,
-// rather than crashing later with "cannot read 'title' of undefined".
-const post = getPostBySlug(SLUG);
-if (!post) {
-  throw new Error(
-    `[blog] missing post metadata for slug "${SLUG}" — add an entry to app/lib/blog/posts.ts or delete this route folder`
-  );
-}
-const POST = post;
-
+// PostSlug-typed: a typo here fails the build via type-narrowed
+// getPostBySlug, not via runtime "cannot read 'title' of undefined".
+const SLUG: PostSlug = "diagnose-broken-engineering-delivery";
+const POST = getPostBySlug(SLUG);
 const POST_URL = `${SITE_URL}/blog/${SLUG}/`;
 
 const navigationItems: NavigationItem[] = [
@@ -53,11 +44,11 @@ const navigationItems: NavigationItem[] = [
   { href: "/ai-vibecoding/", label: "AI vibecoding", mobileNav: "secondary" }
 ];
 
-// FAQ kept tight on purpose: each item targets a specific query intent
-// that's NOT already answered in the body. The earlier draft had six items;
-// three of them were paraphrases of body sections (Jira tooling, time to
-// results, management resistance) — dropped because duplicating body content
-// in FAQ schema reduces the citation trust signal for AI engines.
+// FAQ items must not duplicate body content. Paraphrased FAQ entries reduce
+// the citation-trust signal for AI engines that index the FAQPage schema
+// (duplicate content across body + FAQ looks like keyword stuffing). Each
+// question here targets a query intent that the body doesn't directly
+// answer.
 const faqItems = [
   {
     question: "What's the difference between Lead Time and Cycle Time?",
@@ -156,15 +147,6 @@ export const metadata: Metadata = {
   }
 };
 
-function formatDate(iso: string): string {
-  const [year, month, day] = iso.split("-").map((part) => Number.parseInt(part, 10));
-  const monthName = new Date(Date.UTC(year, month - 1, day)).toLocaleString("en-US", {
-    month: "long",
-    timeZone: "UTC"
-  });
-  return `${monthName} ${day}, ${year}`;
-}
-
 function ArticleBody() {
   return (
     <div className={styles.body}>
@@ -203,11 +185,11 @@ export default function ArticlePage() {
           title={POST.title}
           publishedAt={POST.publishedAt}
           readingMinutes={POST.readingMinutes}
-          formattedDate={formatDate(POST.publishedAt)}
+          formattedDate={formatPostDate(POST.publishedAt)}
         />
         <ArticleBody />
       </Section>
-      <FaqSection items={faqItems} innerClassName={styles.faqColumn} />
+      <FaqSection items={faqItems} contentWrapperClassName={styles.faqColumn} />
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
     </Page>
   );
