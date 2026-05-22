@@ -22,7 +22,6 @@ import {
   SectionWipLimits
 } from "./article-content";
 import {
-  ArticleAttribution,
   ArticleCta,
   ArticleRelated,
   SectionClosing,
@@ -198,11 +197,6 @@ export default function ArticlePage() {
         <ArticleBody />
       </Section>
       <FaqSection items={faqItems} innerClassName={styles.faqColumn} />
-      <Section>
-        <div className={styles.attributionSection}>
-          <ArticleAttribution />
-        </div>
-      </Section>
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
     </Page>
   );

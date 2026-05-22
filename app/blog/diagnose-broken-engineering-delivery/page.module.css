@@ -323,19 +323,6 @@
   line-height: var(--leading-relaxed);
 }
 
-.attribution {
-  margin: var(--space-4) 0 0;
-  padding: var(--space-3) 0;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-}
-
-.attribution a {
-  color: var(--text-strong);
-}
-
 .cta {
   margin: var(--space-4) 0 0;
   padding: var(--space-3);
@@ -377,19 +364,14 @@
   background: var(--surface-alt);
 }
 
-/* FAQ and attribution constrained to the same 42rem reading column as the
-   article body so the whole page reads on a single visual axis instead of
-   bouncing between narrow article and full-width sections.
+/* FAQ constrained to the same 42rem reading column as the article body so
+   the whole page reads on a single visual axis instead of bouncing between
+   narrow article and full-width sections.
    .faqColumn is passed as innerClassName to FaqSection — wrapping both the
    "FAQ" heading and the list so they share the same centered axis.
    See FaqSection prop docs for why the constraint is scoped per-page
    instead of applied globally to the component. */
 .faqColumn {
-  max-width: 42rem;
-  margin-inline: auto;
-}
-
-.attributionSection {
   max-width: 42rem;
   margin-inline: auto;
 }

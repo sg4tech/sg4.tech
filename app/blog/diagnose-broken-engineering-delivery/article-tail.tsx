@@ -250,16 +250,3 @@ export function ArticleRelated(): ReactNode {
   );
 }
 
-export function ArticleAttribution(): ReactNode {
-  return (
-    <p className={styles.attribution}>
-      This essay synthesizes a 10-post LinkedIn series I published on engineering delivery metrics,
-      extended with additional structure, examples, and FAQ. The original short-form posts are on my{" "}
-      <a href="https://www.linkedin.com/in/victor-demin/" target="_blank" rel="noreferrer">
-        LinkedIn
-      </a>
-      . The conceptual lineage runs through the Theory of Constraints (Goldratt), the Toyota Production
-      System, and the Kanban method.
-    </p>
-  );
-}
