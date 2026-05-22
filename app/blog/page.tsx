@@ -7,7 +7,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { BRAND_COPYRIGHT, footerLinks, personSchema } from "../lib/brand";
-import { blogPosts } from "../lib/blog/posts";
+import { blogPosts, formatPostDate } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
 import styles from "./page.module.css";
 
@@ -69,16 +69,6 @@ export const metadata: Metadata = {
   }
 };
 
-function formatDate(iso: string): string {
-  // Format YYYY-MM-DD as "Month D, YYYY" without pulling in a date library.
-  const [year, month, day] = iso.split("-").map((part) => Number.parseInt(part, 10));
-  const monthName = new Date(Date.UTC(year, month - 1, day)).toLocaleString("en-US", {
-    month: "long",
-    timeZone: "UTC"
-  });
-  return `${monthName} ${day}, ${year}`;
-}
-
 export default function BlogIndexPage() {
   const posts = [...blogPosts].sort((a, b) =>
     a.publishedAt < b.publishedAt ? 1 : -1
@@ -104,7 +94,7 @@ export default function BlogIndexPage() {
               <Link href={`/blog/${post.slug}/`} className={styles.card}>
                 <p className={styles.meta}>
                   <span className={styles.metaItem}>
-                    <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                    <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time>
                   </span>
                   <span className={styles.metaItem}>{post.readingMinutes} min read</span>
                 </p>
