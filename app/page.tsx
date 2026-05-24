@@ -21,7 +21,7 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
-import { BRAND_COPYRIGHT, footerLinks, personSchema } from "./lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -206,6 +206,14 @@ const insightTopics = [
   "AI in engineering: leverage or noise?"
 ];
 
+const featuredEssay = {
+  href: "/blog/diagnose-broken-engineering-delivery/",
+  label: "Featured essay",
+  title: "How to diagnose where engineering delivery is actually broken",
+  description:
+    "The full metrics playbook: T2M, Lead Time, Cycle Time, WIP, Little's Law, and how to introduce WIP limits without team revolt. ~4500 words, with FAQ."
+};
+
 const specializationLinks = [
   {
     href: "/yii2",
@@ -275,15 +283,15 @@ const structuredData = {
     personSchema,
     {
       "@type": "ProfessionalService",
-      "@id": "https://sg4.tech/#service",
+      "@id": `${SITE_URL}/#service`,
       name: "Victor Demin Fractional CTO Consulting",
-      url: "https://sg4.tech",
+      url: SITE_URL,
       serviceType: "Fractional CTO and engineering delivery consulting",
       description:
         "Fractional CTO consulting for product teams that need faster, more predictable software delivery using system thinking, delivery metrics, and AI.",
       areaServed: "Global",
       founder: {
-        "@id": "https://sg4.tech/#person"
+        "@id": `${SITE_URL}/#person`
       },
       sameAs: [
         "https://github.com/sg4tech/",
@@ -293,7 +301,7 @@ const structuredData = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://sg4.tech/#faq",
+      "@id": `${SITE_URL}/#faq`,
       mainEntity: faqItems.map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -318,7 +326,7 @@ export const metadata: Metadata = {
     description:
       "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic.",
     type: "website",
-    siteName: "sg4.tech",
+    siteName: BRAND_NAME,
     locale: "en_US"
   },
   twitter: {
@@ -576,7 +584,16 @@ function InsightsSection() {
           <li key={topic}>{topic}</li>
         ))}
       </ul>
-      <p className={styles.bodyCopy}>If you want to understand how your system behaves — start here.</p>
+      <div className={styles.specializationGrid}>
+        <Link href={featuredEssay.href} className={styles.specializationCard}>
+          <span className={styles.specializationLabel}>{featuredEssay.label}</span>
+          <span className={styles.specializationTitle}>{featuredEssay.title}</span>
+          <span className={styles.specializationDescription}>{featuredEssay.description}</span>
+        </Link>
+      </div>
+      <p className={styles.bodyCopy}>
+        Or browse the full collection at <Link href="/blog/">sg4.tech/blog</Link>, and follow the channels below for short-form notes.
+      </p>
       <div className={styles.insightGrid} aria-label="Writing channels">
         {insightLinks.map((link) => (
           <a

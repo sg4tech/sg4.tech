@@ -4,7 +4,10 @@
       "staticDistDir": "./out",
       "url": [
         "http://localhost/index.html",
-        "http://localhost/yii2/index.html"
+        "http://localhost/yii2/index.html",
+        "http://localhost/ai-vibecoding/index.html",
+        "http://localhost/blog/index.html",
+        "http://localhost/blog/diagnose-broken-engineering-delivery/index.html"
       ],
       "numberOfRuns": 3,
       "settings": {

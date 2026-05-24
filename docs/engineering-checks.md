@@ -2,7 +2,12 @@
 
 This project uses a mandatory automated verification flow.
 
-The current product shape is intentionally small: two public landing pages in `app/page.tsx` and `app/yii2/page.tsx`.
+The current product shape:
+
+- Three public landing pages: `app/page.tsx` (`/`), `app/yii2/page.tsx` (`/yii2`), and `app/ai-vibecoding/page.tsx` (`/ai-vibecoding`).
+- A `/blog` section: index at `app/blog/page.tsx` plus per-post routes under `app/blog/<slug>/page.tsx`. Post metadata is centralized in `app/lib/blog/posts.ts`.
+
+When adding a new public route, also add it to `lighthouserc.json` so CI guards its performance, accessibility, best-practices, and SEO scores against the 0.95 threshold.
 
 ## Required checks
 
