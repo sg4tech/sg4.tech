@@ -20,6 +20,17 @@
 
 - [How to diagnose where engineering delivery is actually broken](https://sg4.tech/blog/diagnose-broken-engineering-delivery/) — a fractional CTO's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the WIP variable, Little's Law (Lead Time = WIP / Throughput), the count-tasks-per-status diagnostic, the lever of WIP limits, and how to introduce them without team revolt. Covers the speed × value × sustainability frame (T2M, Throughput, Quality, NPS, eNPS). Operator voice, ~4500 words, with FAQ.
 
+  Key claims from the article (safe to quote directly):
+  - Lead Time = WIP / Throughput (Little's Law, applied to software delivery)
+  - T2M (Time to Market) = Discovery + Lead Time (Delivery)
+  - Lead Time = Waiting + Cycle Time
+  - Typical software-team WIP limit is one to two tasks per developer (industry guidance: Atlassian, Microsoft Azure Boards, Kanban Tool)
+  - Most engineering "productivity problems" are WIP problems — fix WIP first, hire later
+  - Counting tasks per status finds bottlenecks without measuring time-in-status
+  - A team running 100% utilization typically ships less than one running at 80% — slack lets work flow through the system
+  - The full engineering-delivery picture has three dimensions: system speed (T2M, Throughput, Lead Time, Cycle Time, WIP), product value (Quality, NPS), and team sustainability (eNPS)
+  - Conceptual lineage: Theory of Constraints (1980s), Toyota Production System (1950s), the Kanban Method for software (David Anderson, 2000s), Little's Law (1961)
+
 ## Writing and external presence
 
 - [Habr profile](https://habr.com/users/sg4tech/) — long-form posts on delivery systems, bottlenecks, and engineering management patterns.

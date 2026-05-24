@@ -30,10 +30,6 @@ export function ArticleHeader({
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>{title}</h1>
-      <p className={styles.lede}>
-        Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
-        And almost everyone&apos;s first reaction to it makes the system slower.
-      </p>
       <div className={styles.byline}>
         <Image
           src="/brand/victor-demin.jpg"
@@ -44,14 +40,21 @@ export function ArticleHeader({
           unoptimized
         />
         <div className={styles.bylineMeta}>
-          <span className={styles.bylineName}>Victor Demin · Fractional CTO</span>
-          <span>
+          <p className={styles.bylineBio}>
+            <span className={styles.bylineName}>Victor Demin</span>
+            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
+          </p>
+          <p className={styles.bylineDate}>
             <time dateTime={publishedAt}>{formattedDate}</time>
             {" · "}
             {readingMinutes} min read
-          </span>
+          </p>
         </div>
       </div>
+      <p className={styles.lede}>
+        Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
+        And almost everyone&apos;s first reaction to it makes the system slower.
+      </p>
     </header>
   );
 }
@@ -78,7 +81,7 @@ export function IntroSection(): ReactNode {
 export function SectionSymptoms(): ReactNode {
   return (
     <>
-      <h2 id="symptoms">1. The symptoms — and the wrong first reflex</h2>
+      <h2 id="symptoms">1. Symptoms of slow delivery — and the wrong first reflex</h2>
       <p>
         The first conversation almost always starts the same way. T2M is in months. Throughput is near zero.
         There are more bugs on the board than open tasks. The team&apos;s NPS — internal or external — is
@@ -117,8 +120,9 @@ export function SectionDecomposeT2M(): ReactNode {
         stage, and the ones that do don&apos;t always make it quickly.
       </p>
       <p>
-        That gap is important, because it&apos;s where a lot of teams burn weeks without realizing it. So
-        the first useful cut on T2M is the boundary between Discovery and Delivery.
+        That gap is important, because it&apos;s where a lot of teams burn weeks without realizing it.
+        <strong> T2M — Time to Market — is the total time from idea to production.</strong> The first
+        useful cut on it is the boundary between Discovery and Delivery.
       </p>
       <p>
         <strong>Discovery</strong> is everything that happens before a ticket is genuinely ready to be
@@ -145,9 +149,8 @@ export function SectionDecomposeT2M(): ReactNode {
       </p>
       <p>
         <strong>If Lead Time is high</strong>, the problem is inside Delivery itself. Tasks are getting
-        stuck after the team picks them up: in coding, in review, in QA, in deploy. This is where most of
-        this essay lives, and where the rest of the decomposition matters. We need to look inside Lead Time
-        and figure out where, specifically, the time is being spent.
+        stuck after the team picks them up: in coding, in review, in QA, in deploy. We need to look inside
+        Lead Time and figure out where, specifically, the time is being spent.
       </p>
       <p>
         In practice, most teams I work with have problems on both sides — but rarely in equal proportion.
@@ -157,9 +160,8 @@ export function SectionDecomposeT2M(): ReactNode {
         reliable ways to make the wrong fix.
       </p>
       <p>
-        In the next section we&apos;ll go a layer deeper inside Lead Time itself — and that&apos;s where
-        things get interesting, because the moment you look inside Delivery you find that &quot;working on a
-        task&quot; and &quot;the task being worked on&quot; are not the same thing.
+        Inside Lead Time, &quot;working on a task&quot; and &quot;the task being worked on&quot; turn out
+        to be different things — and that&apos;s where things get interesting.
       </p>
     </>
   );
@@ -281,7 +283,7 @@ export function SectionLeadTimeCycleTime(): ReactNode {
 export function SectionWhereStuck(): ReactNode {
   return (
     <>
-      <h2 id="where-stuck">4. Where work actually gets stuck — and why finer measurement misleads</h2>
+      <h2 id="where-stuck">4. Where work actually gets stuck: why time-in-status can mislead</h2>
       <p>
         So Cycle Time is high. The natural next move is to look inside it: measure time-in-status. In
         Progress, Code Review, QA, Deploy. Add up where the hours go. Find the slowest column. Fix it.
@@ -326,7 +328,7 @@ export function SectionWhereStuck(): ReactNode {
 export function SectionCountTasks(): ReactNode {
   return (
     <>
-      <h2 id="count-tasks">5. The cheap diagnostic — count tasks per status, not time</h2>
+      <h2 id="count-tasks">5. How to find bottlenecks without measuring time</h2>
       <p>Here&apos;s the most underrated diagnostic move I know.</p>
       <p>
         You don&apos;t need to measure time in each status to find the bottleneck. You just need to{" "}
@@ -363,7 +365,7 @@ export function SectionCountTasks(): ReactNode {
       <p>
         But it raises a deeper question. <strong>Why</strong> are twenty-five tasks in QA? Where did they
         come from? Why does the team keep accepting new work when there&apos;s already a wall of unfinished
-        tickets in the system? That&apos;s the question Section 6 is about.
+        tickets in the system?
       </p>
     </>
   );
@@ -372,7 +374,7 @@ export function SectionCountTasks(): ReactNode {
 export function SectionWip(): ReactNode {
   return (
     <>
-      <h2 id="wip">6. WIP — the variable that controls everything</h2>
+      <h2 id="wip">6. Work in Progress (WIP): the variable that controls delivery speed</h2>
       <p className={styles.pullquote}>Six engineers. Eighty tasks in progress. Nothing gets done.</p>
       <p>
         It&apos;s not an exaggeration. I&apos;ve seen this exact shape multiple times. A team of three
@@ -431,7 +433,7 @@ export function SectionWip(): ReactNode {
 export function SectionLittlesLaw(): ReactNode {
   return (
     <>
-      <h2 id="littles-law">7. The math — Little&apos;s Law</h2>
+      <h2 id="littles-law">7. Little&apos;s Law: Lead Time = WIP / Throughput</h2>
       <p>
         If the previous sections feel like they keep arriving at the same conclusion, you&apos;re not wrong.
         There&apos;s a reason.
@@ -481,7 +483,7 @@ export function SectionLittlesLaw(): ReactNode {
         (mentoring, context handoff, reviewing the new hire&apos;s PRs).
       </p>
       <p className={styles.pullquote}>
-        If you take one number from this entire essay, take this one. Lead Time = WIP / Throughput.
+        If you take one number, take this one. Lead Time = WIP / Throughput.
       </p>
       <p>
         It&apos;s the system math behind almost every &quot;we&apos;re moving slow&quot; engineering
@@ -494,7 +496,7 @@ export function SectionLittlesLaw(): ReactNode {
 export function SectionWipLimits(): ReactNode {
   return (
     <>
-      <h2 id="wip-limits">8. The lever — WIP limits</h2>
+      <h2 id="wip-limits">8. WIP limits: the lever that fixes most slow engineering teams</h2>
       <p>
         So if WIP is the variable that controls system speed, and we usually can&apos;t change throughput
         dramatically in the short term, the lever is obvious: limit WIP.

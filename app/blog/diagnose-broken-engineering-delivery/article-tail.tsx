@@ -126,11 +126,10 @@ export function SectionIntroduceWipLimits(): ReactNode {
 export function SectionFullSystemView(): ReactNode {
   return (
     <>
-      <h2 id="full-system-view">10. The full system view — speed, value, sustainability</h2>
+      <h2 id="full-system-view">10. The full system view: speed, value, and sustainability in engineering delivery</h2>
       <p>
-        Up to this point, the essay has been mostly about speed: how to find where the delivery system is
-        slow and how to make it faster. But speed alone is not a complete picture, and any engineering
-        metrics framework that only optimizes for speed will eventually break something more important.
+        Speed alone is not a complete picture. Any engineering metrics framework that only optimizes for
+        speed will eventually break something more important.
       </p>
       <p>The full diagnostic model has three dimensions:</p>
       <p>
@@ -189,12 +188,42 @@ export function SectionClosing(): ReactNode {
     <>
       <h2 id="closing">When metrics become a diagnostic tool</h2>
       <p>
-        The metrics aren&apos;t new. Neither are the ideas — Theory of Constraints (1980s), Toyota
-        Production System (1950s), the Kanban Method for software (David Anderson, 2000s), and
-        Little&apos;s Law (1961) all describe different aspects of the same underlying problem: work
-        moves through systems, and systems slow down when flow breaks. What&apos;s new is whether your
-        team uses them as a report or as a diagnostic. A report tells you something is broken. A
-        diagnostic tells you where.
+        The metrics aren&apos;t new. Neither are the ideas —{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Theory_of_constraints"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Theory of Constraints
+        </a>{" "}
+        (1980s),{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Toyota_Production_System"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Toyota Production System
+        </a>{" "}
+        (1950s), the{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Kanban_(development)"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Kanban Method for software
+        </a>{" "}
+        (David Anderson, 2000s), and{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Little%27s_law"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Little&apos;s Law
+        </a>{" "}
+        (1961) all describe different aspects of the same underlying problem: work moves through
+        systems, and systems slow down when flow breaks. What&apos;s new is whether your team uses
+        them as a report or as a diagnostic. A report tells you something is broken. A diagnostic
+        tells you where.
       </p>
       <p>
         When delivery is slow, the temptation is to react to the report — hire engineers, add process,
@@ -230,8 +259,7 @@ export function ArticleRelated(): ReactNode {
     <aside className={styles.related}>
       <h3 className={styles.relatedTitle}>Related</h3>
       <p className={styles.relatedIntro}>
-        If the symptoms in this essay match yours, here&apos;s where to go next depending on the codebase
-        shape.
+        If these symptoms match yours, here&apos;s where to go next depending on the codebase shape.
       </p>
       <ul className={styles.relatedList}>
         {relatedLinks.map((link) => (

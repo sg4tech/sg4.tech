@@ -63,6 +63,11 @@ const faqItems = [
     question: "How is this different from Scrum sprint capacity?",
     answer:
       "Sprint capacity limits how much work the team commits to for a two-week period. WIP limits how much work is in flight at any given moment, regardless of sprint. A team can have a sensible sprint commitment and still be running 60+ tasks in parallel — sprint capacity says nothing about whether work is being finished versus just started. WIP limits are orthogonal to sprint planning and tend to fix problems sprint planning alone doesn't reach."
+  },
+  {
+    question: "What if our throughput is genuinely too low?",
+    answer:
+      "Sometimes throughput really is the constraint. If WIP is already under control and Lead Time remains high, the team may not have enough capacity for the demand. Before hiring, check three things: are tasks oversized, is execution itself slow, and is the team spending serious time on non-delivery work (support, incidents, meetings, operational load). If those are all clean and throughput still lags demand, hiring may be the right call. WIP limits don't replace hiring — they help distinguish a capacity problem from a flow problem."
   }
 ];
 
