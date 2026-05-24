@@ -2,6 +2,7 @@
 // and Attribution asides. Split out of article-content.tsx so each file stays
 // under the 700-line ESLint cap.
 
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
@@ -271,6 +272,56 @@ export function ArticleRelated(): ReactNode {
           </li>
         ))}
       </ul>
+    </aside>
+  );
+}
+
+// Author footer block — "About the author" pattern at the end of the
+// article. Gives AI engines a clean, discrete bio chunk for citation
+// attribution (cleaner extraction than the byline at the top, where bio
+// would conflict with the name above it). Photo, name, role, bio, and
+// social CTAs (LinkedIn for professional context, Telegram for direct
+// contact — same channels the global footer carries, intentionally
+// repeated here in the author-specific block).
+export function AuthorFooter(): ReactNode {
+  return (
+    <aside className={styles.authorFooter} aria-labelledby="author-heading">
+      <h2 id="author-heading" className={styles.authorHeading}>About the author</h2>
+      <div className={styles.authorBody}>
+        <Image
+          src="/brand/victor-demin.jpg"
+          alt="Victor Demin"
+          width={80}
+          height={80}
+          className={styles.authorPhoto}
+          unoptimized
+        />
+        <div className={styles.authorMeta}>
+          <p className={styles.authorName}>Victor Demin · Fractional CTO</p>
+          <p className={styles.authorBio}>
+            Victor Demin has 15+ years helping engineering organizations improve delivery speed,
+            predictability, and system health.
+          </p>
+          <div className={styles.authorLinks}>
+            <a
+              href="https://www.linkedin.com/in/victor-demin/"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.authorLink}
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://t.me/sg4tech"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.authorLink}
+            >
+              Telegram
+            </a>
+          </div>
+        </div>
+      </div>
     </aside>
   );
 }

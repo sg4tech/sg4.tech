@@ -53,10 +53,7 @@
 
 .byline {
   display: flex;
-  /* flex-start so the photo aligns to the top of the now-three-line
-     meta block (name + date + bio) instead of centering over the bio
-     and pushing the avatar off-axis from the name. */
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   margin: var(--space-3) 0 0;
   color: var(--muted);
@@ -84,12 +81,88 @@
   font-weight: 600;
 }
 
-.bylineBio {
-  margin-top: 0.35rem;
+/* Author footer block — appears at the end of the article (after FAQ,
+   before site footer). "About the author" pattern that AI engines
+   recognize from common publication structures (Substack, Medium).
+   Centered in the same 42rem reading column as the article body. */
+.authorFooter {
+  max-width: 42rem;
+  margin: var(--space-4) auto 0;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+}
+
+.authorHeading {
+  margin: 0;
   color: var(--muted);
   font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.authorBody {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.authorPhoto {
+  width: 5rem;
+  height: 5rem;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.authorName {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+}
+
+.authorBio {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-base);
   line-height: var(--leading-relaxed);
-  font-style: italic;
+}
+
+.authorLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.authorLink {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  color: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
+
+.authorLink:hover,
+.authorLink:focus-visible {
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
 }
 
 .body {
