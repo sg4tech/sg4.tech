@@ -371,7 +371,7 @@ export function SectionCountTasks(): ReactNode {
 export function SectionWip(): ReactNode {
   return (
     <>
-      <h2 id="wip">6. WIP — the variable that controls everything</h2>
+      <h2 id="wip">6. Work in Progress (WIP): the variable that controls delivery speed</h2>
       <p className={styles.pullquote}>Six engineers. Eighty tasks in progress. Nothing gets done.</p>
       <p>
         It&apos;s not an exaggeration. I&apos;ve seen this exact shape multiple times. A team of three
