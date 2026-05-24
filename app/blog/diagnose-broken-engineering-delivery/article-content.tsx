@@ -60,13 +60,12 @@ export function IntroSection(): ReactNode {
   return (
     <>
       <p>
-        Here&apos;s the pattern I keep running into as a fractional CTO: a founder shows me a board with
-        60–80 active tasks, a team of six, releases that have stretched from days to weeks to &quot;we&apos;ll
-        get to it next month,&quot; and the very reasonable conclusion that they need to hire more engineers.
-        The metrics agree with them. Time-to-market is measured in months. Throughput is close to zero. The
-        bug column has more tickets than the new-feature column. The team&apos;s eNPS is somewhere around
-        zero. Everything is broken at once, which usually means nothing in particular is broken — the system
-        is broken.
+        Here&apos;s the pattern I keep running into as a fractional CTO: a team of six with 60–80 active
+        tasks on the board, releases that have stretched from days to weeks to &quot;we&apos;ll get to it
+        next month,&quot; and a very reasonable conclusion that more hands will fix it. The metrics agree.
+        Time-to-market is measured in months. Throughput is close to zero. The bug column has more tickets
+        than the new-feature column. The team&apos;s eNPS is somewhere around zero. Everything is broken
+        at once, which usually means nothing in particular is broken — the system is broken.
       </p>
       <p>
         In this piece I&apos;ll walk through the playbook I actually use to diagnose that kind of system.
@@ -90,19 +89,11 @@ export function SectionSymptoms(): ReactNode {
       <p>
         The first conversation almost always starts the same way. T2M is in months. Throughput is near zero.
         There are more bugs on the board than open tasks. The team&apos;s NPS — internal or external — is
-        sitting somewhere between bad and worse. The founder has tried the obvious things: weekly retros, a
-        new project management tool, a couple of process changes the EM read about on LinkedIn. None of it
-        moved the numbers.
+        sitting somewhere between bad and worse.
       </p>
       <p>
-        This is, honestly, not an unusual picture. It&apos;s one of the more common shapes I see, and I want
-        to be clear that the team itself is usually not the problem. The engineers are working. The EM is
-        trying. The PM is grinding through a backlog. The system around them is what&apos;s broken.
-      </p>
-      <p>
-        The first reflex, every single time, is &quot;we need more engineers.&quot; It&apos;s the reflex
-        from everyone — founder, board, EM, sometimes the engineers themselves. And it&apos;s the wrong
-        reflex.
+        The engineers are working, the EM is trying, the PM is grinding through a backlog. And yet the
+        first reflex, every single time, is &quot;we need more engineers&quot; — the wrong reflex.
       </p>
       <p>
         Here&apos;s why. When a program doesn&apos;t work, we don&apos;t fix it by adding more developers to
