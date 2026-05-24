@@ -202,9 +202,9 @@ export function SectionClosing(): ReactNode {
         starts when the metrics become specific enough to point at the actual constraint.
       </p>
       <p>
-        If you&apos;re staring at a board with 60–80 active tasks and a team of six, the diagnostic is
-        probably already in this essay. Count the tasks per status. Compute Lead Time and Cycle Time. Look
-        at the relationship between WIP and throughput. The system math will do most of the work.
+        If you&apos;re staring at a board with 60–80 active tasks and a team of six, count the tasks per
+        status. Compute Lead Time and Cycle Time. Look at the relationship between WIP and throughput.
+        The system math will do most of the work.
       </p>
     </>
   );
