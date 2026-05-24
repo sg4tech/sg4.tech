@@ -117,8 +117,9 @@ export function SectionDecomposeT2M(): ReactNode {
         stage, and the ones that do don&apos;t always make it quickly.
       </p>
       <p>
-        That gap is important, because it&apos;s where a lot of teams burn weeks without realizing it. So
-        the first useful cut on T2M is the boundary between Discovery and Delivery.
+        That gap is important, because it&apos;s where a lot of teams burn weeks without realizing it.
+        <strong> T2M — Time to Market — is the total time from idea to production.</strong> The first
+        useful cut on it is the boundary between Discovery and Delivery.
       </p>
       <p>
         <strong>Discovery</strong> is everything that happens before a ticket is genuinely ready to be
