@@ -325,6 +325,37 @@ export function SectionWhereStuck(): ReactNode {
   );
 }
 
+function QueueChart(): ReactNode {
+  return (
+    <figure className={styles.queueChart}>
+      <svg viewBox="0 0 800 220" role="img" aria-labelledby="queue-chart-title">
+        <title id="queue-chart-title">
+          Task counts by status: In Progress 5, Code Review 3, QA 25, Deploy 2 — QA is the bottleneck.
+        </title>
+        {/* In Progress: 5 → bar 110px (scale 22 px/unit) */}
+        <text x="140" y="40" textAnchor="end" className={styles.qcLabel}>In Progress</text>
+        <rect x="160" y="20" width="110" height="30" rx="3" className={styles.qcBar} />
+        <text x="280" y="40" className={styles.qcValue}>5</text>
+        {/* Code Review: 3 → bar 66px */}
+        <text x="140" y="90" textAnchor="end" className={styles.qcLabel}>Code Review</text>
+        <rect x="160" y="70" width="66" height="30" rx="3" className={styles.qcBar} />
+        <text x="236" y="90" className={styles.qcValue}>3</text>
+        {/* QA: 25 → bar 550px — the bottleneck */}
+        <text x="140" y="140" textAnchor="end" className={styles.qcLabelBottleneck}>QA</text>
+        <rect x="160" y="120" width="550" height="30" rx="3" className={styles.qcBarBottleneck} />
+        <text x="720" y="140" className={styles.qcValueBottleneck}>25</text>
+        {/* Deploy: 2 → bar 44px */}
+        <text x="140" y="190" textAnchor="end" className={styles.qcLabel}>Deploy</text>
+        <rect x="160" y="170" width="44" height="30" rx="3" className={styles.qcBar} />
+        <text x="214" y="190" className={styles.qcValue}>2</text>
+      </svg>
+      <figcaption className={styles.timelineCaption}>
+        Where tasks accumulate, the system&apos;s capacity is hitting a ceiling.
+      </figcaption>
+    </figure>
+  );
+}
+
 export function SectionCountTasks(): ReactNode {
   return (
     <>
@@ -334,13 +365,10 @@ export function SectionCountTasks(): ReactNode {
         You don&apos;t need to measure time in each status to find the bottleneck. You just need to{" "}
         <strong>count the tasks in each status</strong>.
       </p>
-      <p>Pull it from Jira in five minutes. Open Excel. List it:</p>
-      <ul>
-        <li>In Progress: ____</li>
-        <li>Code Review: ____</li>
-        <li>QA: ____</li>
-        <li>Deploy: ____</li>
-      </ul>
+      <p>
+        Pull the counts from Jira in five minutes. The shape almost always looks something like this:
+      </p>
+      <QueueChart />
       <p>Then look for imbalances.</p>
       <p>
         If you have five tasks in development, three in review, and twenty-five in QA — you don&apos;t need

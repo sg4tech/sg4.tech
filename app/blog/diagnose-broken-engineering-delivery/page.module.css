@@ -236,6 +236,57 @@
   text-align: center;
 }
 
+/* Horizontal bar chart for the "count tasks per status" diagnostic. Same
+   wrapper treatment as .timelineDiagram so the two figures in the article
+   share a visual style. The QA row uses *Bottleneck variants to make the
+   imbalance the visual focus — the whole point of the section. */
+.queueChart {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.queueChart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.queueChart .qcBar {
+  fill: var(--surface-strong);
+}
+
+.queueChart .qcBarBottleneck {
+  fill: var(--accent);
+}
+
+.queueChart .qcLabel {
+  fill: var(--text);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.queueChart .qcLabelBottleneck {
+  fill: var(--text-strong);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.queueChart .qcValue {
+  fill: var(--text);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.queueChart .qcValueBottleneck {
+  fill: var(--accent);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
 /* 2-column "Condition / Diagnosis" table for the post-Cycle-Time
    diagnostic. Mobile (<640px) stacks cells as block — keeps the table
    readable on narrow viewports without a horizontal scroll. */
