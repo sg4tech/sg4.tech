@@ -33,7 +33,7 @@ npm run build
 ## What each check covers
 
 - `lint`: ESLint rules for code quality and maintainability
-- `security:audit`: dependency vulnerability audit via `npm audit`
+- `security:audit`: dependency vulnerability audit via `npm audit --audit-level=high`. Fails CI only on `high` and `critical`. Currently 7 known `low`/`moderate` advisories remain because the only "fix" npm suggests is a destructive downgrade — see "Known acceptable npm audit advisories" below.
 - `security:code`: static security linting via `eslint-plugin-security`
 - `typecheck`: standalone TypeScript verification
 - `test`: automated tests via `vitest`
@@ -56,6 +56,22 @@ Use this when a change could be affected by anything that differs between `next 
 The dev server uses port 3000; preview uses 3001, so both can run in parallel.
 
 `preview` is intentionally separate from `npm run check` — it starts a long-running server, not a one-shot gate. Run it manually for UI/CSS-affecting changes. See `docs/retros/` for incident reports that motivated this workflow.
+
+## Known acceptable npm audit advisories
+
+`npm audit` reports 7 remaining advisories (3 low, 4 moderate) that are knowingly accepted. `security:audit` runs with `--audit-level=high`, so these surface as stderr warnings but do not fail the gate.
+
+**All 7 advisories live in devDependencies that never run in production user requests** (Lighthouse CI's puppeteer-core stack, and a Next.js transitive dep). The static export served to users at `https://sg4.tech` does not include any of this code.
+
+| Advisory chain | Severity | Why not fixed |
+|---|---|---|
+| `uuid` (via `@lhci/cli` → `puppeteer-core`) | moderate | `@lhci/cli` is already on `0.15.1`, the latest release. npm suggests downgrade to `0.1.0` (a 5+ year old breaking regression) which would lose every modern Lighthouse feature. Waiting for upstream patch. |
+| `inquirer`, `external-editor`, `tmp` (via `@lhci/cli`) | low + moderate | Same root cause — fixes blocked behind `@lhci/cli` releasing a new version. |
+| `postcss` (via `next` → `postcss@8.4.31`) | moderate | Every `next@15.x` locks `postcss@8.4.31`. The only "fix" npm offers is downgrade to `next@9.3.3` (2020-era). Real fix requires major upgrade to `next@16`, which is a separate scoped change. |
+
+**Do NOT run `npm audit fix --force`** — it will downgrade `@lhci/cli` and/or `next` to ancient versions, breaking Lighthouse CI and the app respectively. If a `high` or `critical` advisory appears, `security:audit` will start failing and force an explicit triage.
+
+When upstream packages release fixes, update accordingly and trim this table. When considering the Next 16 upgrade for the `postcss` advisory, run it in its own PR with the full `check` + `lighthouse` + `preview` verification suite.
 
 ## Important configuration decisions
 
