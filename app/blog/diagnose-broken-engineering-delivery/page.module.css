@@ -44,7 +44,7 @@
 }
 
 .lede {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-3) 0 0;
   color: var(--muted);
   font-size: var(--text-xl);
   line-height: var(--leading-relaxed);
@@ -54,26 +54,25 @@
 .byline {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin: var(--space-3) 0 0;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: var(--space-2) 0 0;
   color: var(--muted);
   font-size: var(--text-sm);
   line-height: var(--leading-tight);
 }
 
 .bylineAvatar {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: var(--radius-pill);
   object-fit: cover;
   border: 1px solid var(--border);
   flex-shrink: 0;
 }
 
-.bylineMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+.bylineText {
+  display: inline;
 }
 
 .bylineName {

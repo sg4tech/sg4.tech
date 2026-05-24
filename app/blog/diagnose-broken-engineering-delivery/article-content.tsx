@@ -30,28 +30,27 @@ export function ArticleHeader({
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>{title}</h1>
-      <p className={styles.lede}>
-        Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
-        And almost everyone&apos;s first reaction to it makes the system slower.
-      </p>
       <div className={styles.byline}>
         <Image
           src="/brand/victor-demin.jpg"
           alt="Victor Demin"
-          width={40}
-          height={40}
+          width={32}
+          height={32}
           className={styles.bylineAvatar}
           unoptimized
         />
-        <div className={styles.bylineMeta}>
+        <span className={styles.bylineText}>
           <span className={styles.bylineName}>Victor Demin · Fractional CTO</span>
-          <span>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </span>
-        </div>
+          {" · "}
+          <time dateTime={publishedAt}>{formattedDate}</time>
+          {" · "}
+          {readingMinutes} min read
+        </span>
       </div>
+      <p className={styles.lede}>
+        Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
+        And almost everyone&apos;s first reaction to it makes the system slower.
+      </p>
     </header>
   );
 }
