@@ -24,7 +24,6 @@ import {
 import {
   ArticleCta,
   ArticleRelated,
-  AuthorFooter,
   SectionClosing,
   SectionFullSystemView,
   SectionIntroduceWipLimits
@@ -190,9 +189,6 @@ export default function ArticlePage() {
         <ArticleBody />
       </Section>
       <FaqSection items={faqItems} contentWrapperClassName={styles.faqColumn} />
-      <Section>
-        <AuthorFooter />
-      </Section>
       <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
     </Page>
   );

@@ -34,18 +34,22 @@ export function ArticleHeader({
         <Image
           src="/brand/victor-demin.jpg"
           alt="Victor Demin"
-          width={32}
-          height={32}
+          width={40}
+          height={40}
           className={styles.bylineAvatar}
           unoptimized
         />
-        <span className={styles.bylineText}>
-          <span className={styles.bylineName}>Victor Demin · Fractional CTO</span>
-          {" · "}
-          <time dateTime={publishedAt}>{formattedDate}</time>
-          {" · "}
-          {readingMinutes} min read
-        </span>
+        <div className={styles.bylineMeta}>
+          <p className={styles.bylineBio}>
+            <span className={styles.bylineName}>Victor Demin</span>
+            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
+          </p>
+          <p className={styles.bylineDate}>
+            <time dateTime={publishedAt}>{formattedDate}</time>
+            {" · "}
+            {readingMinutes} min read
+          </p>
+        </div>
       </div>
       <p className={styles.lede}>
         Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
