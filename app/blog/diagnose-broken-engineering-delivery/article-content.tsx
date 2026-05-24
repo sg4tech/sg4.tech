@@ -50,6 +50,10 @@ export function ArticleHeader({
             {" · "}
             {readingMinutes} min read
           </span>
+          <span className={styles.bylineBio}>
+            Victor Demin has 15+ years helping engineering organizations improve delivery speed,
+            predictability, and system health.
+          </span>
         </div>
       </div>
     </header>
