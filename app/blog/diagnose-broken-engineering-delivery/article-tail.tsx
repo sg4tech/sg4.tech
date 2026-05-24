@@ -128,9 +128,8 @@ export function SectionFullSystemView(): ReactNode {
     <>
       <h2 id="full-system-view">10. The full system view — speed, value, sustainability</h2>
       <p>
-        Up to this point, the essay has been mostly about speed: how to find where the delivery system is
-        slow and how to make it faster. But speed alone is not a complete picture, and any engineering
-        metrics framework that only optimizes for speed will eventually break something more important.
+        Speed alone is not a complete picture. Any engineering metrics framework that only optimizes for
+        speed will eventually break something more important.
       </p>
       <p>The full diagnostic model has three dimensions:</p>
       <p>
@@ -230,8 +229,7 @@ export function ArticleRelated(): ReactNode {
     <aside className={styles.related}>
       <h3 className={styles.relatedTitle}>Related</h3>
       <p className={styles.relatedIntro}>
-        If the symptoms in this essay match yours, here&apos;s where to go next depending on the codebase
-        shape.
+        If these symptoms match yours, here&apos;s where to go next depending on the codebase shape.
       </p>
       <ul className={styles.relatedList}>
         {relatedLinks.map((link) => (

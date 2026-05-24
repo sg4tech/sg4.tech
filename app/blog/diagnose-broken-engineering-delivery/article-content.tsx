@@ -145,9 +145,8 @@ export function SectionDecomposeT2M(): ReactNode {
       </p>
       <p>
         <strong>If Lead Time is high</strong>, the problem is inside Delivery itself. Tasks are getting
-        stuck after the team picks them up: in coding, in review, in QA, in deploy. This is where most of
-        this essay lives, and where the rest of the decomposition matters. We need to look inside Lead Time
-        and figure out where, specifically, the time is being spent.
+        stuck after the team picks them up: in coding, in review, in QA, in deploy. We need to look inside
+        Lead Time and figure out where, specifically, the time is being spent.
       </p>
       <p>
         In practice, most teams I work with have problems on both sides — but rarely in equal proportion.
@@ -157,9 +156,8 @@ export function SectionDecomposeT2M(): ReactNode {
         reliable ways to make the wrong fix.
       </p>
       <p>
-        In the next section we&apos;ll go a layer deeper inside Lead Time itself — and that&apos;s where
-        things get interesting, because the moment you look inside Delivery you find that &quot;working on a
-        task&quot; and &quot;the task being worked on&quot; are not the same thing.
+        Inside Lead Time, &quot;working on a task&quot; and &quot;the task being worked on&quot; turn out
+        to be different things — and that&apos;s where things get interesting.
       </p>
     </>
   );
@@ -363,7 +361,7 @@ export function SectionCountTasks(): ReactNode {
       <p>
         But it raises a deeper question. <strong>Why</strong> are twenty-five tasks in QA? Where did they
         come from? Why does the team keep accepting new work when there&apos;s already a wall of unfinished
-        tickets in the system? That&apos;s the question Section 6 is about.
+        tickets in the system?
       </p>
     </>
   );
@@ -481,7 +479,7 @@ export function SectionLittlesLaw(): ReactNode {
         (mentoring, context handoff, reviewing the new hire&apos;s PRs).
       </p>
       <p className={styles.pullquote}>
-        If you take one number from this entire essay, take this one. Lead Time = WIP / Throughput.
+        If you take one number, take this one. Lead Time = WIP / Throughput.
       </p>
       <p>
         It&apos;s the system math behind almost every &quot;we&apos;re moving slow&quot; engineering
