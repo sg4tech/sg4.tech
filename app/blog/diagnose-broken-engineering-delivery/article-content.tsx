@@ -60,7 +60,7 @@ export function IntroSection(): ReactNode {
   return (
     <>
       <p>
-        Here&apos;s the pattern I keep running into as a fractional CTO: a team of six with 60–80 active
+        Here&apos;s a pattern I&apos;ve seen many times over the years: a team of six with 60–80 active
         tasks on the board, releases that have stretched from days to weeks to &quot;we&apos;ll get to it
         next month,&quot; and a very reasonable conclusion that more hands will fix it. The instinct is
         wrong, and what follows is the playbook for showing why.
