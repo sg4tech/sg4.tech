@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { FaqItem } from "./FaqItem";
 import { Section } from "./Section";
 import { SectionHeader } from "./SectionHeader";
@@ -5,7 +6,13 @@ import styles from "./FaqSection.module.css";
 
 type FaqItemData = {
   question: string;
+  // Plain-text answer used for FAQPage JSON-LD by callers — kept full and
+  // dense so AI engines and Google Rich Results get a clean citable string.
   answer: string;
+  // Optional rich rendering for human readers. When present, FaqItem
+  // renders this instead of the plain `answer`; the schema text is
+  // unchanged either way.
+  answerNode?: ReactNode;
 };
 
 type FaqSectionProps = {
@@ -29,7 +36,11 @@ export function FaqSection({ items, contentWrapperClassName }: FaqSectionProps) 
         <SectionHeader title="FAQ" id="faq-title" />
         <div className={styles.faqList}>
           {items.map((item) => (
-            <FaqItem key={item.question} question={item.question} answer={item.answer} />
+            <FaqItem
+              key={item.question}
+              question={item.question}
+              answer={item.answerNode ?? item.answer}
+            />
           ))}
         </div>
       </div>

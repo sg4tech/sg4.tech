@@ -434,3 +434,16 @@
   max-width: 42rem;
   margin-inline: auto;
 }
+
+/* Emphasised single-line callout inside a FAQ answer — same accent-left
+   treatment as `.pullquote` in the body, scaled down for the FAQ card so
+   it draws the eye without competing with article-level pullquotes. */
+.faqHighlight {
+  display: block;
+  padding: 0.5rem 0.85rem;
+  background: var(--surface-alt);
+  color: var(--text-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-weight: 600;
+}

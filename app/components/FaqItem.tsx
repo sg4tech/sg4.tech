@@ -10,7 +10,7 @@ export function FaqItem({ question, answer }: FaqItemProps) {
   return (
     <article className={styles.faqItem}>
       <h3 className={styles.question}>{question}</h3>
-      <p className={styles.answer}>{answer}</p>
+      <div className={styles.answer}>{answer}</div>
     </article>
   );
 }

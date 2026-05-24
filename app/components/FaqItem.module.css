@@ -16,3 +16,51 @@
   color: var(--muted);
   line-height: var(--leading-loose);
 }
+
+/* Two-rule rhythm pattern: kill default vertical margins on every direct
+   child, then add a single inter-element gap via the adjacent-sibling
+   selector. Both rules share specificity (0,1,0) so the source order wins
+   for subsequent children — the first child keeps margin-top:0 from the
+   reset, later children pick up the 0.85rem from the next rule. Using a
+   type selector (e.g. `.answer > p`) for the reset would outweigh the
+   gap rule and silently zero out the spacing — which is the bug we hit
+   the first time. */
+.answer > * {
+  margin: 0;
+}
+
+.answer > * + * {
+  margin-top: 0.85rem;
+}
+
+.answer strong {
+  color: var(--text-strong);
+}
+
+.answer dl {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.answer dt {
+  color: var(--text-strong);
+  font-weight: 600;
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
+}
+
+.answer dd {
+  margin: 0.15rem 0 0;
+}
+
+.answer ol,
+.answer ul {
+  padding-left: 1.4rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.answer ol li::marker {
+  color: var(--text-strong);
+  font-weight: 600;
+}
