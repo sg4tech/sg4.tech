@@ -280,7 +280,7 @@ export function SectionLeadTimeCycleTime(): ReactNode {
 export function SectionWhereStuck(): ReactNode {
   return (
     <>
-      <h2 id="where-stuck">4. Where work actually gets stuck — and why finer measurement misleads</h2>
+      <h2 id="where-stuck">4. Where work actually gets stuck: why time-in-status can mislead</h2>
       <p>
         So Cycle Time is high. The natural next move is to look inside it: measure time-in-status. In
         Progress, Code Review, QA, Deploy. Add up where the hours go. Find the slowest column. Fix it.
