@@ -78,7 +78,7 @@ export function IntroSection(): ReactNode {
 export function SectionSymptoms(): ReactNode {
   return (
     <>
-      <h2 id="symptoms">1. The symptoms — and the wrong first reflex</h2>
+      <h2 id="symptoms">1. Symptoms of slow delivery — and the wrong first reflex</h2>
       <p>
         The first conversation almost always starts the same way. T2M is in months. Throughput is near zero.
         There are more bugs on the board than open tasks. The team&apos;s NPS — internal or external — is
