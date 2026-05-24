@@ -430,7 +430,7 @@ export function SectionWip(): ReactNode {
 export function SectionLittlesLaw(): ReactNode {
   return (
     <>
-      <h2 id="littles-law">7. The math — Little&apos;s Law</h2>
+      <h2 id="littles-law">7. Little&apos;s Law: Lead Time = WIP / Throughput</h2>
       <p>
         If the previous sections feel like they keep arriving at the same conclusion, you&apos;re not wrong.
         There&apos;s a reason.
