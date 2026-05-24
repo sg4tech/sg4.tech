@@ -62,10 +62,8 @@ export function IntroSection(): ReactNode {
       <p>
         Here&apos;s the pattern I keep running into as a fractional CTO: a team of six with 60–80 active
         tasks on the board, releases that have stretched from days to weeks to &quot;we&apos;ll get to it
-        next month,&quot; and a very reasonable conclusion that more hands will fix it. The metrics agree.
-        Time-to-market is measured in months. Throughput is close to zero. The bug column has more tickets
-        than the new-feature column. The team&apos;s eNPS is somewhere around zero. Everything is broken
-        at once, which usually means nothing in particular is broken — the system is broken.
+        next month,&quot; and a very reasonable conclusion that more hands will fix it. The instinct is
+        wrong — and the rest of this piece is the playbook for showing why.
       </p>
       <p>
         In this piece I&apos;ll walk through the playbook I actually use to diagnose that kind of system.
