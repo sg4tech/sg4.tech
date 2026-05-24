@@ -188,12 +188,42 @@ export function SectionClosing(): ReactNode {
     <>
       <h2 id="closing">When metrics become a diagnostic tool</h2>
       <p>
-        The metrics aren&apos;t new. Neither are the ideas — Theory of Constraints (1980s), Toyota
-        Production System (1950s), the Kanban Method for software (David Anderson, 2000s), and
-        Little&apos;s Law (1961) all describe different aspects of the same underlying problem: work
-        moves through systems, and systems slow down when flow breaks. What&apos;s new is whether your
-        team uses them as a report or as a diagnostic. A report tells you something is broken. A
-        diagnostic tells you where.
+        The metrics aren&apos;t new. Neither are the ideas —{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Theory_of_constraints"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Theory of Constraints
+        </a>{" "}
+        (1980s),{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Toyota_Production_System"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Toyota Production System
+        </a>{" "}
+        (1950s), the{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Kanban_(development)"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Kanban Method for software
+        </a>{" "}
+        (David Anderson, 2000s), and{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Little%27s_law"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Little&apos;s Law
+        </a>{" "}
+        (1961) all describe different aspects of the same underlying problem: work moves through
+        systems, and systems slow down when flow breaks. What&apos;s new is whether your team uses
+        them as a report or as a diagnostic. A report tells you something is broken. A diagnostic
+        tells you where.
       </p>
       <p>
         When delivery is slow, the temptation is to react to the report — hire engineers, add process,
