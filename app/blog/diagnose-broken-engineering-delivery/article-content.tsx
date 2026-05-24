@@ -325,7 +325,7 @@ export function SectionWhereStuck(): ReactNode {
 export function SectionCountTasks(): ReactNode {
   return (
     <>
-      <h2 id="count-tasks">5. The cheap diagnostic — count tasks per status, not time</h2>
+      <h2 id="count-tasks">5. How to find bottlenecks without measuring time</h2>
       <p>Here&apos;s the most underrated diagnostic move I know.</p>
       <p>
         You don&apos;t need to measure time in each status to find the bottleneck. You just need to{" "}
