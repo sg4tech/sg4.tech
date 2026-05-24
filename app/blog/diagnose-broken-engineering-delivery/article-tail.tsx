@@ -189,25 +189,22 @@ export function SectionClosing(): ReactNode {
     <>
       <h2 id="closing">When metrics become a diagnostic tool</h2>
       <p>
-        The metrics I&apos;ve walked through in this essay aren&apos;t new. T2M, Lead Time, Cycle Time, WIP,
-        Throughput, eNPS — every operator has heard of them. The Theory of Constraints articulated this
-        back in the 1980s in manufacturing. The Toyota Production System earlier than that. Kanban brought
-        the same ideas into software in the 2000s. Little&apos;s Law itself is from the 1960s.
+        The metrics aren&apos;t new. Neither are the ideas — Theory of Constraints (1980s), Toyota
+        Production System (1950s), the Kanban Method for software (David Anderson, 2000s), and
+        Little&apos;s Law (1961) all describe different aspects of the same underlying problem: work
+        moves through systems, and systems slow down when flow breaks. What&apos;s new is whether your
+        team uses them as a report or as a diagnostic. A report tells you something is broken. A
+        diagnostic tells you where.
       </p>
       <p>
-        What&apos;s new isn&apos;t the metrics. It&apos;s whether your team is using them as a report or as
-        a diagnostic. A report tells you something is broken. A diagnostic tells you where.
+        When delivery is slow, the temptation is to react to the report — hire engineers, add process,
+        install a new tool. The reaction looks like motion. It usually isn&apos;t progress. Progress
+        starts when the metrics become specific enough to point at the actual constraint.
       </p>
       <p>
-        When delivery is slow, the temptation is always to react to the report: hire engineers, push retros,
-        install a new tool, redesign the process. The reaction looks like motion. It usually isn&apos;t
-        progress. Progress starts when the metrics become specific enough to point at one stage of the
-        workflow, one queue, one constraint, one piece of the system that&apos;s holding the rest back.
-      </p>
-      <p>
-        If you&apos;re staring at a board with 60–80 active tasks and a team of six, the diagnostic is
-        probably already in this essay. Count the tasks per status. Compute Lead Time and Cycle Time. Look
-        at the relationship between WIP and throughput. The system math will do most of the work.
+        If you&apos;re staring at a board with 60–80 active tasks and a team of six, count the tasks per
+        status. Measure Lead Time and Cycle Time. Look at the relationship between WIP and throughput.
+        The system math will do most of the work.
       </p>
     </>
   );

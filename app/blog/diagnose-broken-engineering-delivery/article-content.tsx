@@ -60,23 +60,16 @@ export function IntroSection(): ReactNode {
   return (
     <>
       <p>
-        Here&apos;s the pattern I keep running into as a fractional CTO: a team of six with 60–80 active
+        Here&apos;s a pattern I&apos;ve seen many times over the years: a team of six with 60–80 active
         tasks on the board, releases that have stretched from days to weeks to &quot;we&apos;ll get to it
-        next month,&quot; and a very reasonable conclusion that more hands will fix it. The metrics agree.
-        Time-to-market is measured in months. Throughput is close to zero. The bug column has more tickets
-        than the new-feature column. The team&apos;s eNPS is somewhere around zero. Everything is broken
-        at once, which usually means nothing in particular is broken — the system is broken.
+        next month,&quot; and a very reasonable conclusion that more hands will fix it. Usually that&apos;s
+        not the real bottleneck.
       </p>
       <p>
-        In this piece I&apos;ll walk through the playbook I actually use to diagnose that kind of system.
-        The goal isn&apos;t to introduce metrics for their own sake. The goal is to decompose the timeline
-        of a single task — from the moment someone has the idea to the moment a user touches it — until you
-        can point at the specific stage where the system stops working. Once you can point at it, the fix
-        is usually obvious. Most of the time it doesn&apos;t involve hiring anyone.
-      </p>
-      <p>
-        The piece is structured the way I&apos;d run a real engagement: start with the symptoms, decompose
-        them, find the bottleneck, then talk about the lever that fixes it.
+        The diagnostic decomposes the timeline of a single task — from idea to user — until you can point
+        at the specific stage where the system stops working. Once you can point at it, the fix is usually
+        obvious; most of the time it doesn&apos;t involve hiring anyone. The order below mirrors a real
+        engagement: symptoms → decompose → find the bottleneck → talk about the lever.
       </p>
     </>
   );
