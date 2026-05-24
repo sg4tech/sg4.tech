@@ -382,7 +382,7 @@ function HeroSection() {
 function ProblemSection() {
   return (
     <Section id="problem">
-      <h2>Most engineering problems look different on the surface — but the root is usually the same: a broken delivery system.</h2>
+      <SectionHeader title="Most engineering problems look different on the surface — but the root is usually the same: a broken delivery system." />
       <div className={styles.stageGrid}>
         {stageProblems.map((stage) => (
           <article key={stage.title} className={styles.card}>
@@ -412,7 +412,7 @@ function ProblemSection() {
 function SolutionSection() {
   return (
     <Section id="solution">
-      <h2>I don't optimize developers. I fix the delivery system.</h2>
+      <SectionHeader title="I don't optimize developers. I fix the delivery system." />
       <div className={styles.stack}>
         {solutionSteps.map((step) => (
           <article key={step.title} className={styles.step}>
@@ -501,7 +501,7 @@ function TrustSection() {
 function ProcessSection() {
   return (
     <Section id="process">
-      <h2>How I work</h2>
+      <SectionHeader title="How I work" />
       <div className={styles.processGrid}>
         {workSteps.map((step) => (
           <article key={step.title} className={styles.step}>
@@ -531,7 +531,7 @@ function ProcessSection() {
 function FitSection() {
   return (
     <Section id="fit">
-      <h2>Who I work with</h2>
+      <SectionHeader title="Who I work with" />
       <div className={styles.fitGrid}>
         {fitGroups.map((group) => (
           <article key={group.title} className={styles.fitCard}>

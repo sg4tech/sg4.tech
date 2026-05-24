@@ -77,6 +77,7 @@
 - **Low Coupling**: pages depend on `lib/` abstractions; avoid cross-page imports. Shared primitives live in `app/components/` and `app/lib/`.
 - **Type-narrowed inputs over runtime guards**: literal unions (`PostSlug`, `Landing.priority: 0.6 | 0.7 | 0.8 | 1`) beat `string` + non-null assertion or `number` + range comment. The type system enforces what comments can only describe.
 - **Semantic HTML over visual approximation**: if data is tabular, use `<table>` with `<thead>`/`<tbody>`. If it's a list, use `<ul>` / `<ol>`. AI engines and screen readers cite structure, not just text content.
+- **Layout components must not style descendant semantic tags**: shared layout/wrapper components (`Section`, `Page`, `Stack`, etc.) own spacing and composition; they must NOT carry rules like `.section h2 { ... }` that target arbitrary descendant tags. Such rules silently fight any nested content that also styles the same tag — and which one wins depends on CSS-module load order, which differs between `next dev` and `next build`. **Allowed:** styling via the component's own class on the element (e.g., `SectionHeader` owning `.heading`), or direct-child selectors when the DOM contract is enforced (`.section > h2`). **Forbidden:** descendant selectors with bare tag names in shared CSS modules. Tag-level defaults belong in `app/globals.css` only.
 
 ## Runtime Truth
 

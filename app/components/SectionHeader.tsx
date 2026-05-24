@@ -23,7 +23,10 @@ export function SectionHeader({
   headingClassName,
   introClassName
 }: SectionHeaderProps) {
-  const headingClasses = [styles.heading, headingClassName].filter(Boolean).join(" ");
+  const levelClass = level === "h2" ? styles.h2 : null;
+  const headingClasses = [styles.heading, levelClass, headingClassName]
+    .filter(Boolean)
+    .join(" ");
   const introClasses = [styles.intro, introClassName].filter(Boolean).join(" ");
   const Heading = level;
 
