@@ -189,20 +189,18 @@ export function SectionClosing(): ReactNode {
     <>
       <h2 id="closing">When metrics become a diagnostic tool</h2>
       <p>
-        The metrics themselves aren&apos;t new. But more importantly, neither are the ideas behind them.
-        Theory of Constraints (1980s), Toyota Production System (1950s), the Kanban Method for software
-        (David Anderson, 2000s), and Little&apos;s Law (1961) all describe different aspects of the same
-        underlying problem: work moves through systems, and systems slow down when flow breaks.
+        The metrics aren&apos;t new. Neither are the ideas — Theory of Constraints (1980s), Toyota
+        Production System (1950s), the Kanban Method for software (David Anderson, 2000s), and
+        Little&apos;s Law (1961) all describe different aspects of the same underlying problem: work
+        moves through systems, and systems slow down when flow breaks. What&apos;s new is whether your
+        team uses them as a report or as a diagnostic. A report tells you something is broken. A
+        diagnostic tells you where.
       </p>
       <p>
-        What&apos;s new isn&apos;t the metrics. It&apos;s whether your team is using them as a report or as
-        a diagnostic. A report tells you something is broken. A diagnostic tells you where.
-      </p>
-      <p>
-        When delivery is slow, the temptation is always to react to the report: hire engineers, push retros,
-        install a new tool, redesign the process. The reaction looks like motion. It usually isn&apos;t
-        progress. Progress starts when the metrics become specific enough to point at one stage of the
-        workflow, one queue, one constraint, one piece of the system that&apos;s holding the rest back.
+        When delivery is slow, the temptation is to react to the report — hire engineers, add process,
+        install a new tool. The reaction looks like motion. It usually isn&apos;t progress. Progress
+        starts when the metrics become specific enough to point at one stage of the workflow, one queue,
+        one constraint, one piece of the system that&apos;s holding the rest back.
       </p>
       <p>
         If you&apos;re staring at a board with 60–80 active tasks and a team of six, the diagnostic is
