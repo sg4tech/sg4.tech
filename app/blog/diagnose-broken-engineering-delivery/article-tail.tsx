@@ -189,10 +189,10 @@ export function SectionClosing(): ReactNode {
     <>
       <h2 id="closing">When metrics become a diagnostic tool</h2>
       <p>
-        The metrics I&apos;ve walked through in this essay aren&apos;t new. T2M, Lead Time, Cycle Time, WIP,
-        Throughput, eNPS — every operator has heard of them. The Theory of Constraints articulated this
-        back in the 1980s in manufacturing. The Toyota Production System earlier than that. Kanban brought
-        the same ideas into software in the 2000s. Little&apos;s Law itself is from the 1960s.
+        The metrics themselves aren&apos;t new. But more importantly, neither are the ideas behind them.
+        Theory of Constraints (1980s), Toyota Production System (1950s), the Kanban Method for software
+        (David Anderson, 2000s), and Little&apos;s Law (1961) all describe different aspects of the same
+        underlying problem: work moves through systems, and systems slow down when flow breaks.
       </p>
       <p>
         What&apos;s new isn&apos;t the metrics. It&apos;s whether your team is using them as a report or as
