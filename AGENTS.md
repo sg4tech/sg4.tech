@@ -49,7 +49,8 @@
 - `npm run test` — Vitest.
 - `npm run check` runs the full pre-commit chain (lint, security, typecheck, test, knip, depcruise, build). Use this before any non-trivial PR.
 - `npm run lighthouse` runs Lighthouse CI against the static export with 0.95 thresholds (performance / accessibility / best-practices / SEO). It is excluded from `check` because it takes ~3 minutes; CI runs it on every PR.
-- For UI changes, verify in the dev preview at both 375px and 1280px viewports before considering the change complete.
+- `npm run preview` runs `next build` and serves the static export on `http://localhost:3001`. Use this for any UI change that could be affected by `output: export` bundling — CSS-module load order, font preloading, hydration timing, image optimization — because these differ between `next dev` and the built artifact. Bugs in this class are invisible in `next dev` and only surface against the built bundle (e.g., CSS rules with equal specificity resolving in different order between dev's per-component HMR injection and prod's chunked bundles).
+- For UI changes, verify in the dev preview at both 375px and 1280px viewports before considering the change complete. For CSS/typography/layout changes specifically, also run `npm run preview` to catch dev≠prod cascade or bundling differences.
 
 ### Reference docs
 

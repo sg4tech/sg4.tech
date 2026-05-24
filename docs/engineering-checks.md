@@ -41,6 +41,22 @@ npm run build
 - `depcruise`: dependency graph rules and cycle detection
 - `build`: production build verification
 
+## Local prod-build smoke
+
+`npm run preview` runs `next build` (including the OG postbuild) and serves the static export on `http://localhost:3001` via `serve`. URL behavior matches `next.config.mjs`: `cleanUrls: false` and `trailingSlash: true` (see `serve.json`).
+
+Use this when a change could be affected by anything that differs between `next dev` and the built artifact:
+
+- CSS-module load order (which decides cascade for equal-specificity rules)
+- Font preloading and `font-display` swap timing
+- Hydration sequencing under production React
+- Image optimization (none in this project's `output: export`, but worth knowing)
+- Static asset hashing and chunk boundaries
+
+The dev server uses port 3000; preview uses 3001, so both can run in parallel.
+
+`preview` is intentionally separate from `npm run check` — it starts a long-running server, not a one-shot gate. Run it manually for UI/CSS-affecting changes. See `docs/retros/` for incident reports that motivated this workflow.
+
 ## Important configuration decisions
 
 - `typecheck` uses `tsconfig.typecheck.json`, not runtime-generated `.next` artifacts.
