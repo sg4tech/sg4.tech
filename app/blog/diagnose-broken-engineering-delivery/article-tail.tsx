@@ -126,7 +126,7 @@ export function SectionIntroduceWipLimits(): ReactNode {
 export function SectionFullSystemView(): ReactNode {
   return (
     <>
-      <h2 id="full-system-view">10. The full system view — speed, value, sustainability</h2>
+      <h2 id="full-system-view">10. The full system view: speed, value, and sustainability in engineering delivery</h2>
       <p>
         Speed alone is not a complete picture. Any engineering metrics framework that only optimizes for
         speed will eventually break something more important.
