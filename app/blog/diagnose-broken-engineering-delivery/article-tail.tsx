@@ -203,7 +203,7 @@ export function SectionClosing(): ReactNode {
       </p>
       <p>
         If you&apos;re staring at a board with 60–80 active tasks and a team of six, count the tasks per
-        status. Compute Lead Time and Cycle Time. Look at the relationship between WIP and throughput.
+        status. Measure Lead Time and Cycle Time. Look at the relationship between WIP and throughput.
         The system math will do most of the work.
       </p>
     </>
