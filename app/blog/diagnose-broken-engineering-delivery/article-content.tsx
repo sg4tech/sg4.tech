@@ -493,7 +493,7 @@ export function SectionLittlesLaw(): ReactNode {
 export function SectionWipLimits(): ReactNode {
   return (
     <>
-      <h2 id="wip-limits">8. The lever — WIP limits</h2>
+      <h2 id="wip-limits">8. WIP limits: the lever that fixes most slow engineering teams</h2>
       <p>
         So if WIP is the variable that controls system speed, and we usually can&apos;t change throughput
         dramatically in the short term, the lever is obvious: limit WIP.
