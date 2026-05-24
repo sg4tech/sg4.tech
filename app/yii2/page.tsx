@@ -519,7 +519,7 @@ function HeroSection() {
 function ProblemSection() {
   return (
     <Section id="problem">
-      <h2>When a Yii2 project has been around for years, the problem is almost never just the code.</h2>
+      <SectionHeader title="When a Yii2 project has been around for years, the problem is almost never just the code." />
       <ul className={landing.iconList} data-tone="warm">
         {painPoints.map((item) => (
           <li key={item.text}>
