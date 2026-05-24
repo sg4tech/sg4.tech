@@ -199,8 +199,7 @@ export function SectionClosing(): ReactNode {
       <p>
         When delivery is slow, the temptation is to react to the report — hire engineers, add process,
         install a new tool. The reaction looks like motion. It usually isn&apos;t progress. Progress
-        starts when the metrics become specific enough to point at one stage of the workflow, one queue,
-        one constraint, one piece of the system that&apos;s holding the rest back.
+        starts when the metrics become specific enough to point at the actual constraint.
       </p>
       <p>
         If you&apos;re staring at a board with 60–80 active tasks and a team of six, the diagnostic is
