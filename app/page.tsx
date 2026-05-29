@@ -21,7 +21,7 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "./lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -293,11 +293,7 @@ const structuredData = {
       founder: {
         "@id": `${SITE_URL}/#person`
       },
-      sameAs: [
-        "https://github.com/sg4tech/",
-        "https://www.linkedin.com/in/victor-demin/",
-        "https://t.me/cto_lifehacks"
-      ]
+      sameAs: VICTOR_SAME_AS
     },
     {
       "@type": "FAQPage",

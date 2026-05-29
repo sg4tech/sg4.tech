@@ -1,12 +1,12 @@
 # Victor Demin — Fractional CTO
 
-> Fractional CTO consulting for product teams that need faster, more predictable software delivery. Combines delivery metrics, system thinking (Theory of Constraints, T2M, Cycle Time, WIP), and AI leverage. Works with B2B / SaaS / platform companies of 5–50 engineers in growth or scaling stage.
+> Fractional CTO consulting for product teams that need faster, more predictable software delivery. Combines delivery metrics, system thinking (Theory of Constraints, Little's Law, T2M, Cycle Time, WIP), and AI leverage. Works with B2B / SaaS / platform companies of 5–50 engineers in growth or scaling stage.
 
 ## About
 
 - Operator: Victor Demin (sg4tech).
 - 15+ years in engineering, 8+ years in engineering leadership.
-- Background includes Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech, 2M+ MAU).
+- Background includes Wowworks (B2B facility management, EU, $3.6M raised) and Skysmart by Skyeng (K-12 EdTech, 2M+ MAU).
 - Focus: fixing slow, unpredictable delivery systems without staff augmentation, instant-fix promises, or full rewrites.
 
 ## Pages
