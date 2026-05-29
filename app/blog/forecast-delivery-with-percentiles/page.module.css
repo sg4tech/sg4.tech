@@ -359,3 +359,67 @@
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-weight: 600;
 }
+
+/* Right-skewed lead-time distribution (section 3). Same wrapper treatment as
+   the cornerstone's SVG diagrams; element fills/strokes use design tokens so
+   the chart tracks the palette and passes the CSS-literal lint. */
+.distChart {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.distChart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.distChart .dcBar {
+  fill: var(--surface-strong);
+}
+
+.distChart .dcAxis {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.distChart .dcTick,
+.distChart .dcAxisLabel {
+  fill: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.distChart .dcMedian {
+  stroke: var(--text);
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.distChart .dcMean {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.distChart .dcMedianLabel {
+  fill: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.distChart .dcMeanLabel {
+  fill: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.distCaption {
+  margin: var(--space-1) 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  text-align: center;
+}

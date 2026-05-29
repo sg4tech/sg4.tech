@@ -112,6 +112,52 @@ export function SectionMedianTypical(): ReactNode {
   );
 }
 
+// Right-skewed lead-time distribution. One bar per day (day 0–25); heights
+// fall off into a long tail. Mean sits visibly right of the median — the
+// whole point of section 3.
+const DIST_HEIGHTS = [
+  12, 150, 120, 70, 42, 30, 22, 16, 12, 10, 8, 7, 6, 5, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1
+];
+const DIST_TICKS = [0, 5, 10, 15, 20, 25];
+
+function DistributionChart(): ReactNode {
+  return (
+    <figure className={styles.distChart}>
+      <svg
+        viewBox="0 0 600 244"
+        role="img"
+        aria-label="A right-skewed lead-time distribution: most tasks finish in one to three days, with a long tail of slow tasks. The median sits at about two days inside the tall bars; the mean is pulled right to about five days, where few tasks land."
+      >
+        <line className={styles.dcAxis} x1="50" y1="40" x2="50" y2="200" />
+        <line className={styles.dcAxis} x1="50" y1="200" x2="570" y2="200" />
+        {DIST_HEIGHTS.map((h, d) => (
+          <rect key={d} className={styles.dcBar} x={50 + d * 20} y={200 - h} width="18" height={h} />
+        ))}
+        <line className={styles.dcMedian} x1="90" y1="200" x2="90" y2="44" />
+        <text className={styles.dcMedianLabel} x="86" y="36" textAnchor="end">
+          Median ~2d
+        </text>
+        <line className={styles.dcMean} x1="150" y1="200" x2="150" y2="44" />
+        <text className={styles.dcMeanLabel} x="154" y="36" textAnchor="start">
+          Mean ~5d
+        </text>
+        {DIST_TICKS.map((t) => (
+          <text key={t} className={styles.dcTick} x={50 + t * 20} y="216" textAnchor="middle">
+            {t}
+          </text>
+        ))}
+        <text className={styles.dcAxisLabel} x="310" y="236" textAnchor="middle">
+          lead time (days)
+        </text>
+      </svg>
+      <figcaption className={styles.distCaption}>
+        Lead-time distribution: most work clears in a day or two (the tall bars), but a long tail of
+        stuck tasks drags the average out to where almost nothing actually lands.
+      </figcaption>
+    </figure>
+  );
+}
+
 export function SectionGapDiagnosis(): ReactNode {
   return (
     <>
@@ -120,6 +166,7 @@ export function SectionGapDiagnosis(): ReactNode {
         So the most useful read in the whole exercise costs nothing: put the mean and the median side
         by side.
       </p>
+      <DistributionChart />
       <table className={styles.diagnosticTable}>
         <thead>
           <tr>
