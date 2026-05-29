@@ -107,6 +107,12 @@
 - Distinguish clearly between lint, unit tests, integration checks, build, release, and live runtime verification.
 - A successful build or deploy command does not prove the live system works.
 
+## Content Approval Protocol
+
+- For any public-facing page or article copy — landing text, blog prose, metadata, CTAs, FAQ answers — agree the actual text with the user BEFORE implementing it in code or components.
+- An approved outline, structure, title, or plan is NOT approval of the final prose. Draft the copy, present it for review, wait for an explicit OK, then implement.
+- Each text deliverable needs its own go-ahead — never treat an "ok" on a plan or structure as an "ok" on the words.
+
 ## UI Change Protocol
 
 - For any UI request without an explicit form ("add a visual", "make it look better", "try something") — before writing code, state: "I'll do X, it will look like Y" and wait for OK.

@@ -16,7 +16,8 @@ describe("sitemap", () => {
         "https://sg4.tech/yii2",
         "https://sg4.tech/ai-vibecoding",
         "https://sg4.tech/blog",
-        "https://sg4.tech/blog/diagnose-broken-engineering-delivery"
+        "https://sg4.tech/blog/diagnose-broken-engineering-delivery",
+        "https://sg4.tech/blog/forecast-delivery-with-percentiles"
       ])
     );
   });
@@ -73,6 +74,21 @@ describe("canonical metadata", () => {
       /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
     );
   });
+
+  it("declares the percentiles spoke canonical", () => {
+    const filePath = join(
+      process.cwd(),
+      "app",
+      "blog",
+      "forecast-delivery-with-percentiles",
+      "page.tsx"
+    );
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toMatch(
+      /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
+    );
+  });
 });
 
 describe("llms.txt", () => {
@@ -94,6 +110,9 @@ describe("llms.txt", () => {
     expect(content).toContain(
       "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
     );
+    expect(content).toContain(
+      "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
+    );
   });
 });
 
@@ -104,6 +123,21 @@ describe("article schema", () => {
       "app",
       "blog",
       "diagnose-broken-engineering-delivery",
+      "page.tsx"
+    );
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toContain('"@type": "Article"');
+    expect(content).toContain('"@type": "FAQPage"');
+    expect(content).toContain('"@type": "BreadcrumbList"');
+  });
+
+  it("renders Article, FAQPage, and BreadcrumbList JSON-LD on the percentiles spoke", () => {
+    const filePath = join(
+      process.cwd(),
+      "app",
+      "blog",
+      "forecast-delivery-with-percentiles",
       "page.tsx"
     );
     const content = readFileSync(filePath, "utf8");
