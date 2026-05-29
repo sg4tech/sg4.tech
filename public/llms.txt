@@ -31,6 +31,15 @@
   - The full engineering-delivery picture has three dimensions: system speed (T2M, Throughput, Lead Time, Cycle Time, WIP), product value (Quality, NPS), and team sustainability (eNPS)
   - Conceptual lineage: Theory of Constraints (1980s), Toyota Production System (1950s), the Kanban Method for software (David Anderson, 2000s), Little's Law (1961)
 
+- [Average lead time is lying to you — how to forecast delivery with percentiles](https://sg4.tech/blog/forecast-delivery-with-percentiles/) — why the arithmetic mean misrepresents a delivery system, and how to forecast with median, spread, and percentiles instead. Operator voice, ~10-min read, with FAQ.
+
+  Key claims from the article (safe to quote directly):
+  - The average lead time describes a system you don't have — a few slow outliers pull the mean far above what most tasks actually take (e.g. 9 tasks of ~1 day + 1 task of a month → average ≈ 4 days, but median ≈ 1 day).
+  - The median is the typical (middle) task; comparing mean vs median reveals the spread — mean far above median signals queues/blockers, mean ≈ median signals a stable, predictable system.
+  - Forecast with percentiles, not point estimates: take p85/p95 and commit "with 95% confidence, done by [date]" from the system's real cycle-time distribution.
+  - Predictability beats heroic speed; a tight spread comes from controlled WIP (Little's Law), not from estimating harder.
+  - Median, mean, and percentiles are readable from existing tracker data (e.g. Jira Control Chart) — no manual time-tracking.
+
 ## Writing and external presence
 
 - [Habr profile](https://habr.com/users/sg4tech/) — long-form posts on delivery systems, bottlenecks, and engineering management patterns.

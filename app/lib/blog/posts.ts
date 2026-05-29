@@ -12,7 +12,10 @@
 // is derived from it, so any string passed to getPostBySlug() is checked at
 // compile time — a slug typo in a route file fails the build instead of
 // crashing at runtime. blogPosts entries must use one of these slugs.
-export const POST_SLUGS = ["diagnose-broken-engineering-delivery"] as const;
+export const POST_SLUGS = [
+  "diagnose-broken-engineering-delivery",
+  "forecast-delivery-with-percentiles"
+] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
 type BlogPost = {
@@ -39,6 +42,16 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     modifiedAt: "2026-05-22",
     readingMinutes: 18,
     tags: ["engineering metrics", "delivery", "WIP", "Theory of Constraints"]
+  },
+  {
+    slug: "forecast-delivery-with-percentiles",
+    title: "Average lead time is lying to you — how to forecast delivery with percentiles",
+    description:
+      "Average lead time hides what your delivery system actually does. A fractional CTO's guide to median, spread, and p95 forecasting — how to commit to delivery dates you can hit instead of estimates that keep slipping.",
+    publishedAt: "2026-05-29",
+    modifiedAt: "2026-05-29",
+    readingMinutes: 10,
+    tags: ["delivery forecasting", "lead time", "percentiles", "predictability", "flow metrics"]
   }
 ];
 
