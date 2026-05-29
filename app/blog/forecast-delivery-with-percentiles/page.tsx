@@ -12,12 +12,11 @@ import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/pos
 import {
   ArticleHeader,
   IntroSection,
-  SectionAverageLies,
-  SectionMedian,
-  SectionPercentiles,
-  SectionPredictability,
-  SectionReadInTracker,
-  SectionSpread
+  SectionAverageComfort,
+  SectionGapDiagnosis,
+  SectionMedianTypical,
+  SectionPickPercentile,
+  SectionPredictability
 } from "./article-content";
 import { ArticleCta, ArticleRelated } from "./article-tail";
 import styles from "./page.module.css";
@@ -75,17 +74,14 @@ const faqItems = [
   {
     question: "How do I give a delivery date I can actually hit?",
     answer:
-      "Forecast from a percentile of your cycle-time distribution, not a point estimate. Take the 85th or 95th percentile and commit probabilistically: with 95% confidence, done by this date. It's a commitment backed by the system's real history rather than a guess.",
+      "Pick it from a percentile (p85/p95) of your cycle-time distribution, not a gut average. Externally you still give one flat date — just the one the system says you'll hit. You commit to the date, not the probability.",
     answerNode: (
       <>
         <p>
-          Forecast from a percentile of your cycle-time distribution, not a point estimate. It&apos;s
-          a commitment backed by the system&apos;s real history rather than a guess.
+          Pick it from a percentile (p85/p95) of your cycle-time distribution, not a gut average.
+          Externally you still give one flat date — just the one the system says you&apos;ll hit.
         </p>
-        <p className={styles.faqHighlight}>
-          Take the 85th or 95th percentile and commit: &ldquo;with 95% confidence, done by this
-          date.&rdquo;
-        </p>
+        <p className={styles.faqHighlight}>You commit to the date, not the probability.</p>
       </>
     )
   },
@@ -187,11 +183,10 @@ function ArticleBody() {
   return (
     <div className={styles.body}>
       <IntroSection />
-      <SectionAverageLies />
-      <SectionMedian />
-      <SectionSpread />
-      <SectionPercentiles />
-      <SectionReadInTracker />
+      <SectionAverageComfort />
+      <SectionMedianTypical />
+      <SectionGapDiagnosis />
+      <SectionPickPercentile />
       <SectionPredictability />
       <ArticleCta />
       <ArticleRelated />

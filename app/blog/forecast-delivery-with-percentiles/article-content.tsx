@@ -2,9 +2,8 @@
 // max-lines-per-function (80) and keep each section a focused editorial unit.
 // CTA + Related asides live in article-tail.tsx.
 //
-// Section order builds an argument incrementally (average lies → median →
-// spread → percentiles → where to read it → why predictability wins). If a
-// section is reordered, check that the surrounding text still reads.
+// Section order builds an argument: average misleads → median → the gap is the
+// diagnosis → pick the date from a percentile → predictability is the product.
 
 import Image from "next/image";
 import Link from "next/link";
@@ -51,9 +50,9 @@ export function ArticleHeader({
         </div>
       </div>
       <p className={styles.lede}>
-        Most teams forecast delivery off the average. It&apos;s the single number almost guaranteed to
-        misrepresent the system — and a big reason delivery dates keep slipping. Here&apos;s what to
-        read instead.
+        Most teams forecast delivery off the average. It&apos;s the one number almost guaranteed to
+        misrepresent the system — and every time you quote it and miss, you spend trust you
+        didn&apos;t have to. Here&apos;s what to quote instead.
       </p>
     </header>
   );
@@ -61,66 +60,65 @@ export function ArticleHeader({
 
 export function IntroSection(): ReactNode {
   return (
-    <>
-      <p>
-        I&apos;ve written elsewhere about T2M, Lead Time, and Cycle Time — the{" "}
-        <Link href={PILLAR_HREF}>metrics that tell you where delivery actually breaks</Link>.
-        Measuring one task is easy. But a real team has hundreds of finished tasks, all different, and
-        to forecast anything you have to collapse them into a number.
-      </p>
-      <p>
-        The number almost everyone reaches for is the arithmetic mean. That&apos;s where the trouble
-        starts.
-      </p>
-    </>
+    <p>
+      Once a team starts measuring delivery — the{" "}
+      <Link href={PILLAR_HREF}>metrics that show where it actually breaks</Link> — the next question
+      from founders is always the same: given all this data, when can we promise something? Almost
+      everyone answers with an average. It&apos;s the worst available number for the job.
+    </p>
   );
 }
 
-export function SectionAverageLies(): ReactNode {
+export function SectionAverageComfort(): ReactNode {
   return (
     <>
-      <h2 id="average-lies">1. The average describes a system you don&apos;t have</h2>
-      <p>Take a simple month of finished work:</p>
+      <h2 id="average">1. The average is a comfort, not a forecast</h2>
+      <p>
+        Managers reach for the average because it collapses a messy reality into one number you can
+        say out loud in a standup. That comfort is exactly the problem.
+      </p>
+      <p>Take a month of finished work:</p>
       <div className={styles.numericExample}>
         <p>9 tasks finished in ~1 day each</p>
-        <p>1 task took a month</p>
+        <p>1 task dragged on for a month</p>
         <p>→ average lead time ≈ 4 days</p>
       </div>
       <p>
-        But no task in this system takes four days. Most take one; a single straggler drags the mean
-        up. Forecast off &ldquo;about four days&rdquo; and you&apos;re too pessimistic for the fast 90%
-        and wildly optimistic for the one task that&apos;s actually stuck.
+        No task in this system actually takes four days. Most take one; a single straggler drags the
+        mean up. You can drown crossing a river that&apos;s four feet deep <em>on average</em>.
       </p>
       <p className={styles.pullquote}>The average lead time describes a system you don&apos;t have.</p>
     </>
   );
 }
 
-export function SectionMedian(): ReactNode {
+export function SectionMedianTypical(): ReactNode {
   return (
     <>
       <h2 id="median">2. The median is the typical task</h2>
       <p>
-        The median is the middle task — half finish faster, half slower. In the example above it&apos;s
-        about one day. That single number tells you most work flows through the system quickly.
+        The median is the middle task — half finish faster, half slower. Here it&apos;s about one day,
+        and that single number tells you most work flows through quickly.
       </p>
       <p>
-        Which reframes the problem. When someone asks &ldquo;our average lead time is four days, why
-        are we so slow?&rdquo; the average is hiding the real shape: ninety percent of the work is fine,
-        and a few tasks are rotting in a queue somewhere. The problem isn&apos;t the whole system —
-        it&apos;s the stragglers.
+        That reframes the complaint. When someone asks &ldquo;our average is four days, why are we so
+        slow?&rdquo;, the average is hiding the real shape: ninety percent of the work is fine, a few
+        tasks are stranded. The times I&apos;ve pulled up a control chart with a team, the gap between
+        mean and median was usually the whole story — most tickets clearing in a day or two, one or
+        two buried for weeks in a review queue nobody was watching. The system isn&apos;t slow. A
+        handful of tasks are stuck.
       </p>
     </>
   );
 }
 
-export function SectionSpread(): ReactNode {
+export function SectionGapDiagnosis(): ReactNode {
   return (
     <>
-      <h2 id="spread">3. The gap between mean and median is your spread</h2>
+      <h2 id="gap">3. The gap between mean and median is the diagnosis</h2>
       <p>
-        The most useful read in the whole exercise costs nothing: put the mean and the median side by
-        side.
+        So the most useful read in the whole exercise costs nothing: put the mean and the median side
+        by side.
       </p>
       <table className={styles.diagnosticTable}>
         <thead>
@@ -133,65 +131,90 @@ export function SectionSpread(): ReactNode {
           <tr>
             <th>Mean far above median</th>
             <td>
-              Wide spread. Work moves unevenly — some tasks fly through, others sit in queues, reviews,
-              approvals, or dependencies. The gap is queue depth.
+              Wide spread. Work moves unevenly — some tasks fly, others sit in queues, reviews,
+              approvals. The gap is queue depth.
             </td>
           </tr>
           <tr>
             <th>Mean ≈ median</th>
-            <td>
-              Tight spread. Work moves at a consistent pace. The system is stable and predictable.
-            </td>
+            <td>Tight spread. Work moves at a consistent pace. The system is stable and predictable.</td>
           </tr>
         </tbody>
       </table>
       <p>
         The gap itself is the signal. A fat gap means a long tail — blockers, hand-offs, things waiting
-        on someone. Close those and the mean falls toward the median. You can read this at a glance,
-        without putting a stopwatch on anyone.
+        on a person. Close those and the mean falls back toward the median. You can see it at a glance,
+        without a stopwatch on anyone.
       </p>
     </>
   );
 }
 
-export function SectionPercentiles(): ReactNode {
+function PercentileTable(): ReactNode {
   return (
-    <>
-      <h2 id="percentiles">4. Forecast with percentiles, not point estimates</h2>
-      <p>
-        Stakeholders ask one question: when will it be done? They want a precise answer — and the
-        honest precise answer isn&apos;t a single number, it&apos;s a probability.
-      </p>
-      <p>
-        A percentile turns the distribution into a commitment. The 95th percentile is the value 95% of
-        tasks finish within. So instead of &ldquo;about four days&rdquo; — a guess that&apos;s wrong
-        most of the time — you say:
-      </p>
-      <p className={styles.pullquote}>With 95% confidence, this is done by [date].</p>
-      <p>
-        That&apos;s a commitment you can keep, because it comes from what the system has actually done,
-        not from a gut feel. Match the percentile to the stakes: p85 for a routine commitment, p95 when
-        a miss is expensive. If the task is already in progress, forecast its remaining time against the
-        same distribution.
-      </p>
-    </>
+    <table className={styles.diagnosticTable}>
+      <thead>
+        <tr>
+          <th>Percentile</th>
+          <th>Lead time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>P50 (median)</th>
+          <td>2 days</td>
+        </tr>
+        <tr>
+          <th>P85</th>
+          <td>6 days</td>
+        </tr>
+        <tr>
+          <th>P95</th>
+          <td>11 days</td>
+        </tr>
+      </tbody>
+    </table>
   );
 }
 
-export function SectionReadInTracker(): ReactNode {
+export function SectionPickPercentile(): ReactNode {
   return (
     <>
-      <h2 id="read-in-tracker">5. You already have these numbers</h2>
+      <h2 id="percentile">4. Pick the date from a percentile, not a gut average</h2>
       <p>
-        None of this needs a new tool or a time-tracking ritual. Jira&apos;s Control Chart shows the
-        mean and median directly; a cycle-time scatterplot shows the full distribution and its
-        percentile bands. Most trackers with a flow or analytics module expose the same.
+        Stakeholders ask one question: when will it be done? And they want one date, not a statistics
+        lecture. Fair — so give them one date. Just stop picking it from the wrong number.
       </p>
       <p>
-        It&apos;s the same principle as{" "}
-        <Link href={PILLAR_HREF}>counting tasks per status</Link>: read the system from the data it
-        already produces, instead of asking people to log hours. The numbers are sitting in your
-        tracker right now.
+        A point estimate off the average is a promise the spread won&apos;t let you keep. Quote
+        &ldquo;about four days,&rdquo; miss it, and you&apos;ve spent trust — then you do it again next
+        sprint. A percentile fixes which number you pick from: it&apos;s the value some share of tasks
+        finish within. Pull a real distribution — less extreme than the toy above, same shape — and it
+        reads something like:
+      </p>
+      <PercentileTable />
+      <p>
+        Now the choice is concrete. Routine work? Commit to the{" "}
+        <strong>P85 — &ldquo;by day six.&rdquo;</strong> Something a customer or another team is blocked
+        on, where a miss is expensive? Quote the <strong>P95 — &ldquo;by day eleven.&rdquo;</strong>{" "}
+        Same data, different promise — both ones you&apos;ll keep.
+      </p>
+      <p>
+        This isn&apos;t hiding the uncertainty — it&apos;s the honest version of a date. You&apos;re
+        committing to one you&apos;ll hit 95 times out of 100 (or 85, if that&apos;s the line you
+        picked), rather than a gut estimate the system&apos;s spread was always going to break. If
+        anyone wants the confidence level, give it to them; most just want the date.
+      </p>
+      <p className={styles.pullquote}>
+        The percentile isn&apos;t what you tell the stakeholder — it&apos;s how you pick the date you
+        tell them.
+      </p>
+      <p>
+        For a task already in flight, forecast the time it has <em>left</em>, conditioned on how long
+        it&apos;s already run, against the same distribution. And the first time you give someone a
+        date and then hit it, you stop being the team that&apos;s &ldquo;always late&rdquo; and become
+        the team that&apos;s &ldquo;predictable&rdquo; — a reputation worth more than the occasional
+        fast ticket.
       </p>
     </>
   );
@@ -200,25 +223,25 @@ export function SectionReadInTracker(): ReactNode {
 export function SectionPredictability(): ReactNode {
   return (
     <>
-      <h2 id="predictability">6. Predictability beats heroic speed</h2>
+      <h2 id="predictability">5. Predictability is the product</h2>
       <p>
-        The instinct is to celebrate the task that shipped in a day. But a system with a tight spread
-        is worth more to the business than one with occasional heroic-fast tasks and a long tail of
-        stragglers. &ldquo;Reliably done by Friday&rdquo; beats &ldquo;sometimes a day, sometimes a
-        month.&rdquo;
+        Because predictability — not raw speed — is what the business actually buys. Sales commits to
+        customers on your dates, marketing books launches on them, support staffs against them. A team
+        that&apos;s reliably done by Friday beats one that&apos;s sometimes done Tuesday and sometimes
+        in three weeks, because everyone downstream can plan.
       </p>
       <p>
-        And predictability isn&apos;t luck. A tight spread comes from controlled work in progress. High
-        WIP builds long queues, long queues create the fat tail, and the fat tail is exactly what pushes
-        the mean above the median. Control WIP — the lever from{" "}
-        <Link href={PILLAR_HREF}>Little&apos;s Law and the metrics playbook</Link> — and the
-        distribution tightens on its own.
+        And a tight spread isn&apos;t luck. It comes from controlled work in progress: high WIP builds
+        long queues, long queues create the long tail, and the tail is what pushes the mean above the
+        median — so <Link href={PILLAR_HREF}>controlling WIP</Link> tightens the distribution on its
+        own. None of this needs a new tool; Jira&apos;s Control Chart shows mean, median, and
+        percentiles from data you already have.
       </p>
       <p>
         Most teams forecast off the average and then wonder why the dates keep slipping. The fix
-        isn&apos;t better estimating. It&apos;s reading the distribution you already have: the median
-        for the typical case, the spread for the health of the system, and a percentile for the
-        commitment you make out loud.
+        isn&apos;t estimating harder. It&apos;s reading the distribution you already have — the median
+        for the typical case, the gap for the system&apos;s health, and a percentile for the date you
+        commit to.
       </p>
     </>
   );

@@ -50,7 +50,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
       "Average lead time hides what your delivery system actually does. A fractional CTO's guide to median, spread, and p95 forecasting — how to commit to delivery dates you can hit instead of estimates that keep slipping.",
     publishedAt: "2026-05-29",
     modifiedAt: "2026-05-29",
-    readingMinutes: 10,
+    readingMinutes: 7,
     tags: ["delivery forecasting", "lead time", "percentiles", "predictability", "flow metrics"]
   }
 ];

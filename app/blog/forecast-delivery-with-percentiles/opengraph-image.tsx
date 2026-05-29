@@ -18,7 +18,7 @@ export default async function OpengraphImage() {
         eyebrow="ENGINEERING DELIVERY"
         title="Average lead time is lying to you"
         subtitle="Forecast delivery with median, spread, and p95 percentiles — not a point estimate."
-        footer="Victor Demin · 10 min read"
+        footer="Victor Demin · 7 min read"
         logoSrc={logoSrc}
       />
     ),
