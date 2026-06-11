@@ -21,8 +21,18 @@ export const footerLinks: FooterLink[] = [
 // profiles (LinkedIn, Medium, GitHub, Habr). AI answer engines corroborate an
 // entity by matching consistent facts across surfaces, so these must not drift.
 // Keep in sync with public/llms.txt.
-const VICTOR_NAME = "Victor Demin";
+export const VICTOR_NAME = "Victor Demin";
 const VICTOR_JOB_TITLE = "Fractional CTO";
+
+// Display tagline under the name in the "Why me" identity card on every landing.
+// Distinct from VICTOR_JOB_TITLE (the schema's terse jobTitle) — this is the
+// human-facing one-liner. Single source so all three landings read identically.
+export const VICTOR_ROLE_LINE = "Fractional CTO / engineering delivery consultant";
+
+// Portrait shown in the "Why me" / trust block on every landing AND referenced as
+// Person.image in the JSON-LD below — one path so the rendered photo and the
+// structured-data image can never drift. Lives at public/brand/victor-demin.jpg.
+export const VICTOR_PHOTO_PATH = "/brand/victor-demin.jpg";
 
 // Canonical one-paragraph bio. Person.description renders this; it is also the
 // paste-in bio for external profiles (e.g. to fix Medium's "CTO and IT
@@ -87,7 +97,7 @@ export const personSchema = {
   "@id": `${SITE_URL}/#person`,
   name: VICTOR_NAME,
   url: SITE_URL,
-  image: `${SITE_URL}/brand/victor-demin.jpg`,
+  image: `${SITE_URL}${VICTOR_PHOTO_PATH}`,
   jobTitle: VICTOR_JOB_TITLE,
   description: VICTOR_BIO,
   knowsAbout: VICTOR_KNOWS_ABOUT,

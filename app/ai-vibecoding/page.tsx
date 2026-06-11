@@ -36,6 +36,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
+import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import { getPostBySlug } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
@@ -491,57 +492,60 @@ function GuardrailsSection() {
   );
 }
 
-function WhyMeSection() {
-  return (
-    <Section id="why-me">
-      <SectionHeader
-        title="Why me"
-        intro="I don't replace your AI. I build the system around it. Same pattern as the startup-mode codebases I've cleaned up for years — different generator, same fix."
-        introClassName={styles.introWide}
-      />
-      <div className={`${landing.whyGrid} ${landing.whySurface}`}>
-        <div className={landing.profileCard}>
-          <p className={landing.profileName}>Victor Demin</p>
-          <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
-        </div>
-        <div className={landing.profileBody}>
-          <ul className={landing.iconList}>
-            <li>
-              <Icon icon={Calendar} className={landing.cardIcon} />
-              <span>15+ years across PHP, Python, Java, TypeScript, Node, C++, C#, iOS, Android (and yes, Flash once). The codebase patterns that kill delivery don&apos;t change with the stack. AI just made them faster.</span>
-            </li>
-            <li>
-              <Icon icon={Building2} className={landing.cardIcon} />
-              <div>
-                <span>I&apos;ve fixed this pattern at Wowworks — startup-mode codebase to EU-ready production — and at an EdTech scale-up. The cleanup pattern is older than AI — different source, same fix.</span>
-                <div className={styles.outcomeChipGroups}>
-                  <div className={styles.outcomeChipGroup}>
-                    <span className={styles.outcomeChipCompany}>Wowworks</span>
-                    <span className={styles.outcomeChip}>bugs ↓10×</span>
-                    <span className={styles.outcomeChip}>delivery ↑3×</span>
-                    <span className={styles.outcomeChip}>efficiency ↑4×</span>
-                  </div>
-                  <div className={styles.outcomeChipGroup}>
-                    <span className={styles.outcomeChipCompany}>EdTech</span>
-                    <span className={styles.outcomeChip}>delivery ↑2×</span>
-                    <span className={styles.outcomeChip}>downtime ↓10×</span>
-                    <span className={styles.outcomeChip}>eNPS −100→100</span>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <Icon icon={BookOpen} className={landing.cardIcon} />
-              <span>Wrote about this exact cleanup pattern on{" "}<a href="https://habr.com/ru/articles/719352/" target="_blank" rel="noreferrer">Habr</a>{" "}in 2023, before AI accelerated it. Same fix, different generator.</span>
-            </li>
-            <li>
-              <Icon icon={Wrench} className={landing.cardIcon} />
-              <span>I do the work, not just advise. Architecture, guardrails, AI workflow tuning, refactoring — hands-on.</span>
-            </li>
-          </ul>
+const whyMePoints: WhyMePoint[] = [
+  {
+    id: "experience-stack",
+    icon: Calendar,
+    content: (
+      <span>15+ years across PHP, Python, Java, TypeScript, Node, C++, C#, iOS, Android (and yes, Flash once). The codebase patterns that kill delivery don&apos;t change with the stack. AI just made them faster.</span>
+    )
+  },
+  {
+    id: "track-record",
+    icon: Building2,
+    content: (
+      <div>
+        <span>I&apos;ve fixed this pattern at Wowworks — startup-mode codebase to EU-ready production — and at an EdTech scale-up. The cleanup pattern is older than AI — different source, same fix.</span>
+        <div className={styles.outcomeChipGroups}>
+          <div className={styles.outcomeChipGroup}>
+            <span className={styles.outcomeChipCompany}>Wowworks</span>
+            <span className={styles.outcomeChip}>bugs ↓10×</span>
+            <span className={styles.outcomeChip}>delivery ↑3×</span>
+            <span className={styles.outcomeChip}>efficiency ↑4×</span>
+          </div>
+          <div className={styles.outcomeChipGroup}>
+            <span className={styles.outcomeChipCompany}>EdTech</span>
+            <span className={styles.outcomeChip}>delivery ↑2×</span>
+            <span className={styles.outcomeChip}>downtime ↓10×</span>
+            <span className={styles.outcomeChip}>eNPS −100→100</span>
+          </div>
         </div>
       </div>
-    </Section>
+    )
+  },
+  {
+    id: "habr",
+    icon: BookOpen,
+    content: (
+      <span>Wrote about this exact cleanup pattern on{" "}<a href="https://habr.com/ru/articles/719352/" target="_blank" rel="noreferrer">Habr</a>{" "}in 2023, before AI accelerated it. Same fix, different generator.</span>
+    )
+  },
+  {
+    id: "hands-on",
+    icon: Wrench,
+    content: (
+      <span>I do the work, not just advise. Architecture, guardrails, AI workflow tuning, refactoring — hands-on.</span>
+    )
+  }
+];
+
+function TrustSection() {
+  return (
+    <WhyMeSection
+      intro="I don't replace your AI. I build the system around it. Same pattern as the startup-mode codebases I've cleaned up for years — different generator, same fix."
+      introClassName={styles.introWide}
+      points={whyMePoints}
+    />
   );
 }
 
@@ -650,7 +654,7 @@ export default function AiVibecodingPage() {
       <HeroSection />
       <ProblemSection />
       <GuardrailsSection />
-      <WhyMeSection />
+      <TrustSection />
       <ProcessSection />
       <FeaturedEssaySection />
       <FaqSection items={faqItems} />

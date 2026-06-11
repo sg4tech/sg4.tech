@@ -1,11 +1,14 @@
 import {
   AlertTriangle,
   Ban,
+  BookOpen,
   Bug,
+  Calendar,
   Layers,
   Rocket,
   Target,
   TrendingUp,
+  Users,
   Zap
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -21,6 +24,7 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
+import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
@@ -105,12 +109,16 @@ const credibilityPoints = [
   "AI-first approach — applying modern tools where they actually create leverage"
 ];
 
-const trustPoints = [
-  "15+ years in engineering",
-  "8+ years in leadership",
-  "Built MVPs hands-on",
-  "Scaled teams and improved delivery systems",
-  "Write about engineering metrics, bottlenecks, and AI workflows"
+const trustPoints: WhyMePoint[] = [
+  { id: "experience", icon: Calendar, content: <span>15+ years in engineering</span> },
+  { id: "leadership", icon: Users, content: <span>8+ years in leadership</span> },
+  { id: "mvp", icon: Rocket, content: <span>Built MVPs hands-on</span> },
+  { id: "scale", icon: TrendingUp, content: <span>Scaled teams and improved delivery systems</span> },
+  {
+    id: "writing",
+    icon: BookOpen,
+    content: <span>Write about engineering metrics, bottlenecks, and AI workflows</span>
+  }
 ];
 
 const caseStudies = [
@@ -475,22 +483,10 @@ function ResultsSection() {
 
 function TrustSection() {
   return (
-    <Section className={styles.trustSection}>
-      <SectionHeader
-        title="Why me"
-        intro="Victor Demin — operator-level engineering leader focused on fixing delivery systems, not decorating process."
-        headingClassName={styles.trustHeading}
-        introClassName={styles.trustIntro}
-      />
-      <div className={styles.trustCard}>
-        <p className={styles.trustName}>Victor Demin</p>
-        <ul className={styles.bulletList}>
-          {trustPoints.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    </Section>
+    <WhyMeSection
+      intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process."
+      points={trustPoints}
+    />
   );
 }
 

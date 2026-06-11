@@ -34,6 +34,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
+import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
@@ -111,22 +112,36 @@ const speedLevers = [
   }
 ];
 
-const whyMePoints = [
+const whyMePoints: WhyMePoint[] = [
   {
-    text: "15+ years in the industry.",
-    icon: Calendar
+    id: "experience",
+    icon: Calendar,
+    content: <span>15+ years in the industry.</span>
   },
   {
-    text: "I have fixed delivery systems many times where speed and quality were working against each other.",
-    icon: Wrench
+    id: "fixes",
+    icon: Wrench,
+    content: (
+      <span>
+        I have fixed delivery systems many times where speed and quality were working against each other.
+      </span>
+    )
   },
   {
-    text: "I work both hands-on and system-level: architecture, process, metrics, and management.",
-    icon: Compass
+    id: "hands-on",
+    icon: Compass,
+    content: (
+      <span>I work both hands-on and system-level: architecture, process, metrics, and management.</span>
+    )
   },
   {
-    text: "Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation).",
-    icon: Building2
+    id: "track-record",
+    icon: Building2,
+    content: (
+      <span>
+        Experience in Wowworks (B2B facility management, EU, $3.6M raised) and Skyeng (K-12 EdTech platform, 2M+ MAU, $100M+ valuation).
+      </span>
+    )
   }
 ];
 
@@ -584,30 +599,12 @@ function SpeedSection() {
   );
 }
 
-function WhyMeSection() {
+function TrustSection() {
   return (
-    <Section id="why-me">
-      <SectionHeader
-        title="Why me"
-        intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
-      />
-      <div className={`${landing.whyGrid} ${landing.whySurface}`}>
-        <div className={landing.profileCard}>
-          <p className={landing.profileName}>Victor Demin</p>
-          <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
-        </div>
-        <div className={landing.profileBody}>
-          <ul className={landing.iconList}>
-            {whyMePoints.map((item) => (
-              <li key={item.text}>
-                <Icon icon={item.icon} className={landing.cardIcon} />
-                <span>{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Section>
+    <WhyMeSection
+      intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
+      points={whyMePoints}
+    />
   );
 }
 
@@ -706,7 +703,7 @@ export default function Yii2Page() {
       <ProblemSection />
       <QualitySection />
       <SpeedSection />
-      <WhyMeSection />
+      <TrustSection />
       <ProcessSection />
       <FaqSection items={faqItems} />
       <ProofSection />
