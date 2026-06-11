@@ -24,12 +24,11 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
-import { WhyMeSection } from "./components/WhyMeSection";
+import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
-import landing from "./styles/landing.module.css";
 
 const secondaryCtaHref = "#process";
 const heroCtaHref = "https://t.me/sg4tech?start=site_hero";
@@ -110,12 +109,16 @@ const credibilityPoints = [
   "AI-first approach — applying modern tools where they actually create leverage"
 ];
 
-const trustPoints = [
-  { text: "15+ years in engineering", icon: Calendar },
-  { text: "8+ years in leadership", icon: Users },
-  { text: "Built MVPs hands-on", icon: Rocket },
-  { text: "Scaled teams and improved delivery systems", icon: TrendingUp },
-  { text: "Write about engineering metrics, bottlenecks, and AI workflows", icon: BookOpen }
+const trustPoints: WhyMePoint[] = [
+  { id: "experience", icon: Calendar, content: <span>15+ years in engineering</span> },
+  { id: "leadership", icon: Users, content: <span>8+ years in leadership</span> },
+  { id: "mvp", icon: Rocket, content: <span>Built MVPs hands-on</span> },
+  { id: "scale", icon: TrendingUp, content: <span>Scaled teams and improved delivery systems</span> },
+  {
+    id: "writing",
+    icon: BookOpen,
+    content: <span>Write about engineering metrics, bottlenecks, and AI workflows</span>
+  }
 ];
 
 const caseStudies = [
@@ -480,14 +483,10 @@ function ResultsSection() {
 
 function TrustSection() {
   return (
-    <WhyMeSection intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process.">
-      {trustPoints.map((point) => (
-        <li key={point.text}>
-          <Icon icon={point.icon} className={landing.cardIcon} />
-          <span>{point.text}</span>
-        </li>
-      ))}
-    </WhyMeSection>
+    <WhyMeSection
+      intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process."
+      points={trustPoints}
+    />
   );
 }
 
