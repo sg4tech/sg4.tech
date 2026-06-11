@@ -14,13 +14,16 @@ export const dynamic = "force-static";
 // /blog index isn't listed here because its modifiedAt is auto-derived from
 // the most recently modified post — no manual maintenance needed.
 // Tighter shape than the MetadataRoute.Sitemap entry:
-// - `path` is required to start with "/" via template literal type
+// - `path` must start AND end with "/" via template literal type:
+//   next.config.mjs sets trailingSlash: true, so the trailing-slash URL is
+//   the served form and the slash-less variant is a 301 — a sitemap must
+//   list final URLs, not redirects
 // - `priority` is a literal union of the sitemap-protocol values we
 //   actually use, blocking accidental NaN / out-of-range / typos
 //   (sitemap.org defines priority as 0.0 to 1.0; we use a discrete
 //   subset to encode landing weight)
 type Landing = {
-  path: `/${string}`;
+  path: "/" | `/${string}/`;
   modifiedAt: string;
   changeFrequency: "monthly" | "weekly";
   priority: 0.6 | 0.7 | 0.8 | 1;
@@ -28,8 +31,8 @@ type Landing = {
 
 const landings: ReadonlyArray<Landing> = [
   { path: "/", modifiedAt: "2026-05-22", changeFrequency: "monthly", priority: 1 },
-  { path: "/yii2", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/ai-vibecoding", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 }
+  { path: "/yii2/", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/ai-vibecoding/", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 }
 ];
 
 // Newest post's modifiedAt, used as the /blog index lastmod. Caller must
@@ -56,7 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ? []
       : [
           {
-            url: `${SITE_URL}/blog`,
+            url: `${SITE_URL}/blog/`,
             lastModified: new Date(latestBlogModifiedAt()),
             changeFrequency: "weekly",
             priority: 0.7
@@ -64,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ];
 
   const posts: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}/`,
     lastModified: new Date(post.modifiedAt),
     changeFrequency: "monthly",
     priority: 0.6

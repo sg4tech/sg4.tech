@@ -13,23 +13,35 @@ describe("sitemap", () => {
     expect(urls).toEqual(
       expect.arrayContaining([
         "https://sg4.tech/",
-        "https://sg4.tech/yii2",
-        "https://sg4.tech/ai-vibecoding",
-        "https://sg4.tech/blog",
-        "https://sg4.tech/blog/diagnose-broken-engineering-delivery",
-        "https://sg4.tech/blog/forecast-delivery-with-percentiles"
+        "https://sg4.tech/yii2/",
+        "https://sg4.tech/ai-vibecoding/",
+        "https://sg4.tech/blog/",
+        "https://sg4.tech/blog/diagnose-broken-engineering-delivery/",
+        "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
       ])
     );
+  });
+
+  // next.config.mjs sets trailingSlash: true, so every page is served at its
+  // trailing-slash URL and the slash-less variant is a 301 redirect. A sitemap
+  // must list final URLs, not redirects — otherwise every entry wastes a crawl
+  // hop and contradicts the on-page canonical.
+  it("lists only trailing-slash URLs (the served form under trailingSlash: true)", () => {
+    const entries = sitemap();
+
+    for (const entry of entries) {
+      expect(entry.url).toMatch(/\/$/);
+    }
   });
 
   it("does not advertise routes that have no built page", () => {
     const entries = sitemap();
     const urls = entries.map((entry) => entry.url);
     const placeholderRoutes = [
-      "https://sg4.tech/about",
-      "https://sg4.tech/why-engineering-is-slow",
-      "https://sg4.tech/why-hiring-more-engineers-doesnt-help",
-      "https://sg4.tech/why-nothing-ships"
+      "https://sg4.tech/about/",
+      "https://sg4.tech/why-engineering-is-slow/",
+      "https://sg4.tech/why-hiring-more-engineers-doesnt-help/",
+      "https://sg4.tech/why-nothing-ships/"
     ];
 
     for (const url of placeholderRoutes) {
@@ -50,7 +62,14 @@ describe("canonical metadata", () => {
     const filePath = join(process.cwd(), "app", "yii2", "page.tsx");
     const content = readFileSync(filePath, "utf8");
 
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2"/);
+    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2\/"/);
+  });
+
+  it("declares the ai-vibecoding page canonical relative to metadataBase", () => {
+    const filePath = join(process.cwd(), "app", "ai-vibecoding", "page.tsx");
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/ai-vibecoding\/"/);
   });
 
   it("declares the blog index canonical", () => {
@@ -98,7 +117,7 @@ describe("llms.txt", () => {
 
     expect(content).toContain("Victor Demin");
     expect(content).toContain("https://sg4.tech/");
-    expect(content).toContain("https://sg4.tech/yii2");
+    expect(content).toContain("https://sg4.tech/yii2/");
     expect(content).toContain("https://t.me/sg4tech");
   });
 
@@ -114,6 +133,24 @@ describe("llms.txt", () => {
       "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
     );
   });
+});
+
+describe("landing schema", () => {
+  // Both landings render a visible FaqSection; the FAQPage JSON-LD must ship
+  // with it (Q&A markup is among the most-cited structures for AI engines).
+  // The founder edge links the page's ProfessionalService node to the shared
+  // Person @id — without it the two nodes sit in the same graph unconnected.
+  for (const landing of ["yii2", "ai-vibecoding"] as const) {
+    it(`/${landing} renders FAQPage JSON-LD and links the service to the Person via founder`, () => {
+      const filePath = join(process.cwd(), "app", landing, "page.tsx");
+      const content = readFileSync(filePath, "utf8");
+
+      expect(content).toContain('"@type": "FAQPage"');
+      expect(content).toMatch(
+        /founder:\s*{\s*"@id":\s*`\$\{SITE_URL\}\/#person`\s*}/
+      );
+    });
+  }
 });
 
 describe("article schema", () => {

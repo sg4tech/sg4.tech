@@ -245,14 +245,27 @@ const structuredData = {
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": `${SITE_URL}/yii2#service`,
+      "@id": `${SITE_URL}/yii2/#service`,
       name: "Yii2 Delivery Consulting",
-      url: `${SITE_URL}/yii2`,
+      url: `${SITE_URL}/yii2/`,
       serviceType: "Yii2 delivery consulting",
       description:
-        "Consulting for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI."
+        "Consulting for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI.",
+      founder: { "@id": `${SITE_URL}/#person` }
     },
-    personSchema
+    personSchema,
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/yii2/#faq`,
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    }
   ]
 };
 
@@ -261,7 +274,7 @@ export const metadata: Metadata = {
   description:
     "A dedicated landing page for Yii2 projects: I help teams remove delivery bottlenecks through guardrails, CI/CD, monitoring, delivery metrics, and AI.",
   alternates: {
-    canonical: "/yii2"
+    canonical: "/yii2/"
   },
   openGraph: {
     title: "Yii2 Consulting for Faster Delivery and Better Quality",
