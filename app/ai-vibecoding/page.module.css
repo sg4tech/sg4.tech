@@ -415,3 +415,51 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Hub -> spoke "Featured essay" card, same treatment as the homepage
+   specialization/essay cards so the pattern reads identically across pages. */
+.featuredEssayGrid {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.featuredEssayCard {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(247, 247, 245, 0.92) 0%, rgba(255, 255, 255, 1) 100%);
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+.featuredEssayCard:hover,
+.featuredEssayCard:focus-visible {
+  border-color: var(--border-strong);
+  color: var(--text-strong);
+  transform: translateY(-1px);
+}
+
+.featuredEssayLabel {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.featuredEssayTitle {
+  color: var(--text-strong);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: var(--leading-base);
+}
+
+.featuredEssayDescription {
+  color: var(--muted);
+  line-height: var(--leading-relaxed);
+}

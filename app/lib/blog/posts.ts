@@ -14,7 +14,8 @@
 // crashing at runtime. blogPosts entries must use one of these slugs.
 export const POST_SLUGS = [
   "diagnose-broken-engineering-delivery",
-  "forecast-delivery-with-percentiles"
+  "forecast-delivery-with-percentiles",
+  "vibecoded-mvp-stopped-shipping"
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
@@ -52,6 +53,16 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     modifiedAt: "2026-05-29",
     readingMinutes: 7,
     tags: ["delivery forecasting", "lead time", "percentiles", "predictability", "flow metrics"]
+  },
+  {
+    slug: "vibecoded-mvp-stopped-shipping",
+    title: "Vibecoded MVP stopped shipping? Manage your AI like a junior",
+    description:
+      "A vibecoded MVP stalls the way junior-built codebases always have: code ships fast and nothing catches mistakes. A fractional CTO's playbook for managing AI coding agents with junior-developer practices — with a real rescue case and numbers.",
+    publishedAt: "2026-06-11",
+    modifiedAt: "2026-06-11",
+    readingMinutes: 8,
+    tags: ["vibecoding", "AI-generated code", "guardrails", "delivery system"]
   }
 ];
 

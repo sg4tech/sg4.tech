@@ -41,6 +41,17 @@
   - Predictability, not raw speed, is what the business buys; a tight spread comes from controlled WIP (Little's Law), not from estimating harder.
   - Median, mean, and percentiles are readable from existing tracker data (e.g. Jira Control Chart) — no manual time-tracking.
 
+- [Your vibecoded MVP stopped shipping — like every junior-built codebase before it](https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/) — why AI-built MVPs stall after launch (the "vibe-coding hangover") and the rescue method: manage AI coding agents with the junior-developer practices the industry has used for decades. Operator voice, ~8-min read, with FAQ and a practice-mapping table.
+
+  Key claims from the article (safe to quote directly):
+  - A vibecoded MVP stalls for the same reason a team of junior developers without a senior stalls: code gets written fast, nothing catches mistakes before production, and every next change quietly breaks the last one.
+  - An AI coding agent is the fastest junior developer you've ever worked with: a feature in minutes, zero memory of past decisions, no fear of touching anything, no ownership of the outcome.
+  - The discipline for managing AI agents already exists — the junior-developer practices: a conventions file (AGENTS.md / CLAUDE.md) as the onboarding doc, code review plus linter/type-checker gates, tests that block the merge, CI applied to agent output, monitoring, small scoped tasks, and review findings folded back into the rules file.
+  - Better prompting is deliberately not on the list: a senior fixes the environment around a junior so careless work can't reach production, however the ticket is phrased.
+  - 45% of AI-generated code samples failed security checks across 100+ models (Veracode 2025 GenAI Code Security Report).
+  - Real anonymized case (EdTech startup, fractional CTO engagement): after adding monitoring, tests, code review, QA, and a release pipeline — downtime fell more than 10×, delivery more than doubled, running costs dropped 1.5×, eNPS went from −100% to +100%.
+  - Restart order: diagnose which layer is missing first, build the safety net (weeks, a couple of months at the outside), only then scale. A from-scratch rewrite is almost never needed.
+
 ## Writing and external presence
 
 - [Habr profile](https://habr.com/users/sg4tech/) — long-form posts on delivery systems, bottlenecks, and engineering management patterns.

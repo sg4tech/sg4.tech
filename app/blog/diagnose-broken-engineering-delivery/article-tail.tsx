@@ -4,14 +4,31 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getPostBySlug } from "../../lib/blog/posts";
 import styles from "./page.module.css";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_metrics";
 
-// Excludes any card that points to the same destination as `ArticleCta`
-// above — listing the same conversion path twice in the same scroll dilutes
-// it. If `ArticleCta` is ever rerouted, re-check this list for overlap.
+// Pillar -> spoke links come from the post registry so titles/descriptions
+// never drift from the articles' own metadata.
+const percentilesPost = getPostBySlug("forecast-delivery-with-percentiles");
+const vibecodingPost = getPostBySlug("vibecoded-mvp-stopped-shipping");
+
+// Spokes first (continue reading), then the landings. Excludes any card that
+// points to the same destination as `ArticleCta` above — listing the same
+// conversion path twice in the same scroll dilutes it. If `ArticleCta` is
+// ever rerouted, re-check this list for overlap.
 const relatedLinks = [
+  {
+    href: `/blog/${percentilesPost.slug}/`,
+    title: percentilesPost.title,
+    description: percentilesPost.description
+  },
+  {
+    href: `/blog/${vibecodingPost.slug}/`,
+    title: vibecodingPost.title,
+    description: vibecodingPost.description
+  },
   {
     href: "/yii2/",
     title: "Running a Yii2 codebase?",
