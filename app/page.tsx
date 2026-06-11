@@ -1,14 +1,18 @@
 import {
   AlertTriangle,
   Ban,
+  BookOpen,
   Bug,
+  Calendar,
   Layers,
   Rocket,
   Target,
   TrendingUp,
+  Users,
   Zap
 } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
@@ -21,10 +25,11 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_PHOTO_PATH, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
+import landing from "./styles/landing.module.css";
 
 const secondaryCtaHref = "#process";
 const heroCtaHref = "https://t.me/sg4tech?start=site_hero";
@@ -106,11 +111,11 @@ const credibilityPoints = [
 ];
 
 const trustPoints = [
-  "15+ years in engineering",
-  "8+ years in leadership",
-  "Built MVPs hands-on",
-  "Scaled teams and improved delivery systems",
-  "Write about engineering metrics, bottlenecks, and AI workflows"
+  { text: "15+ years in engineering", icon: Calendar },
+  { text: "8+ years in leadership", icon: Users },
+  { text: "Built MVPs hands-on", icon: Rocket },
+  { text: "Scaled teams and improved delivery systems", icon: TrendingUp },
+  { text: "Write about engineering metrics, bottlenecks, and AI workflows", icon: BookOpen }
 ];
 
 const caseStudies = [
@@ -475,20 +480,35 @@ function ResultsSection() {
 
 function TrustSection() {
   return (
-    <Section className={styles.trustSection}>
+    <Section id="why-me" className={styles.trustSection}>
       <SectionHeader
         title="Why me"
-        intro="Victor Demin — operator-level engineering leader focused on fixing delivery systems, not decorating process."
-        headingClassName={styles.trustHeading}
+        intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process."
         introClassName={styles.trustIntro}
       />
-      <div className={styles.trustCard}>
-        <p className={styles.trustName}>Victor Demin</p>
-        <ul className={styles.bulletList}>
-          {trustPoints.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
+      <div className={`${landing.whyGrid} ${landing.whySurface}`}>
+        <div className={landing.profileCard}>
+          <Image
+            src={VICTOR_PHOTO_PATH}
+            alt="Victor Demin"
+            width={120}
+            height={120}
+            className={landing.profilePhoto}
+            unoptimized
+          />
+          <p className={landing.profileName}>Victor Demin</p>
+          <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
+        </div>
+        <div className={landing.profileBody}>
+          <ul className={landing.iconList}>
+            {trustPoints.map((point) => (
+              <li key={point.text}>
+                <Icon icon={point.icon} className={landing.cardIcon} />
+                <span>{point.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );

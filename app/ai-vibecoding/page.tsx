@@ -36,7 +36,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_PHOTO_PATH } from "../lib/brand";
 import { getPostBySlug } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
 import landing from "../styles/landing.module.css";
@@ -501,6 +501,14 @@ function WhyMeSection() {
       />
       <div className={`${landing.whyGrid} ${landing.whySurface}`}>
         <div className={landing.profileCard}>
+          <Image
+            src={VICTOR_PHOTO_PATH}
+            alt="Victor Demin"
+            width={96}
+            height={96}
+            className={landing.profilePhoto}
+            unoptimized
+          />
           <p className={landing.profileName}>Victor Demin</p>
           <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
         </div>

@@ -24,6 +24,11 @@ export const footerLinks: FooterLink[] = [
 const VICTOR_NAME = "Victor Demin";
 const VICTOR_JOB_TITLE = "Fractional CTO";
 
+// Portrait shown in the "Why me" / trust block on every landing AND referenced as
+// Person.image in the JSON-LD below — one path so the rendered photo and the
+// structured-data image can never drift. Lives at public/brand/victor-demin.jpg.
+export const VICTOR_PHOTO_PATH = "/brand/victor-demin.jpg";
+
 // Canonical one-paragraph bio. Person.description renders this; it is also the
 // paste-in bio for external profiles (e.g. to fix Medium's "CTO and IT
 // consultant" so it matches this exactly).
@@ -87,7 +92,7 @@ export const personSchema = {
   "@id": `${SITE_URL}/#person`,
   name: VICTOR_NAME,
   url: SITE_URL,
-  image: `${SITE_URL}/brand/victor-demin.jpg`,
+  image: `${SITE_URL}${VICTOR_PHOTO_PATH}`,
   jobTitle: VICTOR_JOB_TITLE,
   description: VICTOR_BIO,
   knowsAbout: VICTOR_KNOWS_ABOUT,

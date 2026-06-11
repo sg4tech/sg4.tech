@@ -478,6 +478,16 @@
   background: var(--surface-alt);
 }
 
+.profilePhoto {
+  display: block;
+  width: 7.5rem;
+  height: 7.5rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+
 .profileName {
   margin: 0;
   font-size: var(--text-lg);
