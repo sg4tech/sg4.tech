@@ -34,7 +34,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
-import { WhyMeSection as WhyMeBlock } from "../components/WhyMeSection";
+import { WhyMeSection } from "../components/WhyMeSection";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
@@ -585,16 +585,16 @@ function SpeedSection() {
   );
 }
 
-function WhyMeSection() {
+function TrustSection() {
   return (
-    <WhyMeBlock intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on.">
+    <WhyMeSection intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on.">
       {whyMePoints.map((item) => (
         <li key={item.text}>
           <Icon icon={item.icon} className={landing.cardIcon} />
           <span>{item.text}</span>
         </li>
       ))}
-    </WhyMeBlock>
+    </WhyMeSection>
   );
 }
 
@@ -693,7 +693,7 @@ export default function Yii2Page() {
       <ProblemSection />
       <QualitySection />
       <SpeedSection />
-      <WhyMeSection />
+      <TrustSection />
       <ProcessSection />
       <FaqSection items={faqItems} />
       <ProofSection />

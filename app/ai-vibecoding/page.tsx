@@ -36,7 +36,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
-import { WhyMeSection as WhyMeBlock } from "../components/WhyMeSection";
+import { WhyMeSection } from "../components/WhyMeSection";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import { getPostBySlug } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
@@ -492,9 +492,9 @@ function GuardrailsSection() {
   );
 }
 
-function WhyMeSection() {
+function TrustSection() {
   return (
-    <WhyMeBlock
+    <WhyMeSection
       intro="I don't replace your AI. I build the system around it. Same pattern as the startup-mode codebases I've cleaned up for years — different generator, same fix."
       introClassName={styles.introWide}
     >
@@ -530,7 +530,7 @@ function WhyMeSection() {
         <Icon icon={Wrench} className={landing.cardIcon} />
         <span>I do the work, not just advise. Architecture, guardrails, AI workflow tuning, refactoring — hands-on.</span>
       </li>
-    </WhyMeBlock>
+    </WhyMeSection>
   );
 }
 
@@ -639,7 +639,7 @@ export default function AiVibecodingPage() {
       <HeroSection />
       <ProblemSection />
       <GuardrailsSection />
-      <WhyMeSection />
+      <TrustSection />
       <ProcessSection />
       <FeaturedEssaySection />
       <FaqSection items={faqItems} />
