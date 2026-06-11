@@ -28,5 +28,14 @@ export default tseslint.config(
     rules: {
       ...security.configs.recommended.rules
     }
+  },
+  {
+    // Test files read project source files via hardcoded join() paths — no
+    // user input reaches readFileSync, so the path-traversal rule is a
+    // false positive here.
+    files: ["tests/**/*.{ts,tsx}"],
+    rules: {
+      "security/detect-non-literal-fs-filename": "off"
+    }
   }
 );
