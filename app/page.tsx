@@ -12,7 +12,6 @@ import {
   Zap
 } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
@@ -25,7 +24,8 @@ import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_PHOTO_PATH, VICTOR_SAME_AS } from "./lib/brand";
+import { WhyMeSection } from "./components/WhyMeSection";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -480,37 +480,14 @@ function ResultsSection() {
 
 function TrustSection() {
   return (
-    <Section id="why-me" className={styles.trustSection}>
-      <SectionHeader
-        title="Why me"
-        intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process."
-        introClassName={styles.trustIntro}
-      />
-      <div className={`${landing.whyGrid} ${landing.whySurface}`}>
-        <div className={landing.profileCard}>
-          <Image
-            src={VICTOR_PHOTO_PATH}
-            alt="Victor Demin"
-            width={120}
-            height={120}
-            className={landing.profilePhoto}
-            unoptimized
-          />
-          <p className={landing.profileName}>Victor Demin</p>
-          <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
-        </div>
-        <div className={landing.profileBody}>
-          <ul className={landing.iconList}>
-            {trustPoints.map((point) => (
-              <li key={point.text}>
-                <Icon icon={point.icon} className={landing.cardIcon} />
-                <span>{point.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Section>
+    <WhyMeSection intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process.">
+      {trustPoints.map((point) => (
+        <li key={point.text}>
+          <Icon icon={point.icon} className={landing.cardIcon} />
+          <span>{point.text}</span>
+        </li>
+      ))}
+    </WhyMeSection>
   );
 }
 

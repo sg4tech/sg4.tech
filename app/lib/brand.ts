@@ -21,8 +21,13 @@ export const footerLinks: FooterLink[] = [
 // profiles (LinkedIn, Medium, GitHub, Habr). AI answer engines corroborate an
 // entity by matching consistent facts across surfaces, so these must not drift.
 // Keep in sync with public/llms.txt.
-const VICTOR_NAME = "Victor Demin";
+export const VICTOR_NAME = "Victor Demin";
 const VICTOR_JOB_TITLE = "Fractional CTO";
+
+// Display tagline under the name in the "Why me" identity card on every landing.
+// Distinct from VICTOR_JOB_TITLE (the schema's terse jobTitle) — this is the
+// human-facing one-liner. Single source so all three landings read identically.
+export const VICTOR_ROLE_LINE = "Fractional CTO / engineering delivery consultant";
 
 // Portrait shown in the "Why me" / trust block on every landing AND referenced as
 // Person.image in the JSON-LD below — one path so the rendered photo and the

@@ -208,14 +208,6 @@
   gap: 1.25rem;
 }
 
-.trustSection {
-  position: relative;
-}
-
-.trustIntro {
-  max-width: 34rem;
-}
-
 .fitCard {
   padding: var(--space-2) 0;
   border-inline: 0;

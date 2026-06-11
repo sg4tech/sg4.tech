@@ -34,7 +34,8 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL, VICTOR_PHOTO_PATH } from "../lib/brand";
+import { WhyMeSection as WhyMeBlock } from "../components/WhyMeSection";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import landing from "../styles/landing.module.css";
@@ -586,36 +587,14 @@ function SpeedSection() {
 
 function WhyMeSection() {
   return (
-    <Section id="why-me">
-      <SectionHeader
-        title="Why me"
-        intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
-      />
-      <div className={`${landing.whyGrid} ${landing.whySurface}`}>
-        <div className={landing.profileCard}>
-          <Image
-            src={VICTOR_PHOTO_PATH}
-            alt="Victor Demin"
-            width={96}
-            height={96}
-            className={landing.profilePhoto}
-            unoptimized
-          />
-          <p className={landing.profileName}>Victor Demin</p>
-          <p className={landing.profileRole}>Fractional CTO / engineering delivery consultant</p>
-        </div>
-        <div className={landing.profileBody}>
-          <ul className={landing.iconList}>
-            {whyMePoints.map((item) => (
-              <li key={item.text}>
-                <Icon icon={item.icon} className={landing.cardIcon} />
-                <span>{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Section>
+    <WhyMeBlock intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on.">
+      {whyMePoints.map((item) => (
+        <li key={item.text}>
+          <Icon icon={item.icon} className={landing.cardIcon} />
+          <span>{item.text}</span>
+        </li>
+      ))}
+    </WhyMeBlock>
   );
 }
 
