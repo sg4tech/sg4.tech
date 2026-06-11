@@ -1,0 +1,332 @@
+.article {
+  padding: 2.2rem 0 0;
+}
+
+/* Center every direct child in a 42rem reading column so back link → header →
+   body → CTA → related sit on one visual axis instead of left-anchored inside
+   the wider page container. */
+.article > * {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  text-decoration: none;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  color: var(--text-strong);
+}
+
+.header {
+  margin: 0 auto var(--space-3);
+}
+
+.title {
+  margin: var(--space-2) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: var(--space-3) 0 0;
+  color: var(--muted);
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
+}
+
+.byline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.bylineAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.bylineMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.bylineBio {
+  margin: 0;
+  color: var(--text-strong);
+  font-weight: 400;
+}
+
+.bylineName {
+  font-weight: 600;
+}
+
+.bylineDate {
+  margin: 0;
+  color: var(--muted);
+}
+
+.body {
+  max-width: 42rem;
+}
+
+.body h2 {
+  margin: var(--space-4) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  scroll-margin-top: var(--scroll-offset);
+}
+
+.body h2:first-child {
+  margin-top: var(--space-3);
+}
+
+/* Direct-child selectors so prose styles don't leak into <aside> blocks (CTA,
+   Related) which sit on accent backgrounds. */
+.body > p {
+  margin: var(--space-2) 0 0;
+  color: var(--text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+  text-wrap: pretty;
+}
+
+.body strong {
+  color: var(--text-strong);
+}
+
+.body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.body > ul,
+.body > ol {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.4rem;
+  color: var(--text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+}
+
+.body > ul > li,
+.body > ol > li {
+  margin: 0.4rem 0 0;
+}
+
+.body > ul > li:first-child,
+.body > ol > li:first-child {
+  margin-top: 0;
+}
+
+/* `.body > .pullquote` (specificity 0,2,0) beats `.body > p` (0,1,1) when the
+   pullquote renders as <p>. */
+.body > .pullquote {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--accent);
+  background: var(--surface-alt);
+  color: var(--text-strong);
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  font-weight: 600;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* 3-column "junior practice / AI equivalent / what it stops" table. Mobile
+   (<640px) stacks cells as block to stay readable without horizontal scroll. */
+.body > .mappingTable {
+  width: 100%;
+  margin: var(--space-3) 0 0;
+  border-collapse: collapse;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text);
+}
+
+.mappingTable thead th {
+  padding: 0.6rem var(--space-2);
+  background: var(--surface-strong);
+  color: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.mappingTable tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.mappingTable tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.mappingTable tbody th {
+  padding: var(--space-2);
+  color: var(--text-strong);
+  font-weight: 600;
+  text-align: left;
+  vertical-align: top;
+  width: 30%;
+}
+
+.mappingTable tbody td {
+  padding: var(--space-2);
+  vertical-align: top;
+}
+
+@media (max-width: 640px) {
+  .mappingTable thead {
+    display: none;
+  }
+
+  .mappingTable tbody tr {
+    display: block;
+    padding: var(--space-2) 0;
+  }
+
+  .mappingTable tbody th,
+  .mappingTable tbody td {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0;
+  }
+}
+
+.related {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+}
+
+.relatedTitle {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+}
+
+.relatedIntro {
+  margin: var(--space-1) 0 0;
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.relatedList {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relatedLink {
+  display: block;
+  padding: var(--space-2);
+  color: inherit;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.18s ease;
+}
+
+.relatedLink:hover,
+.relatedLink:focus-visible {
+  border-color: var(--border-strong);
+}
+
+.relatedLinkTitle {
+  display: block;
+  color: var(--text-strong);
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.relatedLinkDescription {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.cta {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3);
+  background: var(--accent);
+  color: var(--on-strong);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.ctaHeading {
+  margin: 0;
+  color: var(--on-strong);
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+  text-wrap: pretty;
+}
+
+.ctaText {
+  margin: var(--space-1) 0 var(--space-2);
+  color: var(--on-strong);
+  opacity: 0.85;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  background: var(--on-strong);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: var(--text-base);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.ctaButton:hover,
+.ctaButton:focus-visible {
+  background: var(--surface-alt);
+}
+
+/* FAQ constrained to the same 42rem reading column as the body so the page
+   reads on a single visual axis. Passed as contentWrapperClassName to
+   FaqSection. */
+.faqColumn {
+  max-width: 42rem;
+  margin-inline: auto;
+}

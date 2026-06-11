@@ -108,6 +108,21 @@ describe("canonical metadata", () => {
       /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
     );
   });
+
+  it("declares the vibecoding spoke canonical", () => {
+    const filePath = join(
+      process.cwd(),
+      "app",
+      "blog",
+      "vibecoded-mvp-stopped-shipping",
+      "page.tsx"
+    );
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toMatch(
+      /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
+    );
+  });
 });
 
 describe("llms.txt", () => {
@@ -131,6 +146,9 @@ describe("llms.txt", () => {
     );
     expect(content).toContain(
       "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
+    );
+    expect(content).toContain(
+      "https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/"
     );
   });
 });
@@ -175,6 +193,21 @@ describe("article schema", () => {
       "app",
       "blog",
       "forecast-delivery-with-percentiles",
+      "page.tsx"
+    );
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toContain('"@type": "Article"');
+    expect(content).toContain('"@type": "FAQPage"');
+    expect(content).toContain('"@type": "BreadcrumbList"');
+  });
+
+  it("renders Article, FAQPage, and BreadcrumbList JSON-LD on the vibecoding spoke", () => {
+    const filePath = join(
+      process.cwd(),
+      "app",
+      "blog",
+      "vibecoded-mvp-stopped-shipping",
       "page.tsx"
     );
     const content = readFileSync(filePath, "utf8");
