@@ -176,14 +176,27 @@ const structuredData = {
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": `${SITE_URL}/ai-vibecoding#service`,
+      "@id": `${SITE_URL}/ai-vibecoding/#service`,
       name: "AI Vibecoding Cleanup",
-      url: `${SITE_URL}/ai-vibecoding`,
+      url: `${SITE_URL}/ai-vibecoding/`,
       serviceType: "AI vibecoding delivery consulting",
       description:
-        "Consulting for founders with AI-built MVPs that have stopped shipping — I build the delivery system AI doesn't ship with the code."
+        "Consulting for founders with AI-built MVPs that have stopped shipping — I build the delivery system AI doesn't ship with the code.",
+      founder: { "@id": `${SITE_URL}/#person` }
     },
-    personSchema
+    personSchema,
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/ai-vibecoding/#faq`,
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    }
   ]
 };
 
@@ -192,7 +205,7 @@ export const metadata: Metadata = {
   description:
     "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code.",
   alternates: {
-    canonical: "/ai-vibecoding"
+    canonical: "/ai-vibecoding/"
   },
   openGraph: {
     title: "AI Vibecoding Cleanup: From Stuck MVP to Shipping Business",
