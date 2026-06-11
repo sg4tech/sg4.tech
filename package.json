@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --no-lint && node scripts/postbuild-og.mjs",
+    "build": "next build && node scripts/postbuild-og.mjs",
     "start": "next start",
     "preview": "npm run build && serve out -l 3001",
     "lint": "npm run lint:js && npm run lint:css",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "lucide-react": "^1.14.0",
-    "next": "^15.3.0",
+    "next": "^16.2.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "simple-icons": "^16.16.0"
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.15.1",
-    "@next/eslint-plugin-next": "^15.5.15",
+    "@next/eslint-plugin-next": "^16.2.9",
     "@types/node": "^25.9.3",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
