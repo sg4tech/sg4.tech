@@ -37,9 +37,15 @@ import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
+import { getPostBySlug } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
 import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
+
+// Hub ⇄ spoke backlink: this landing is the hub for the vibecoding blog
+// spoke. Title/description come from the post registry so the card never
+// drifts from the article's own metadata.
+const featuredPost = getPostBySlug("vibecoded-mvp-stopped-shipping");
 
 const heroCtaHref = "https://t.me/sg4tech?start=site_ai_vibecoding_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_ai_vibecoding_final";
@@ -619,6 +625,20 @@ function FinalCtaSection() {
   );
 }
 
+function FeaturedEssaySection() {
+  return (
+    <Section aria-label="Featured essay">
+      <div className={styles.featuredEssayGrid}>
+        <Link href={`/blog/${featuredPost.slug}/`} className={styles.featuredEssayCard}>
+          <span className={styles.featuredEssayLabel}>Featured essay</span>
+          <span className={styles.featuredEssayTitle}>{featuredPost.title}</span>
+          <span className={styles.featuredEssayDescription}>{featuredPost.description}</span>
+        </Link>
+      </div>
+    </Section>
+  );
+}
+
 export default function AiVibecodingPage() {
   return (
     <Page>
@@ -632,6 +652,7 @@ export default function AiVibecodingPage() {
       <GuardrailsSection />
       <WhyMeSection />
       <ProcessSection />
+      <FeaturedEssaySection />
       <FaqSection items={faqItems} />
       <WhoNotForSection />
       <FinalCtaSection />
