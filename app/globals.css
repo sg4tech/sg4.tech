@@ -19,7 +19,6 @@
   --accent: #202124;
   --accent-strong: #111;
   --on-strong: #fff;
-  --primary-hover-bg: #2d2d2d;
 
   /* ============ Colors — Yii2 visualization palette ============ */
   --viz-warm: #d76d43;
@@ -272,7 +271,7 @@ a {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--text-strong);
+  outline: 2px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
 
