@@ -8,7 +8,7 @@ import styles from "./Button.module.css";
 type ButtonProps = {
   children: ReactNode;
   href: string;
-  variant?: "primary" | "secondary" | "inverse" | "inverseGhost";
+  variant?: "primary" | "secondary" | "inverse" | "ghost";
   className?: string;
   target?: string;
   rel?: string;
@@ -22,8 +22,8 @@ function pickVariantClass(variant: NonNullable<ButtonProps["variant"]>): string 
       return styles.secondary;
     case "inverse":
       return styles.inverse;
-    case "inverseGhost":
-      return styles.inverseGhost;
+    case "ghost":
+      return styles.ghost;
     default:
       return styles.primary;
   }

@@ -51,7 +51,8 @@
 .finalCtaText {
   max-width: 52ch;
   margin: var(--space-2) 0 0;
-  color: var(--text-on-dark-muted);
+  /* Ink, not muted white: at body size only ink clears AA on the ember field. */
+  color: var(--gray-900);
   line-height: var(--leading-relaxed);
 }
 

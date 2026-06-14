@@ -630,7 +630,7 @@ function FinalCtaSection() {
           >
             Get a delivery diagnosis
           </Button>
-          <Button variant="inverseGhost" href={secondaryCtaHref}>
+          <Button variant="ghost" href={secondaryCtaHref}>
             See how I work
           </Button>
         </div>
