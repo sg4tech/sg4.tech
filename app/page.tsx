@@ -612,27 +612,30 @@ function FinalCtaSection() {
   return (
     <section id="final-cta" className={styles.finalCta}>
       <div className={styles.finalCtaPanel}>
-        <h2 className={styles.finalCtaHeading}>
-          Describe your situation — I&apos;ll tell you{" "}
-          <em>where your system breaks.</em>
-        </h2>
-        <p className={styles.finalCtaText}>
-          Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.
-        </p>
-        <div className={styles.finalActions}>
-          <Button
-            href={finalCtaHref}
-            target="_blank"
-            rel="noreferrer"
-            variant="inverse"
-            eventName="cta_click"
-            payload={{ location: "final" }}
-          >
-            Get a delivery diagnosis
-          </Button>
-          <Button variant="ghost" href={secondaryCtaHref}>
-            See how I work
-          </Button>
+        <span className={styles.finalCtaMark} aria-hidden="true" />
+        <div className={styles.finalCtaContent}>
+          <h2 className={styles.finalCtaHeading}>
+            Describe your situation — I&apos;ll tell you{" "}
+            <em>where your system breaks.</em>
+          </h2>
+          <p className={styles.finalCtaText}>
+            Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.
+          </p>
+          <div className={styles.finalActions}>
+            <Button
+              href={finalCtaHref}
+              target="_blank"
+              rel="noreferrer"
+              variant="inverse"
+              eventName="cta_click"
+              payload={{ location: "final" }}
+            >
+              Get a delivery diagnosis
+            </Button>
+            <Button variant="ghost" href={secondaryCtaHref}>
+              See how I work
+            </Button>
+          </div>
         </div>
       </div>
     </section>
