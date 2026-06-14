@@ -8,13 +8,26 @@ import styles from "./Button.module.css";
 type ButtonProps = {
   children: ReactNode;
   href: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "inverse" | "ghost";
   className?: string;
   target?: string;
   rel?: string;
   eventName?: string;
   payload?: Record<string, string>;
 };
+
+function pickVariantClass(variant: NonNullable<ButtonProps["variant"]>): string {
+  switch (variant) {
+    case "secondary":
+      return styles.secondary;
+    case "inverse":
+      return styles.inverse;
+    case "ghost":
+      return styles.ghost;
+    default:
+      return styles.primary;
+  }
+}
 
 export function Button({
   children,
@@ -26,7 +39,7 @@ export function Button({
   eventName,
   payload,
 }: ButtonProps) {
-  const variantClass = variant === "primary" ? styles.primary : styles.secondary;
+  const variantClass = pickVariantClass(variant);
   const cls = [styles.button, variantClass, className].filter(Boolean).join(" ");
 
   function handleClick() {

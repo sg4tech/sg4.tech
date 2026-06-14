@@ -1,37 +1,23 @@
-.hero,
-.finalCta {
-  scroll-margin-top: var(--scroll-offset);
-  padding: var(--section-pad-y) 0;
-  border-top: 1px solid var(--border);
-}
-
 .hero {
-  padding-top: 2.2rem;
-  border-top: 0;
+  scroll-margin-top: var(--scroll-offset);
+  padding: 2.2rem 0 var(--section-pad-y);
 }
 
 .heroLayout {
   display: grid;
+  /* Constrain the single (mobile/tablet) column to the container so wide
+     grid children (the stat row) can't push the hero past the viewport. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3);
 }
 
-.hero h1,
-.finalCta h2 {
+.hero h1 {
   margin: 0;
   color: var(--text-strong);
   letter-spacing: -0.03em;
-}
-
-.hero h1 {
   font-size: var(--text-h1);
   line-height: var(--leading-hero);
   text-wrap: balance;
-}
-
-.finalCta h2 {
-  font-size: var(--text-h2);
-  line-height: var(--leading-tight);
-  text-wrap: pretty;
 }
 
 .heroSecondary {
@@ -47,8 +33,6 @@
 
 .heroText,
 .bodyCopy,
-.finalCta p,
-.step p,
 .caseHeader p,
 .cardNote,
 .output,
@@ -56,6 +40,12 @@
   margin: var(--space-2) 0 0;
   color: var(--muted);
   line-height: var(--leading-loose);
+}
+
+.stepText {
+  margin: 0;
+  color: var(--muted);
+  line-height: var(--leading-relaxed);
 }
 
 .heroCredibility {
@@ -72,31 +62,25 @@
   padding-left: 1.2rem;
   color: var(--text);
   line-height: var(--leading-loose);
+  /* Pin the marker: nesting a bulletList inside the Steps <ol><li> would
+     otherwise default to a hollow circle, breaking list consistency. */
+  list-style-type: disc;
 }
 
-.heroMetrics {
+.heroStats {
   display: grid;
-  gap: 0.5rem;
-  max-width: 26rem;
-  margin: 1.25rem 0 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  max-width: 30rem;
+  margin: 1.5rem 0 0;
   padding: 0;
-  color: var(--text);
-  font-weight: 600;
-  line-height: var(--leading-relaxed);
   list-style: none;
 }
 
-.heroMetrics li {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.heroMetricIcon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--text-strong);
-  opacity: 0.7;
+@media (max-width: 520px) {
+  .heroStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .heroActions {
@@ -124,12 +108,6 @@
   margin-top: var(--space-3);
 }
 
-.processGrid {
-  display: grid;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
 .fitGrid {
   display: grid;
   gap: 0.85rem;
@@ -137,7 +115,6 @@
 }
 
 .card,
-.step,
 .caseStudy,
 .callout,
 .fitCard {
@@ -148,7 +125,6 @@
 }
 
 .card h3,
-.step h3,
 .caseStudy h3,
 .subsection h3,
 .caseGrid h4 {
@@ -362,29 +338,15 @@
 }
 
 
-.finalCta {
-  padding-bottom: 0;
-}
-
-.finalActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.85rem var(--space-2);
-  margin-top: 1.8rem;
-}
-
 @media (max-width: 860px) {
   .stageGrid,
-  .caseGrid,
-  .processGrid {
+  .caseGrid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
-  .hero,
-  .finalCta {
+  .hero {
     padding: var(--space-3) 0;
   }
 
@@ -392,12 +354,6 @@
     flex-direction: column;
     align-items: stretch;
   }
-
-  .finalActions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
 }
 
 @media (min-width: 1100px) {
@@ -410,12 +366,6 @@
   .heroSecondary {
     max-width: none;
     padding-top: 0.55rem;
-  }
-
-
-  .processGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
   }
 
   .fitGrid {
@@ -449,13 +399,5 @@
   .caseGrid > div + div {
     padding-left: 1.25rem;
     border-left: 1px solid var(--border);
-  }
-
-  .step {
-    min-height: 100%;
-  }
-
-  .finalActions {
-    margin-top: var(--space-4);
   }
 }

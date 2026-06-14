@@ -35,8 +35,50 @@
   background: var(--surface-alt);
 }
 
+/* Reversed variants — for use on the ember / ink statement block. */
+.inverse {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--gray-900);
+}
+
+.inverse:hover,
+.inverse:focus-visible {
+  background: var(--paper-3);
+  border-color: var(--paper-3);
+}
+
+/* Ink ghost — secondary on the ember block. Ink text/border keeps it
+   AA-readable on the saturated ember field where white text would not be. */
+.ghost {
+  background: transparent;
+  border-color: rgba(23, 24, 27, 0.28);
+  color: var(--gray-900);
+}
+
+.ghost:hover,
+.ghost:focus-visible {
+  background: rgba(23, 24, 27, 0.06);
+  border-color: rgba(23, 24, 27, 0.45);
+}
+
+/* On the ember block the ember focus outline is invisible — make it show:
+   white around the white pill, ink around the ink ghost. */
+.inverse:focus-visible {
+  outline-color: var(--white);
+}
+
+.ghost:focus-visible {
+  outline-color: var(--gray-900);
+}
+
 @media (max-width: 640px) {
   .primary {
+    width: 100%;
+  }
+
+  .inverse,
+  .ghost {
     width: 100%;
   }
 

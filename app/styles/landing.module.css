@@ -1,15 +1,8 @@
-/* ─── Hero & FinalCta base ─────────────────────────────────────────────────── */
-
-.hero,
-.finalCta {
-  scroll-margin-top: var(--scroll-offset);
-  padding: var(--section-pad-y) 0;
-  border-top: 1px solid var(--border);
-}
+/* ─── Hero base ────────────────────────────────────────────────────────────── */
 
 .hero {
-  padding-top: 2.4rem;
-  border-top: 0;
+  scroll-margin-top: var(--scroll-offset);
+  padding: 2.4rem 0 var(--section-pad-y);
 }
 
 .hero h1 {
@@ -19,15 +12,6 @@
   line-height: var(--leading-tight);
   letter-spacing: -0.035em;
   text-wrap: balance;
-}
-
-.finalCta h2 {
-  margin: 0;
-  color: var(--text-strong);
-  font-size: var(--text-h2);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.035em;
-  text-wrap: pretty;
 }
 
 /* ─── Back link ────────────────────────────────────────────────────────────── */
@@ -571,7 +555,6 @@
 
 /* ─── Shared text helpers ──────────────────────────────────────────────────── */
 
-.finalText,
 .card p,
 .callout,
 .linkDescription,
@@ -590,17 +573,6 @@
   line-height: var(--leading-loose);
 }
 
-
-/* ─── FinalCta overrides ───────────────────────────────────────────────────── */
-
-.finalCta {
-  padding-bottom: 0;
-}
-
-.finalCta .actions {
-  justify-content: center;
-  margin-top: var(--space-4);
-}
 
 /* ─── Expectation box ──────────────────────────────────────────────────────── */
 
@@ -639,8 +611,7 @@
 }
 
 @media (max-width: 640px) {
-  .hero,
-  .finalCta {
+  .hero {
     padding: var(--space-3) 0;
   }
 

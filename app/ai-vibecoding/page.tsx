@@ -34,6 +34,7 @@ import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
+import { StatementCta } from "../components/StatementCta";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
@@ -609,23 +610,23 @@ function WhoNotForSection() {
 
 function FinalCtaSection() {
   return (
-    <section id="final-cta" className={landing.finalCta}>
-      <h2>You don&apos;t need another AI tool. You need a fix that holds.</h2>
-      <p className={landing.finalText}>
-        Just write me. We&apos;ll figure out fit fast and the right next step toward shipping without fear.
-      </p>
-      <div className={landing.actions}>
-        <Button
-          href={finalCtaHref}
-          target="_blank"
-          rel="noreferrer"
-          eventName="cta_click"
-          payload={{ location: "ai_vibecoding_final" }}
-        >
-          Send me your project
-        </Button>
-      </div>
-    </section>
+    <StatementCta
+      id="final-cta"
+      heading={
+        <>
+          You don&apos;t need another AI tool. You need <em>a fix that holds.</em>
+        </>
+      }
+      text="Just write me. We'll figure out fit fast and the right next step toward shipping without fear."
+      primary={{
+        href: finalCtaHref,
+        label: "Send me your project",
+        target: "_blank",
+        rel: "noreferrer",
+        eventName: "cta_click",
+        payload: { location: "ai_vibecoding_final" }
+      }}
+    />
   );
 }
 

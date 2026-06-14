@@ -2,14 +2,12 @@ import {
   AlertTriangle,
   Ban,
   BookOpen,
-  Bug,
   Calendar,
   Layers,
   Rocket,
   Target,
   TrendingUp,
-  Users,
-  Zap
+  Users
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -22,6 +20,9 @@ import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
+import { Stat } from "./components/Stat";
+import { StatementCta } from "./components/StatementCta";
+import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
@@ -83,24 +84,40 @@ const stageProblems = [
 
 const solutionSteps = [
   {
-    title: "1. Identify the real constraint",
+    title: "Identify the real constraint",
     description: "Using Theory of Constraints and delivery metrics, I find where your system actually breaks."
   },
   {
-    title: "2. Rebuild the flow",
+    title: "Rebuild the flow",
     description: "Time to Market (T2M), Cycle Time, and Work in Progress (WIP) turn chaos into a manageable system."
   },
   {
-    title: "3. Accelerate with AI",
+    title: "Accelerate with AI",
     description: "Reduce manual work, speed up development, and improve consistency where AI creates real leverage."
   }
 ];
 
 const heroMetrics = [
-  { text: "2–3x faster delivery", icon: Zap },
-  { text: "Up to 10x fewer bugs and downtime", icon: Bug },
+  { text: "2–3x faster delivery" },
+  { text: "Up to 10x fewer bugs and downtime" },
   { text: "Higher predictability", icon: TrendingUp }
 ];
+
+// Split a metric line into an optional "Up to" qualifier, the leading numeric
+// figure (kept verbatim, incl. the "x"), and the remaining label. Qualitative
+// lines with no number return just a label and fall back to their icon.
+function parseMetric(text: string): { note?: string; figure?: string; label: string } {
+  let rest = text;
+  let note: string | undefined;
+  if (/^up to /i.test(rest)) {
+    note = rest.slice(0, 5);
+    rest = rest.slice(6);
+  }
+  const space = rest.indexOf(" ");
+  const figure = space === -1 ? rest : rest.slice(0, space);
+  if (space === -1 || !/^\d/.test(figure)) return { label: text };
+  return { note, figure, label: rest.slice(space + 1) };
+}
 
 const credibilityPoints = [
   "Engineering background — built MVPs and systems hands-on",
@@ -147,22 +164,22 @@ const caseStudies = [
 
 const workSteps = [
   {
-    title: "1. Quick audit (1–2 weeks)",
+    title: "Quick audit (1–2 weeks)",
     points: ["Analyze your system", "Identify bottlenecks", "Review metrics and flow"],
     output: "clear diagnosis"
   },
   {
-    title: "2. System redesign",
+    title: "System redesign",
     points: ["Define metrics (T2M, Cycle Time, WIP)", "Rebuild delivery flow", "Align engineering with business"],
     output: "structured system"
   },
   {
-    title: "3. Implementation",
+    title: "Implementation",
     points: ["Introduce changes step by step", "Support teams", "Ensure adoption"],
     output: "working system"
   },
   {
-    title: "4. AI acceleration",
+    title: "AI acceleration",
     points: ["Reduce manual work", "Increase speed", "Improve consistency"],
     output: "faster delivery"
   }
@@ -355,13 +372,20 @@ function HeroSection() {
             Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
           </p>
           <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
-          <ul className={styles.heroMetrics} aria-label="Key outcomes">
-            {heroMetrics.map((metric) => (
-              <li key={metric.text}>
-                <Icon icon={metric.icon} className={styles.heroMetricIcon} />
-                <span>{metric.text}</span>
-              </li>
-            ))}
+          <ul className={styles.heroStats} aria-label="Key outcomes">
+            {heroMetrics.map((metric) => {
+              const parsed = parseMetric(metric.text);
+              return (
+                <li key={metric.text}>
+                  <Stat
+                    figure={parsed.figure}
+                    icon={parsed.figure ? undefined : metric.icon}
+                    note={parsed.note}
+                    label={parsed.label}
+                  />
+                </li>
+              );
+            })}
           </ul>
           <div className={styles.heroActions}>
             <Button
@@ -417,14 +441,12 @@ function SolutionSection() {
   return (
     <Section id="solution">
       <SectionHeader title="I don't optimize developers. I fix the delivery system." />
-      <div className={styles.stack}>
-        {solutionSteps.map((step) => (
-          <article key={step.title} className={styles.step}>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
-          </article>
-        ))}
-      </div>
+      <Steps
+        items={solutionSteps.map((step) => ({
+          title: step.title,
+          body: <p className={styles.stepText}>{step.description}</p>
+        }))}
+      />
       <div className={styles.subsection}>
         <h3>Why this works</h3>
         <ul className={styles.bulletList}>
@@ -494,19 +516,21 @@ function ProcessSection() {
   return (
     <Section id="process">
       <SectionHeader title="How I work" />
-      <div className={styles.processGrid}>
-        {workSteps.map((step) => (
-          <article key={step.title} className={styles.step}>
-            <h3>{step.title}</h3>
-            <ul className={styles.bulletList}>
-              {step.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-            <p className={styles.output}>Output: {step.output}</p>
-          </article>
-        ))}
-      </div>
+      <Steps
+        items={workSteps.map((step) => ({
+          title: step.title,
+          body: (
+            <>
+              <ul className={styles.bulletList}>
+                {step.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              <p className={styles.output}>Output: {step.output}</p>
+            </>
+          )
+        }))}
+      />
       <p className={styles.processNote}>No magic. Just a system that works.</p>
       <div className={styles.expectationBox}>
         <h3>What to expect</h3>
@@ -609,24 +633,25 @@ function InsightsSection() {
 
 function FinalCtaSection() {
   return (
-    <section id="final-cta" className={styles.finalCta}>
-      <h2>Describe your situation — I'll tell you where your system breaks.</h2>
-      <p>Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.</p>
-      <div className={styles.finalActions}>
-        <Button
-          href={finalCtaHref}
-          target="_blank"
-          rel="noreferrer"
-          eventName="cta_click"
-          payload={{ location: "final" }}
-        >
-          Get a delivery diagnosis
-        </Button>
-        <Button variant="secondary" href={secondaryCtaHref}>
-          See how I work
-        </Button>
-      </div>
-    </section>
+    <StatementCta
+      id="final-cta"
+      heading={
+        <>
+          Describe your situation — I&apos;ll tell you{" "}
+          <em>where your system breaks.</em>
+        </>
+      }
+      text="Share the delivery symptoms, constraints, and team stage. I'll help you locate the real bottleneck and the fastest next step."
+      primary={{
+        href: finalCtaHref,
+        label: "Get a delivery diagnosis",
+        target: "_blank",
+        rel: "noreferrer",
+        eventName: "cta_click",
+        payload: { location: "final" }
+      }}
+      secondary={{ href: secondaryCtaHref, label: "See how I work" }}
+    />
   );
 }
 
