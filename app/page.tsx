@@ -22,6 +22,7 @@ import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
+import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
@@ -83,15 +84,15 @@ const stageProblems = [
 
 const solutionSteps = [
   {
-    title: "1. Identify the real constraint",
+    title: "Identify the real constraint",
     description: "Using Theory of Constraints and delivery metrics, I find where your system actually breaks."
   },
   {
-    title: "2. Rebuild the flow",
+    title: "Rebuild the flow",
     description: "Time to Market (T2M), Cycle Time, and Work in Progress (WIP) turn chaos into a manageable system."
   },
   {
-    title: "3. Accelerate with AI",
+    title: "Accelerate with AI",
     description: "Reduce manual work, speed up development, and improve consistency where AI creates real leverage."
   }
 ];
@@ -147,22 +148,22 @@ const caseStudies = [
 
 const workSteps = [
   {
-    title: "1. Quick audit (1–2 weeks)",
+    title: "Quick audit (1–2 weeks)",
     points: ["Analyze your system", "Identify bottlenecks", "Review metrics and flow"],
     output: "clear diagnosis"
   },
   {
-    title: "2. System redesign",
+    title: "System redesign",
     points: ["Define metrics (T2M, Cycle Time, WIP)", "Rebuild delivery flow", "Align engineering with business"],
     output: "structured system"
   },
   {
-    title: "3. Implementation",
+    title: "Implementation",
     points: ["Introduce changes step by step", "Support teams", "Ensure adoption"],
     output: "working system"
   },
   {
-    title: "4. AI acceleration",
+    title: "AI acceleration",
     points: ["Reduce manual work", "Increase speed", "Improve consistency"],
     output: "faster delivery"
   }
@@ -417,14 +418,12 @@ function SolutionSection() {
   return (
     <Section id="solution">
       <SectionHeader title="I don't optimize developers. I fix the delivery system." />
-      <div className={styles.stack}>
-        {solutionSteps.map((step) => (
-          <article key={step.title} className={styles.step}>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
-          </article>
-        ))}
-      </div>
+      <Steps
+        items={solutionSteps.map((step) => ({
+          title: step.title,
+          body: <p className={styles.stepText}>{step.description}</p>
+        }))}
+      />
       <div className={styles.subsection}>
         <h3>Why this works</h3>
         <ul className={styles.bulletList}>
@@ -494,19 +493,21 @@ function ProcessSection() {
   return (
     <Section id="process">
       <SectionHeader title="How I work" />
-      <div className={styles.processGrid}>
-        {workSteps.map((step) => (
-          <article key={step.title} className={styles.step}>
-            <h3>{step.title}</h3>
-            <ul className={styles.bulletList}>
-              {step.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-            <p className={styles.output}>Output: {step.output}</p>
-          </article>
-        ))}
-      </div>
+      <Steps
+        items={workSteps.map((step) => ({
+          title: step.title,
+          body: (
+            <>
+              <ul className={styles.bulletList}>
+                {step.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              <p className={styles.output}>Output: {step.output}</p>
+            </>
+          )
+        }))}
+      />
       <p className={styles.processNote}>No magic. Just a system that works.</p>
       <div className={styles.expectationBox}>
         <h3>What to expect</h3>
@@ -610,21 +611,29 @@ function InsightsSection() {
 function FinalCtaSection() {
   return (
     <section id="final-cta" className={styles.finalCta}>
-      <h2>Describe your situation — I'll tell you where your system breaks.</h2>
-      <p>Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.</p>
-      <div className={styles.finalActions}>
-        <Button
-          href={finalCtaHref}
-          target="_blank"
-          rel="noreferrer"
-          eventName="cta_click"
-          payload={{ location: "final" }}
-        >
-          Get a delivery diagnosis
-        </Button>
-        <Button variant="secondary" href={secondaryCtaHref}>
-          See how I work
-        </Button>
+      <div className={styles.finalCtaPanel}>
+        <h2 className={styles.finalCtaHeading}>
+          Describe your situation — I&apos;ll tell you{" "}
+          <em>where your system breaks.</em>
+        </h2>
+        <p className={styles.finalCtaText}>
+          Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.
+        </p>
+        <div className={styles.finalActions}>
+          <Button
+            href={finalCtaHref}
+            target="_blank"
+            rel="noreferrer"
+            variant="inverse"
+            eventName="cta_click"
+            payload={{ location: "final" }}
+          >
+            Get a delivery diagnosis
+          </Button>
+          <Button variant="inverseGhost" href={secondaryCtaHref}>
+            See how I work
+          </Button>
+        </div>
       </div>
     </section>
   );
