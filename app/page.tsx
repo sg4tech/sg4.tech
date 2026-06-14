@@ -2,14 +2,12 @@ import {
   AlertTriangle,
   Ban,
   BookOpen,
-  Bug,
   Calendar,
   Layers,
   Rocket,
   Target,
   TrendingUp,
-  Users,
-  Zap
+  Users
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -22,6 +20,7 @@ import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
+import { Stat } from "./components/Stat";
 import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
@@ -98,10 +97,26 @@ const solutionSteps = [
 ];
 
 const heroMetrics = [
-  { text: "2–3x faster delivery", icon: Zap },
-  { text: "Up to 10x fewer bugs and downtime", icon: Bug },
+  { text: "2–3x faster delivery" },
+  { text: "Up to 10x fewer bugs and downtime" },
   { text: "Higher predictability", icon: TrendingUp }
 ];
+
+// Split a metric line into an optional "Up to" qualifier, the leading numeric
+// figure (kept verbatim, incl. the "x"), and the remaining label. Qualitative
+// lines with no number return just a label and fall back to their icon.
+function parseMetric(text: string): { note?: string; figure?: string; label: string } {
+  let rest = text;
+  let note: string | undefined;
+  if (/^up to /i.test(rest)) {
+    note = rest.slice(0, 5);
+    rest = rest.slice(6);
+  }
+  const space = rest.indexOf(" ");
+  const figure = space === -1 ? rest : rest.slice(0, space);
+  if (space === -1 || !/^\d/.test(figure)) return { label: text };
+  return { note, figure, label: rest.slice(space + 1) };
+}
 
 const credibilityPoints = [
   "Engineering background — built MVPs and systems hands-on",
@@ -356,14 +371,20 @@ function HeroSection() {
             Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
           </p>
           <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
-          <ul className={styles.heroMetrics} aria-label="Key outcomes">
-            {heroMetrics.map((metric) => (
-              <li key={metric.text}>
-                <Icon icon={metric.icon} className={styles.heroMetricIcon} />
-                <span>{metric.text}</span>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.heroStats} aria-label="Key outcomes">
+            {heroMetrics.map((metric) => {
+              const parsed = parseMetric(metric.text);
+              return (
+                <Stat
+                  key={metric.text}
+                  figure={parsed.figure}
+                  icon={parsed.figure ? undefined : metric.icon}
+                  note={parsed.note}
+                  label={parsed.label}
+                />
+              );
+            })}
+          </div>
           <div className={styles.heroActions}>
             <Button
               href={heroCtaHref}
