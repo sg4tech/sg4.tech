@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Eyebrow } from "../components/Eyebrow";
 import { FooterSection } from "../components/FooterSection";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
@@ -80,7 +79,6 @@ export default function BlogIndexPage() {
       />
       <TopNavigation items={navigationItems} ariaLabel="Site navigation" />
       <Section className={styles.intro}>
-        <Eyebrow>Blog</Eyebrow>
         <SectionHeader
           level="h1"
           title="Essays on engineering delivery"
