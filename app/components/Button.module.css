@@ -14,15 +14,15 @@
 }
 
 .primary {
-  background: var(--text-strong);
-  border-color: var(--text-strong);
-  color: var(--on-strong);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-contrast);
 }
 
 .primary:hover,
 .primary:focus-visible {
-  background: var(--primary-hover-bg);
-  border-color: var(--primary-hover-bg);
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .secondary {
