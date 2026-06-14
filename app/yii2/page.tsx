@@ -32,6 +32,7 @@ import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
+import { StatementCta } from "../components/StatementCta";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
@@ -670,23 +671,24 @@ function ProofSection() {
 
 function FinalCtaSection() {
   return (
-    <section id="final-cta" className={landing.finalCta}>
-      <h2>You don&apos;t need a six-month strategy debate. You need a diagnosis — and a fix.</h2>
-      <p className={landing.finalText}>
-        Share what&apos;s hurting most — and what you want instead. I&apos;ll reply with a short diagnosis and what I&apos;d fix first.
-      </p>
-      <div className={landing.actions}>
-        <Button
-          href={finalCtaHref}
-          target="_blank"
-          rel="noreferrer"
-          eventName="cta_click"
-          payload={{ location: "yii2_final" }}
-        >
-          Tell me where it hurts
-        </Button>
-      </div>
-    </section>
+    <StatementCta
+      id="final-cta"
+      heading={
+        <>
+          You don&apos;t need a six-month strategy debate. You need{" "}
+          <em>a diagnosis — and a fix.</em>
+        </>
+      }
+      text="Share what's hurting most — and what you want instead. I'll reply with a short diagnosis and what I'd fix first."
+      primary={{
+        href: finalCtaHref,
+        label: "Tell me where it hurts",
+        target: "_blank",
+        rel: "noreferrer",
+        eventName: "cta_click",
+        payload: { location: "yii2_final" }
+      }}
+    />
   );
 }
 
