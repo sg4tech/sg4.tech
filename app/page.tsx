@@ -21,6 +21,7 @@ import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
 import { Stat } from "./components/Stat";
+import { StatementCta } from "./components/StatementCta";
 import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
@@ -631,35 +632,25 @@ function InsightsSection() {
 
 function FinalCtaSection() {
   return (
-    <section id="final-cta" className={styles.finalCta}>
-      <div className={styles.finalCtaPanel}>
-        <span className={styles.finalCtaMark} aria-hidden="true" />
-        <div className={styles.finalCtaContent}>
-          <h2 className={styles.finalCtaHeading}>
-            Describe your situation — I&apos;ll tell you{" "}
-            <em>where your system breaks.</em>
-          </h2>
-          <p className={styles.finalCtaText}>
-            Share the delivery symptoms, constraints, and team stage. I&apos;ll help you locate the real bottleneck and the fastest next step.
-          </p>
-          <div className={styles.finalActions}>
-            <Button
-              href={finalCtaHref}
-              target="_blank"
-              rel="noreferrer"
-              variant="inverse"
-              eventName="cta_click"
-              payload={{ location: "final" }}
-            >
-              Get a delivery diagnosis
-            </Button>
-            <Button variant="ghost" href={secondaryCtaHref}>
-              See how I work
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <StatementCta
+      id="final-cta"
+      heading={
+        <>
+          Describe your situation — I&apos;ll tell you{" "}
+          <em>where your system breaks.</em>
+        </>
+      }
+      text="Share the delivery symptoms, constraints, and team stage. I'll help you locate the real bottleneck and the fastest next step."
+      primary={{
+        href: finalCtaHref,
+        label: "Get a delivery diagnosis",
+        target: "_blank",
+        rel: "noreferrer",
+        eventName: "cta_click",
+        payload: { location: "final" }
+      }}
+      secondary={{ href: secondaryCtaHref, label: "See how I work" }}
+    />
   );
 }
 
