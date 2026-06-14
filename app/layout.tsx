@@ -1,8 +1,24 @@
 import type { Metadata, Viewport } from "next";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import { SITE_URL } from "./lib/brand";
 import "./globals.css";
+
+// Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
+// display + body + UI; JetBrains Mono is reserved for code/technical strings.
+// next/font self-hosts both at build time — no Google Fonts runtime request.
+const hankenGrotesk = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-hanken",
+  display: "swap"
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -35,7 +51,7 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to main content
