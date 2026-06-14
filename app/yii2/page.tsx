@@ -392,21 +392,21 @@ function VisualStateFooter() {
       <div className={styles.visualStat} data-state="before">
         <span className={styles.visualStatHeader}>
           <Icon icon={AlertTriangle} className={styles.visualStatIcon} />
-          <span className={styles.visualStatValue}>before</span>
+          <span className={styles.visualStatValue}>Before</span>
         </span>
         <span className={styles.visualStatLabel}>risky releases and reactive work</span>
       </div>
       <div className={styles.visualStat} data-state="after">
         <span className={styles.visualStatHeader}>
           <Icon icon={ShieldCheck} className={styles.visualStatIcon} />
-          <span className={styles.visualStatValue}>after</span>
+          <span className={styles.visualStatValue}>After</span>
         </span>
         <span className={styles.visualStatLabel}>guarded flow with visible bottlenecks</span>
       </div>
       <div className={styles.visualStat} data-state="goal">
         <span className={styles.visualStatHeader}>
           <Icon icon={Target} className={styles.visualStatIcon} />
-          <span className={styles.visualStatValue}>goal</span>
+          <span className={styles.visualStatValue}>Goal</span>
         </span>
         <span className={styles.visualStatLabel}>faster shipping without chaos</span>
       </div>

@@ -38,9 +38,7 @@
   margin: 0;
   font-size: var(--text-xs);
   font-weight: 700;
-  letter-spacing: 0.1em;
   line-height: var(--leading-base);
-  text-transform: uppercase;
 }
 
 .transformPanel[data-mode="warm"] .transformPanelTitle {
@@ -448,8 +446,6 @@
   color: var(--muted);
   font-size: var(--text-xs);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .featuredEssayTitle {
