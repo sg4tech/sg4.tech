@@ -486,10 +486,6 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   object-fit: cover;
-  /* The source has a cyan studio background, which the brand bans (no cool/
-     blue-cast imagery). Convert to a warm low-saturation B&W — on-brand
-     "workshop daylight" portrait — until a warmer original is supplied. */
-  filter: grayscale(1) sepia(0.16) brightness(1.02) contrast(1.02);
 }
 
 .profileName {
