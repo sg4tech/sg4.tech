@@ -372,20 +372,21 @@ function HeroSection() {
             Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
           </p>
           <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
-          <div className={styles.heroStats} aria-label="Key outcomes">
+          <ul className={styles.heroStats} aria-label="Key outcomes">
             {heroMetrics.map((metric) => {
               const parsed = parseMetric(metric.text);
               return (
-                <Stat
-                  key={metric.text}
-                  figure={parsed.figure}
-                  icon={parsed.figure ? undefined : metric.icon}
-                  note={parsed.note}
-                  label={parsed.label}
-                />
+                <li key={metric.text}>
+                  <Stat
+                    figure={parsed.figure}
+                    icon={parsed.figure ? undefined : metric.icon}
+                    note={parsed.note}
+                    label={parsed.label}
+                  />
+                </li>
               );
             })}
-          </div>
+          </ul>
           <div className={styles.heroActions}>
             <Button
               href={heroCtaHref}

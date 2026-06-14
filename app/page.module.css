@@ -73,6 +73,8 @@
   gap: var(--space-2);
   max-width: 30rem;
   margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 @media (max-width: 520px) {
