@@ -13,9 +13,22 @@ export default {
     "color-named": "never",
 
     // var(--foo) must refer to a property declared somewhere we know.
+    // The two font variables are injected at runtime by next/font/google
+    // (on <html> via layout.tsx), so they live outside CSS — declare them
+    // here so --font-sans / --font-mono can reference them.
     "csstools/value-no-unknown-custom-properties": [
       true,
-      { importFrom: ["app/globals.css"] },
+      {
+        importFrom: [
+          "app/globals.css",
+          {
+            customProperties: {
+              "--font-hanken": "",
+              "--font-jetbrains-mono": "",
+            },
+          },
+        ],
+      },
     ],
 
     // Token-able properties must use a var(--…) reference, calc/clamp,

@@ -50,6 +50,148 @@
   --viz-warm-30: rgba(215, 109, 67, 0.30);
   --viz-warm-45: rgba(215, 109, 67, 0.45);
 
+  /* ============================================================
+     Brand foundations — Victor Demin Design System v2
+     Color + type identity. Layout-neutral: spacing / radii / shadow /
+     size scale stay on the project's existing scales (above & below).
+     Base color scales first, then semantic aliases — reference the
+     aliases in components, never the raw scale.
+     ============================================================ */
+
+  /* ---- Pure canvas ---- */
+  --white: #fff;
+  /* Two near-blacks, kept apart BY ROLE (never mix the two):
+       --black    #0e0f11 — deepest: dark canvas / inverse surfaces + shadow tint base.
+       --gray-900 #17181b — warm ink: body text + small ink-colored chips. */
+  --black: #0e0f11;
+
+  /* ---- Paper (slightly warm off-whites) ---- */
+  --paper-1: #fff;
+  --paper-2: #faf9f6; /* warm off-white */
+  --paper-3: #f4f3ef; /* sunken / subtle fill */
+
+  /* ---- Silver → Graphite neutral ramp (cool-neutral) ---- */
+  --gray-50: #f6f7f8;
+  --gray-100: #eceef0;
+  --gray-150: #e3e6e9;
+  --gray-200: #dadee2;
+  --gray-300: #c6ccd2;
+  --gray-400: #a3aab2; /* "silver" — the brand's neutral signature */
+  --gray-500: #7c838b;
+  --gray-600: #5a616a;
+  --gray-700: #41464d;
+  --gray-800: #2a2d33;
+  --gray-900: #17181b; /* ink — primary text */
+
+  /* ---- Orange — Ember (lead accent) ---- */
+  --orange-50: #fff4ee;
+  --orange-100: #ffe5d8;
+  --orange-200: #ffc7ac;
+  --orange-300: #ff9e74;
+  --orange-400: #ff7a45;
+  --orange-500: #f2541b; /* primary */
+  --orange-600: #d8430e; /* hover / pressed */
+  --orange-700: #ad330a;
+
+  /* ---- Green — young leaves (secondary / positive) ---- */
+  --green-50: #f1fbec;
+  --green-100: #ddf4d0;
+  --green-200: #bce9a6;
+  --green-300: #94d977;
+  --green-400: #74cd54;
+  --green-500: #57c13b; /* bright young-leaf */
+  --green-600: #43a52c;
+  --green-700: #2f7d20;
+
+  /* ---- Yellow — SYSTEM color, NOT a brand color (warning only) ---- */
+  --yellow-50: #fffbe6;
+  --yellow-100: #fff4bf;
+  --yellow-200: #ffe985;
+  --yellow-300: #ffdf52;
+  --yellow-400: #ffd633;
+  --yellow-500: #f5c518; /* warning — fills/dots only */
+  --yellow-600: #d4a400;
+  --yellow-700: #8a6d00; /* amber ink — AA-readable warning text on yellow tint */
+
+  /* ---- Red — SYSTEM color, NOT a brand color (errors / destructive) ---- */
+  --red-50: #fdecec;
+  --red-100: #fbd5d6;
+  --red-400: #ef5a5f;
+  --red-500: #e5484d;
+  --red-600: #cb393e;
+
+  /* ---- Semantic color aliases ---- */
+  --color-primary: var(--orange-500);
+  --color-primary-hover: var(--orange-600);
+  --color-primary-active: var(--orange-700);
+  --color-primary-contrast: #fff;
+  --color-primary-tint: var(--orange-50);
+  --color-primary-border: var(--orange-200);
+  --color-primary-text: var(--orange-700);
+
+  --color-secondary: var(--green-600);
+  --color-secondary-hover: var(--green-700);
+  --color-secondary-contrast: #fff;
+  --color-secondary-tint: var(--green-50);
+  --color-secondary-text: var(--green-700);
+
+  --color-success: var(--green-600);
+  --color-success-tint: var(--green-50);
+  --color-success-text: var(--green-700);
+  --color-warning: var(--yellow-500);
+  --color-warning-tint: var(--yellow-50);
+  --color-warning-text: var(--yellow-700);
+  --color-danger: var(--red-500);
+  --color-danger-hover: var(--red-600);
+  --color-danger-tint: var(--red-50);
+  --color-danger-text: var(--red-600);
+  --color-info: var(--gray-700);
+  --color-info-tint: var(--gray-50);
+  --color-info-text: var(--gray-700);
+
+  /* ---- Brand text / surfaces / borders (additive — coexist with the
+     project's --text / --surface tokens above) ---- */
+  --text-1: var(--gray-900); /* strong — headings */
+  --text-2: var(--gray-800); /* body */
+  --text-3: var(--gray-600); /* muted — secondary */
+  --text-4: var(--gray-500); /* subtle — captions, placeholders */
+  --text-on-dark: rgba(255, 255, 255, 0.92);
+  --text-on-dark-muted: rgba(255, 255, 255, 0.64);
+
+  --surface-page: #fff;
+  --surface-raised: var(--paper-1);
+  --surface-sunken: var(--paper-3);
+  --surface-inverse: var(--black); /* dark sections / bold ink blocks */
+  --surface-hover: var(--gray-50);
+
+  --border-subtle: var(--gray-150);
+  --border-default: var(--gray-200);
+  --border-inverse: rgba(255, 255, 255, 0.14);
+
+  /* ---- Focus ring (ember) ---- */
+  --focus-ring: 0 0 0 3px rgba(242, 84, 27, 0.32);
+  --focus-ring-color: var(--orange-500);
+
+  /* ---- Type identity: families, weights, tracking ----
+     Size scale & line-heights stay on the project's scales below. */
+  --font-sans:
+    var(--font-hanken), -apple-system, "BlinkMacSystemFont", "Segoe UI",
+    sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", "Menlo",
+    monospace;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+
+  --tracking-tight: -0.022em; /* display / large headings */
+  --tracking-snug: -0.012em; /* headings */
+  --tracking-normal: 0em;
+
   /* ============ Typography — size scale ============ */
   --text-2xs: 0.65rem;
   --text-xs: 0.78rem;
@@ -119,12 +261,7 @@ body {
   min-height: 100vh;
   background: var(--background);
   color: var(--text);
-  font-family:
-    ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--font-sans);
   text-rendering: optimizelegibility;
 }
 
