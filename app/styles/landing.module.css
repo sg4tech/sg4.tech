@@ -137,45 +137,10 @@
   list-style: none;
 }
 
+/* Each cell stretches its inner Stat card to equal height; the card styling
+   lives in app/components/Stat.module.css (variant="card"). */
 .metricList li {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  min-height: 100%;
-  padding: 0.95rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.9);
-  line-height: var(--leading-base);
-}
-
-.metricHeader {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-.metricIcon {
-  width: 1.4rem;
-  height: 1.4rem;
-  color: var(--text-strong);
-  opacity: 0.55;
-  flex: 0 0 auto;
-}
-
-.metricNumber {
-  color: var(--text-strong);
-  font-size: var(--text-hero-metric);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: var(--leading-none);
-}
-
-.metricCaption {
-  color: var(--muted);
-  font-size: var(--text-md);
-  font-weight: 500;
-  line-height: var(--leading-base);
 }
 
 /* ─── Actions row ──────────────────────────────────────────────────────────── */

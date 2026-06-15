@@ -33,6 +33,7 @@ import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
+import { Stat } from "../components/Stat";
 import { StatementCta } from "../components/StatementCta";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
@@ -368,11 +369,7 @@ function HeroMetricList() {
     <ul className={landing.metricList} aria-label="Key outcomes">
       {credibilityMetrics.map((item) => (
         <li key={item.caption}>
-          <span className={landing.metricHeader}>
-            <Icon icon={item.icon} className={landing.metricIcon} />
-            <span className={landing.metricNumber}>{item.number}</span>
-          </span>
-          <span className={landing.metricCaption}>{item.caption}</span>
+          <Stat figure={item.number} icon={item.icon} label={item.caption} />
         </li>
       ))}
     </ul>
