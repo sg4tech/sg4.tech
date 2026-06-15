@@ -364,7 +364,10 @@ function HeroSection() {
       <Eyebrow>Fractional CTO consulting</Eyebrow>
       <div className={styles.heroLayout}>
         <div className={styles.heroPrimary}>
-          <h1>I turn slow, expensive engineering into fast, predictable delivery systems.</h1>
+          <h1>
+            <span className={styles.heroLeadIn}>I turn slow, expensive engineering into </span>
+            fast, predictable delivery systems.
+          </h1>
         </div>
         <div className={styles.heroSecondary}>
           <p className={styles.heroLead}>AI alone won't fix your delivery. But combined with the right system — it will.</p>

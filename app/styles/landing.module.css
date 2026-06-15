@@ -14,6 +14,13 @@
   text-wrap: balance;
 }
 
+/* Two-tone headline: the setup clause is muted so the eye lands on the
+   payoff (which keeps the strong ink). Tonal contrast only — ember stays
+   reserved for the action layer (stats + CTA). */
+.heroLeadIn {
+  color: var(--muted);
+}
+
 /* ─── Back link ────────────────────────────────────────────────────────────── */
 
 .backLink {
