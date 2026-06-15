@@ -1,7 +1,8 @@
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.3rem;
+  align-items: flex-start;
 }
 
 .note {
@@ -10,10 +11,24 @@
   line-height: var(--leading-tight);
 }
 
-.figure {
-  display: flex;
+.header {
+  display: inline-flex;
   align-items: center;
+  gap: 0.5rem;
   min-height: 2.4rem;
+}
+
+/* leading anchor when a figure is present — quiet, neutral */
+.icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--text-strong);
+  opacity: 0.55;
+  flex: 0 0 auto;
+}
+
+/* the ember "proof" number */
+.figure {
   color: var(--color-primary);
   font-size: var(--text-hero-metric);
   font-weight: 800;
@@ -22,13 +37,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* qualitative metric (no number): the icon itself becomes the ember anchor */
 .figureIcon {
   width: 2rem;
   height: 2rem;
+  color: var(--color-primary);
 }
 
 .label {
-  color: var(--text-2);
+  color: var(--text-3);
   font-size: var(--text-base);
   line-height: var(--leading-snug);
 }

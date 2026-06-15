@@ -56,7 +56,7 @@
 }
 
 .heroCredibility {
-  margin: var(--space-2) 0 0;
+  margin: 0 0 var(--space-3);
   color: var(--text-strong);
   font-size: var(--text-base);
   font-weight: 600;
@@ -78,12 +78,17 @@
   margin-top: var(--space-3);
 }
 
+.heroProof {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
 .heroStats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-2);
-  max-width: 30rem;
-  margin: 1.5rem 0 0;
+  gap: var(--space-4);
+  margin: 0;
   padding: 0;
   list-style: none;
 }

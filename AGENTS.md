@@ -32,6 +32,12 @@
 - The exception file is `app/globals.css` itself — token definitions live there as literals (hex, rem) by design. Stylelint overrides exempt that file only.
 - See `docs/design-best-practices.md` for the design theory backing the token choices.
 
+### Brand color vs third-party logo colors — do NOT "unify"
+
+- The brand accent ("ember") is **`#F2541B`** (`--color-primary` / `--orange-500`). That is the only orange that represents Victor's brand.
+- Partner/client logos render in **their own** brand colors, baked into their SVGs — e.g. the Wowworks logo (`public/logos/wowworks.svg`) is **`#FC5830`** (Wowworks' brand orange), Skyeng is blue, etc. These are NOT the brand palette and must stay untouched — recoloring a client's logo to match ember would misrepresent their brand.
+- So two different oranges sitting near each other (ember `#F2541B` on a CTA next to Wowworks `#FC5830` in its logo) is **correct and intentional**, not a palette inconsistency. Do not flag it and do not "unify" it.
+
 ### Where shared code lives
 
 - `app/components/` — reusable UI components (JSX). Extract a component here when the same JSX appears in more than one page.

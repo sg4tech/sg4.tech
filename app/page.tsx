@@ -2,12 +2,14 @@ import {
   AlertTriangle,
   Ban,
   BookOpen,
+  Bug,
   Calendar,
   Layers,
   Rocket,
   Target,
   TrendingUp,
-  Users
+  Users,
+  Zap
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -99,8 +101,8 @@ const solutionSteps = [
 ];
 
 const heroMetrics = [
-  { text: "2–3x faster delivery" },
-  { text: "Up to 10x fewer bugs and downtime" },
+  { text: "2–3x faster delivery", icon: Zap },
+  { text: "Up to 10x fewer bugs and downtime", icon: Bug },
   { text: "Higher predictability", icon: TrendingUp }
 ];
 
@@ -384,22 +386,6 @@ function HeroSection() {
           <p className={styles.heroText}>
             Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
           </p>
-          <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
-          <ul className={styles.heroStats} aria-label="Key outcomes">
-            {heroMetrics.map((metric) => {
-              const parsed = parseMetric(metric.text);
-              return (
-                <li key={metric.text}>
-                  <Stat
-                    figure={parsed.figure}
-                    icon={parsed.figure ? undefined : metric.icon}
-                    note={parsed.note}
-                    label={parsed.label}
-                  />
-                </li>
-              );
-            })}
-          </ul>
           <div className={styles.heroActions}>
             <Button
               href={heroCtaHref}
@@ -415,6 +401,19 @@ function HeroSection() {
             </Button>
           </div>
         </div>
+      </div>
+      <div className={styles.heroProof}>
+        <p className={styles.heroCredibility}>Experience across startups and scaling product companies.</p>
+        <ul className={styles.heroStats} aria-label="Key outcomes">
+          {heroMetrics.map((metric) => {
+            const parsed = parseMetric(metric.text);
+            return (
+              <li key={metric.text}>
+                <Stat figure={parsed.figure} icon={metric.icon} note={parsed.note} label={parsed.label} />
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
