@@ -23,13 +23,12 @@ import {
   Wrench
 } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { siHabr } from "simple-icons";
-import { BrandIcon } from "../components/BrandIcon";
 import { Eyebrow } from "../components/Eyebrow";
 import { FaqSection } from "../components/FaqSection";
 import { FooterSection } from "../components/FooterSection";
+import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
@@ -364,43 +363,6 @@ function SystemLayersVisual() {
 }
 
 
-function HeroSignalsBar() {
-  return (
-    <div className={landing.heroSignals} aria-label="Selected credibility signals">
-      {heroSignals.map((item) => {
-        const inner = (
-          <>
-            {item.logo ? (
-              <Image
-                src={item.logo}
-                alt={item.label}
-                width={item.logoWidth ?? 100}
-                height={item.logoHeight ?? 30}
-                className={landing.heroSignalLogo}
-                unoptimized
-              />
-            ) : null}
-            {item.iconPath ? (
-              <BrandIcon label={item.label} path={item.iconPath} className={landing.heroSignalIcon} />
-            ) : null}
-            {(!item.logo || item.iconPath) ? (
-              <span className={landing.heroSignalLabel}>{item.label}</span>
-            ) : null}
-          </>
-        );
-        if (item.href) {
-          return (
-            <a key={item.label} href={item.href} className={landing.heroSignal} target="_blank" rel="noreferrer">
-              {inner}
-            </a>
-          );
-        }
-        return <span key={item.label} className={landing.heroSignal}>{inner}</span>;
-      })}
-    </div>
-  );
-}
-
 function HeroMetricList() {
   return (
     <ul className={landing.metricList} aria-label="Key outcomes">
@@ -439,7 +401,7 @@ function HeroSection() {
               I find what&apos;s missing, build it, and leave you with a codebase that ships without me.
             </p>
             <p className={landing.heroOutcome}>So you can ship without fear of breaking what works.</p>
-            <HeroSignalsBar />
+            <HeroSignals signals={heroSignals} />
             <HeroMetricList />
             <div className={landing.actions}>
               <Button

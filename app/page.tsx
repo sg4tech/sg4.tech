@@ -16,6 +16,7 @@ import { BrandIcon } from "./components/BrandIcon";
 import { Eyebrow } from "./components/Eyebrow";
 import { FaqSection } from "./components/FaqSection";
 import { FooterSection } from "./components/FooterSection";
+import { HeroSignals, type HeroSignal } from "./components/HeroSignals";
 import { Icon } from "./components/Icon";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
@@ -101,6 +102,14 @@ const heroMetrics = [
   { text: "2–3x faster delivery" },
   { text: "Up to 10x fewer bugs and downtime" },
   { text: "Higher predictability", icon: TrendingUp }
+];
+
+// Real client / speaking proof — shared with the dedicated landings via the
+// HeroSignals component so the trust row stays identical across pages.
+const heroSignals: HeroSignal[] = [
+  { label: "Wowworks", logo: "/logos/wowworks.svg", logoWidth: 104, logoHeight: 30 },
+  { label: "Skyeng", logo: "/logos/skyeng.svg", logoWidth: 185, logoHeight: 56 },
+  { label: "PHP Russia speaker", logo: "/logos/php-russia.svg", logoWidth: 24, logoHeight: 24, labelAfterLogo: true }
 ];
 
 // Split a metric line into an optional "Up to" qualifier, the leading numeric
@@ -368,6 +377,7 @@ function HeroSection() {
             <span className={styles.heroLeadIn}>I turn slow, expensive engineering into </span>
             fast, predictable delivery systems.
           </h1>
+          <HeroSignals signals={heroSignals} className={styles.heroSignals} />
         </div>
         <div className={styles.heroSecondary}>
           <p className={styles.heroLead}>AI alone won't fix your delivery. But combined with the right system — it will.</p>

@@ -1,0 +1,61 @@
+.signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.logo,
+.icon {
+  display: block;
+  opacity: 0.85;
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+
+.logo {
+  width: auto;
+  height: 1.3rem;
+  max-width: 7rem;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.label {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.signal:hover .logo,
+.signal:focus-within .logo,
+.signal:hover .icon,
+.signal:focus-within .icon {
+  opacity: 0.92;
+}
+
+@media (min-width: 1100px) {
+  .logo {
+    height: 1.7rem;
+  }
+
+  .icon {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+}

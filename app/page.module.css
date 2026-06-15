@@ -74,6 +74,10 @@
   list-style-type: disc;
 }
 
+.heroSignals {
+  margin-top: var(--space-3);
+}
+
 .heroStats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
