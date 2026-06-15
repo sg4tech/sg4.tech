@@ -15,7 +15,7 @@ export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <OgCard
-        eyebrow="ENGINEERING DELIVERY"
+        eyebrow="Engineering delivery"
         title="How to diagnose where engineering delivery is actually broken"
         subtitle="T2M, Lead Time, Cycle Time, WIP, Little's Law — the operator playbook."
         footer="Victor Demin · 18 min read"

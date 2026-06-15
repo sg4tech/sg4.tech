@@ -14,7 +14,7 @@ export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <OgCard
-        eyebrow="YII2 CONSULTING"
+        eyebrow="Yii2 consulting"
         title="Quality, predictability, speed — without rewrite"
         subtitle="CI/CD, monitoring, delivery metrics, AI leverage"
         footer="Victor Demin"

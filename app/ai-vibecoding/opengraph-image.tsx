@@ -14,7 +14,7 @@ export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <OgCard
-        eyebrow="AI VIBECODING"
+        eyebrow="AI vibecoding"
         title="From stuck MVP to shipping business"
         subtitle="Guardrails, tests, pipeline, and architecture AI never ships"
         footer="Victor Demin"

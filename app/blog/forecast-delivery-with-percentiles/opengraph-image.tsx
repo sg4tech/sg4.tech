@@ -15,7 +15,7 @@ export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <OgCard
-        eyebrow="ENGINEERING DELIVERY"
+        eyebrow="Engineering delivery"
         title="Average lead time is lying to you"
         subtitle="Forecast delivery with median, spread, and p95 percentiles — not a point estimate."
         footer="Victor Demin · 7 min read"
