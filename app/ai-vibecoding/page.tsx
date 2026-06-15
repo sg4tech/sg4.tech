@@ -428,7 +428,10 @@ function HeroSection() {
         <div className={landing.heroLayout}>
           <div className={landing.heroMain}>
             <Eyebrow>Vibecoded MVP → working business</Eyebrow>
-            <h1>Your vibecoded MVP isn&apos;t broken. The delivery system around it is missing.</h1>
+            <h1>
+              <span className={landing.heroLeadIn}>Your vibecoded MVP isn&apos;t broken. </span>
+              The delivery system around it is missing.
+            </h1>
             <p className={landing.heroStatement}>
               You&apos;ve tried switching AI tools. You&apos;ve tried refactor sprints. The fix is the delivery system AI never built.
             </p>
