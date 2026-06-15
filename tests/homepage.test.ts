@@ -5,7 +5,11 @@ import { describe, expect, it } from "vitest";
 const requiredAnchors = ['id="problem"', 'id="solution"', 'id="results"', 'id="process"', 'id="fit"', 'id="insights"', 'id="final-cta"'];
 
 const requiredCopy = [
-  "I turn slow, expensive engineering into fast, predictable delivery systems.",
+  // Hero headline uses the design system's two-tone device: the setup clause
+  // is wrapped in a muted <span>, so it's asserted as its two contiguous
+  // fragments rather than one string.
+  "I turn slow, expensive engineering into",
+  "fast, predictable delivery systems.",
   "Book a diagnostic call",
   "Get a delivery diagnosis",
   "See how I work",
