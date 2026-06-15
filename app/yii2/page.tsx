@@ -22,12 +22,12 @@ import {
   Zap
 } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
 import { FaqSection } from "../components/FaqSection";
 import { FooterSection } from "../components/FooterSection";
+import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
@@ -462,30 +462,6 @@ function ProcessVisual() {
   );
 }
 
-function HeroSignalsBar() {
-  return (
-    <div className={landing.heroSignals} aria-label="Selected credibility signals">
-      {heroSignals.map((item) => (
-        <span key={item.label} className={landing.heroSignal}>
-          {item.logo && (
-            <Image
-              src={item.logo}
-              alt={item.label}
-              width={item.logoWidth}
-              height={item.logoHeight}
-              className={item.labelAfterLogo ? landing.heroSignalIcon : landing.heroSignalLogo}
-              unoptimized
-            />
-          )}
-          {(!item.logo || item.labelAfterLogo) && (
-            <span className={landing.heroSignalLabel}>{item.label}</span>
-          )}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 function HeroMetricList() {
   return (
     <ul className={landing.metricList} aria-label="Key outcomes">
@@ -539,7 +515,7 @@ function HeroSection() {
             </div>
           </div>
           <div className={landing.heroAside}>
-            <HeroSignalsBar />
+            <HeroSignals signals={heroSignals} />
             <HeroMetricList />
           </div>
         </div>
