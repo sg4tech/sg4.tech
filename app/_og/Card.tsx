@@ -36,7 +36,7 @@ export function OgCard({ eyebrow, title, subtitle, footer, logoSrc }: OgCardProp
           style={{
             display: "flex",
             fontSize: 26,
-            letterSpacing: "0.18em",
+            fontWeight: 600,
             color: "#9a9a9a"
           }}
         >
