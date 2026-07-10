@@ -63,16 +63,6 @@
   line-height: var(--leading-relaxed);
 }
 
-.bulletList,
-.resultList {
-  margin: 1.25rem 0 0;
-  padding-left: 1.2rem;
-  color: var(--text);
-  line-height: var(--leading-loose);
-  /* Pin the marker: nesting a bulletList inside the Steps <ol><li> would
-     otherwise default to a hollow circle, breaking list consistency. */
-  list-style-type: disc;
-}
 
 .heroSignals {
   margin-top: var(--space-3);
@@ -221,10 +211,6 @@
   line-height: var(--leading-base);
 }
 
-.resultList {
-  color: var(--text-strong);
-  font-weight: 600;
-}
 
 .output {
   font-weight: 600;
