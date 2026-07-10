@@ -13,6 +13,7 @@ const CTA_HREF = "https://t.me/sg4tech?start=site_blog_metrics";
 // never drift from the articles' own metadata.
 const percentilesPost = getPostBySlug("forecast-delivery-with-percentiles");
 const vibecodingPost = getPostBySlug("vibecoded-mvp-stopped-shipping");
+const finishingPost = getPostBySlug("ai-made-starting-free-finishing-expensive");
 
 // Spokes first (continue reading), then the landings. Excludes any card that
 // points to the same destination as `ArticleCta` above — listing the same
@@ -28,6 +29,11 @@ const relatedLinks = [
     href: `/blog/${vibecodingPost.slug}/`,
     title: vibecodingPost.title,
     description: vibecodingPost.description
+  },
+  {
+    href: `/blog/${finishingPost.slug}/`,
+    title: finishingPost.title,
+    description: finishingPost.description
   },
   {
     href: "/yii2/",

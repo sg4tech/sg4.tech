@@ -30,9 +30,9 @@ type Landing = {
 };
 
 const landings: ReadonlyArray<Landing> = [
-  { path: "/", modifiedAt: "2026-05-22", changeFrequency: "monthly", priority: 1 },
-  { path: "/yii2/", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/ai-vibecoding/", modifiedAt: "2026-05-13", changeFrequency: "monthly", priority: 0.8 }
+  { path: "/", modifiedAt: "2026-06-15", changeFrequency: "monthly", priority: 1 },
+  { path: "/yii2/", modifiedAt: "2026-06-15", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/ai-vibecoding/", modifiedAt: "2026-06-15", changeFrequency: "monthly", priority: 0.8 }
 ];
 
 // Newest post's modifiedAt, used as the /blog index lastmod. Caller must

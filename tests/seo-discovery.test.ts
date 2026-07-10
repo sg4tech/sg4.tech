@@ -17,7 +17,8 @@ describe("sitemap", () => {
         "https://sg4.tech/ai-vibecoding/",
         "https://sg4.tech/blog/",
         "https://sg4.tech/blog/diagnose-broken-engineering-delivery/",
-        "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
+        "https://sg4.tech/blog/forecast-delivery-with-percentiles/",
+        "https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/"
       ])
     );
   });
@@ -118,6 +119,9 @@ describe("llms.txt", () => {
     );
     expect(content).toContain(
       "https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/"
+    );
+    expect(content).toContain(
+      "https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/"
     );
   });
 });

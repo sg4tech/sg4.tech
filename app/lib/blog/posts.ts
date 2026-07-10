@@ -15,7 +15,8 @@
 export const POST_SLUGS = [
   "diagnose-broken-engineering-delivery",
   "forecast-delivery-with-percentiles",
-  "vibecoded-mvp-stopped-shipping"
+  "vibecoded-mvp-stopped-shipping",
+  "ai-made-starting-free-finishing-expensive"
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
@@ -63,6 +64,16 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     modifiedAt: "2026-06-11",
     readingMinutes: 8,
     tags: ["vibecoding", "AI-generated code", "guardrails", "delivery system"]
+  },
+  {
+    slug: "ai-made-starting-free-finishing-expensive",
+    title: "AI made starting work nearly free. Finishing is still expensive.",
+    description:
+      "Why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents. A fractional CTO's case for one-thread-one-task and WIP limits in the AI era.",
+    publishedAt: "2026-07-10",
+    modifiedAt: "2026-07-10",
+    readingMinutes: 7,
+    tags: ["AI-assisted delivery", "WIP", "Little's Law", "context switching", "delivery metrics"]
   }
 ];
 
