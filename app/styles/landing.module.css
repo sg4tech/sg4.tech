@@ -370,12 +370,37 @@
 
 /* ─── Why surface & profile card ───────────────────────────────────────────── */
 
+/* Dark "Why me" — the design system's ink feature block. Shared across all
+   landings; light text is scoped to within the panel so other usages of
+   .profileName / .cardIcon stay unaffected. */
 .whySurface {
   padding: var(--space-2);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-inverse);
   border-radius: var(--radius-xl);
-  background:
-    linear-gradient(180deg, rgba(247, 247, 245, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%);
+  background: var(--surface-inverse);
+}
+
+.whySurface .profileCard,
+.whySurface .profileBody {
+  background: transparent;
+  border-color: transparent;
+}
+
+.whySurface .profileName {
+  color: var(--text-on-dark);
+}
+
+.whySurface .profileRole {
+  color: var(--text-on-dark-muted);
+}
+
+.whySurface .iconList li {
+  color: var(--text-on-dark);
+}
+
+.whySurface .iconList .cardIcon {
+  color: var(--color-primary);
+  opacity: 1;
 }
 
 .profileCard {

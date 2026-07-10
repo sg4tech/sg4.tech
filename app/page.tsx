@@ -20,6 +20,7 @@ import { FaqSection } from "./components/FaqSection";
 import { FooterSection } from "./components/FooterSection";
 import { HeroSignals, type HeroSignal } from "./components/HeroSignals";
 import { Icon } from "./components/Icon";
+import { MarkList } from "./components/MarkList";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
@@ -151,21 +152,21 @@ const trustPoints: WhyMePoint[] = [
 
 const caseStudies = [
   {
-    title: "Case 1 — Scaling delivery",
+    title: "Scaling delivery",
     company: "B2B product company (international markets, 3 cross-functional teams)",
     problem: ["Slow and unpredictable delivery", "High bug rate"],
     work: ["Introduced delivery metrics", "Rebuilt development flow", "Aligned engineering with product"],
     result: ["2–3x faster delivery", "10x fewer bugs", "Predictable releases"]
   },
   {
-    title: "Case 2 — From chaos to system",
+    title: "From chaos to system",
     company: "EdTech company (growth stage)",
     problem: ["Chaotic development", "Long time-to-market", "Low NPS"],
     work: ["Split Discovery / Delivery", "Introduced structured process", "Added feedback loops"],
     result: ["2x faster time-to-market", "2x throughput", "NPS improved significantly"]
   },
   {
-    title: "Case 3 — Cost & efficiency",
+    title: "Cost & efficiency",
     company: "Product company (scaling phase)",
     problem: ["High engineering cost", "Low effective throughput"],
     work: ["Identified bottlenecks (ToC)", "Reduced unnecessary work", "Improved prioritization"],
@@ -206,6 +207,7 @@ const fitGroups = [
   {
     title: "Best fit",
     icon: Target,
+    kind: "check" as const,
     points: [
       "Product companies (B2B / SaaS / platforms) with 5–50 engineers",
       "Already shipping, but struggling with delivery speed, predictability, or engineering efficiency",
@@ -215,6 +217,7 @@ const fitGroups = [
   {
     title: "Typical triggers",
     icon: AlertTriangle,
+    kind: "dot" as const,
     points: [
       "Delivery is too slow",
       "Deadlines are unpredictable",
@@ -226,6 +229,7 @@ const fitGroups = [
   {
     title: "Not a good fit",
     icon: Ban,
+    kind: "x" as const,
     points: [
       "No product / no team",
       "Looking for staff augmentation or pure hands-on coding",
@@ -430,11 +434,7 @@ function ProblemSection() {
               <Icon icon={stage.icon} className={styles.cardHeadingIcon} />
               {stage.title}
             </h3>
-            <ul className={styles.bulletList}>
-              {stage.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
+            <MarkList items={stage.points} />
             <p className={styles.cardNote}>{stage.closing}</p>
           </article>
         ))}
@@ -461,11 +461,7 @@ function SolutionSection() {
       />
       <div className={styles.subsection}>
         <h3>Why this works</h3>
-        <ul className={styles.bulletList}>
-          {credibilityPoints.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
+        <MarkList items={credibilityPoints} kind="check" />
       </div>
     </Section>
   );
@@ -485,27 +481,15 @@ function ResultsSection() {
             <div className={styles.caseGrid}>
               <div>
                 <h4>Problem</h4>
-                <ul className={styles.bulletList}>
-                  {study.problem.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+                <MarkList items={study.problem} />
               </div>
               <div>
                 <h4>What I did</h4>
-                <ul className={styles.bulletList}>
-                  {study.work.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+                <MarkList items={study.work} />
               </div>
               <div>
                 <h4>Result</h4>
-                <ul className={styles.resultList}>
-                  {study.result.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+                <MarkList items={study.result} kind="check" />
               </div>
             </div>
           </article>
@@ -533,11 +517,7 @@ function ProcessSection() {
           title: step.title,
           body: (
             <>
-              <ul className={styles.bulletList}>
-                {step.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
+              <MarkList items={step.points} />
               <p className={styles.output}>Output: {step.output}</p>
             </>
           )
@@ -546,11 +526,7 @@ function ProcessSection() {
       <p className={styles.processNote}>No magic. Just a system that works.</p>
       <div className={styles.expectationBox}>
         <h3>What to expect</h3>
-        <ul className={styles.bulletList}>
-          {expectationPoints.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
+        <MarkList items={expectationPoints} kind="check" />
       </div>
     </Section>
   );
@@ -567,11 +543,7 @@ function FitSection() {
               <Icon icon={group.icon} className={styles.cardHeadingIcon} />
               {group.title}
             </h3>
-            <ul className={styles.bulletList}>
-              {group.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
+            <MarkList items={group.points} kind={group.kind} />
           </article>
         ))}
       </div>
@@ -607,11 +579,7 @@ function InsightsSection() {
         intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
       />
       <p className={styles.bodyCopy}>Not theory — practical patterns from real systems.</p>
-      <ul className={styles.bulletList}>
-        {insightTopics.map((topic) => (
-          <li key={topic}>{topic}</li>
-        ))}
-      </ul>
+      <MarkList items={insightTopics} />
       <div className={styles.specializationGrid}>
         <Link href={featuredEssay.href} className={styles.specializationCard}>
           <span className={styles.specializationLabel}>{featuredEssay.label}</span>
