@@ -13,7 +13,6 @@ import type { ReactNode } from "react";
 import styles from "./page.module.css";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";
-const COST_PER_TASK_HREF = "https://whatllm.org/blog/agentic-ai-cost-per-task";
 const INTERRUPTED_WORK_HREF = "https://ics.uci.edu/~gmark/chi08-mark.pdf";
 const LONG_CONTEXT_STUDY_HREF = "https://arxiv.org/html/2512.04307v1";
 
@@ -100,10 +99,7 @@ export function SectionCostVisible(): ReactNode {
         them, including the ones you throw away.
       </p>
       <p>
-        The industry has already converged on a metric for this:{" "}
-        <a href={COST_PER_TASK_HREF} target="_blank" rel="noreferrer">
-          cost per successful task
-        </a>{" "}
+        The industry has already converged on a metric for this: <em>cost per successful task</em>{" "}
         — total spend divided by tasks that actually reached a working state. It&apos;s a useful
         number. But watch teams try to optimize it and you&apos;ll see them go straight for token
         prices and model tiers — and miss the real leak. The biggest driver of cost per{" "}
@@ -120,30 +116,36 @@ function MetricsTable(): ReactNode {
     <table className={styles.mappingTable}>
       <thead>
         <tr>
+          <th>Metric</th>
           <th>Classic team</th>
           <th>AI-assisted work</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Throughput — tasks shipped</th>
+          <th>Throughput</th>
+          <td>Tasks shipped per period</td>
           <td>Tasks that reached production, not tasks generated</td>
         </tr>
         <tr>
           <th>Time to Market</th>
+          <td>From idea to release</td>
           <td>From prompt to working result in users&apos; hands</td>
         </tr>
         <tr>
           <th>Quality</th>
+          <td>Defects and rework after release</td>
           <td>Share of output usable without rework</td>
         </tr>
         <tr>
           <th>NPS</th>
+          <td>Whether users value what shipped</td>
           <td>Whether the result creates value at all</td>
         </tr>
         <tr>
-          <th>New in the AI era</th>
-          <td>Cost per successful task</td>
+          <th>Cost per successful task</th>
+          <td>Invisible — buried in fixed salaries</td>
+          <td>Total spend divided by tasks that reached a working state</td>
         </tr>
       </tbody>
     </table>
