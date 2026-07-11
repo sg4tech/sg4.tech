@@ -72,22 +72,26 @@ function WipSequenceList(): ReactNode {
   return (
     <ul>
       <li>
-        <strong>Make the goal explicit.</strong> The objective is not to start more work. It&apos;s to
+        <strong>Make the goal explicit.</strong>{" "}
+        The objective is not to start more work. It&apos;s to
         finish work that&apos;s already been started. Repeat this regularly. Print it on a sticker. Whatever
         it takes for the framing to land.
       </li>
       <li>
-        <strong>Explain why.</strong> Show the team Little&apos;s Law. Show them the
+        <strong>Explain why.</strong>{" "}
+        Show the team Little&apos;s Law. Show them the
         count-tasks-per-status diagnostic. Make the case from system math, not from authority. People
         follow practices they understand far better than rules they don&apos;t.
       </li>
       <li>
-        <strong>Show real examples.</strong> Reference cases where introducing WIP limits visibly changed
+        <strong>Show real examples.</strong>{" "}
+        Reference cases where introducing WIP limits visibly changed
         the system — your own past teams, posts like this one, war stories from others. Pattern-matching
         does most of the work that exhortation can&apos;t.
       </li>
       <li>
-        <strong>Bring the focus back, often.</strong> Whenever someone is about to pull a new task, ask:
+        <strong>Bring the focus back, often.</strong>{" "}
+        Whenever someone is about to pull a new task, ask:
         &quot;what can you do right now to move existing work to completion?&quot; Help unblock a teammate.
         Run a review. Answer a QA question. Pair on resolving a long-standing merge conflict. The
         team&apos;s instinct is to grab fresh work; the discipline is redirecting that instinct.
