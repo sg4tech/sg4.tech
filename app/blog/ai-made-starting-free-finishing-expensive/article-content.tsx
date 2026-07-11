@@ -127,7 +127,6 @@ export function SectionCostVisible(): ReactNode {
         <li>and what those iterations cost.</li>
       </ul>
       <p>
-        The real cost of a task is the sum of all its attempts — the discarded ones included.
         Divide total spend by finished tasks and you get the number that matters:{" "}
         <strong>cost per successful task</strong>{" "}
         — what one <em>finished</em>{" "}
@@ -208,8 +207,7 @@ export function SectionMetricsSurvive(): ReactNode {
       <MetricsTable />
       <p>
         You can ship fast but expensive, cheap but drowning in rework, or a lot of it but nothing
-        users need — and the economics quietly stops converging. That&apos;s why the whole table
-        matters together, not any single row.
+        users need — and the economics quietly stops converging.
       </p>
       <p>The measurement system survived. What changed is where the work piles up.</p>
     </>
