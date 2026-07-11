@@ -99,12 +99,27 @@ export function SectionCostVisible(): ReactNode {
         becomes very visible, very fast.
       </p>
       <p>
-        Here&apos;s what it looks like in practice. The agent takes an attempt. Almost works. One
-        more attempt. A bit better. Then something breaks, the context slips, you start fixing —
-        and it gets worse. Somewhere around there you see it clearly: one &ldquo;task&rdquo; is
-        rarely one action. It&apos;s a dozen iterations — attempts, corrections, dead ends — and
-        you pay for every one of them, including the ones you throw away.
+        Here&apos;s what it looks like in practice. An agent made 40 attempts, spent $15 in
+        tokens, and still failed to deliver a working feature. The loop behind that bill is
+        familiar to anyone who runs agents on real work: an attempt. Almost works. One more
+        attempt. A bit better. Then something breaks, the context slips, you start fixing — and it
+        gets worse. Somewhere around there you see it clearly: one &ldquo;task&rdquo; is rarely
+        one action. It&apos;s a dozen iterations — attempts, corrections, dead ends — and you pay
+        for every one of them, including the ones you throw away.
       </p>
+      <figure className={styles.figure}>
+        <Image
+          src="/blog/ai-made-starting-free-finishing-expensive/ai-agent-pnl.webp"
+          alt="Hand-drawn AI agent P&L statement: output — zero working features; cost — $15 in tokens and infrastructure; result — minus $15, no working feature delivered"
+          width={1200}
+          height={1200}
+          className={styles.figureImage}
+          unoptimized
+        />
+        <figcaption className={styles.figureCaption}>
+          The P&amp;L of one failed task: every attempt billed, nothing shipped.
+        </figcaption>
+      </figure>
       <p>To know what your delivery actually costs, you only need to count three things:</p>
       <ul>
         <li>how many tasks reached a working result,</li>
@@ -127,8 +142,12 @@ export function SectionCostVisible(): ReactNode {
       </p>
       <p>
         One warning before you go optimize it. Watch teams work on this metric and you&apos;ll see
-        them go straight for token prices and model tiers — and miss the real leak. The biggest
-        driver of cost per <em>finished</em>{" "}
+        them go straight for token prices and model tiers — and miss the real leak.{" "}
+        <strong>
+          The goal isn&apos;t to minimize token usage; it&apos;s to maximize successful outcomes
+          per dollar spent.
+        </strong>{" "}
+        And the biggest driver of cost per <em>finished</em>{" "}
         task isn&apos;t the price of an iteration. It&apos;s all the work you started and never
         finished.
       </p>
@@ -187,6 +206,11 @@ export function SectionMetricsSurvive(): ReactNode {
         AI-assisted work:
       </p>
       <MetricsTable />
+      <p>
+        You can ship fast but expensive, cheap but drowning in rework, or a lot of it but nothing
+        users need — and the economics quietly stops converging. That&apos;s why the whole table
+        matters together, not any single row.
+      </p>
       <p>The measurement system survived. What changed is where the work piles up.</p>
     </>
   );
