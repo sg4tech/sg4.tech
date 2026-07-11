@@ -283,25 +283,26 @@ export function SectionOneThread(): ReactNode {
           Starting more fills the board. Finishing more fills production.
         </figcaption>
       </figure>
-      <p>
-        <strong>For agents: one thread, one task.</strong>{" "}
-        Keep a thread focused on a single
-        outcome. When side-issues surface — a bug you noticed, a refactor worth doing — they go to
-        a list, or to another agent, not into the same conversation. A focused thread finishes; an
-        overloaded one circles.
-      </p>
-      <p>
-        <strong>For you: finish before you start.</strong>{" "}
-        Before opening a new task, ask what you
-        can close. An agent waiting for your review is work in progress. Three agents waiting for
-        your review is a queue — and you are the bottleneck in it.
-      </p>
-      <p>
-        <strong>For the team: the same WIP limits as before, applied to both kinds of workers.</strong>{" "}
-        The count that matters is not tasks started, and not agent activity — it&apos;s how much
-        unfinished work sits in the system. A long list of active threads is not progress.
-        It&apos;s inventory.
-      </p>
+      <ul>
+        <li>
+          <strong>For agents: one thread, one task.</strong>{" "}
+          Keep a thread focused on a single outcome. When side-issues surface — a bug you noticed,
+          a refactor worth doing — they go to a list, or to another agent, not into the same
+          conversation. A focused thread finishes; an overloaded one circles.
+        </li>
+        <li>
+          <strong>For you: finish before you start.</strong>{" "}
+          Before opening a new task, ask what you can close. An agent waiting for your review is
+          work in progress. Three agents waiting for your review is a queue — and you are the
+          bottleneck in it.
+        </li>
+        <li>
+          <strong>For the team: the same WIP limits, applied to both kinds of workers.</strong>{" "}
+          The count that matters is not tasks started, and not agent activity — it&apos;s how much
+          unfinished work sits in the system. A long list of active threads is not progress.
+          It&apos;s inventory.
+        </li>
+      </ul>
       <p>
         The uncomfortable shift is in what counts as a signal of progress. Started work used to be
         scarce, so starting meant something. Now that starting is nearly free,{" "}
