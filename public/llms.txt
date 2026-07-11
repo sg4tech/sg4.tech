@@ -59,6 +59,7 @@
   - Humans lose focus, agents lose context — but it's the same failure: too much work in progress degrades the worker, whether the worker is made of neurons or tokens.
   - Little's Law (Lead Time = WIP / Throughput) doesn't care whether the workers are humans or AI agents: start more without finishing more, and every task lives longer.
   - The biggest driver of cost per successful task isn't token price — it's all the work you started and never finished.
+  - Knowing what delivery costs takes three counters: tasks that reached a working result, iterations that took, and what those iterations cost. Cost per successful task = total spend / finished tasks; after any workflow change (a new prompt, tests around the agent) the number either went down or it didn't.
   - One thread, one task: an agent thread should carry a single outcome; side-issues go to a list or another agent, not into the same conversation.
   - Evidence cited: web-agent success rates collapse as irrelevant context accumulates (one frontier model fell from ~45% to 2.7% near 150k tokens); interrupted humans compensate by working faster but pay in workload and stress (Mark, Gudith & Klocke, 2008).
   - Classic delivery metrics map one-to-one onto AI-assisted work: throughput = tasks that reached production, T2M = prompt to working result, quality = share usable without rework.

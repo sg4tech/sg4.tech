@@ -93,17 +93,42 @@ export function SectionCostVisible(): ReactNode {
     <>
       <h2 id="cost">The cost of work became visible</h2>
       <p>
-        For decades, the cost of one task was invisible — buried inside fixed salaries. With AI
-        agents, every action has a price tag. And one &ldquo;task&rdquo; is rarely one action:
-        it&apos;s a dozen iterations — attempts, corrections, dead ends — and you pay for all of
-        them, including the ones you throw away.
+        For decades, the cost of one task was invisible — buried inside fixed salaries. A
+        developer&apos;s month costs the same whether a feature took three attempts or thirty, so
+        nobody counted attempts. With AI agents, every action has a price tag — and the accounting
+        becomes very visible, very fast.
       </p>
       <p>
-        The industry has already converged on a metric for this: <em>cost per successful task</em>{" "}
-        — total spend divided by tasks that actually reached a working state. It&apos;s a useful
-        number. But watch teams try to optimize it and you&apos;ll see them go straight for token
-        prices and model tiers — and miss the real leak. The biggest driver of cost per{" "}
-        <em>finished</em>{" "}
+        Here&apos;s what it looks like in practice. The agent takes an attempt. Almost works. One
+        more attempt. A bit better. Then something breaks, the context slips, you start fixing —
+        and it gets worse. Somewhere around there you see it clearly: one &ldquo;task&rdquo; is
+        rarely one action. It&apos;s a dozen iterations — attempts, corrections, dead ends — and
+        you pay for every one of them, including the ones you throw away.
+      </p>
+      <p>To know what your delivery actually costs, you only need to count three things:</p>
+      <ul>
+        <li>how many tasks reached a working result,</li>
+        <li>how many iterations that took,</li>
+        <li>and what those iterations cost.</li>
+      </ul>
+      <p>
+        The real cost of a task is the sum of all its attempts — the discarded ones included.
+        Divide total spend by finished tasks and you get the number that matters:{" "}
+        <strong>cost per successful task</strong>{" "}
+        — what one <em>finished</em>{" "}
+        piece of work really costs you.
+      </p>
+      <p>
+        The payoff is that optimization stops being guesswork. Does the new prompt actually help?
+        Do tests around the agent pay for themselves? Did that workflow change do anything?
+        Subjectively, everything always &ldquo;feels better.&rdquo; The number doesn&apos;t care
+        how it feels: after any change, cost per successful task either went down or it
+        didn&apos;t.
+      </p>
+      <p>
+        One warning before you go optimize it. Watch teams work on this metric and you&apos;ll see
+        them go straight for token prices and model tiers — and miss the real leak. The biggest
+        driver of cost per <em>finished</em>{" "}
         task isn&apos;t the price of an iteration. It&apos;s all the work you started and never
         finished.
       </p>
