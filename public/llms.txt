@@ -63,7 +63,7 @@
   - Real example: an agent made 40 attempts, spent $15 in tokens, and still failed to deliver a working feature — output 0, cost $15, P&L −$15.
   - The goal isn't to minimize token usage; it's to maximize successful outcomes per dollar spent.
   - One thread, one task: an agent thread should carry a single outcome; side-issues go to a list or another agent, not into the same conversation.
-  - Evidence cited: web-agent success rates collapse as irrelevant context accumulates (one frontier model fell from ~45% to 2.7% near 150k tokens); interrupted humans compensate by working faster but pay in workload and stress (Mark, Gudith & Klocke, 2008).
+  - Evidence cited: web-agent success rates collapse as irrelevant context accumulates (one tested model, GPT-4.1, fell from ~45% to 2.7% near 150k tokens); interrupted humans compensate by working faster but pay in workload and stress (Mark, Gudith & Klocke, 2008).
   - Classic delivery metrics map one-to-one onto AI-assisted work: throughput = tasks that reached production, T2M = prompt to working result, quality = share usable without rework.
   - Now that starting is nearly free, the winner isn't whoever launches the most — it's whoever finishes the most.
   - AI doesn't abolish systems thinking — it makes system errors more expensive: the bill arrives immediately, itemized, in dollars.

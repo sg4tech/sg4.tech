@@ -249,8 +249,8 @@ export function SectionParallelTasks(): ReactNode {
         </a>{" "}
         found that performance collapses as irrelevant history accumulates in the context — exactly
         what a multi-task thread produces. With noise built up toward 150,000 tokens, success rates
-        fell from 40–50% to single digits for some frontier models — GPT-4.1 dropped from roughly
-        45% to 2.7%.
+        fell from 40–50% to single digits for some of the models tested — GPT-4.1 dropped from
+        roughly 45% to 2.7%.
       </p>
       <p className={styles.pullquote}>
         Humans lose focus, agents lose context — but it&apos;s the same failure. Too much work in
