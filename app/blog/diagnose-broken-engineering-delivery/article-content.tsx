@@ -125,12 +125,14 @@ export function SectionDecomposeT2M(): ReactNode {
         useful cut on it is the boundary between Discovery and Delivery.
       </p>
       <p>
-        <strong>Discovery</strong> is everything that happens before a ticket is genuinely ready to be
+        <strong>Discovery</strong>{" "}
+        is everything that happens before a ticket is genuinely ready to be
         picked up by a developer. Requirements clarification, design, scoping, stakeholder alignment,
         prioritization. Output: a ticket someone could actually start building.
       </p>
       <p>
-        <strong>Delivery</strong> is everything after that point — from &quot;ready for development&quot; to
+        <strong>Delivery</strong>{" "}
+        is everything after that point — from &quot;ready for development&quot; to
         &quot;in production.&quot; This is what most engineering metrics implicitly measure, and it&apos;s
         the slice the team has direct control over.
       </p>
@@ -216,7 +218,8 @@ export function SectionLeadTimeCycleTime(): ReactNode {
       <p>
         This is why Lead Time on its own isn&apos;t sharp enough. We need to separate the time a task is
         actually being worked on from the time it&apos;s just sitting in a queue. The metric I use for that
-        is <strong>Cycle Time</strong> — the time from when a task is genuinely picked up to when it&apos;s
+        is <strong>Cycle Time</strong>{" "}
+        — the time from when a task is genuinely picked up to when it&apos;s
         done. Real work only.
       </p>
       <p>Stacked up:</p>
@@ -391,7 +394,8 @@ export function SectionCountTasks(): ReactNode {
         the way to building dashboards they&apos;ll never use.
       </p>
       <p>
-        But it raises a deeper question. <strong>Why</strong> are twenty-five tasks in QA? Where did they
+        But it raises a deeper question. <strong>Why</strong>{" "}
+        are twenty-five tasks in QA? Where did they
         come from? Why does the team keep accepting new work when there&apos;s already a wall of unfinished
         tickets in the system?
       </p>
@@ -538,6 +542,19 @@ export function SectionWipLimits(): ReactNode {
         <strong>WIP limits</strong> are the discipline of saying: this system will hold no more than N tasks
         at once. If WIP is at the limit, no new work gets started until something existing finishes. Period.
       </p>
+      <figure className={styles.figure}>
+        <Image
+          src="/blog/diagnose-broken-engineering-delivery/too-much-wip-vs-wip-limits.webp"
+          alt="Two delivery pipelines compared under Lead Time = WIP / Throughput: without limits, tasks pile up in QA and lead time grows unpredictable; with WIP limits, every stage holds a few tasks and work flows through predictably"
+          width={1200}
+          height={800}
+          className={styles.figureImage}
+          unoptimized
+        />
+        <figcaption className={styles.figureCaption}>
+          Same throughput, different WIP: queues shrink and lead time becomes predictable.
+        </figcaption>
+      </figure>
       <p>What WIP limits actually improve:</p>
       <ul>
         <li>Less context switching, because each person is holding fewer in-flight things</li>
