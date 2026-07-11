@@ -91,7 +91,7 @@ export function IntroSection(): ReactNode {
 export function SectionCostVisible(): ReactNode {
   return (
     <>
-      <h2 id="cost">The cost of work became visible</h2>
+      <h2 id="cost">What AI-assisted work really costs — and how to count it</h2>
       <p>
         For decades, the cost of one task was invisible — buried inside fixed salaries. A
         developer&apos;s month costs the same whether a feature took three attempts or thirty, so
