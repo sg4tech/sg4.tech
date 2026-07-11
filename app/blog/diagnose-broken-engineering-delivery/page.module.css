@@ -496,3 +496,24 @@
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-weight: 600;
 }
+
+/* Body illustration: full-width figure with a token-styled caption. The image
+   carries the section's visual anchor; the caption doubles as an extraction
+   hook for engines reading the page. */
+.figure {
+  margin: var(--space-3) 0 0;
+}
+
+.figureImage {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+}
+
+.figureCaption {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-base);
+  color: var(--text-4);
+}

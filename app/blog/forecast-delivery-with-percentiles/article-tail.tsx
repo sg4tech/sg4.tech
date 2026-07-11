@@ -5,9 +5,14 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getPostBySlug } from "../../lib/blog/posts";
 import styles from "./page.module.css";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_forecast";
+
+// Sibling spoke card comes from the post registry so its title/description
+// never drift from the article's own metadata.
+const finishingPost = getPostBySlug("ai-made-starting-free-finishing-expensive");
 
 const relatedLinks = [
   {
@@ -17,14 +22,13 @@ const relatedLinks = [
       "The metrics playbook this builds on: decomposing T2M into Lead Time and Cycle Time, WIP, and Little's Law."
   },
   {
-    href: "/yii2/",
-    title: "Running a Yii2 codebase?",
-    description:
-      "Legacy-specific landing: predictable releases and quality guardrails without defaulting to a rewrite."
+    href: `/blog/${finishingPost.slug}/`,
+    title: finishingPost.title,
+    description: finishingPost.description
   },
   {
     href: "/ai-vibecoding/",
-    title: "AI-built MVP that stopped shipping?",
+    title: "The rescue service: AI vibecoding cleanup",
     description:
       "Adding the delivery-system layers AI didn't generate — architecture rules, pipeline guardrails, test coverage."
   }

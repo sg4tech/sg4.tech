@@ -299,15 +299,18 @@ export function SectionFailedFixes(): ReactNode {
         never about which model wrote the code.
       </p>
       <p>
-        <strong>Better prompts and rules files.</strong> Closer — this is the onboarding doc, and
+        <strong>Better prompts and rules files.</strong>{" "}
+        Closer — this is the onboarding doc, and
         it&apos;s a real layer. But an instruction the pipeline doesn&apos;t enforce is a
         suggestion. A junior nods at the style guide and then ships whatever they ship; what makes
         the guide real is the review and the gates behind it.
       </p>
       <p>
-        <strong>The refactor sprint.</strong> &ldquo;Let&apos;s stop features for two weeks and
+        <strong>The refactor sprint.</strong>{" "}
+        &ldquo;Let&apos;s stop features for two weeks and
         clean up.&rdquo; Refactoring without tests is how a junior turns old bugs into new bugs —
-        the codebase ends up <em>differently</em> broken, and you&apos;ve paid two weeks of
+        the codebase ends up <em>differently</em>{" "}
+        broken, and you&apos;ve paid two weeks of
         standstill for it. Cleanup comes after the net that catches what cleanup breaks.
       </p>
       <p>
@@ -335,14 +338,16 @@ export function SectionRestart(): ReactNode {
           then add the next.
         </li>
         <li>
-          <strong>Build the safety net.</strong> Monitoring and error tracking, a CI pipeline with
+          <strong>Build the safety net.</strong>{" "}
+          Monitoring and error tracking, a CI pipeline with
           real gates, tests on the paths the business dies without, review on every change — human
           or agent, the rule is the same: nothing merges unseen. This phase is measured in weeks — a
           couple of months at the outside — and it&apos;s where shipping quietly restarts, because
           changes stop being frightening.
         </li>
         <li>
-          <strong>Only then scale.</strong> Architecture cleanup, performance tuning, hiring
+          <strong>Only then scale.</strong>{" "}
+          Architecture cleanup, performance tuning, hiring
           decisions — the work of scaling AI-generated software. All of it is cheap once the net
           exists and reckless while it doesn&apos;t.
         </li>

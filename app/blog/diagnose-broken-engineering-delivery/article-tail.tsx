@@ -13,6 +13,7 @@ const CTA_HREF = "https://t.me/sg4tech?start=site_blog_metrics";
 // never drift from the articles' own metadata.
 const percentilesPost = getPostBySlug("forecast-delivery-with-percentiles");
 const vibecodingPost = getPostBySlug("vibecoded-mvp-stopped-shipping");
+const finishingPost = getPostBySlug("ai-made-starting-free-finishing-expensive");
 
 // Spokes first (continue reading), then the landings. Excludes any card that
 // points to the same destination as `ArticleCta` above — listing the same
@@ -30,6 +31,11 @@ const relatedLinks = [
     description: vibecodingPost.description
   },
   {
+    href: `/blog/${finishingPost.slug}/`,
+    title: finishingPost.title,
+    description: finishingPost.description
+  },
+  {
     href: "/yii2/",
     title: "Running a Yii2 codebase?",
     description:
@@ -37,7 +43,7 @@ const relatedLinks = [
   },
   {
     href: "/ai-vibecoding/",
-    title: "AI-built MVP that stopped shipping?",
+    title: "The rescue service: AI vibecoding cleanup",
     description:
       "How to add the delivery-system layers AI didn't generate — architecture rules, pipeline guardrails, test coverage."
   }
@@ -66,22 +72,26 @@ function WipSequenceList(): ReactNode {
   return (
     <ul>
       <li>
-        <strong>Make the goal explicit.</strong> The objective is not to start more work. It&apos;s to
+        <strong>Make the goal explicit.</strong>{" "}
+        The objective is not to start more work. It&apos;s to
         finish work that&apos;s already been started. Repeat this regularly. Print it on a sticker. Whatever
         it takes for the framing to land.
       </li>
       <li>
-        <strong>Explain why.</strong> Show the team Little&apos;s Law. Show them the
+        <strong>Explain why.</strong>{" "}
+        Show the team Little&apos;s Law. Show them the
         count-tasks-per-status diagnostic. Make the case from system math, not from authority. People
         follow practices they understand far better than rules they don&apos;t.
       </li>
       <li>
-        <strong>Show real examples.</strong> Reference cases where introducing WIP limits visibly changed
+        <strong>Show real examples.</strong>{" "}
+        Reference cases where introducing WIP limits visibly changed
         the system — your own past teams, posts like this one, war stories from others. Pattern-matching
         does most of the work that exhortation can&apos;t.
       </li>
       <li>
-        <strong>Bring the focus back, often.</strong> Whenever someone is about to pull a new task, ask:
+        <strong>Bring the focus back, often.</strong>{" "}
+        Whenever someone is about to pull a new task, ask:
         &quot;what can you do right now to move existing work to completion?&quot; Help unblock a teammate.
         Run a review. Answer a QA question. Pair on resolving a long-standing merge conflict. The
         team&apos;s instinct is to grab fresh work; the discipline is redirecting that instinct.

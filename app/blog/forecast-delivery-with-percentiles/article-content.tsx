@@ -62,7 +62,8 @@ export function IntroSection(): ReactNode {
   return (
     <p>
       Once a team starts measuring delivery — the{" "}
-      <Link href={PILLAR_HREF}>metrics that show where it actually breaks</Link> — the next question
+      <Link href={PILLAR_HREF}>metrics that show where it actually breaks</Link>{" "}
+      — the next question
       from founders is always the same: given all this data, when can we promise something? Almost
       everyone answers with an average. It&apos;s the worst available number for the job.
     </p>
@@ -280,7 +281,8 @@ export function SectionPredictability(): ReactNode {
       <p>
         And a tight spread isn&apos;t luck. It comes from controlled work in progress: high WIP builds
         long queues, long queues create the long tail, and the tail is what pushes the mean above the
-        median — so <Link href={PILLAR_HREF}>controlling WIP</Link> tightens the distribution on its
+        median — so <Link href={PILLAR_HREF}>controlling WIP</Link>{" "}
+        tightens the distribution on its
         own. None of this needs a new tool; Jira&apos;s Control Chart shows mean, median, and
         percentiles from data you already have.
       </p>

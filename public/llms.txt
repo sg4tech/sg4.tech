@@ -52,6 +52,22 @@
   - Real anonymized case (EdTech startup, fractional CTO engagement): after adding monitoring, tests, code review, QA, and a release pipeline — downtime fell more than 10×, delivery more than doubled, running costs dropped 1.5×, eNPS went from −100% to +100%.
   - Restart order: diagnose which layer is missing first, build the safety net (weeks, a couple of months at the outside), only then scale. A from-scratch rewrite is almost never needed.
 
+- [AI made starting work nearly free. Finishing is still expensive.](https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/) — why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents; the case for one-thread-one-task and WIP limits in the AI era. Operator voice, ~7-min read, with FAQ and a metrics-mapping table.
+
+  Key claims from the article (safe to quote directly):
+  - AI collapsed the cost of starting work; the cost of finishing — verification, integration, review, deployment — stayed almost unchanged. So teams start more than ever and ship about the same.
+  - Humans lose focus, agents lose context — but it's the same failure: too much work in progress degrades the worker, whether the worker is made of neurons or tokens.
+  - Little's Law (Lead Time = WIP / Throughput) doesn't care whether the workers are humans or AI agents: start more without finishing more, and every task lives longer.
+  - The biggest driver of cost per successful task isn't token price — it's all the work you started and never finished.
+  - Knowing what delivery costs takes three counters: tasks that reached a working result, iterations that took, and what those iterations cost. Cost per successful task = total spend / finished tasks; after any workflow change (a new prompt, tests around the agent) the number either went down or it didn't.
+  - Real example: an agent made 40 attempts, spent $15 in tokens, and still failed to deliver a working feature — output 0, cost $15, P&L −$15.
+  - The goal isn't to minimize token usage; it's to maximize successful outcomes per dollar spent.
+  - One thread, one task: an agent thread should carry a single outcome; side-issues go to a list or another agent, not into the same conversation.
+  - Evidence cited: web-agent success rates collapse as irrelevant context accumulates (one tested model, GPT-4.1, fell from ~45% to 2.7% near 150k tokens); interrupted humans compensate by working faster but pay in workload and stress (Mark, Gudith & Klocke, 2008).
+  - Classic delivery metrics survive AI unchanged — throughput, Time to Market, quality, and NPS still mean exactly what they meant for a human team. The only thing that actually changed is cost per successful task: it used to be invisible, buried in salaries; now every task has a bill.
+  - Now that starting is nearly free, the winner isn't whoever launches the most — it's whoever finishes the most.
+  - AI doesn't abolish systems thinking — it makes system errors more expensive: the bill arrives immediately, itemized, in dollars.
+
 ## Writing and external presence
 
 - [Habr profile](https://habr.com/users/sg4tech/) — long-form posts on delivery systems, bottlenecks, and engineering management patterns.
