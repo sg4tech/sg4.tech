@@ -105,7 +105,8 @@ export function SectionCostVisible(): ReactNode {
       </p>
       <p>
         Here&apos;s what it looks like in practice. An agent made 40 attempts, spent $15 in
-        tokens, and still failed to deliver a working feature. The loop behind that bill is
+        tokens, and still failed to deliver a working feature. Now multiply that by every task
+        your team runs in a month. The loop behind that bill is
         familiar to anyone who runs agents on real work: an attempt. Almost works. One more
         attempt. A bit better. Then something breaks, the context slips, you start fixing — and it
         gets worse. Somewhere around there you see it clearly: one &ldquo;task&rdquo; is rarely
@@ -250,7 +251,8 @@ export function SectionParallelTasks(): ReactNode {
         <a href={LONG_CONTEXT_STUDY_HREF} target="_blank" rel="noreferrer">
           study of web agents on long-context tasks
         </a>{" "}
-        found that performance collapses as irrelevant history accumulates in the context — exactly
+        (Chung et al.) found that performance collapses as irrelevant history accumulates in the
+        context — exactly
         what a multi-task thread produces. With noise built up toward 150,000 tokens, success rates
         fell from 40–50% to single digits for some of the models tested — GPT-4.1 dropped from
         roughly 45% to 2.7%.
