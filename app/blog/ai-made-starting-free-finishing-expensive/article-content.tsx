@@ -55,8 +55,8 @@ export function ArticleHeader({
       </div>
       <p className={styles.lede}>
         Teams with AI agents start more work than ever and ship about the same. The entry got
-        cheap; verification, integration, and shipping didn&apos;t. Here&apos;s where the work
-        actually goes — and the discipline that gets it moving again.
+        cheap; verification, integration, and shipping didn&apos;t. The way out is an old
+        discipline: limit work in progress and count finished work, not started.
       </p>
     </header>
   );
@@ -82,7 +82,12 @@ export function IntroSection(): ReactNode {
       </p>
       <p>
         This isn&apos;t a tooling problem, and better prompts won&apos;t fix it. It&apos;s an old
-        flow problem, amplified by new tools. Let me show you where the work actually goes.
+        flow problem, amplified by new tools — and the fix is old too:{" "}
+        <strong>
+          limit work in progress and optimize for finishing, not starting. The winner isn&apos;t
+          whoever launches the most — it&apos;s whoever finishes the most.
+        </strong>{" "}
+        The rest of this article is the case for that claim: first in money, then in mechanics.
       </p>
     </>
   );
@@ -315,7 +320,10 @@ export function SectionConstraintMoved(): ReactNode {
   return (
     <>
       <h2 id="constraint">The constraint has moved — make sure you follow it</h2>
-      <p>One more consequence — for AI-heavy startups, the most important one.</p>
+      <p>
+        If you buy the thesis — finish over start — one more consequence follows, and for AI-heavy
+        startups it&apos;s the most important one.
+      </p>
       <p>
         For a solo founder or a tiny team with disciplined AI use, writing code has almost stopped
         being the constraint. Iterations are cheap compared to the cost of unfinished work; the
