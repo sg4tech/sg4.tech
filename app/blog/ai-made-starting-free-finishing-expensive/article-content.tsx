@@ -160,35 +160,33 @@ function MetricsTable(): ReactNode {
       <thead>
         <tr>
           <th>Metric</th>
-          <th>Classic team</th>
-          <th>AI-assisted work</th>
+          <th>What changes with AI agents</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Throughput</th>
-          <td>Tasks shipped per period</td>
-          <td>Tasks that reached production, not tasks generated</td>
+          <th>Throughput — tasks shipped per period</th>
+          <td>Nothing. Production counts, not generation.</td>
         </tr>
         <tr>
-          <th>Time to Market</th>
-          <td>From idea to release</td>
-          <td>From prompt to working result in users&apos; hands</td>
+          <th>Time to Market — from idea to working result</th>
+          <td>Nothing. The clock still runs to production.</td>
         </tr>
         <tr>
-          <th>Quality</th>
-          <td>Defects and rework after release</td>
-          <td>Share of output usable without rework</td>
+          <th>Quality — work usable without rework</th>
+          <td>Nothing. Rework is still what eats you.</td>
         </tr>
         <tr>
-          <th>NPS</th>
-          <td>Whether users value what shipped</td>
-          <td>Whether the result creates value at all</td>
+          <th>NPS — whether the result creates value</th>
+          <td>Nothing. Value is still the point.</td>
         </tr>
         <tr>
-          <th>Cost per successful task</th>
-          <td>Invisible — buried in fixed salaries</td>
-          <td>Total spend divided by tasks that reached a working state</td>
+          <th>Cost per successful task — total spend ÷ finished tasks</th>
+          <td>
+            <strong>
+              Everything. It used to be invisible, buried in salaries. Now every task has a bill.
+            </strong>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -201,8 +199,8 @@ export function SectionMetricsSurvive(): ReactNode {
       <h2 id="metrics">Your delivery metrics still apply to AI-assisted work</h2>
       <p>
         If you&apos;ve read <Link href={PILLAR_HREF}>how I diagnose delivery systems</Link>, the
-        frame here is the same. Every metric that described a human team has a direct equivalent in
-        AI-assisted work:
+        frame here is the same. Every metric that described a human team still applies. Only one
+        thing actually changed:
       </p>
       <MetricsTable />
       <p>

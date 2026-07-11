@@ -24,7 +24,7 @@ const relatedLinks = [
   },
   {
     href: "/ai-vibecoding/",
-    title: "AI-built MVP that stopped shipping?",
+    title: "The rescue service: AI vibecoding cleanup",
     description:
       "Adding the delivery-system layers AI didn't generate — architecture rules, pipeline guardrails, test coverage."
   }
