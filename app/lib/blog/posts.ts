@@ -70,8 +70,8 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     title: "AI made starting work nearly free. Finishing is still expensive.",
     description:
       "Why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents. A fractional CTO's case for one-thread-one-task and WIP limits in the AI era.",
-    publishedAt: "2026-07-10",
-    modifiedAt: "2026-07-10",
+    publishedAt: "2026-07-11",
+    modifiedAt: "2026-07-11",
     readingMinutes: 7,
     tags: ["AI-assisted delivery", "WIP", "Little's Law", "context switching", "delivery metrics"]
   }

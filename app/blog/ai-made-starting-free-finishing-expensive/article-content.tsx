@@ -104,7 +104,7 @@ export function SectionCostVisible(): ReactNode {
         familiar to anyone who runs agents on real work: an attempt. Almost works. One more
         attempt. A bit better. Then something breaks, the context slips, you start fixing — and it
         gets worse. Somewhere around there you see it clearly: one &ldquo;task&rdquo; is rarely
-        one action. It&apos;s a dozen iterations — attempts, corrections, dead ends — and you pay
+        one action. It&apos;s dozens of iterations — attempts, corrections, dead ends — and you pay
         for every one of them, including the ones you throw away.
       </p>
       <figure className={styles.figure}>
