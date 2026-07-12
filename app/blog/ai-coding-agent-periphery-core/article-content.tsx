@@ -187,9 +187,10 @@ export function SectionRule(): ReactNode {
     <>
       <h2 id="rule">The periphery-vs-core rule</h2>
       <p>
-        The agent covers the <strong>periphery</strong>: routine work, supporting tasks, navigating
-        unfamiliar code, artifacts. The <strong>core</strong>, where a mistake is measured in money
-        and users, stays with humans.
+        The pattern is simple. The agent covers the <strong>periphery</strong> around development:
+        routine work, supporting tasks, navigating unfamiliar code, artifacts — everything with high
+        volume but a relatively low cost of error. The <strong>core</strong>, where the cost of error
+        is measured in money and users, stays with humans.
       </p>
       <figure className={styles.figure}>
         <Image
@@ -205,20 +206,8 @@ export function SectionRule(): ReactNode {
         </figcaption>
       </figure>
       <p>
-        What decides which side a task falls on isn&apos;t difficulty — it&apos;s the cost of error.
-        The periphery is safe not because the work is easy, but because a mistake there is cheap to
-        catch and cheap to undo. Cross into work where an error is expensive and hard to reverse, and
-        you&apos;re at the core, where a human has to own the call.
-      </p>
-      <p className={styles.pullquote}>
-        The line isn&apos;t difficulty. It&apos;s the cost of error: give the agent the work
-        that&apos;s cheap to undo.
-      </p>
-      <p>
-        Which quietly changes the job. Engineers used to spend hours searching for information and
-        grinding through routine; now that&apos;s largely covered, and the scarce, valuable work is
-        the decision — what to build, and where the cost of error is high enough that a person has to
-        sign off.
+        Engineers used to spend hours searching for information and grinding through routine. Now the
+        main job is making the right engineering decision.
       </p>
     </>
   );
