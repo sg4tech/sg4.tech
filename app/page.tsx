@@ -24,6 +24,7 @@ import { MarkList } from "./components/MarkList";
 import { Page } from "./components/Page";
 import { Section } from "./components/Section";
 import { SectionHeader } from "./components/SectionHeader";
+import { ResultsCaption } from "./components/ResultsCaption";
 import { Stat } from "./components/Stat";
 import { StatementCta } from "./components/StatementCta";
 import { Steps } from "./components/Steps";
@@ -418,6 +419,7 @@ function HeroSection() {
             );
           })}
         </ul>
+        <ResultsCaption />
       </div>
     </section>
   );

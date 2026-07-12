@@ -31,6 +31,7 @@ import { SiteFooter } from "../components/SiteFooter";
 import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
+import { ResultsCaption } from "../components/ResultsCaption";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { Stat } from "../components/Stat";
@@ -483,6 +484,7 @@ const whyMePoints: WhyMePoint[] = [
             <span className={styles.outcomeChip}>eNPS −100→100</span>
           </div>
         </div>
+        <ResultsCaption />
       </div>
     )
   },

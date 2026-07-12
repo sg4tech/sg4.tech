@@ -1,0 +1,7 @@
+.caption {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
+}

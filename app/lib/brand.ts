@@ -10,6 +10,14 @@ export const BRAND_NAME = "sg4.tech";
 
 export const BRAND_COPYRIGHT = "© 2026 Victor Demin";
 
+// Short proximate disclaimer rendered directly under the quantified stat blocks
+// on the landings (home hero, /yii2, /ai-vibecoding). Complements — does not
+// replace — the fuller "Results" fine print in the footer: proximity to the
+// claim is what makes the disclosure effective. Single source so all three read
+// identically.
+export const RESULTS_CAPTION =
+  "Historical results from specific roles and projects. Actual outcomes vary and are not guaranteed.";
+
 export const footerLinks: FooterLink[] = [
   { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/victor-demin/", iconPath: LINKEDIN_SVG_PATH },
