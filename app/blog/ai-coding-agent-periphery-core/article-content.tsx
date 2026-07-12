@@ -83,7 +83,8 @@ export function IntroSection(): ReactNode {
         some projects slide into chaos. That&apos;s solvable, and it&apos;s a lot of what I do; I
         wrote about <Link href={RESCUE_HREF}>the rescue path</Link>{" "}
         separately. That&apos;s the
-        founder&apos;s version — the hard part starts one scale up, inside a company.
+        founder&apos;s version. The harder, less-charted problem is one scale up, inside a company —
+        and that&apos;s where this piece goes.
       </p>
     </>
   );
