@@ -12,7 +12,10 @@ export function TopNavigation({ items, ariaLabel }: TopNavigationProps) {
     <nav className={styles.nav} aria-label={ariaLabel}>
       <div className={styles.navInner}>
         <Link href="/" className={styles.brand}>
-          Victor Demin
+          <span aria-hidden className={styles.brandMark} />
+          <span>
+            Victor Demin<span aria-hidden className={styles.brandDot}>.</span>
+          </span>
         </Link>
         <div className={styles.navLinks}>
           {items.map((item) => (
