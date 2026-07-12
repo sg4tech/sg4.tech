@@ -70,12 +70,12 @@ const faqItems = [
   {
     question: "Can non-technical founders really ship products with AI coding agents?",
     answer:
-      "Yes — the limit isn't building anymore, it's knowing what to build and keeping the project from sliding into unmaintainable chaos. Founders regularly ship real products this way; the failure mode is neglected structure, not missing code.",
+      "Yes — the limit isn't building anymore, it's knowing what to build and keeping the codebase maintainable as it grows. Founders regularly ship real products this way; the failure mode is neglected structure, not missing code.",
     answerNode: (
       <p>
         Yes — the limit isn&apos;t building anymore, it&apos;s knowing what to build and keeping the
-        project from sliding into unmaintainable chaos. Founders regularly ship real products this
-        way; the failure mode is neglected structure, not missing code.
+        codebase maintainable as it grows. Founders regularly ship real products this way; the
+        failure mode is neglected structure, not missing code.
       </p>
     )
   }

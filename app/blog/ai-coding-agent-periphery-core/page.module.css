@@ -144,20 +144,6 @@
   margin-top: 0;
 }
 
-/* `.body > .pullquote` (specificity 0,2,0) beats `.body > p` (0,1,1) when the
-   pullquote renders as <p>. */
-.body > .pullquote {
-  margin: var(--space-3) 0 0;
-  padding: var(--space-2) var(--space-3);
-  border-left: 3px solid var(--accent);
-  background: var(--surface-alt);
-  color: var(--text-strong);
-  font-size: var(--text-xl);
-  line-height: var(--leading-relaxed);
-  font-weight: 600;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
 .related {
   margin: var(--space-4) 0 0;
   padding: var(--space-3);

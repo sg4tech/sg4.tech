@@ -152,7 +152,7 @@ export function SectionWhatWorks(): ReactNode {
           <strong>Development support</strong>{" "}
           — the tools and automations nobody ever had time for: metric collection, data exports from
           Jira and GitLab, agent skills for repetitive work like standard integrations. Not the core
-          product where code quality is critical — the stuff there was never time for.
+          product where code quality is critical.
         </li>
         <li>
           <strong>Artifacts around the code</strong>{" "}
