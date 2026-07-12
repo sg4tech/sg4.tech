@@ -16,7 +16,8 @@ export const POST_SLUGS = [
   "diagnose-broken-engineering-delivery",
   "forecast-delivery-with-percentiles",
   "vibecoded-mvp-stopped-shipping",
-  "ai-made-starting-free-finishing-expensive"
+  "ai-made-starting-free-finishing-expensive",
+  "ai-coding-agent-periphery-core"
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
@@ -74,6 +75,16 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     modifiedAt: "2026-07-11",
     readingMinutes: 7,
     tags: ["AI-assisted delivery", "WIP", "Little's Law", "context switching", "delivery metrics"]
+  },
+  {
+    slug: "ai-coding-agent-periphery-core",
+    title: "AI coding agents: give them the periphery, keep humans on the core",
+    description:
+      "AI coding agents are brilliant at some work and dangerous at other work. A fractional CTO's rule for what to delegate — give them the periphery, keep humans on the core — with the enterprise access problem and where agents actually earn their place.",
+    publishedAt: "2026-07-12",
+    modifiedAt: "2026-07-12",
+    readingMinutes: 5,
+    tags: ["AI coding agents", "enterprise AI", "self-hosted AI", "engineering delivery"]
   }
 ];
 
