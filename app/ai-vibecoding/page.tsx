@@ -27,7 +27,7 @@ import Link from "next/link";
 import { siHabr } from "simple-icons";
 import { Eyebrow } from "../components/Eyebrow";
 import { FaqSection } from "../components/FaqSection";
-import { FooterSection } from "../components/FooterSection";
+import { SiteFooter } from "../components/SiteFooter";
 import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
@@ -38,7 +38,7 @@ import { StatementCta } from "../components/StatementCta";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL } from "../lib/brand";
+import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
 import { getPostBySlug } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
 import landing from "../styles/landing.module.css";
@@ -623,7 +623,7 @@ export default function AiVibecodingPage() {
       <FaqSection items={faqItems} />
       <WhoNotForSection />
       <FinalCtaSection />
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
+      <SiteFooter />
     </Page>
   );
 }

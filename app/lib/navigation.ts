@@ -23,3 +23,14 @@ export type FooterDisclaimer = {
   label: string;
   body: string;
 };
+
+// Cross-page site navigation shared by the content pages (privacy + blog posts),
+// rendered via <SiteNav />. Landing pages define their own in-page section-anchor
+// nav inline; the blog index omits its own self-link, so both keep passing items
+// to TopNavigation directly rather than using this set.
+export const siteNavigationItems: NavigationItem[] = [
+  { href: "/", label: "Home", mobileNav: "primary" },
+  { href: "/blog/", label: "Blog", mobileNav: "primary" },
+  { href: "/yii2/", label: "Yii2", mobileNav: "secondary" },
+  { href: "/ai-vibecoding/", label: "AI vibecoding", mobileNav: "secondary" }
+];
