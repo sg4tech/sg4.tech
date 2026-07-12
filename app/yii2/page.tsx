@@ -31,6 +31,7 @@ import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
+import { ResultsCaption } from "../components/ResultsCaption";
 import { SectionHeader } from "../components/SectionHeader";
 import { Stat } from "../components/Stat";
 import { StatementCta } from "../components/StatementCta";
@@ -453,13 +454,16 @@ function ProcessVisual() {
 
 function HeroMetricList() {
   return (
-    <ul className={landing.metricList} aria-label="Key outcomes">
-      {credibilityMetrics.map((item) => (
-        <li key={item.caption}>
-          <Stat figure={item.number} icon={item.icon} label={item.caption} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={landing.metricList} aria-label="Key outcomes">
+        {credibilityMetrics.map((item) => (
+          <li key={item.caption}>
+            <Stat figure={item.number} icon={item.icon} label={item.caption} />
+          </li>
+        ))}
+      </ul>
+      <ResultsCaption />
+    </>
   );
 }
 
