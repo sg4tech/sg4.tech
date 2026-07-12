@@ -30,7 +30,7 @@ import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, legalLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -654,7 +654,7 @@ export default function HomePage() {
       <InsightsSection />
       <FaqSection items={faqItems} />
       <FinalCtaSection />
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} />
+      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
     </Page>
   );
 }

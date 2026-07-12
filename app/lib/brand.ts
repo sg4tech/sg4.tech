@@ -1,4 +1,4 @@
-import type { FooterLink, LegalLink } from "./navigation";
+import type { FooterDisclaimer, FooterLink, LegalLink } from "./navigation";
 import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-icons";
 
 // Single source of truth for the brand's canonical site URL and short name.
@@ -20,6 +20,25 @@ export const footerLinks: FooterLink[] = [
 // trailing-slash paths to match next.config trailingSlash: true (the slash-less
 // form 301-redirects, so linking the final URL avoids a redirect hop).
 export const legalLinks: LegalLink[] = [{ label: "Privacy", href: "/privacy/" }];
+
+// Site-wide fine-print disclaimers rendered at the foot of every page. Kept as
+// footer fine print (not a standalone page) on purpose — light-touch legal
+// cover for the quantified case results, the informational blog content, and
+// the third-party logos/employer references shown across the site.
+export const footerDisclaimers: FooterDisclaimer[] = [
+  {
+    label: "Results",
+    body: "Results shown on this website are historical examples from specific roles and projects. They do not guarantee similar outcomes for future clients. Actual results depend on the organization, team, product, starting conditions, available data, and implementation."
+  },
+  {
+    label: "Professional information",
+    body: "Materials published on this website are provided for general informational purposes. They do not constitute technical, security, legal, financial, or other professional advice for any particular situation."
+  },
+  {
+    label: "Trademarks",
+    body: "Company names, logos, and trademarks belong to their respective owners. References to former employers and clients describe Victor Demin's professional experience and do not imply endorsement, partnership, or current affiliation."
+  }
+];
 
 // Canonical entity facts for Victor Demin — the single source of truth for the
 // on-site JSON-LD below AND the copy that should appear verbatim on off-site

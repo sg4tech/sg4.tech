@@ -5,7 +5,7 @@ import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, legalLinks, personSchema, SITE_URL } from "../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL } from "../lib/brand";
 import { blogPosts, formatPostDate } from "../lib/blog/posts";
 import type { NavigationItem } from "../lib/navigation";
 import styles from "./page.module.css";
@@ -110,7 +110,7 @@ export default function BlogIndexPage() {
           ))}
         </ul>
       </Section>
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} />
+      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
     </Page>
   );
 }
