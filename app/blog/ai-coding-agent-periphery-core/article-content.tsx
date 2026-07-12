@@ -173,10 +173,10 @@ export function SectionWhatNot(): ReactNode {
       <h2 id="what-not">What AI coding agents shouldn&apos;t own</h2>
       <p>
         <strong>End-to-end development of anything that matters.</strong>{" "}
-        In a startup, handing a whole feature to the agent already partly works. In high-load
-        production — real traffic,
-        live users, money on the line — it isn&apos;t a good idea yet. Does it speed things up? Yes.
-        Does it replace a senior developer? No.
+        Money, blockchains, high-load systems, core architecture — anywhere a mistake is easy to make
+        and expensive to reverse. In a startup, handing a whole feature to the agent already partly
+        works; in production, with real traffic and real money on the line, it isn&apos;t a good idea
+        yet. Does it speed things up? Yes. Does it replace a senior developer? No.
       </p>
     </>
   );
