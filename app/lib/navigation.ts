@@ -9,3 +9,10 @@ export type FooterLink = {
   href: string;
   iconPath: string;
 };
+
+// Internal legal/utility links (Privacy, etc.). No icon and no target="_blank" —
+// these stay on-site, unlike the icon-bearing social links in FooterLink.
+export type LegalLink = {
+  label: string;
+  href: string;
+};

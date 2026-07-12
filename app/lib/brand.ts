@@ -1,4 +1,4 @@
-import type { FooterLink } from "./navigation";
+import type { FooterLink, LegalLink } from "./navigation";
 import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-icons";
 
 // Single source of truth for the brand's canonical site URL and short name.
@@ -15,6 +15,11 @@ export const footerLinks: FooterLink[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/victor-demin/", iconPath: LINKEDIN_SVG_PATH },
   { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: TELEGRAM_SVG_PATH }
 ];
+
+// Internal legal links surfaced in the footer alongside the social row. Kept as
+// trailing-slash paths to match next.config trailingSlash: true (the slash-less
+// form 301-redirects, so linking the final URL avoids a redirect hop).
+export const legalLinks: LegalLink[] = [{ label: "Privacy", href: "/privacy/" }];
 
 // Canonical entity facts for Victor Demin — the single source of truth for the
 // on-site JSON-LD below AND the copy that should appear verbatim on off-site

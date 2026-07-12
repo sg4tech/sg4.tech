@@ -11,8 +11,37 @@
   font-size: var(--text-sm);
 }
 
+.footerMeta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .footerCopy {
   margin: 0;
+}
+
+.footerLegal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footerLegal::before {
+  content: "·";
+  color: var(--border-strong);
+}
+
+.footerLegalLink {
+  color: var(--muted);
+  line-height: var(--leading-none);
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.footerLegalLink:hover,
+.footerLegalLink:focus-visible {
+  color: var(--text-strong);
 }
 
 .footerLinks {
