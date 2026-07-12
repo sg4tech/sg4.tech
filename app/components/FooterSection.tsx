@@ -15,6 +15,7 @@ export function FooterSection({ links, copyright, legalLinks, disclaimers }: Foo
     <footer className={styles.footer} aria-label="Footer">
       <div className={styles.footerTop}>
         <div className={styles.footerMeta}>
+          <span aria-hidden className={styles.footerMark} />
           <p className={styles.footerCopy}>{copyright}</p>
           {legalLinks && legalLinks.length > 0 ? (
             <nav className={styles.footerLegal} aria-label="Legal">

@@ -227,13 +227,15 @@
   --space-7: 3.5rem;
   --space-8: 4rem;
 
-  /* ============ Border radii ============ */
-  --radius-xs: 0.75rem;
-  --radius-sm: 0.8rem;
-  --radius-md: 0.9rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.6rem;
+  /* ============ Border radii ============
+     Victor Demin DS scale: tight/technical. UI controls 6–8px,
+     cards 12px, nothing pill-everything. */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
   --radius-pill: 999px;
 
   /* ============ Shadows ============ */
@@ -243,7 +245,10 @@
   /* ============ Motion ============ */
   --duration-fast: 150ms;
   --duration-base: 180ms;
-  --ease-standard: ease;
+  /* Quick & settled (Victor Demin DS): standard for state changes,
+     ease-out for entrances. No bounce, no overshoot. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {

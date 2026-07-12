@@ -20,10 +20,24 @@
 .brand {
   display: inline-flex;
   align-items: center;
+  gap: 0.5rem;
   min-height: 44px;
   font-size: var(--text-md);
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+
+/* SG4 monogram — ink on the light navbar. */
+.brandMark {
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url("/brand/logo-ink.svg") no-repeat center / contain;
+}
+
+/* Brand device: the ember full stop = "this is settled." */
+.brandDot {
+  color: var(--color-primary);
 }
 
 .navLinks {
