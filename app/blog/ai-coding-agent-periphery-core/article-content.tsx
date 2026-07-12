@@ -54,9 +54,9 @@ export function ArticleHeader({
         </div>
       </div>
       <p className={styles.lede}>
-        AI coding agents are brilliant at some work and dangerous at other work, and the line is the
-        same whether you&apos;re a solo founder or a bank: give them the periphery, keep humans on
-        the core. Here&apos;s where they earn their place — and where they don&apos;t.
+        AI coding agents are brilliant at some work and dangerous at other work. Give them the
+        periphery, keep humans on the core — here&apos;s where they earn their place, and where they
+        don&apos;t.
       </p>
     </header>
   );
@@ -68,8 +68,7 @@ export function IntroSection(): ReactNode {
       <p>
         An AI coding agent can find the root cause of a bug in code no one has touched in a year —
         and, the same afternoon, confidently ship one that takes down checkout, if you let it near
-        the core. That&apos;s the whole story in a single afternoon: brilliant on the periphery,
-        dangerous at the core. The line between them is the same at every scale. For a solo founder
+        the core. The gap between those two moments is the same at every scale. For a solo founder
         it&apos;s forgiving; inside a company it&apos;s the whole game.
       </p>
       <p>
@@ -84,8 +83,7 @@ export function IntroSection(): ReactNode {
         some projects slide into chaos. That&apos;s solvable, and it&apos;s a lot of what I do; I
         wrote about <Link href={RESCUE_HREF}>the rescue path</Link>{" "}
         separately. That&apos;s the
-        founder&apos;s version, and it&apos;s mostly a solved problem. The hard part starts one scale
-        up, inside a company.
+        founder&apos;s version — the hard part starts one scale up, inside a company.
       </p>
     </>
   );
@@ -102,11 +100,14 @@ export function SectionBarrier(): ReactNode {
         agents are governed.
       </p>
       <p>
-        The insight that unlocks it: you don&apos;t need to send anything to an outside service. A
-        self-hosted, OpenAI-compatible setup runs the whole thing inside your own perimeter — the
-        agent uses a developer&apos;s own credentials, touches only what that developer already can,
-        and every action is logged. Security stops being the blocker. Standing that stack up is a
-        topic of its own; the point here is that it&apos;s no longer the barrier it was a year ago.
+        The insight that unlocks it: nothing has to leave the building. You can run an
+        OpenAI-compatible API entirely inside your own perimeter — an open-source model like Qwen
+        served through LiteLLM and vLLM, reachable only over the corporate VPN, with an agent like
+        Opencode or Hermes wired into the IDE and MCP servers linking it to Jira, GitLab, Confluence,
+        and the rest of your internal tools. It runs on a developer&apos;s own credentials, touches only what that
+        developer already can, and logs every action for audit. Security stops being the blocker.
+        Standing the full stack up is a topic of its own, but it&apos;s no longer the barrier it was
+        a year ago.
       </p>
       <figure className={styles.figure}>
         <Image
