@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow } from "../../components/Eyebrow";
 import { FaqSection } from "../../components/FaqSection";
-import { FooterSection } from "../../components/FooterSection";
 import { Page } from "../../components/Page";
 import { Section } from "../../components/Section";
-import { TopNavigation } from "../../components/TopNavigation";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL } from "../../lib/brand";
-import type { NavigationItem } from "../../lib/navigation";
+import { SiteFooter } from "../../components/SiteFooter";
+import { SiteNav } from "../../components/SiteNav";
+import { BRAND_NAME, personSchema, SITE_URL } from "../../lib/brand";
 import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/posts";
 import {
   ArticleHeader,
@@ -32,13 +31,6 @@ const POST_URL = `${SITE_URL}/blog/${SLUG}/`;
 // query-matched SERP/index-card title; the H1 carries the essay's voice.
 // Article.headline mirrors the H1 so the schema matches the rendered page.
 const H1_TITLE = "Your vibecoded MVP stopped shipping — like every junior-built codebase before it";
-
-const navigationItems: NavigationItem[] = [
-  { href: "/", label: "Home", mobileNav: "primary" },
-  { href: "/blog/", label: "Blog", mobileNav: "primary" },
-  { href: "/yii2/", label: "Yii2", mobileNav: "secondary" },
-  { href: "/ai-vibecoding/", label: "AI vibecoding", mobileNav: "secondary" }
-];
 
 // FAQ items must not duplicate body content — paraphrased duplication across
 // body + FAQ reads as keyword stuffing to engines indexing the FAQPage schema.
@@ -201,7 +193,7 @@ export default function ArticlePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation items={navigationItems} ariaLabel="Site navigation" />
+      <SiteNav />
       <Section className={styles.article}>
         <Link href="/blog/" className={styles.backLink}>
           ← Blog
@@ -216,7 +208,7 @@ export default function ArticlePage() {
         <ArticleBody />
       </Section>
       <FaqSection items={faqItems} contentWrapperClassName={styles.faqColumn} />
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
+      <SiteFooter />
     </Page>
   );
 }

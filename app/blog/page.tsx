@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FooterSection } from "../components/FooterSection";
+import { SiteFooter } from "../components/SiteFooter";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { TopNavigation } from "../components/TopNavigation";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL } from "../lib/brand";
+import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
 import { blogPosts, formatPostDate } from "../lib/blog/posts";
-import type { NavigationItem } from "../lib/navigation";
+import { siteNavigationItems } from "../lib/navigation";
 import styles from "./page.module.css";
 
-const navigationItems: NavigationItem[] = [
-  { href: "/", label: "Home", mobileNav: "primary" },
-  { href: "/yii2/", label: "Yii2", mobileNav: "secondary" },
-  { href: "/ai-vibecoding/", label: "AI vibecoding", mobileNav: "secondary" }
-];
+// The blog index drops its own "/blog/" self-link but otherwise mirrors the
+// canonical site nav, so derive from siteNavigationItems instead of duplicating
+// it — a new site-nav entry then reaches this page automatically.
+const navigationItems = siteNavigationItems.filter((item) => item.href !== "/blog/");
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -110,7 +109,7 @@ export default function BlogIndexPage() {
           ))}
         </ul>
       </Section>
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
+      <SiteFooter />
     </Page>
   );
 }

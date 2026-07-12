@@ -17,7 +17,7 @@ import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { BrandIcon } from "./components/BrandIcon";
 import { Eyebrow } from "./components/Eyebrow";
 import { FaqSection } from "./components/FaqSection";
-import { FooterSection } from "./components/FooterSection";
+import { SiteFooter } from "./components/SiteFooter";
 import { HeroSignals, type HeroSignal } from "./components/HeroSignals";
 import { Icon } from "./components/Icon";
 import { MarkList } from "./components/MarkList";
@@ -30,7 +30,7 @@ import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
+import { BRAND_NAME, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -654,7 +654,7 @@ export default function HomePage() {
       <InsightsSection />
       <FaqSection items={faqItems} />
       <FinalCtaSection />
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
+      <SiteFooter />
     </Page>
   );
 }
