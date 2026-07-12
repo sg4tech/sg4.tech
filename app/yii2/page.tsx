@@ -37,7 +37,7 @@ import { StatementCta } from "../components/StatementCta";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, personSchema, SITE_URL } from "../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, legalLinks, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import landing from "../styles/landing.module.css";
@@ -674,7 +674,7 @@ export default function Yii2Page() {
       <FaqSection items={faqItems} />
       <ProofSection />
       <FinalCtaSection />
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} />
+      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} />
     </Page>
   );
 }

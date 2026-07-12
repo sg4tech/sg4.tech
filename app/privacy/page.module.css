@@ -1,0 +1,91 @@
+.article {
+  padding: 2.2rem 0 0;
+}
+
+/* Center every direct child in a 42rem reading column so back link → header →
+   body sit on one visual axis, matching the blog article layout. */
+.article > * {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  text-decoration: none;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  color: var(--text-strong);
+}
+
+/* margin-top only (not the `margin: x 0 0` shorthand): the shorthand would set
+   margin-inline: 0 and override `.article > *`'s margin-inline: auto, breaking
+   the centered reading column so the heading escapes to full width. */
+.title {
+  margin-top: var(--space-2);
+  color: var(--text-strong);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.updated {
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.body {
+  max-width: 42rem;
+}
+
+.body > h2 {
+  margin: var(--space-4) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.body > p {
+  margin: var(--space-2) 0 0;
+  color: var(--text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+  text-wrap: pretty;
+}
+
+.body > ul {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.4rem;
+  color: var(--text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+}
+
+.body > ul > li {
+  margin: 0.4rem 0 0;
+}
+
+.body > ul > li:first-child {
+  margin-top: 0;
+}
+
+.body strong {
+  color: var(--text-strong);
+}
+
+.body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
