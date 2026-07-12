@@ -16,3 +16,10 @@ export type LegalLink = {
   label: string;
   href: string;
 };
+
+// Fine-print legal disclaimers rendered as small muted text at the foot of every
+// page. `label` is the bold lead-in; `body` is the running text after it.
+export type FooterDisclaimer = {
+  label: string;
+  body: string;
+};

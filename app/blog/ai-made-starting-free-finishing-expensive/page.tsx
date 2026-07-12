@@ -6,7 +6,7 @@ import { FooterSection } from "../../components/FooterSection";
 import { Page } from "../../components/Page";
 import { Section } from "../../components/Section";
 import { TopNavigation } from "../../components/TopNavigation";
-import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, legalLinks, personSchema, SITE_URL } from "../../lib/brand";
+import { BRAND_COPYRIGHT, BRAND_NAME, footerLinks, footerDisclaimers, legalLinks, personSchema, SITE_URL } from "../../lib/brand";
 import type { NavigationItem } from "../../lib/navigation";
 import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/posts";
 import {
@@ -197,7 +197,7 @@ export default function ArticlePage() {
         <ArticleBody />
       </Section>
       <FaqSection items={faqItems} contentWrapperClassName={styles.faqColumn} />
-      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} />
+      <FooterSection links={footerLinks} copyright={BRAND_COPYRIGHT} legalLinks={legalLinks} disclaimers={footerDisclaimers} />
     </Page>
   );
 }
