@@ -7,7 +7,8 @@
         "http://localhost/yii2/index.html",
         "http://localhost/ai-vibecoding/index.html",
         "http://localhost/blog/index.html",
-        "http://localhost/blog/diagnose-broken-engineering-delivery/index.html"
+        "http://localhost/blog/diagnose-broken-engineering-delivery/index.html",
+        "http://localhost/blog/code-entropy-ci-checks-ai-legacy/index.html"
       ],
       "numberOfRuns": 3,
       "settings": {

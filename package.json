@@ -54,6 +54,7 @@
   "overrides": {
     "tmp": "^0.2.7",
     "compression": "^1.8.2",
-    "basic-ftp": "^6.2.2"
+    "basic-ftp": "^6.2.2",
+    "lighthouse": "^13.5.0"
   }
 }
