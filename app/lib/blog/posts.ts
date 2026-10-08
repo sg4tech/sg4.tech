@@ -17,7 +17,8 @@ export const POST_SLUGS = [
   "forecast-delivery-with-percentiles",
   "vibecoded-mvp-stopped-shipping",
   "ai-made-starting-free-finishing-expensive",
-  "ai-coding-agent-periphery-core"
+  "ai-coding-agent-periphery-core",
+  "code-entropy-ci-checks-ai-legacy"
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
@@ -85,6 +86,16 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     modifiedAt: "2026-07-12",
     readingMinutes: 5,
     tags: ["AI coding agents", "enterprise AI", "self-hosted AI", "engineering delivery"]
+  },
+  {
+    slug: "code-entropy-ci-checks-ai-legacy",
+    title: "Code entropy: how CI checks keep AI from piling up legacy",
+    description:
+      "Code entropy grows on its own, and AI coding agents only speed it up. Seven levels of CI checks, from dead-code detection to architecture contracts, that keep AI-generated code from piling up as legacy, with a tool table for Python, PHP, and JS/TS and a ready-made Python template.",
+    publishedAt: "2026-10-08",
+    modifiedAt: "2026-10-08",
+    readingMinutes: 6,
+    tags: ["AI coding agents", "AI-generated code", "CI guardrails", "code quality", "software architecture"]
   }
 ];
 
