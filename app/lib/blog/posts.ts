@@ -25,6 +25,10 @@ export type PostSlug = (typeof POST_SLUGS)[number];
 type BlogPost = {
   slug: PostSlug;
   title: string;
+  /** Search-result title for the <title> tag when it should name the searched-for topic more
+   * plainly than the on-page headline. Falls back to `title`; H1, Open Graph, and schema
+   * headline always use `title`. */
+  seoTitle?: string;
   description: string;
   /** ISO-8601 date string (YYYY-MM-DD). Used for Article schema datePublished. */
   publishedAt: string;
@@ -90,8 +94,9 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   {
     slug: "code-entropy-ci-checks-ai-legacy",
     title: "Code entropy: how CI checks keep AI from piling up legacy",
+    seoTitle: "How to prevent AI-generated technical debt with CI checks",
     description:
-      "Code entropy grows on its own, and AI coding agents only speed it up. Seven levels of CI checks, from dead-code detection to architecture contracts, that keep AI-generated code from piling up as legacy, with a tool table for Python, PHP, and JS/TS and a ready-made Python template.",
+      "Code entropy grows on its own, and AI coding agents speed it up. Seven levels of CI checks that stop legacy from piling up, with tools for Python, PHP, and JS/TS.",
     publishedAt: "2026-10-08",
     modifiedAt: "2026-10-08",
     readingMinutes: 6,

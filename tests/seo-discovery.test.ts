@@ -92,6 +92,17 @@ describe("canonical metadata", () => {
         /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
       );
     });
+
+    // An optional seoTitle in posts.ts only reaches search results if the
+    // page's <title> reads it; without this, setting it is silently ignored.
+    it(`takes the "${slug}" <title> from seoTitle when set`, () => {
+      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const content = readFileSync(filePath, "utf8");
+
+      expect(content).toMatch(
+        /export const metadata: Metadata = {\s*title: POST\.seoTitle \?\? POST\.title,/
+      );
+    });
   }
 });
 
