@@ -9,6 +9,10 @@ The current product shape:
 
 When adding a new public route, also add it to `lighthouserc.json` so CI guards its performance, accessibility, best-practices, and SEO scores against the 0.95 threshold.
 
+## Toolchain versions
+
+`.nvmrc` is the single source of the Node version; CI and the Pages deploy read it via `node-version-file`. `package.json` `engines` plus `engine-strict` in `.npmrc` make npm refuse to install under a different npm major. Different npm majors resolve `overrides` differently, so a lockfile written by one can be rejected by `npm ci` on the other — keep local npm on the same major as CI.
+
 ## Required checks
 
 Run all checks:
