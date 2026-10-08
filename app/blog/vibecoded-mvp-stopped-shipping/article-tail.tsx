@@ -13,6 +13,7 @@ const CTA_HREF = "https://t.me/sg4tech?start=site_blog_vibecoding";
 // Sibling spoke card comes from the post registry so its title/description
 // never drift from the article's own metadata.
 const finishingPost = getPostBySlug("ai-made-starting-free-finishing-expensive");
+const entropyPost = getPostBySlug("code-entropy-ci-checks-ai-legacy");
 
 const relatedLinks = [
   {
@@ -31,6 +32,11 @@ const relatedLinks = [
     href: `/blog/${finishingPost.slug}/`,
     title: finishingPost.title,
     description: finishingPost.description
+  },
+  {
+    href: `/blog/${entropyPost.slug}/`,
+    title: entropyPost.title,
+    description: entropyPost.description
   }
 ] as const;
 

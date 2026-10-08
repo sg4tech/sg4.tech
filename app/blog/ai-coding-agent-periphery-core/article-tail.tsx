@@ -6,9 +6,12 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getPostBySlug } from "../../lib/blog/posts";
 import styles from "./page.module.css";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_periphery";
+
+const entropyPost = getPostBySlug("code-entropy-ci-checks-ai-legacy");
 
 const relatedLinks = [
   {
@@ -22,6 +25,11 @@ const relatedLinks = [
     title: "Vibecoded MVP stopped shipping?",
     description:
       "When an agent-built codebase reaches the “afraid to change anything” stage — and the junior-developer practices that fix it."
+  },
+  {
+    href: `/blog/${entropyPost.slug}/`,
+    title: entropyPost.title,
+    description: entropyPost.description
   },
   {
     href: "/ai-vibecoding/",
