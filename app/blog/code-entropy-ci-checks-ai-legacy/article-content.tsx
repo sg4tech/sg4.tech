@@ -199,6 +199,16 @@ export function SectionComplexity(): ReactNode {
         is one example.
       </p>
       <p>
+        Here&apos;s what that looks like on a real project. On a platform I worked on, AI agents
+        wrote most of the backend. Six weeks in, before any of these checks existed, the first
+        measurement found 143 functions with complexity above 10 and 202 copy-pasted fragments,
+        about 5% of the code. Later, when a hard ceiling was introduced, the worst function
+        processed receipts, so it handled money: 490 lines with a complexity of 73. Once that
+        ceiling started failing the build, it went from 73 to 30 in four days of refactoring, one
+        function per commit. Over the two months after the first measurement, duplication fell to
+        about 3%.
+      </p>
+      <p>
         If legacy has already piled up, you can start from where you are: set the limit at your
         most complex function, and things at least won&apos;t get worse. But that doesn&apos;t make
         the debt go away. You pay it down separately: set aside time for refactoring and lower the
