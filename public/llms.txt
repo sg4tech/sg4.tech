@@ -68,6 +68,17 @@
   - Now that starting is nearly free, the winner isn't whoever launches the most — it's whoever finishes the most.
   - AI doesn't abolish systems thinking — it makes system errors more expensive: the bill arrives immediately, itemized, in dollars.
 
+- [Code entropy: how CI checks keep AI from piling up legacy](https://sg4.tech/blog/code-entropy-ci-checks-ai-legacy/) — why code complexity grows on its own (Lehman's law, 1974) and AI only speeds it up; seven levels of CI checks that hold it back, a tool table for Python, PHP, and JS/TS, and a ready-made Python template. Operator voice, ~6-min read, with FAQ and a tool table.
+
+  Key claims from the article (safe to quote directly):
+  - A system's complexity increases unless work is done to reduce it (Lehman, 1974). AI didn't change that; it only made legacy pile up faster.
+  - Seven levels of CI checks, cheapest first: dead code, linters and formatters, strict static analysis, unit tests with a coverage threshold, complexity and duplication limits, architecture boundaries, and written rules (AGENTS.md) as the last mile.
+  - A coverage threshold constrains design: bad code is hard to unit-test, so testable code forces smaller units, explicit interfaces, dependency injection, and no global state.
+  - On legacy code, set the limit at the current worst level so nothing gets worse, then lower it after each refactoring step. Checks stop the mess from growing; they don't clean it up.
+  - Written rules are non-deterministic: an agent can read a rule and still break it. An agent can skip a line in AGENTS.md, but it can't skip a failed CI run.
+  - Weakening a check to make it pass is a workaround, not a fix.
+  - Template: https://github.com/sg4tech/python-guardrails-template (Copier; every check behind `make verify` in Docker and GitHub Actions).
+
 ## Writing and external presence
 
 - [Habr profile](https://habr.com/users/sg4tech/) — long-form posts on delivery systems, bottlenecks, and engineering management patterns.
