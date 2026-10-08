@@ -17,6 +17,7 @@ const TEMPLATE_HREF = "https://github.com/sg4tech/python-guardrails-template";
 const LEHMAN_HREF = "https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution";
 const HOARE_HREF = "https://everythingsysadmin.com/2009/01/tony-hoare-apologizes-for-inve.html";
 const HARNESS_HREF = "https://www.harness.io/blog/10-exception-types-in-production-java-applications";
+const PLAYBOOK_URL = "https://sg4.tech/blog/code-entropy-ci-checks-ai-legacy/playbook.md";
 const MILLER_HREF = "https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two";
 
 type ArticleHeaderProps = {
@@ -294,6 +295,11 @@ export function SectionToolTable(): ReactNode {
           ))}
         </tbody>
       </table>
+      <p>
+        There&apos;s also a step-by-step version of this post written for coding agents: the{" "}
+        <a href={PLAYBOOK_URL}>CI guardrails playbook</a>. To apply it to a repository, tell your
+        agent: <em>Apply {PLAYBOOK_URL} to this repository.</em>
+      </p>
     </>
   );
 }
