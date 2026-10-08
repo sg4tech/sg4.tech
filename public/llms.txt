@@ -78,6 +78,7 @@
   - Written rules are non-deterministic: an agent can read a rule and still break it. An agent can skip a line in AGENTS.md, but it can't skip a failed CI run.
   - Weakening a check to make it pass is a workaround, not a fix.
   - Template: https://github.com/sg4tech/python-guardrails-template (Copier; every check behind `make verify` in Docker and GitHub Actions).
+  - Agent playbook (step-by-step, markdown): https://sg4.tech/blog/code-entropy-ci-checks-ai-legacy/playbook.md
 
 ## Writing and external presence
 
