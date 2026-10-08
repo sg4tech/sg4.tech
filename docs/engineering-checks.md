@@ -33,7 +33,7 @@ npm run build
 ## What each check covers
 
 - `lint`: ESLint rules for code quality and maintainability
-- `security:audit`: dependency vulnerability audit via `npm audit`
+- `security:audit`: dependency vulnerability audit via `npm audit`, failing on high and critical advisories. Advisories with no patched release and no reachable path can be excepted in `audit-allowlist.json`, each with a reason and an expiry date; an expired entry, or one the audit no longer reports, fails the check until it is renewed or removed
 - `security:code`: static security linting via `eslint-plugin-security`
 - `typecheck`: standalone TypeScript verification
 - `test`: automated tests via `vitest`
