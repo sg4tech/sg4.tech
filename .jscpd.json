@@ -1,0 +1,10 @@
+{
+  "path": ["app"],
+  "ignore": ["**/*.d.ts"],
+  "min-lines": 8,
+  "min-tokens": 60,
+  "threshold": 21,
+  "reporters": ["console"],
+  "gitignore": true,
+  "absolute": false
+}

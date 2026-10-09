@@ -44,6 +44,9 @@ jobs:
       - name: Dependency cruiser
         run: npm run depcruise
 
+      - name: Copy-paste (jscpd)
+        run: npm run jscpd
+
       - name: Build
         run: npm run build
 
