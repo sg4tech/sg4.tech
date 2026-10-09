@@ -54,6 +54,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   {
     slug: "forecast-delivery-with-percentiles",
     title: "Average lead time is lying to you — how to forecast delivery with percentiles",
+    seoTitle: "Average lead time is lying: forecast with percentiles",
     description:
       "Average lead time hides what your delivery system actually does. A fractional CTO's guide to median, spread, and p95 forecasting — how to commit to delivery dates you can hit instead of estimates that keep slipping.",
     publishedAt: "2026-05-29",
