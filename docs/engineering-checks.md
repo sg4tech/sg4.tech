@@ -31,6 +31,7 @@ npm run typecheck
 npm run test
 npm run knip
 npm run depcruise
+npm run jscpd
 npm run build
 ```
 
@@ -43,6 +44,7 @@ npm run build
 - `test`: automated tests via `vitest`
 - `knip`: unused files, exports, and dependency detection
 - `depcruise`: cycle detection and layer boundaries under `app/` — `lib/` imports only `lib/`; `components/` and `_og/` import only shared layers; a route imports shared layers and its own folder, never another route. The layer map lives in `.dependency-cruiser.cjs`
+- `jscpd`: copy-paste detection under `app/`, failing when the share of duplicated lines exceeds the threshold in `.jscpd.json`. The threshold was set at the measured level when the check was added; lower it after each refactoring step, never raise it
 - `build`: production build verification
 
 ## Local prod-build smoke
