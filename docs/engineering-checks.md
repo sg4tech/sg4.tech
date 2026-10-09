@@ -42,7 +42,7 @@ npm run build
 - `typecheck`: standalone TypeScript verification
 - `test`: automated tests via `vitest`
 - `knip`: unused files, exports, and dependency detection
-- `depcruise`: dependency graph rules and cycle detection
+- `depcruise`: cycle detection and layer boundaries under `app/` — `lib/` imports only `lib/`; `components/` and `_og/` import only shared layers; a route imports shared layers and its own folder, never another route. The layer map lives in `.dependency-cruiser.cjs`
 - `build`: production build verification
 
 ## Local prod-build smoke
