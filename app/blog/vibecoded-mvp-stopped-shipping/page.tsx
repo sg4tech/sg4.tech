@@ -147,7 +147,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: POST.seoTitle ?? POST.title,
+  title: { absolute: POST.seoTitle ?? POST.title },
   description: POST.description,
   alternates: {
     canonical: `/blog/${SLUG}/`

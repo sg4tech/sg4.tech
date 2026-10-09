@@ -95,12 +95,14 @@ describe("canonical metadata", () => {
 
     // An optional seoTitle in posts.ts only reaches search results if the
     // page's <title> reads it; without this, setting it is silently ignored.
-    it(`takes the "${slug}" <title> from seoTitle when set`, () => {
+    // Post titles are absolute: the site-wide " | Victor Demin" suffix would
+    // push them past the length search engines show.
+    it(`takes the "${slug}" <title> from seoTitle when set, without the site suffix`, () => {
       const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toMatch(
-        /export const metadata: Metadata = {\s*title: POST\.seoTitle \?\? POST\.title,/
+        /export const metadata: Metadata = {\s*title: { absolute: POST\.seoTitle \?\? POST\.title },/
       );
     });
   }
