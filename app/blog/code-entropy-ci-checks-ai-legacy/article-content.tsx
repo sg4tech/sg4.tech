@@ -7,7 +7,6 @@
 // language → checks beat written rules because an agent can't skip a red build
 // → a ready-made Python template that bundles all of it.
 
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
@@ -20,48 +19,12 @@ const HARNESS_HREF = "https://www.harness.io/blog/10-exception-types-in-producti
 const PLAYBOOK_URL = "https://sg4.tech/blog/code-entropy-ci-checks-ai-legacy/playbook.md";
 const MILLER_HREF = "https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two";
 
-type ArticleHeaderProps = {
-  title: string;
-  publishedAt: string;
-  readingMinutes: number;
-  formattedDate: string;
-};
-
-export function ArticleHeader({
-  title,
-  publishedAt,
-  readingMinutes,
-  formattedDate
-}: ArticleHeaderProps): ReactNode {
+export function ArticleLede(): ReactNode {
   return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.byline}>
-        <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
-          width={40}
-          height={40}
-          className={styles.bylineAvatar}
-          unoptimized
-        />
-        <div className={styles.bylineMeta}>
-          <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
-          </p>
-          <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </p>
-        </div>
-      </div>
-      <p className={styles.lede}>
-        AI didn&apos;t change the law that code complexity grows on its own — it just sped it up.
-        Here are seven levels of CI checks that stop legacy from piling up, in the order I add them.
-      </p>
-    </header>
+    <>
+      AI didn&apos;t change the law that code complexity grows on its own — it just sped it up.
+      Here are seven levels of CI checks that stop legacy from piling up, in the order I add them.
+    </>
   );
 }
 

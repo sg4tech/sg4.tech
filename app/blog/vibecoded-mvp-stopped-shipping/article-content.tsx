@@ -7,7 +7,6 @@
 // sequence. Prose approved by Viktor in
 // docs/private/writing-drafts/vibecoded-mvp-junior-codebase-draft.md.
 
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
@@ -21,49 +20,13 @@ const CONVERGED_HREF =
 const VERACODE_HREF = "https://www.veracode.com/resources/analyst-reports/2025-genai-code-security-report/";
 const AGENTS_MD_HREF = "https://agents.md";
 
-type ArticleHeaderProps = {
-  title: string;
-  publishedAt: string;
-  readingMinutes: number;
-  formattedDate: string;
-};
-
-export function ArticleHeader({
-  title,
-  publishedAt,
-  readingMinutes,
-  formattedDate
-}: ArticleHeaderProps): ReactNode {
+export function ArticleLede(): ReactNode {
   return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.byline}>
-        <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
-          width={40}
-          height={40}
-          className={styles.bylineAvatar}
-          unoptimized
-        />
-        <div className={styles.bylineMeta}>
-          <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
-          </p>
-          <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </p>
-        </div>
-      </div>
-      <p className={styles.lede}>
-        A vibecoded MVP stalls for the same reason a team of junior developers without a senior
-        stalls: code gets written fast, nothing catches mistakes before they reach production, and
-        every next change quietly breaks the last one.
-      </p>
-    </header>
+    <>
+      A vibecoded MVP stalls for the same reason a team of junior developers without a senior
+      stalls: code gets written fast, nothing catches mistakes before they reach production, and
+      every next change quietly breaks the last one.
+    </>
   );
 }
 

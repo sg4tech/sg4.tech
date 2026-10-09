@@ -4,7 +4,7 @@ import { Section } from "./Section";
 import { SectionHeader } from "./SectionHeader";
 import styles from "./FaqSection.module.css";
 
-type FaqItemData = {
+export type FaqItemData = {
   question: string;
   // Plain-text answer used for FAQPage JSON-LD by callers — kept full and
   // dense so AI engines and Google Rich Results get a clean citable string.

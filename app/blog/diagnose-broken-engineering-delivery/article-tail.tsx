@@ -2,10 +2,10 @@
 // and Attribution asides. Split out of article-content.tsx so each file stays
 // under the 700-line ESLint cap.
 
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { BlogCta } from "../../components/BlogCta";
+import { BlogRelated } from "../../components/BlogRelated";
 import { getPostBySlug } from "../../lib/blog/posts";
-import styles from "./page.module.css";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_metrics";
 
@@ -268,37 +268,14 @@ export function SectionClosing(): ReactNode {
 
 export function ArticleCta(): ReactNode {
   return (
-    <aside className={styles.cta}>
-      <h3 className={styles.ctaHeading}>Want a second pair of eyes on your delivery system?</h3>
-      <p className={styles.ctaText}>
-        The first diagnostic call is 30 minutes on Telegram. Describe the symptoms, I&apos;ll help you
-        locate the real bottleneck.
-      </p>
-      <a href={CTA_HREF} target="_blank" rel="noreferrer" className={styles.ctaButton}>
-        Book a diagnostic call on Telegram
-      </a>
-    </aside>
+    <BlogCta heading="Want a second pair of eyes on your delivery system?" href={CTA_HREF}>
+      The first diagnostic call is 30 minutes on Telegram. Describe the symptoms, I&apos;ll help you
+      locate the real bottleneck.
+    </BlogCta>
   );
 }
 
 export function ArticleRelated(): ReactNode {
-  return (
-    <aside className={styles.related}>
-      <h3 className={styles.relatedTitle}>Related</h3>
-      <p className={styles.relatedIntro}>
-        If these symptoms match yours, here&apos;s where to go next depending on the codebase shape.
-      </p>
-      <ul className={styles.relatedList}>
-        {relatedLinks.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href} className={styles.relatedLink}>
-              <span className={styles.relatedLinkTitle}>{link.title}</span>
-              <span className={styles.relatedLinkDescription}>{link.description}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  );
+  return <BlogRelated links={relatedLinks} intro="If these symptoms match yours, here's where to go next depending on the codebase shape." />;
 }
 

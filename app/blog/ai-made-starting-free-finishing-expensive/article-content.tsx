@@ -16,49 +16,13 @@ const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";
 const INTERRUPTED_WORK_HREF = "https://ics.uci.edu/~gmark/chi08-mark.pdf";
 const LONG_CONTEXT_STUDY_HREF = "https://arxiv.org/html/2512.04307v1";
 
-type ArticleHeaderProps = {
-  title: string;
-  publishedAt: string;
-  readingMinutes: number;
-  formattedDate: string;
-};
-
-export function ArticleHeader({
-  title,
-  publishedAt,
-  readingMinutes,
-  formattedDate
-}: ArticleHeaderProps): ReactNode {
+export function ArticleLede(): ReactNode {
   return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.byline}>
-        <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
-          width={40}
-          height={40}
-          className={styles.bylineAvatar}
-          unoptimized
-        />
-        <div className={styles.bylineMeta}>
-          <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
-          </p>
-          <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </p>
-        </div>
-      </div>
-      <p className={styles.lede}>
-        Teams with AI agents start more work than ever and ship about the same. The entry got
-        cheap; verification, integration, and shipping didn&apos;t. The way out is an old
-        discipline: limit work in progress and count finished work, not started.
-      </p>
-    </header>
+    <>
+      Teams with AI agents start more work than ever and ship about the same. The entry got
+      cheap; verification, integration, and shipping didn&apos;t. The way out is an old
+      discipline: limit work in progress and count finished work, not started.
+    </>
   );
 }
 
