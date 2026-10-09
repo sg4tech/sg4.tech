@@ -94,7 +94,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   {
     slug: "code-entropy-ci-checks-ai-legacy",
     title: "Code entropy: how CI checks keep AI from piling up legacy",
-    seoTitle: "How to prevent AI-generated technical debt with CI checks",
+    seoTitle: "Prevent AI-generated technical debt with CI checks",
     description:
       "Code entropy grows on its own, and AI coding agents speed it up. Seven levels of CI checks that stop legacy from piling up, with tools for Python, PHP, and JS/TS.",
     publishedAt: "2026-10-08",
