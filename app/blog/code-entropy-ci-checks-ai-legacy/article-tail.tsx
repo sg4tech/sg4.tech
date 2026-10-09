@@ -3,9 +3,9 @@
 // the end (the strongest conversion position). Related links run across the AI
 // cluster and to the rescue service — never to the CTA destination.
 
-import Link from "next/link";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import { BlogCta } from "../../components/BlogCta";
+import { BlogRelated } from "../../components/BlogRelated";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_entropy";
 
@@ -30,34 +30,13 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <aside className={styles.cta}>
-      <h3 className={styles.ctaHeading}>Agents writing code faster than you can review it?</h3>
-      <p className={styles.ctaText}>
-        The first call is 30 minutes on Telegram. Tell me what your CI checks today, and I&apos;ll
-        help you find which levels are missing and in what order to add them.
-      </p>
-      <a href={CTA_HREF} target="_blank" rel="noreferrer" className={styles.ctaButton}>
-        Book a diagnostic call on Telegram
-      </a>
-    </aside>
+    <BlogCta heading="Agents writing code faster than you can review it?" href={CTA_HREF}>
+      The first call is 30 minutes on Telegram. Tell me what your CI checks today, and I&apos;ll
+      help you find which levels are missing and in what order to add them.
+    </BlogCta>
   );
 }
 
 export function ArticleRelated(): ReactNode {
-  return (
-    <aside className={styles.related}>
-      <h3 className={styles.relatedTitle}>Related</h3>
-      <p className={styles.relatedIntro}>Where to go next, depending on what you&apos;re working with.</p>
-      <ul className={styles.relatedList}>
-        {relatedLinks.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href} className={styles.relatedLink}>
-              <span className={styles.relatedLinkTitle}>{link.title}</span>
-              <span className={styles.relatedLinkDescription}>{link.description}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  );
+  return <BlogRelated links={relatedLinks} />;
 }

@@ -1,0 +1,34 @@
+.article {
+  padding: 2.2rem 0 0;
+}
+
+/* Center every direct child in a 42rem reading column so back link → header →
+   body → CTA → related sit on one visual axis instead of left-anchored inside
+   the wider page container. */
+.article > * {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  text-decoration: none;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  color: var(--text-strong);
+}
+
+/* FAQ constrained to the same 42rem reading column as the body so the page
+   reads on a single visual axis. Passed as contentWrapperClassName to
+   FaqSection. */
+.faqColumn {
+  max-width: 42rem;
+  margin-inline: auto;
+}

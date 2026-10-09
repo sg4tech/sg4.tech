@@ -6,7 +6,7 @@
 // Adding a new post:
 // 1. Add the slug to POST_SLUGS below (type-narrows callers via PostSlug)
 // 2. Append the post object to blogPosts
-// 3. Create app/blog/<slug>/page.tsx that imports getPostBySlug with that slug
+// 3. Create app/blog/<slug>/page.tsx that renders BlogPostLayout with that slug
 
 // POST_SLUGS is the source of truth for which routes exist. The PostSlug type
 // is derived from it, so any string passed to getPostBySlug() is checked at

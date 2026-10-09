@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Eyebrow } from "../../components/Eyebrow";
-import { FaqSection } from "../../components/FaqSection";
-import { Page } from "../../components/Page";
-import { Section } from "../../components/Section";
-import { SiteFooter } from "../../components/SiteFooter";
-import { SiteNav } from "../../components/SiteNav";
-import { personSchema, SITE_URL } from "../../lib/brand";
+import { BlogPostLayout } from "../../components/BlogPostLayout";
 import { buildPostMetadata } from "../../lib/blog/post-metadata";
-import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/posts";
+import type { PostSlug } from "../../lib/blog/posts";
 import {
-  ArticleHeader,
+  ArticleLede,
   IntroSection,
   SectionCountTasks,
   SectionDecomposeT2M,
@@ -30,11 +23,8 @@ import {
 } from "./article-tail";
 import styles from "./page.module.css";
 
-// PostSlug-typed: a typo here fails the build via type-narrowed
-// getPostBySlug, not via runtime "cannot read 'title' of undefined".
+// PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "diagnose-broken-engineering-delivery";
-const POST = getPostBySlug(SLUG);
-const POST_URL = `${SITE_URL}/blog/${SLUG}/`;
 
 // FAQ items must not duplicate body content. Paraphrased FAQ entries reduce
 // the citation-trust signal for AI engines that index the FAQPage schema
@@ -143,62 +133,6 @@ const faqItems = [
   }
 ];
 
-const articleSchema = {
-  "@type": "Article",
-  "@id": `${POST_URL}#article`,
-  mainEntityOfPage: POST_URL,
-  url: POST_URL,
-  headline: POST.title,
-  description: POST.description,
-  datePublished: POST.publishedAt,
-  dateModified: POST.modifiedAt,
-  inLanguage: "en",
-  // Image required for Google Article rich-result cards; reuse the generated OG
-  // PNG so the schema asset always matches the one used by social scrapers.
-  image: {
-    "@type": "ImageObject",
-    url: `${POST_URL}opengraph-image.png`,
-    width: 1200,
-    height: 630
-  },
-  author: { "@id": `${SITE_URL}/#person` },
-  // Publisher = Person (same @id as author) because sg4.tech is a personal
-  // brand, not a separate organization — Victor is both the author and the
-  // publishing entity. Google's "prefer Organization" guidance assumes a
-  // corporate brand; for solo operator personal sites, Person-as-publisher
-  // is the honest and appropriate shape.
-  publisher: { "@id": `${SITE_URL}/#person` },
-  keywords: POST.tags.join(", ")
-};
-
-const faqPageSchema = {
-  "@type": "FAQPage",
-  "@id": `${POST_URL}#faq`,
-  mainEntity: faqItems.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer
-    }
-  }))
-};
-
-const breadcrumbSchema = {
-  "@type": "BreadcrumbList",
-  "@id": `${POST_URL}#breadcrumb`,
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-    { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog/` },
-    { "@type": "ListItem", position: 3, name: POST.title, item: POST_URL }
-  ]
-};
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [personSchema, articleSchema, faqPageSchema, breadcrumbSchema]
-};
-
 export const metadata: Metadata = buildPostMetadata(SLUG);
 
 function ArticleBody() {
@@ -224,27 +158,13 @@ function ArticleBody() {
 
 export default function ArticlePage() {
   return (
-    <Page>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <SiteNav />
-      <Section className={styles.article}>
-        <Link href="/blog/" className={styles.backLink}>
-          ← Blog
-        </Link>
-        <Eyebrow>Engineering delivery</Eyebrow>
-        <ArticleHeader
-          title={POST.title}
-          publishedAt={POST.publishedAt}
-          readingMinutes={POST.readingMinutes}
-          formattedDate={formatPostDate(POST.publishedAt)}
-        />
-        <ArticleBody />
-      </Section>
-      <FaqSection items={faqItems} contentWrapperClassName={styles.faqColumn} />
-      <SiteFooter />
-    </Page>
+    <BlogPostLayout
+      slug={SLUG}
+      eyebrow="Engineering delivery"
+      lede={<ArticleLede />}
+      faqItems={faqItems}
+    >
+      <ArticleBody />
+    </BlogPostLayout>
   );
 }

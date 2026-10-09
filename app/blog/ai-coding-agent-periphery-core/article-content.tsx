@@ -16,49 +16,13 @@ import styles from "./page.module.css";
 const STARTING_CHEAP_HREF = "/blog/ai-made-starting-free-finishing-expensive/";
 const RESCUE_HREF = "/ai-vibecoding/";
 
-type ArticleHeaderProps = {
-  title: string;
-  publishedAt: string;
-  readingMinutes: number;
-  formattedDate: string;
-};
-
-export function ArticleHeader({
-  title,
-  publishedAt,
-  readingMinutes,
-  formattedDate
-}: ArticleHeaderProps): ReactNode {
+export function ArticleLede(): ReactNode {
   return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.byline}>
-        <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
-          width={40}
-          height={40}
-          className={styles.bylineAvatar}
-          unoptimized
-        />
-        <div className={styles.bylineMeta}>
-          <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
-          </p>
-          <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </p>
-        </div>
-      </div>
-      <p className={styles.lede}>
-        AI coding agents are brilliant at some work and dangerous at other work. Give them the
-        periphery, keep humans on the core — here&apos;s where they earn their place, and where they
-        don&apos;t.
-      </p>
-    </header>
+    <>
+      AI coding agents are brilliant at some work and dangerous at other work. Give them the
+      periphery, keep humans on the core — here&apos;s where they earn their place, and where they
+      don&apos;t.
+    </>
   );
 }
 

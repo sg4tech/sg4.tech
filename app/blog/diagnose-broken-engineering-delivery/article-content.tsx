@@ -14,48 +14,12 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
 
-type ArticleHeaderProps = {
-  title: string;
-  publishedAt: string;
-  readingMinutes: number;
-  formattedDate: string;
-};
-
-export function ArticleHeader({
-  title,
-  publishedAt,
-  readingMinutes,
-  formattedDate
-}: ArticleHeaderProps): ReactNode {
+export function ArticleLede(): ReactNode {
   return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.byline}>
-        <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
-          width={40}
-          height={40}
-          className={styles.bylineAvatar}
-          unoptimized
-        />
-        <div className={styles.bylineMeta}>
-          <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
-          </p>
-          <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </p>
-        </div>
-      </div>
-      <p className={styles.lede}>
-        Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
-        And almost everyone&apos;s first reaction to it makes the system slower.
-      </p>
-    </header>
+    <>
+      Most slow engineering teams don&apos;t have a productivity problem. They have a flow problem.
+      And almost everyone&apos;s first reaction to it makes the system slower.
+    </>
   );
 }
 

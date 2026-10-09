@@ -5,56 +5,19 @@
 // Section order builds an argument: average misleads → median → the gap is the
 // diagnosis → pick the date from a percentile → predictability is the product.
 
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";
 
-type ArticleHeaderProps = {
-  title: string;
-  publishedAt: string;
-  readingMinutes: number;
-  formattedDate: string;
-};
-
-export function ArticleHeader({
-  title,
-  publishedAt,
-  readingMinutes,
-  formattedDate
-}: ArticleHeaderProps): ReactNode {
+export function ArticleLede(): ReactNode {
   return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.byline}>
-        <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
-          width={40}
-          height={40}
-          className={styles.bylineAvatar}
-          unoptimized
-        />
-        <div className={styles.bylineMeta}>
-          <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
-          </p>
-          <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formattedDate}</time>
-            {" · "}
-            {readingMinutes} min read
-          </p>
-        </div>
-      </div>
-      <p className={styles.lede}>
-        Most teams forecast delivery off the average. It&apos;s the one number almost guaranteed to
-        misrepresent the system — and every time you quote it and miss, you spend trust you
-        didn&apos;t have to. Here&apos;s what to quote instead.
-      </p>
-    </header>
+    <>
+      Most teams forecast delivery off the average. It&apos;s the one number almost guaranteed to
+      misrepresent the system — and every time you quote it and miss, you spend trust you
+      didn&apos;t have to. Here&apos;s what to quote instead.
+    </>
   );
 }
 

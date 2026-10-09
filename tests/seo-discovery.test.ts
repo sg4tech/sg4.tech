@@ -158,17 +158,25 @@ describe("landing schema", () => {
 });
 
 describe("article schema", () => {
-  // Parametrized over POST_SLUGS: every article ships the full JSON-LD set.
+  // Every post renders through BlogPostLayout, which emits the JSON-LD graph
+  // built by buildPostStructuredData (covered in post-schema.test.ts).
   for (const slug of POST_SLUGS) {
-    it(`renders Article, FAQPage, and BreadcrumbList JSON-LD on "${slug}"`, () => {
+    it(`renders "${slug}" through BlogPostLayout`, () => {
       const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
-      expect(content).toContain('"@type": "Article"');
-      expect(content).toContain('"@type": "FAQPage"');
-      expect(content).toContain('"@type": "BreadcrumbList"');
+      expect(content).toContain("<BlogPostLayout");
+      expect(content).toContain("slug={SLUG}");
     });
   }
+
+  it("emits the post's JSON-LD graph from BlogPostLayout", () => {
+    const filePath = join(process.cwd(), "app", "components", "BlogPostLayout.tsx");
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toContain('type="application/ld+json"');
+    expect(content).toContain("buildPostStructuredData(");
+  });
 });
 
 describe("blog post metadata", () => {
