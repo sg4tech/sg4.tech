@@ -3,7 +3,9 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
+import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
+import { SITE_URL } from "@/app/lib/brand";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -80,30 +82,28 @@ describe("canonical metadata", () => {
     expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/blog\/"/);
   });
 
-  // Parametrized over POST_SLUGS: every article page must declare its
-  // trailing-slash canonical via the shared `/blog/${SLUG}/` template, and a
-  // new post added to posts.ts gets this check for free.
+  // Every post page takes its metadata from the shared builder, so the checks
+  // on buildPostMetadata below cover each post, including ones added later.
   for (const slug of POST_SLUGS) {
-    it(`declares the "${slug}" article canonical`, () => {
+    it(`builds the "${slug}" metadata with buildPostMetadata`, () => {
       const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
-      expect(content).toMatch(
-        /alternates:\s*{\s*canonical:\s*`\/blog\/\$\{SLUG\}\/`/
-      );
+      expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
     });
+  }
+});
 
-    // An optional seoTitle in posts.ts only reaches search results if the
-    // page's <title> reads it; without this, setting it is silently ignored.
-    // Post titles are absolute: the site-wide " | Victor Demin" suffix would
-    // push them past the length search engines show.
-    it(`takes the "${slug}" <title> from seoTitle when set, without the site suffix`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
-      const content = readFileSync(filePath, "utf8");
+describe("buildPostMetadata", () => {
+  for (const slug of POST_SLUGS) {
+    it(`gives "${slug}" a trailing-slash canonical and a suffix-free search title`, () => {
+      const post = getPostBySlug(slug);
+      const metadata = buildPostMetadata(slug);
 
-      expect(content).toMatch(
-        /export const metadata: Metadata = {\s*title: { absolute: POST\.seoTitle \?\? POST\.title },/
-      );
+      expect(metadata.alternates?.canonical).toBe(`/blog/${slug}/`);
+      expect(metadata.title).toEqual({ absolute: post.seoTitle ?? post.title });
+      expect(metadata.openGraph?.title).toBe(post.title);
+      expect(metadata.openGraph?.url).toBe(`${SITE_URL}/blog/${slug}/`);
     });
   }
 });

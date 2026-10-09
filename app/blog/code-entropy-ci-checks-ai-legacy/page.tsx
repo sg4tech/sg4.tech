@@ -6,7 +6,8 @@ import { Page } from "../../components/Page";
 import { Section } from "../../components/Section";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
-import { BRAND_NAME, personSchema, SITE_URL } from "../../lib/brand";
+import { personSchema, SITE_URL } from "../../lib/brand";
+import { buildPostMetadata } from "../../lib/blog/post-metadata";
 import { formatPostDate, getPostBySlug, type PostSlug } from "../../lib/blog/posts";
 import {
   ArticleHeader,
@@ -116,29 +117,7 @@ const structuredData = {
   "@graph": [personSchema, articleSchema, faqPageSchema, breadcrumbSchema]
 };
 
-export const metadata: Metadata = {
-  title: { absolute: POST.seoTitle ?? POST.title },
-  description: POST.description,
-  alternates: {
-    canonical: `/blog/${SLUG}/`
-  },
-  openGraph: {
-    title: POST.title,
-    description: POST.description,
-    type: "article",
-    siteName: BRAND_NAME,
-    locale: "en_US",
-    url: POST_URL,
-    publishedTime: POST.publishedAt,
-    modifiedTime: POST.modifiedAt,
-    authors: ["https://www.linkedin.com/in/victor-demin/"]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: POST.title,
-    description: POST.description
-  }
-};
+export const metadata: Metadata = buildPostMetadata(SLUG);
 
 function ArticleBody() {
   return (

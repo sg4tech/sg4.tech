@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
-import { SITE_URL } from "./lib/brand";
+import { LINKEDIN_URL, SITE_URL } from "./lib/brand";
 import "./globals.css";
 
 // Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   description:
     "Business-first engineering diagnostics for founders and CEOs who need product delivery to become predictable again.",
-  authors: [{ name: "Victor Demin", url: "https://www.linkedin.com/in/victor-demin/" }],
+  authors: [{ name: "Victor Demin", url: LINKEDIN_URL }],
   creator: "Victor Demin",
   publisher: "Victor Demin",
   icons: {
