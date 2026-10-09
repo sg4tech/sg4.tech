@@ -31,7 +31,7 @@ import { Steps } from "./components/Steps";
 import { TopNavigation } from "./components/TopNavigation";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
-import { BRAND_NAME, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
+import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -289,7 +289,7 @@ const insightLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/victor-demin/",
+    href: LINKEDIN_URL,
     iconPath: LINKEDIN_SVG_PATH,
     description: "Operator perspective, case-based observations, and updates on engineering leadership."
   }

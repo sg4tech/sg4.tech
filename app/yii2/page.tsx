@@ -38,7 +38,7 @@ import { StatementCta } from "../components/StatementCta";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
-import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
+import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL } from "../lib/brand";
 import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import landing from "../styles/landing.module.css";
@@ -225,7 +225,7 @@ const writingLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/victor-demin/",
+    href: LINKEDIN_URL,
     iconPath: LINKEDIN_SVG_PATH,
     description: "Role history, operating context, and additional public material."
   }

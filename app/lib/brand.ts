@@ -7,6 +7,7 @@ import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-
 // Centralized so a domain migration is a one-file change.
 export const SITE_URL = "https://sg4.tech";
 export const BRAND_NAME = "sg4.tech";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/victor-demin/";
 
 export const BRAND_COPYRIGHT = "© 2026 Victor Demin";
 
@@ -20,7 +21,7 @@ export const RESULTS_CAPTION =
 
 export const footerLinks: FooterLink[] = [
   { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/victor-demin/", iconPath: LINKEDIN_SVG_PATH },
+  { label: "LinkedIn", href: LINKEDIN_URL, iconPath: LINKEDIN_SVG_PATH },
   { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: TELEGRAM_SVG_PATH }
 ];
 
@@ -115,7 +116,7 @@ const VICTOR_ALUMNI = [
 // curated UI subset on purpose; this machine-readable list is the complete set.
 export const VICTOR_SAME_AS = [
   "https://github.com/sg4tech/",
-  "https://www.linkedin.com/in/victor-demin/",
+  LINKEDIN_URL,
   "https://t.me/cto_lifehacks",
   "https://habr.com/users/sg4tech/",
   "https://medium.com/@sg4tech"
