@@ -169,6 +169,14 @@ describe("article schema", () => {
       expect(content).toContain("slug={SLUG}");
     });
   }
+
+  it("emits the post's JSON-LD graph from BlogPostLayout", () => {
+    const filePath = join(process.cwd(), "app", "components", "BlogPostLayout.tsx");
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toContain('type="application/ld+json"');
+    expect(content).toContain("buildPostStructuredData(");
+  });
 });
 
 describe("blog post metadata", () => {

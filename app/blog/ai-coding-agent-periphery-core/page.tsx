@@ -13,8 +13,7 @@ import {
 import { ArticleCta, ArticleRelated } from "./article-tail";
 import styles from "./page.module.css";
 
-// PostSlug-typed: a typo here fails the build via type-narrowed
-// getPostBySlug, not via runtime "cannot read 'title' of undefined".
+// PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "ai-coding-agent-periphery-core";
 
 // FAQ items must not duplicate body content — paraphrased duplication across

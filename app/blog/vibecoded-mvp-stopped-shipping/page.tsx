@@ -15,11 +15,10 @@ import {
 import { ArticleCta, ArticleRelated } from "./article-tail";
 import styles from "./page.module.css";
 
-// PostSlug-typed: a typo here fails the build via type-narrowed
-// getPostBySlug, not via runtime "cannot read 'title' of undefined".
+// PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "vibecoded-mvp-stopped-shipping";
 
-// On-page H1 differs from POST.title on purpose: POST.title is the
+// On-page H1 differs from the registry title on purpose: that title is the
 // query-matched SERP/index-card title; the H1 carries the essay's voice.
 // Article.headline mirrors the H1 so the schema matches the rendered page.
 const H1_TITLE = "Your vibecoded MVP stopped shipping — like every junior-built codebase before it";
