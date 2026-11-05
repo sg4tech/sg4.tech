@@ -13,6 +13,12 @@ When adding a new public route, also add it to `lighthouserc.json` so CI guards 
 
 `.nvmrc` is the single source of the Node version; CI and the Pages deploy read it via `node-version-file`. `package.json` `engines` plus `engine-strict` in `.npmrc` make npm refuse to install under a different npm major. Different npm majors resolve `overrides` differently, so a lockfile written by one can be rejected by `npm ci` on the other — keep local npm on the same major as CI.
 
+## Dependency updates
+
+`.github/dependabot.yml` opens weekly PRs for npm and GitHub Actions. Minor and patch bumps are batched per dependency type, majors arrive one PR each, and security fixes are grouped into one PR. Every PR goes through the same CI gates as a hand-written change, so a green Dependabot PR is safe to merge; a major bump still needs its changelog read. `@types/node` majors are skipped because they must move together with `.nvmrc`.
+
+Security PRs and vulnerability alerts also depend on the repository settings (Settings → Code security: Dependabot alerts and security updates); the config file alone only drives version updates.
+
 ## Required checks
 
 Run all checks:
