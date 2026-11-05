@@ -1,0 +1,39 @@
+# Dependency updates. See docs/engineering-checks.md ("Dependency updates").
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      # Security fixes arrive as one PR instead of one per advisory.
+      security:
+        applies-to: "security-updates"
+        patterns: ["*"]
+      # Minor and patch bumps are batched; majors get their own PR for review.
+      production-minor-patch:
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      development-minor-patch:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+    ignore:
+      # Node types follow the runtime pinned in .nvmrc; bump them together with it.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    groups:
+      actions:
+        patterns: ["*"]
