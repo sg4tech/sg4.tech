@@ -14,6 +14,11 @@ updates:
       security:
         applies-to: "security-updates"
         patterns: ["*"]
+      # vitest and its plugins pin each other's exact version, so they only
+      # install together. Listed first: a dependency joins the first group it
+      # matches, and this one takes every update type, majors included.
+      vitest:
+        patterns: ["vitest", "@vitest/*"]
       # Minor and patch bumps are batched; majors get their own PR for review.
       production-minor-patch:
         dependency-type: "production"
@@ -35,5 +40,8 @@ updates:
       prefix: "ci"
       include: "scope"
     groups:
-      actions:
+      # Majors stay out of the batch: the Pages deploy actions run only on
+      # master, so PR CI cannot vouch for them.
+      actions-minor-patch:
         patterns: ["*"]
+        update-types: ["minor", "patch"]

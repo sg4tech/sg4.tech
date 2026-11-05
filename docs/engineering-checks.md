@@ -15,7 +15,7 @@ When adding a new public route, also add it to `lighthouserc.json` so CI guards 
 
 ## Dependency updates
 
-`.github/dependabot.yml` opens weekly PRs for npm and GitHub Actions. Minor and patch bumps are batched per dependency type, majors arrive one PR each, and security fixes are grouped into one PR. Every PR goes through the same CI gates as a hand-written change, so a green Dependabot PR is safe to merge; a major bump still needs its changelog read. `@types/node` majors are skipped because they must move together with `.nvmrc`.
+`.github/dependabot.yml` opens weekly PRs for npm and GitHub Actions. Minor and patch bumps are batched per dependency type, majors arrive one PR each, and security fixes are grouped into one PR. Packages that pin each other's exact version (vitest and `@vitest/*`) form one group for every update type, because split PRs cannot install. Every PR goes through the same CI gates as a hand-written change, so a green Dependabot PR is safe to merge; a major bump still needs its changelog read. The Pages deploy actions run only on `master`, so after merging an action major, confirm the next deploy succeeds. `@types/node` majors are skipped because they must move together with `.nvmrc`.
 
 Security PRs and vulnerability alerts also depend on the repository settings (Settings → Code security: Dependabot alerts and security updates); the config file alone only drives version updates.
 
