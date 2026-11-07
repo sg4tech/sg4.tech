@@ -379,7 +379,7 @@ function HeroSection() {
     <section className={styles.hero}>
       <Eyebrow>Fractional CTO consulting</Eyebrow>
       <div className={styles.heroLayout}>
-        <div className={styles.heroPrimary}>
+        <div>
           <h1>
             <span className={styles.heroLeadIn}>I turn slow, expensive engineering into </span>
             fast, predictable delivery systems.

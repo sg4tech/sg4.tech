@@ -279,6 +279,140 @@
   margin-top: var(--space-3);
 }
 
+/* ─── Why surface & profile card ───────────────────────────────────────────── */
+
+/* Dark "Why me" — the design system's ink feature block. Shared across all
+   landings; light text is scoped to within the panel so other usages of
+   .profileName / .cardIcon stay unaffected. */
+.whySurface {
+  padding: var(--space-2);
+  border: 1px solid var(--border-inverse);
+  border-radius: var(--radius-xl);
+  background: var(--surface-inverse);
+}
+
+.whySurface .profileCard,
+.whySurface .profileBody {
+  background: transparent;
+  border-color: transparent;
+}
+
+.whySurface .profileName {
+  color: var(--text-on-dark);
+}
+
+.whySurface .profileRole {
+  color: var(--text-on-dark-muted);
+}
+
+.whySurface .iconList li {
+  color: var(--text-on-dark);
+}
+
+.whySurface .iconList .cardIcon {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.profileCard {
+  padding: 1.25rem;
+  background: var(--surface-alt);
+}
+
+.profilePhoto {
+  display: block;
+  width: 7.5rem;
+  height: 7.5rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+
+.profileName {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.profileRole {
+  margin-top: 0.35rem;
+}
+
+.profileBody {
+  padding: 1.25rem;
+}
+
+.profileBody .problemList {
+  margin-top: 0;
+}
+
+/* ─── Link cards ───────────────────────────────────────────────────────────── */
+
+.linkGrid {
+  grid-template-columns: 1fr;
+}
+
+.linkCard {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.05rem 1.1rem;
+  border-color: var(--border-strong);
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+.linkCard:hover,
+.linkCard:focus-visible {
+  border-color: var(--border-strong);
+  color: var(--text-strong);
+  transform: translateY(-1px);
+}
+
+.linkHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.brandIcon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-strong);
+  flex: 0 0 auto;
+}
+
+.brandIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.linkLabel {
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.linkDescription {
+  margin-top: 0;
+}
+
+/* ─── Proof grid ───────────────────────────────────────────────────────────── */
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+/* ─── Shared text helpers ──────────────────────────────────────────────────── */
+
+.card p,
 .callout,
 .linkDescription,
 .profileRole {
