@@ -70,4 +70,13 @@ describe("homepage landing page", () => {
       expect(content).toContain(phrase);
     }
   });
+
+  it("does not repeat blocks that duplicate other sections", () => {
+    // "What to expect" repeated the FAQ answer, "Why this works" repeated
+    // "Why me", and the bare topic list repeated the writing links below it.
+    const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
+    for (const phrase of ["What to expect", "Why this works", "Metrics that actually matter"]) {
+      expect(content).not.toContain(phrase);
+    }
+  });
 });

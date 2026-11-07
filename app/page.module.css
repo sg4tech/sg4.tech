@@ -125,7 +125,6 @@
 
 .card h3,
 .caseStudy h3,
-.subsection h3,
 .caseGrid h4 {
   margin: 0;
   font-size: var(--text-lg);
@@ -162,10 +161,6 @@
 
 .callout p + p {
   margin-top: 0.35rem;
-}
-
-.subsection {
-  margin-top: 1.75rem;
 }
 
 .caseHeader {
@@ -231,20 +226,6 @@
 
 .processNote {
   font-weight: 600;
-}
-
-.expectationBox {
-  margin-top: 1.25rem;
-  padding: 1.1rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface-alt);
-}
-
-.expectationBox h3 {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
 }
 
 .insightGrid {
