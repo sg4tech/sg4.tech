@@ -395,15 +395,33 @@
 }
 
 @media (min-width: 1100px) {
-  .heroLayout {
+  /* Two-column hero. The short headline left the left column mostly empty,
+     so the proof row moves under it: .heroLayout dissolves into the .hero
+     grid, the secondary column spans the right side, and eyebrow, headline
+     and proof stack on the left. Narrower screens keep the DOM order, so the
+     CTA stays above the stats. */
+  .hero {
+    display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.9fr);
+    column-gap: var(--space-5);
     align-items: start;
-    gap: var(--space-5);
+  }
+
+  .heroLayout {
+    display: contents;
   }
 
   .heroSecondary {
+    grid-column: 2;
+    grid-row: 1 / span 3;
     max-width: none;
-    padding-top: 0.55rem;
+    padding-top: 2.4rem;
+  }
+
+  .heroProof {
+    grid-column: 1;
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
   }
 
   .fitGrid {
