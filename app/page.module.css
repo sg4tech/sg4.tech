@@ -403,6 +403,25 @@
     padding-top: var(--space-3);
   }
 
+  /* Results: three cases side by side, outcomes stacked so long labels never
+     break the row. Each card spans three subgrid rows (header, outcomes,
+     details), so those line up across the row even when a title wraps. */
+  .stack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-2);
+    row-gap: var(--space-2);
+  }
+
+  .caseMetrics {
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: 0;
+  }
+
+  .caseDetails {
+    margin-top: 0;
+  }
+
   .fitGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-3);
@@ -421,12 +440,17 @@
   }
 
   .caseStudy {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    align-content: start;
     padding: var(--space-3);
     border-color: var(--border-strong);
     background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface) 100%);
   }
 
   .caseHeader {
+    align-content: start;
     padding-bottom: 0.9rem;
     border-bottom: 1px solid var(--border);
   }
