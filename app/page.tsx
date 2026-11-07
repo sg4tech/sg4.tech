@@ -434,16 +434,16 @@ function ResultsSection() {
                 <Stat figure={metric.figure} icon={metric.icon} label={metric.label} key={metric.label} />
               ))}
             </div>
-            <div className={styles.caseGrid}>
+            <dl className={styles.caseDetails}>
               <div>
-                <h4>Problem</h4>
-                <MarkList items={study.problem} />
+                <dt>Problem</dt>
+                <dd>{study.problem.join(" · ")}</dd>
               </div>
               <div>
-                <h4>What I did</h4>
-                <MarkList items={study.work} />
+                <dt>What I did</dt>
+                <dd>{study.work.join(" · ")}</dd>
               </div>
-            </div>
+            </dl>
           </article>
         ))}
       </div>
