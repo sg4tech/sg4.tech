@@ -261,7 +261,8 @@
 
 .specializationCard {
   display: grid;
-  gap: 0.45rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.45rem var(--space-2);
   padding: 1.1rem 1.2rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -278,6 +279,30 @@
   border-color: var(--border-strong);
   color: var(--text-strong);
   transform: translateY(-1px);
+}
+
+/* Text stacks in the first column; the arrow sits in its own column,
+   centred across all rows, so the whole card reads as a link. */
+.specializationCard > span {
+  grid-column: 1;
+}
+
+.specializationArrow {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--muted);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.specializationCard:hover .specializationArrow,
+.specializationCard:focus-visible .specializationArrow {
+  color: var(--text-strong);
+  transform: translateX(3px);
 }
 
 .specializationLabel {

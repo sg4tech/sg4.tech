@@ -1,5 +1,6 @@
 import {
   AlertTriangle,
+  ArrowRight,
   Ban,
   BookOpen,
   Bug,
@@ -225,9 +226,9 @@ const fitGroups = [
     icon: Target,
     kind: "check" as const,
     points: [
-      "Product companies (B2B / SaaS / platforms) with 5–50 engineers",
-      "Already shipping, but struggling with delivery speed, predictability, or engineering efficiency",
-      "Growth or scaling stage"
+      "Founders and product companies (B2B / SaaS / platforms) that need their product built or fixed",
+      "You know your customers and have a validated product (at least an MVP)",
+      "You already have revenue and a working sales channel"
     ]
   },
   {
@@ -247,9 +248,10 @@ const fitGroups = [
     icon: Ban,
     kind: "x" as const,
     points: [
-      "No product / no team",
-      "Looking for staff augmentation only, without ownership of the result",
-      "Expect instant fixes without org or process changes"
+      "Idea stage — no clear audience, validated MVP, or revenue yet",
+      "Unpaid work or equity-only deals",
+      "Marketing, growth, or lead-generation services",
+      "Staff augmentation only, without ownership of the result"
     ]
   }
 ];
@@ -319,12 +321,12 @@ const faqItems = [
   {
     question: "When are you the right fit?",
     answer:
-      "Best fit is product companies with 5–50 engineers that are already shipping but struggling with delivery speed, predictability, or engineering efficiency."
+      "Founders and product companies that know their customers, have a validated MVP, and already have revenue and a working sales channel — and need software that ships on time and holds up as they grow."
   },
   {
     question: "When are you not the right fit?",
     answer:
-      "Not a fit if you only need extra hands without ownership of the result, or expect instant results without changes to how the team works."
+      "Not a fit at the idea stage — without a clear audience, a validated MVP, or revenue — or for unpaid or equity-only work, marketing or lead-generation services, or staff augmentation without ownership of the result. I ship the product; selling it stays with you."
   },
   {
     question: "How fast can we see results?",
@@ -552,7 +554,7 @@ function ProcessSection() {
 function FitSection() {
   return (
     <Section id="fit">
-      <SectionHeader title="Who I work with" />
+      <SectionHeader title="Who I work with" intro="I ship the product. You bring the customers." />
       <div className={styles.fitGrid}>
         {fitGroups.map((group) => (
           <article key={group.title} className={styles.fitCard}>
@@ -581,6 +583,7 @@ function SpecializationSection() {
             <span className={styles.specializationLabel}>Dedicated page</span>
             <span className={styles.specializationTitle}>{link.title}</span>
             <span className={styles.specializationDescription}>{link.description}</span>
+            <Icon icon={ArrowRight} className={styles.specializationArrow} />
           </Link>
         ))}
       </div>
@@ -602,6 +605,7 @@ function InsightsSection() {
           <span className={styles.specializationLabel}>{featuredEssay.label}</span>
           <span className={styles.specializationTitle}>{featuredEssay.title}</span>
           <span className={styles.specializationDescription}>{featuredEssay.description}</span>
+          <Icon icon={ArrowRight} className={styles.specializationArrow} />
         </Link>
       </div>
       <p className={styles.bodyCopy}>

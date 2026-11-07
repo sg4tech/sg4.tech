@@ -9,7 +9,7 @@ type StatProps = {
   // `icon` alone — it becomes the ember anchor.
   figure?: string;
   icon?: LucideIcon;
-  note?: string; // small overline qualifier, e.g. "Up to"
+  note?: string; // small inline qualifier before the figure, e.g. "Up to"
   label: string;
 };
 
@@ -21,9 +21,9 @@ type StatProps = {
 export function Stat({ figure, icon, note, label }: StatProps) {
   return (
     <div className={styles.stat}>
-      {note ? <span className={styles.note}>{note}</span> : null}
       <span className={styles.header}>
         {icon ? <Icon icon={icon} className={figure ? styles.icon : styles.figureIcon} /> : null}
+        {note ? <span className={styles.note}>{note}</span> : null}
         {figure ? <span className={styles.figure}>{figure}</span> : null}
       </span>
       <span className={styles.label}>{label}</span>
