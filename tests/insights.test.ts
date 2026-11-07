@@ -56,6 +56,12 @@ describe("homepage Insights block", () => {
     expect(section).toMatch(/<div className=\{styles\.writingHeader\}>[\s\S]*?<SectionHeader[\s\S]*?All posts[\s\S]*?<\/div>/);
   });
 
+  // The arrow rides at the end of the title, glued to its last word, instead
+  // of hanging alone on its own line under every card.
+  it("keeps the arrow on the title's last line", () => {
+    expect(section).toMatch(/<span className=\{styles\.latestPostTitle\}>[\s\S]*?<span className=\{styles\.titleTail\}>[\s\S]*?<Icon icon=\{ArrowRight\} className=\{styles\.latestPostArrow\} \/>[\s\S]*?<\/span>\s*<\/span>/);
+  });
+
   it("sets the posts in three columns on wide screens", () => {
     const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.latestPosts \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);

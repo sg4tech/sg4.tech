@@ -499,6 +499,16 @@ function SpecializationSection() {
   );
 }
 
+// Split a title before its last word, so the trailing arrow can be glued to
+// that word and never wrap onto a line of its own.
+function titleHead(title: string): string {
+  return title.slice(0, title.lastIndexOf(" ") + 1);
+}
+
+function titleTail(title: string): string {
+  return title.slice(title.lastIndexOf(" ") + 1);
+}
+
 function InsightsSection() {
   return (
     <Section id="insights">
@@ -521,8 +531,13 @@ function InsightsSection() {
                 <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time> ·{" "}
                 {post.readingMinutes} min read
               </span>
-              <span className={styles.latestPostTitle}>{post.title}</span>
-              <Icon icon={ArrowRight} className={styles.latestPostArrow} />
+              <span className={styles.latestPostTitle}>
+                {titleHead(post.title)}
+                <span className={styles.titleTail}>
+                  {titleTail(post.title)}
+                  <Icon icon={ArrowRight} className={styles.latestPostArrow} />
+                </span>
+              </span>
             </Link>
           </li>
         ))}

@@ -363,10 +363,20 @@
   text-wrap: pretty;
 }
 
+.titleTail {
+  white-space: nowrap;
+}
+
+.latestPostArrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  vertical-align: -0.15em;
+}
+
 .latestPostArrow,
 .allPostsArrow {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1em;
+  height: 1em;
   color: var(--muted);
   transition:
     transform var(--duration-base) var(--ease-standard),
@@ -438,6 +448,14 @@
 }
 
 @media (max-width: 640px) {
+  .channelList {
+    column-gap: var(--space-2);
+  }
+
+  .channelLink {
+    gap: 0.35rem;
+  }
+
   .hero {
     padding: var(--space-3) 0;
   }
@@ -500,6 +518,11 @@
   .latestPosts {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: var(--space-4);
+  }
+
+  .latestPostTitle {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
   }
 
   .fitGrid {
