@@ -164,10 +164,10 @@ const heroSignals = [
 
 const workSteps = [
   {
-    title: "Audit (1-2 weeks)",
+    title: "Review (1-2 weeks)",
     summary: "Find what is actually slowing delivery down.",
     points: ["Review the codebase and deployment health", "Find the real bottlenecks", "Assess release risk, quality, and coverage"],
-    output: "a clear diagnosis and a prioritized action list"
+    output: "a clear plan and a prioritized action list"
   },
   {
     title: "Quality foundation",
@@ -206,9 +206,9 @@ const faqItems = [
       "CI/CD and monitoring improvements are usually visible within 2-4 weeks. Delivery speed gains depend on the team and the amount of debt, but the first noticeable changes usually come quickly."
   },
   {
-    question: "Is this consulting or hands-on execution?",
+    question: "Do you do the work yourself?",
     answer:
-      "Both. I can audit and advise, or set up pipelines and guardrails directly and help the team get the implementation working end-to-end."
+      "Yes. I fix the code, set up pipelines and guardrails, and work with your team until the changes run end-to-end."
   }
 ];
 
@@ -260,11 +260,11 @@ const structuredData = {
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/yii2/#service`,
-      name: "Yii2 Delivery Consulting",
+      name: "Yii2 Development",
       url: `${SITE_URL}/yii2/`,
-      serviceType: "Yii2 delivery consulting",
+      serviceType: "Yii2 development",
       description:
-        "Consulting for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI.",
+        "Development for companies running Yii2 projects that need better speed, higher uptime, fewer bugs, and more predictable delivery through guardrails, CI/CD, monitoring, and AI.",
       founder: { "@id": `${SITE_URL}/#person` }
     },
     personSchema,
@@ -284,14 +284,14 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "Yii2 Consulting for Faster Delivery and Better Quality",
+  title: "Yii2 Development for Faster Delivery and Better Quality",
   description:
     "A dedicated landing page for Yii2 projects: I help teams remove delivery bottlenecks through guardrails, CI/CD, monitoring, delivery metrics, and AI.",
   alternates: {
     canonical: "/yii2/"
   },
   openGraph: {
-    title: "Yii2 Consulting for Faster Delivery and Better Quality",
+    title: "Yii2 Development for Faster Delivery and Better Quality",
     description:
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting.",
     type: "website",
@@ -300,7 +300,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yii2 Consulting for Faster Delivery and Better Quality",
+    title: "Yii2 Development for Faster Delivery and Better Quality",
     description:
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting."
   }
@@ -456,7 +456,7 @@ function HeroSection() {
     <section className={landing.hero}>
       <Link href="/" className={landing.backLink}>
         <span aria-hidden="true" className={landing.backLinkArrow}>←</span>
-        Back to main consulting
+        Back to main page
       </Link>
       <div className={landing.heroPanel}>
         <div className={landing.heroLayout}>
