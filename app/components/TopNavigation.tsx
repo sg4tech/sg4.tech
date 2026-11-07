@@ -5,9 +5,11 @@ import styles from "./TopNavigation.module.css";
 type TopNavigationProps = {
   items: ReadonlyArray<NavigationItem>;
   ariaLabel: string;
+  // href of the page being shown, marked with aria-current.
+  current?: string;
 };
 
-export function TopNavigation({ items, ariaLabel }: TopNavigationProps) {
+export function TopNavigation({ items, ariaLabel, current }: TopNavigationProps) {
   return (
     <nav className={styles.nav} aria-label={ariaLabel}>
       <div className={styles.navInner}>
@@ -23,7 +25,7 @@ export function TopNavigation({ items, ariaLabel }: TopNavigationProps) {
               key={item.href}
               href={item.href}
               data-mobile-nav={item.mobileNav}
-              data-mobile-pinned={item.mobilePinned ? "" : undefined}
+              aria-current={item.href === current ? "page" : undefined}
             >
               {item.label}
             </a>

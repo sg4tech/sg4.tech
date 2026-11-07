@@ -2,8 +2,6 @@ export type NavigationItem = {
   href: string;
   label: string;
   mobileNav: "primary" | "secondary";
-  // Stays visible at the right edge of the scrolling mobile pill row.
-  mobilePinned?: true;
 };
 
 export type FooterLink = {
@@ -26,10 +24,9 @@ export type FooterDisclaimer = {
   body: string;
 };
 
-// Cross-page site navigation shared by the content pages (privacy + blog posts),
-// rendered via <SiteNav />. Landing pages define their own in-page section-anchor
-// nav inline; the blog index omits its own self-link, so both keep passing items
-// to TopNavigation directly rather than using this set.
+// The one site menu, rendered on every page via <SiteNav />. Navigation only:
+// pages, no in-page anchors and no Contact (each page has its own CTAs).
+// "secondary" items are hidden on phones, where four pills do not fit.
 export const siteNavigationItems: NavigationItem[] = [
   { href: "/", label: "Home", mobileNav: "primary" },
   { href: "/blog/", label: "Blog", mobileNav: "primary" },

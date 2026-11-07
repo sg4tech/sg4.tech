@@ -44,7 +44,7 @@ export function BlogPostLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav />
+      <SiteNav current="/blog/" />
       <Section className={styles.article}>
         <Link href="/blog/" className={styles.backLink}>
           ← Blog

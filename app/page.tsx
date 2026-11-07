@@ -31,11 +31,10 @@ import { ResultsCaption } from "./components/ResultsCaption";
 import { Stat } from "./components/Stat";
 import { StatementCta } from "./components/StatementCta";
 import { Steps } from "./components/Steps";
-import { TopNavigation } from "./components/TopNavigation";
+import { SiteNav } from "./components/SiteNav";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
 import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
-import type { NavigationItem } from "./lib/navigation";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
 
@@ -43,14 +42,6 @@ const secondaryCtaHref = "#process";
 const heroCtaHref = "https://t.me/sg4tech?start=site_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_final";
 
-const navigationItems: NavigationItem[] = [
-  { href: "#problem", label: "Problem", mobileNav: "primary" },
-  { href: "#results", label: "Results", mobileNav: "primary" },
-  { href: "#process", label: "How I work", mobileNav: "primary" },
-  { href: "#fit", label: "Who I work with", mobileNav: "secondary" },
-  { href: "/blog/", label: "Blog", mobileNav: "secondary" },
-  { href: "#final-cta", label: "Contact", mobileNav: "primary", mobilePinned: true }
-];
 
 const stageProblems = [
   {
@@ -599,7 +590,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation items={navigationItems} ariaLabel="Section navigation" />
+      <SiteNav current="/" />
       <HeroSection />
       <ProblemSection />
       <TrustSection />

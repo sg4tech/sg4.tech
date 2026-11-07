@@ -37,11 +37,10 @@ import { SectionHeader } from "../components/SectionHeader";
 import { Stat } from "../components/Stat";
 import { StatementCta } from "../components/StatementCta";
 import { Steps } from "../components/Steps";
-import { TopNavigation } from "../components/TopNavigation";
+import { SiteNav } from "../components/SiteNav";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
 import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL } from "../lib/brand";
-import type { NavigationItem } from "../lib/navigation";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
@@ -49,16 +48,6 @@ import styles from "./page.module.css";
 const heroCtaHref = "https://t.me/sg4tech?start=site_yii2_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_yii2_final";
 
-const navigationItems: NavigationItem[] = [
-  { href: "#problem", label: "Problem", mobileNav: "primary" },
-  { href: "#quality", label: "Quality", mobileNav: "secondary" },
-  { href: "#speed", label: "Speed", mobileNav: "secondary" },
-  { href: "#why-me", label: "Why me", mobileNav: "secondary" },
-  { href: "#process", label: "How I work", mobileNav: "primary" },
-  { href: "#faq", label: "FAQ", mobileNav: "primary" },
-  { href: "#proof", label: "Proof", mobileNav: "secondary" },
-  { href: "#final-cta", label: "Contact", mobileNav: "primary", mobilePinned: true }
-];
 
 const painPoints = [
   {
@@ -643,7 +632,7 @@ export default function Yii2Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation items={navigationItems} ariaLabel="Yii2 landing page navigation" />
+      <SiteNav current="/yii2/" />
       <HeroSection />
       <TransformationSection />
       <ProblemSection />

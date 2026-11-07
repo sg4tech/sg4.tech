@@ -4,16 +4,10 @@ import { SiteFooter } from "../components/SiteFooter";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
-import { TopNavigation } from "../components/TopNavigation";
+import { SiteNav } from "../components/SiteNav";
 import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
 import { blogPosts, formatPostDate } from "../lib/blog/posts";
-import { siteNavigationItems } from "../lib/navigation";
 import styles from "./page.module.css";
-
-// The blog index drops its own "/blog/" self-link but otherwise mirrors the
-// canonical site nav, so derive from siteNavigationItems instead of duplicating
-// it — a new site-nav entry then reaches this page automatically.
-const navigationItems = siteNavigationItems.filter((item) => item.href !== "/blog/");
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -76,7 +70,7 @@ export default function BlogIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation items={navigationItems} ariaLabel="Site navigation" />
+      <SiteNav current="/blog/" />
       <Section className={styles.intro}>
         <SectionHeader
           level="h1"
