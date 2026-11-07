@@ -1,0 +1,40 @@
+/* Framed like the post's figures so it reads as a navigation aid, not prose. */
+.toc {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.title {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: var(--leading-base);
+}
+
+/* The headings carry their own numbers, so the list shows none. */
+.list {
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: block;
+  padding: 0.35rem 0;
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--text-strong);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
