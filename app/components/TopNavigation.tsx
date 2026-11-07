@@ -19,7 +19,12 @@ export function TopNavigation({ items, ariaLabel }: TopNavigationProps) {
         </Link>
         <div className={styles.navLinks}>
           {items.map((item) => (
-            <a key={item.href} href={item.href} data-mobile-nav={item.mobileNav}>
+            <a
+              key={item.href}
+              href={item.href}
+              data-mobile-nav={item.mobileNav}
+              data-mobile-pinned={item.mobilePinned ? "" : undefined}
+            >
               {item.label}
             </a>
           ))}

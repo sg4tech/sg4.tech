@@ -57,7 +57,7 @@ const navigationItems: NavigationItem[] = [
   { href: "#process", label: "How I work", mobileNav: "primary" },
   { href: "#faq", label: "FAQ", mobileNav: "primary" },
   { href: "#proof", label: "Proof", mobileNav: "secondary" },
-  { href: "#final-cta", label: "Contact", mobileNav: "primary" }
+  { href: "#final-cta", label: "Contact", mobileNav: "primary", mobilePinned: true }
 ];
 
 const painPoints = [

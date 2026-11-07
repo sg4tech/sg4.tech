@@ -178,7 +178,7 @@
 }
 
 .distChart .dcBar {
-  fill: var(--surface-strong);
+  fill: var(--gray-400);
 }
 
 .distChart .dcAxis {
