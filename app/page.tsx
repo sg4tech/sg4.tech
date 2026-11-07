@@ -136,13 +136,6 @@ function parseMetric(text: string): { note?: string; figure?: string; label: str
   return { note, figure, label: rest.slice(space + 1) };
 }
 
-const credibilityPoints = [
-  "Engineering background — built MVPs and systems hands-on",
-  "Management experience — scaled teams and aligned engineering with business",
-  "System thinking — metrics, constraints, predictability",
-  "AI-first approach — applying modern tools where they actually create leverage"
-];
-
 const trustPoints: WhyMePoint[] = [
   { id: "experience", icon: Calendar, content: <span>15+ years in engineering</span> },
   { id: "leadership", icon: Users, content: <span>8+ years in leadership</span> },
@@ -230,12 +223,6 @@ const workSteps = [
   }
 ];
 
-const expectationPoints = [
-  "First insights — within 1–2 weeks",
-  "Visible improvements — within weeks, not months",
-  "Full system shift — depends on complexity, but starts early"
-];
-
 const fitGroups = [
   {
     title: "Best fit",
@@ -270,14 +257,6 @@ const fitGroups = [
       "Staff augmentation only, without ownership of the result"
     ]
   }
-];
-
-const insightTopics = [
-  "Metrics that actually matter (T2M, Throughput, Bugs)",
-  "Why delivery slows down as teams grow",
-  "The real bottleneck: why “Ready” is an illusion",
-  "From chaos to predictable flow",
-  "AI in engineering: leverage or noise?"
 ];
 
 const featuredEssay = {
@@ -493,10 +472,6 @@ function SolutionSection() {
           body: <p className={styles.stepText}>{step.description}</p>
         }))}
       />
-      <div className={styles.subsection}>
-        <h3>Why this works</h3>
-        <MarkList items={credibilityPoints} kind="check" />
-      </div>
     </Section>
   );
 }
@@ -559,10 +534,6 @@ function ProcessSection() {
         }))}
       />
       <p className={styles.processNote}>No magic. Just a system that works.</p>
-      <div className={styles.expectationBox}>
-        <h3>What to expect</h3>
-        <MarkList items={expectationPoints} kind="check" />
-      </div>
     </Section>
   );
 }
@@ -615,7 +586,6 @@ function InsightsSection() {
         intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
       />
       <p className={styles.bodyCopy}>Not theory — practical patterns from real systems.</p>
-      <MarkList items={insightTopics} />
       <div className={styles.specializationGrid}>
         <Link href={featuredEssay.href} className={styles.specializationCard}>
           <span className={styles.specializationLabel}>{featuredEssay.label}</span>
