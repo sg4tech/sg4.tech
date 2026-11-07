@@ -502,35 +502,36 @@ function SpecializationSection() {
 function InsightsSection() {
   return (
     <Section id="insights">
-      <SectionHeader
-        title="Insights / Writing"
-        intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
-      />
+      <div className={styles.writingHeader}>
+        <SectionHeader
+          title="Writing"
+          intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
+          introClassName={styles.writingIntro}
+        />
+        <Link href="/blog/" className={styles.allPostsLink}>
+          All posts
+          <Icon icon={ArrowRight} className={styles.allPostsArrow} />
+        </Link>
+      </div>
       <ul className={styles.latestPosts}>
         {getLatestPosts(3).map((post) => (
-          <li key={post.slug}>
+          <li key={post.slug} className={styles.latestPostItem}>
             <Link href={`/blog/${post.slug}/`} className={styles.latestPost}>
-              <span className={styles.latestPostTitle}>{post.title}</span>
               <span className={styles.latestPostMeta}>
                 <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time> ·{" "}
                 {post.readingMinutes} min read
               </span>
+              <span className={styles.latestPostTitle}>{post.title}</span>
               <Icon icon={ArrowRight} className={styles.latestPostArrow} />
             </Link>
           </li>
         ))}
       </ul>
-      <p className={styles.allPosts}>
-        <Link href="/blog/" className={styles.allPostsLink}>
-          All posts
-          <Icon icon={ArrowRight} className={styles.allPostsArrow} />
-        </Link>
-      </p>
       <ul className={styles.channelList} aria-label="Writing channels">
         {insightLinks.map((link) => (
           <li key={link.label}>
-            <a href={link.href} className={styles.channelPill} target="_blank" rel="noreferrer">
-              <BrandIcon label={link.label} path={link.iconPath} className={styles.brandIcon} />
+            <a href={link.href} className={styles.channelLink} target="_blank" rel="noreferrer">
+              <BrandIcon label={link.label} path={link.iconPath} className={styles.channelIcon} />
               <span>{link.label}</span>
             </a>
           </li>

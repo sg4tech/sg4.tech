@@ -302,35 +302,65 @@
 
 
 
-/* Insights: the latest posts as compact rows, then the blog link and the
-   writing channels as pills. */
+/* Writing: heading with "All posts" beside it, the latest posts as
+   typographic cards (date above, title set larger), then the channels as a
+   quiet line of same-size monochrome icons. */
+.writingHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-2);
+}
+
+/* The intro runs under both columns, so "All posts" only shares the heading row. */
+.writingIntro {
+  grid-column: 1 / -1;
+}
+
+.allPostsLink {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad));
+  color: var(--text-strong);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .latestPosts {
+  display: grid;
+  gap: var(--space-3);
   margin: var(--space-3) 0 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--border);
+}
+
+.latestPostItem {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-strong);
 }
 
 .latestPost {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: var(--space-2);
-  row-gap: 0.25rem;
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.latestPostTitle {
-  grid-column: 1;
-  color: var(--text-strong);
-  font-weight: 600;
-  line-height: var(--leading-base);
+  justify-items: start;
+  gap: 0.5rem;
 }
 
 .latestPostMeta {
-  grid-column: 1;
   color: var(--muted);
   font-size: var(--text-sm);
+}
+
+.latestPostTitle {
+  color: var(--text-strong);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: var(--leading-base);
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
 }
 
 .latestPostArrow,
@@ -341,12 +371,6 @@
   transition:
     transform var(--duration-base) var(--ease-standard),
     color var(--duration-base) var(--ease-standard);
-}
-
-.latestPostArrow {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: center;
 }
 
 .latestPost:hover .latestPostArrow,
@@ -360,64 +384,49 @@
 .latestPost:hover .latestPostTitle,
 .latestPost:focus-visible .latestPostTitle {
   text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
-.allPosts {
-  margin: var(--space-2) 0 0;
-}
-
-.allPostsLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding-block: var(--tap-pad);
-  margin-block: calc(-1 * var(--tap-pad));
-  color: var(--text-strong);
-  font-weight: 600;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
 }
 
 .channelList {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1);
-  margin: var(--space-3) 0 0;
+  gap: 0 var(--space-3);
+  margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
 }
 
-.channelPill {
+.channelLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  color: var(--text);
-  transition: border-color var(--duration-base) var(--ease-standard);
+  gap: 0.45rem;
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad));
+  color: var(--muted);
+  font-size: var(--text-sm);
+  transition: color var(--duration-base) var(--ease-standard);
 }
 
-.channelPill:hover,
-.channelPill:focus-visible {
-  border-color: var(--border-strong);
+.channelLink:hover,
+.channelLink:focus-visible {
   color: var(--text-strong);
 }
 
-.brandIcon {
+/* Same size, same grey for every brand mark, so none of them shouts. */
+.channelIcon {
   display: inline-flex;
-  width: 1rem;
-  height: 1rem;
-  color: var(--text-strong);
-  opacity: 0.88;
+  width: 0.95rem;
+  height: 0.95rem;
   flex: 0 0 auto;
 }
 
-.brandIcon svg {
+.channelIcon svg {
   width: 100%;
   height: 100%;
 }
+
+
 
 
 
@@ -486,6 +495,11 @@
 
   .caseDetails {
     margin-top: 0;
+  }
+
+  .latestPosts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-4);
   }
 
   .fitGrid {

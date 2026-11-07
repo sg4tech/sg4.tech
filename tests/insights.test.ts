@@ -45,7 +45,27 @@ describe("homepage Insights block", () => {
       expect(links.toLowerCase()).toContain(url.toLowerCase());
     }
     expect(links).not.toContain("description:");
-    expect(section).toContain("className={styles.channelPill}");
+    expect(section).toContain("className={styles.channelLink}");
+  });
+
+  // Editorial layout: one heading with the "All posts" link beside it, the
+  // posts as a row of three typographic cards on wide screens, and the
+  // channels as a quiet line of same-size monochrome icons.
+  it("titles the block Writing with All posts beside the heading", () => {
+    expect(section).toContain('title="Writing"');
+    expect(section).toMatch(/<div className=\{styles\.writingHeader\}>[\s\S]*?<SectionHeader[\s\S]*?All posts[\s\S]*?<\/div>/);
+  });
+
+  it("sets the posts in three columns on wide screens", () => {
+    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.latestPosts \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
+  });
+
+  it("keeps the channel links quiet: no pill border, muted icons", () => {
+    const css = read("app", "page.module.css");
+    const link = css.split(".channelLink {")[1]?.split("}")[0] ?? "";
+    expect(link).not.toContain("border:");
+    expect(link).toContain("color: var(--muted);");
   });
 });
 
