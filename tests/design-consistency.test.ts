@@ -121,6 +121,22 @@ describe("contrast of secondary graphics", () => {
   });
 });
 
+describe("homepage hero layout", () => {
+  const css = read("app", "page.module.css");
+  const wide = css.split("@media (min-width: 1100px)").slice(1).join("");
+
+  // The one-line headline left the left column mostly empty. On wide screens
+  // the proof row fills it; on narrow screens the DOM order (CTA before
+  // stats) is kept, so the button stays in the first screen.
+  it("places the proof row in the left column on wide screens only", () => {
+    expect(wide).toMatch(/\.heroLayout \{\s*display: contents;/);
+    expect(wide).toMatch(/\.heroProof \{[^}]*grid-column: 1;/);
+    expect(wide).toMatch(/\.heroSecondary \{[^}]*grid-column: 2;/);
+    const narrow = css.split("@media (min-width: 1100px)")[0] ?? "";
+    expect(narrow).not.toContain("display: contents;");
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");
