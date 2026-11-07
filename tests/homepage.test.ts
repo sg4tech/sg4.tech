@@ -5,13 +5,11 @@ import { describe, expect, it } from "vitest";
 const requiredAnchors = ['id="problem"', 'id="solution"', 'id="results"', 'id="process"', 'id="fit"', 'id="insights"', 'id="final-cta"'];
 
 const requiredCopy = [
-  // Hero headline uses the design system's two-tone device: the setup clause
-  // is wrapped in a muted <span>, so it's asserted as its two contiguous
-  // fragments rather than one string.
-  "I turn slow, expensive engineering into",
-  "fast, predictable delivery systems.",
-  "Book a diagnostic call",
-  "Get a delivery diagnosis",
+  "Software engineering & technical leadership",
+  "I build systems that work.",
+  "Software that ships on time, holds up in production, and doesn&apos;t fall apart as it grows.",
+  "Using system thinking, delivery metrics, and AI, I build software with product teams — faster and with less chaos.",
+  "Discuss your project",
   "See how I work",
   "https://t.me/sg4tech",
   "https://t.me/sg4tech?start=site_hero",
@@ -25,7 +23,7 @@ const requiredCopy = [
   "GitHub",
   "LinkedIn",
   "Telegram",
-  "What does a fractional CTO help with?",
+  "What do you actually do?",
   "When are you the right fit?",
   "When are you not the right fit?",
   "How fast can we see results?",
@@ -43,7 +41,7 @@ const requiredCopy = [
   "where your system breaks.",
   "Running a Yii2 project?",
   "/yii2/",
-  "There is a dedicated landing page for Yii2 delivery consulting"
+  "There is a dedicated landing page for Yii2 development"
 ];
 
 describe("homepage landing page", () => {
@@ -63,4 +61,30 @@ describe("homepage landing page", () => {
       expect(content).toContain(phrase);
     }
   });
+});
+
+// The site describes a software development practice, so the homepage and every
+// site-wide signal — shared bio, default metadata, link previews, the blog CTA,
+// llms.txt — must not sell consulting or a "fractional CTO" service. Past CTO
+// roles stay as facts of experience; that wording is allowed.
+const positioningSurfaces = [
+  ["app", "page.tsx"],
+  ["app", "lib", "brand.ts"],
+  ["app", "layout.tsx"],
+  ["app", "opengraph-image.tsx"],
+  ["app", "components", "BlogCta.tsx"],
+  ["public", "llms.txt"]
+];
+
+const bannedPositioning = [/consult/i, /fractional/i, /diagnostic call/i, /delivery diagnosis/i];
+
+describe("development positioning", () => {
+  for (const segments of positioningSurfaces) {
+    it(`${segments.join("/")} does not sell consulting`, () => {
+      const content = readFileSync(join(process.cwd(), ...segments), "utf8");
+      for (const pattern of bannedPositioning) {
+        expect(content).not.toMatch(pattern);
+      }
+    });
+  }
 });

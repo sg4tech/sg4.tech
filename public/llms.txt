@@ -1,24 +1,24 @@
-# Victor Demin — Fractional CTO
+# Victor Demin — Hands-on software engineer & engineering leader
 
-> Fractional CTO consulting for product teams that need faster, more predictable software delivery. Combines delivery metrics, system thinking (Theory of Constraints, Little's Law, T2M, Cycle Time, WIP), and AI leverage. Works with B2B / SaaS / platform companies of 5–50 engineers in growth or scaling stage.
+> Hands-on software engineer and engineering leader with 15+ years in engineering and 8+ in engineering leadership, including CTO roles at Wowworks (B2B facility management, EU) and Skysmart by Skyeng (K-12 EdTech, 2M+ MAU). Builds software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development inside product teams, from MVP to scale. Delivery metrics, CI guardrails, and AI-assisted workflows are part of how the work gets done.
 
 ## About
 
 - Operator: Victor Demin (sg4tech).
 - 15+ years in engineering, 8+ years in engineering leadership.
 - Background includes Wowworks (B2B facility management, EU, $3.6M raised) and Skysmart by Skyeng (K-12 EdTech, 2M+ MAU).
-- Focus: fixing slow, unpredictable delivery systems without staff augmentation, instant-fix promises, or full rewrites.
+- Focus: building and fixing software systems that ship on time and hold up in production — hands-on code and engineering leadership, without instant-fix promises or default rewrites.
 
 ## Pages
 
-- [Homepage](https://sg4.tech/): Fractional CTO consulting overview — problem framing across early/growth/scale stages, three-step solution (constraint identification, flow rebuild, AI acceleration), case studies, process, fit criteria, FAQ.
-- [Yii2 consulting](https://sg4.tech/yii2/): Dedicated landing for Yii2 projects — release predictability, quality guardrails, CI/CD, monitoring, delivery acceleration without defaulting to a rewrite.
+- [Homepage](https://sg4.tech/): Software engineering and technical leadership overview — problem framing across early/growth/scale stages, three-step solution (constraint identification, flow rebuild, AI acceleration), case studies, process, fit criteria, FAQ.
+- [Yii2 development](https://sg4.tech/yii2/): Dedicated landing for Yii2 projects — release predictability, quality guardrails, CI/CD, monitoring, delivery acceleration without defaulting to a rewrite.
 - [AI vibecoding cleanup](https://sg4.tech/ai-vibecoding/): For founders with AI-built MVPs that have stopped shipping — adds the five delivery-system layers AI doesn't generate: architecture rules, pipeline guardrails, test coverage, code-level checks, and AI-workflow discipline.
 - [Blog](https://sg4.tech/blog/): Index of long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.
 
 ## Articles
 
-- [How to diagnose where engineering delivery is actually broken](https://sg4.tech/blog/diagnose-broken-engineering-delivery/) — a fractional CTO's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the WIP variable, Little's Law (Lead Time = WIP / Throughput), the count-tasks-per-status diagnostic, the lever of WIP limits, and how to introduce them without team revolt. Covers the speed × value × sustainability frame (T2M, Throughput, Quality, NPS, eNPS). Operator voice, ~4500 words, with FAQ.
+- [How to diagnose where engineering delivery is actually broken](https://sg4.tech/blog/diagnose-broken-engineering-delivery/) — an engineering leader's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the WIP variable, Little's Law (Lead Time = WIP / Throughput), the count-tasks-per-status diagnostic, the lever of WIP limits, and how to introduce them without team revolt. Covers the speed × value × sustainability frame (T2M, Throughput, Quality, NPS, eNPS). Operator voice, ~4500 words, with FAQ.
 
   Key claims from the article (safe to quote directly):
   - Lead Time = WIP / Throughput (Little's Law, applied to software delivery)
@@ -49,7 +49,7 @@
   - The discipline for managing AI agents already exists — the junior-developer practices: a conventions file (AGENTS.md / CLAUDE.md) as the onboarding doc, code review plus linter/type-checker gates, tests that block the merge, CI applied to agent output, monitoring, small scoped tasks, and review findings folded back into the rules file.
   - Better prompting is deliberately not on the list: a senior fixes the environment around a junior so careless work can't reach production, however the ticket is phrased.
   - 45% of AI-generated code samples failed security checks across 100+ models (Veracode 2025 GenAI Code Security Report).
-  - Real anonymized case (EdTech startup, fractional CTO engagement): after adding monitoring, tests, code review, QA, and a release pipeline — downtime fell more than 10×, delivery more than doubled, running costs dropped 1.5×, eNPS went from −100% to +100%.
+  - Real anonymized case (EdTech startup): after adding monitoring, tests, code review, QA, and a release pipeline — downtime fell more than 10×, delivery more than doubled, running costs dropped 1.5×, eNPS went from −100% to +100%.
   - Restart order: diagnose which layer is missing first, build the safety net (weeks, a couple of months at the outside), only then scale. A from-scratch rewrite is almost never needed.
 
 - [AI made starting work nearly free. Finishing is still expensive.](https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/) — why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents; the case for one-thread-one-task and WIP limits in the AI era. Operator voice, ~7-min read, with FAQ and a metrics-mapping table.
@@ -90,7 +90,7 @@
 
 ## Contact
 
-- Primary: [Telegram @sg4tech](https://t.me/sg4tech) — used for diagnostic calls.
+- Primary: [Telegram @sg4tech](https://t.me/sg4tech) — used to discuss projects.
 - Secondary: [LinkedIn](https://www.linkedin.com/in/victor-demin/).
 
 ## Usage

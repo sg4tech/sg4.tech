@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Victor Demin"
   },
   description:
-    "Business-first engineering diagnostics for founders and CEOs who need product delivery to become predictable again.",
+    "Victor Demin — hands-on software engineer and engineering leader. Software systems that ship on time and hold up in production.",
   authors: [{ name: "Victor Demin", url: LINKEDIN_URL }],
   creator: "Victor Demin",
   publisher: "Victor Demin",

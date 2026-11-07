@@ -15,7 +15,7 @@ export function BlogCta({ heading, href, children }: BlogCtaProps) {
       <h3 className={styles.ctaHeading}>{heading}</h3>
       <p className={styles.ctaText}>{children}</p>
       <a href={href} target="_blank" rel="noreferrer" className={styles.ctaButton}>
-        Book a diagnostic call on Telegram
+        Discuss your project on Telegram
       </a>
     </aside>
   );
