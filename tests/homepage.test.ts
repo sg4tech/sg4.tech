@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-const requiredAnchors = ['id="problem"', 'id="solution"', 'id="results"', 'id="process"', 'id="fit"', 'id="insights"', 'id="final-cta"'];
+const requiredAnchors = ['id="problem"', 'id="results"', 'id="process"', 'id="fit"', 'id="insights"', 'id="final-cta"'];
 
 const requiredCopy = [
   "Software engineering & technical leadership",
@@ -26,14 +26,21 @@ const requiredCopy = [
   "What do you actually do?",
   "When are you the right fit?",
   "When are you not the right fit?",
-  "How fast can we see results?",
   "I ship the product. You bring the customers.",
   "You already have revenue and a working sales channel",
   "Idea stage — no clear audience, validated MVP, or revenue yet",
   "Unpaid work or equity-only deals",
   "Marketing, growth, or lead-generation services",
   "I ship the product; selling it stays with you.",
-  "I don't optimize developers. I fix the delivery system.",
+  "The product sells. The software can't keep up.",
+  "Traction is there. The codebase isn't ready for it.",
+  "Releases get riskier as the system grows",
+  "More people and more process rarely fix it.",
+  "The fix is in how the software is built and shipped — and that&apos;s what I do.",
+  "I write the code, lead the work, and stay until it runs in production.",
+  "Past roles and projects — what changed when I led development.",
+  "If your situation is more specific, start with the page built for it.",
+  "How soon will something ship?",
   "2–3x faster delivery",
   "Up to 10x fewer bugs and downtime",
   "Higher predictability",
@@ -75,7 +82,16 @@ describe("homepage landing page", () => {
     // "What to expect" repeated the FAQ answer, "Why this works" repeated
     // "Why me", and the bare topic list repeated the writing links below it.
     const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
-    for (const phrase of ["What to expect", "Why this works", "Metrics that actually matter"]) {
+    for (const phrase of [
+      "What to expect",
+      "Why this works",
+      "Metrics that actually matter",
+      // The Solution section and the "Typical triggers" card repeated the
+      // Problem section once How I work described the build itself.
+      "I fix the delivery system",
+      "#solution",
+      "Typical triggers"
+    ]) {
       expect(content).not.toContain(phrase);
     }
   });
