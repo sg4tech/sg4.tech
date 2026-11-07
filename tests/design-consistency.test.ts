@@ -262,6 +262,15 @@ describe("/ai-vibecoding who-not-for list", () => {
   });
 });
 
+describe("homepage specialized offers", () => {
+  // Two full-width cards left most of each frame empty on desktop; side by
+  // side they fill the row, on the same breakpoint as Who I work with.
+  it("sets the offer cards in two columns on wide screens", () => {
+    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.specializationGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  });
+});
+
 describe("one site menu", () => {
   const nav = read("app", "lib", "navigation.ts");
   const items = nav.split("export const siteNavigationItems")[1]?.split("];")[0] ?? "";
