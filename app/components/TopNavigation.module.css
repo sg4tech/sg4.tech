@@ -134,6 +134,15 @@
     white-space: nowrap;
     flex: 0 0 auto;
   }
+
+  /* Pinned item (Contact) sticks to the right edge; the solid shadow fills
+     the gap so scrolled pills disappear under it instead of peeking out. */
+  .navLinks a[data-mobile-pinned] {
+    position: sticky;
+    right: 0;
+    margin-left: auto;
+    box-shadow: calc(-1 * var(--space-1)) 0 0 var(--surface);
+  }
 }
 
 @media (max-width: 390px) {

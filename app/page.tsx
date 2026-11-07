@@ -50,7 +50,7 @@ const navigationItems: NavigationItem[] = [
   { href: "#process", label: "How I work", mobileNav: "primary" },
   { href: "#fit", label: "Who I work with", mobileNav: "secondary" },
   { href: "/blog/", label: "Blog", mobileNav: "secondary" },
-  { href: "#final-cta", label: "Contact", mobileNav: "primary" }
+  { href: "#final-cta", label: "Contact", mobileNav: "primary", mobilePinned: true }
 ];
 
 const stageProblems = [

@@ -59,7 +59,7 @@ const navigationItems: NavigationItem[] = [
   { href: "#process", label: "How I work", mobileNav: "primary" },
   { href: "#why-me", label: "Why me", mobileNav: "secondary" },
   { href: "#faq", label: "FAQ", mobileNav: "primary" },
-  { href: "#final-cta", label: "Contact", mobileNav: "primary" }
+  { href: "#final-cta", label: "Contact", mobileNav: "primary", mobilePinned: true }
 ];
 
 const heroSignals: Array<{

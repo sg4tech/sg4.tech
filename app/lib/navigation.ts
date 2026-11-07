@@ -2,6 +2,8 @@ export type NavigationItem = {
   href: string;
   label: string;
   mobileNav: "primary" | "secondary";
+  // Stays visible at the right edge of the scrolling mobile pill row.
+  mobilePinned?: true;
 };
 
 export type FooterLink = {

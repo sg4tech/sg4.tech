@@ -52,14 +52,13 @@
    AA-readable on the saturated ember field where white text would not be. */
 .ghost {
   background: transparent;
-  border-color: rgba(23, 24, 27, 0.28);
+  border-color: var(--gray-900);
   color: var(--gray-900);
 }
 
 .ghost:hover,
 .ghost:focus-visible {
-  background: rgba(23, 24, 27, 0.06);
-  border-color: rgba(23, 24, 27, 0.45);
+  background: rgba(23, 24, 27, 0.08);
 }
 
 /* On the ember block the ember focus outline is invisible — make it show:

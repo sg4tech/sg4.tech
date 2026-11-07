@@ -83,6 +83,44 @@ describe("homepage case studies", () => {
   });
 });
 
+describe("mobile layout", () => {
+  const block = (css: string, selector: string) => css.split(`${selector} {`)[1]?.split("}")[0] ?? "";
+  const mobile = (css: string) => css.split("@media (max-width: 640px)")[1] ?? "";
+
+  it("keeps a 16px page gutter on phones", () => {
+    const css = read("app", "components", "Page.module.css");
+    expect(block(mobile(css), ".page")).toContain("width: min(100% - 2rem, var(--page-width));");
+  });
+
+  // The horizontal pill row clips its last items; Contact is the conversion
+  // link, so it stays pinned to the right edge while the rest scroll under it.
+  it.each(["page.tsx", join("yii2", "page.tsx"), join("ai-vibecoding", "page.tsx")])(
+    "%s pins Contact in the mobile nav",
+    (file) => {
+      expect(read("app", file)).toContain('label: "Contact", mobileNav: "primary", mobilePinned: true');
+    }
+  );
+
+  it("renders pinned nav items as sticky on phones", () => {
+    const tsx = read("app", "components", "TopNavigation.tsx");
+    const css = read("app", "components", "TopNavigation.module.css");
+    expect(tsx).toContain("data-mobile-pinned={item.mobilePinned ? \"\" : undefined}");
+    expect(block(mobile(css), ".navLinks a[data-mobile-pinned]")).toContain("position: sticky;");
+  });
+});
+
+describe("contrast of secondary graphics", () => {
+  it("gives the ghost CTA button a solid ink outline on the ember block", () => {
+    const css = read("app", "components", "Button.module.css");
+    expect(css.split(".ghost {")[1]?.split("}")[0]).toContain("border-color: var(--gray-900);");
+  });
+
+  it("draws the lead-time histogram bars visibly against the card", () => {
+    const css = read("app", "blog", "forecast-delivery-with-percentiles", "page.module.css");
+    expect(css.split(".distChart .dcBar {")[1]?.split("}")[0]).toContain("fill: var(--gray-400);");
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");

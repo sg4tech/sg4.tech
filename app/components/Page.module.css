@@ -6,7 +6,7 @@
 
 @media (max-width: 640px) {
   .page {
-    width: min(100% - 1.25rem, var(--page-width));
+    width: min(100% - 2rem, var(--page-width));
     padding-bottom: var(--space-6);
   }
 }
