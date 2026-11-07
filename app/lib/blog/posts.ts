@@ -110,6 +110,12 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
 // fall out of sync inside this file (e.g., slug added to one but not the
 // other) — runtime check because the type system can't enforce that every
 // PostSlug literal has a matching blogPosts entry.
+/** Posts newest first; pass `limit` to take only the most recent ones. */
+export function getLatestPosts(limit?: number): ReadonlyArray<BlogPost> {
+  const sorted = [...blogPosts].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+  return limit === undefined ? sorted : sorted.slice(0, limit);
+}
+
 export function getPostBySlug(slug: PostSlug): BlogPost {
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) {

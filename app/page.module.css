@@ -227,11 +227,6 @@
   font-weight: 600;
 }
 
-.insightGrid {
-  display: grid;
-  gap: 0;
-  margin-top: 1.25rem;
-}
 
 .specializationGrid {
   display: grid;
@@ -303,31 +298,111 @@
   line-height: var(--leading-relaxed);
 }
 
-.insightCard {
-  display: grid;
-  gap: 0.35rem;
-  padding: 0.9rem 0;
+
+
+
+
+/* Insights: the latest posts as compact rows, then the blog link and the
+   writing channels as pills. */
+.latestPosts {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
   border-top: 1px solid var(--border);
-  background: transparent;
-  transition:
-    border-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
 }
 
-.insightCard:last-child {
+.latestPost {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-2);
+  row-gap: 0.25rem;
+  padding: var(--space-2) 0;
   border-bottom: 1px solid var(--border);
 }
 
-.insightCard:hover,
-.insightCard:focus-visible {
-  border-color: var(--border-strong);
+.latestPostTitle {
+  grid-column: 1;
   color: var(--text-strong);
+  font-weight: 600;
+  line-height: var(--leading-base);
 }
 
-.insightHeader {
+.latestPostMeta {
+  grid-column: 1;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.latestPostArrow,
+.allPostsArrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--muted);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.latestPostArrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+.latestPost:hover .latestPostArrow,
+.latestPost:focus-visible .latestPostArrow,
+.allPostsLink:hover .allPostsArrow,
+.allPostsLink:focus-visible .allPostsArrow {
+  color: var(--text-strong);
+  transform: translateX(3px);
+}
+
+.latestPost:hover .latestPostTitle,
+.latestPost:focus-visible .latestPostTitle {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.allPosts {
+  margin: var(--space-2) 0 0;
+}
+
+.allPostsLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.35rem;
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad));
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.channelList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.channelPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color var(--duration-base) var(--ease-standard);
+}
+
+.channelPill:hover,
+.channelPill:focus-visible {
+  border-color: var(--border-strong);
+  color: var(--text-strong);
 }
 
 .brandIcon {
@@ -344,16 +419,7 @@
   height: 100%;
 }
 
-.insightLabel {
-  font-size: var(--text-md);
-  font-weight: 700;
-  color: var(--text-strong);
-}
 
-.insightDescription {
-  color: var(--muted);
-  line-height: var(--leading-relaxed);
-}
 
 
 @media (max-width: 860px) {
