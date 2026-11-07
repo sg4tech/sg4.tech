@@ -397,6 +397,36 @@ Use system fonts (Arial, Verdana, Tahoma) only as **fallbacks** in the `font-fam
 
 ---
 
+## 17. Site rules (decisions made in this codebase)
+
+Rules this site has settled on, each with its reason and where it lives. Sections 1–16 are general theory; this one is local. Values live in `app/globals.css` and the named components; don't copy them into prose.
+
+### Buttons and contrast
+- **Primary buttons use an ink label on ember, never white.** White on the brand ember fails §9 contrast at button text size; ink passes, and the ember fill stays the brand colour. The hover state **lightens** the fill, because darkening it would drop ink below AA. Lives in `--color-primary-contrast` / `--color-primary-hover`; guarded by `tests/dark-surface-contrast.test.ts`.
+- **Small text sets in `--text-3` or darker, not `--text-4`,** wherever it carries meaning (captions, qualifiers, notes). `--text-4` is for placeholders and decoration only.
+
+### Tap targets
+- **Small text links get a full-size hit area without moving the layout:** add `padding-block: var(--tap-pad)` and an equal negative `margin-block`. Use it for back links, footer links and the phone text-style secondary button. Meets §9 2.5.8 and the larger comfortable-thumb size.
+
+### Layout
+- **Anything that should sit on the 42rem reading column must be block-level.** `inline-flex` ignores `margin-inline: auto`, so a back link styled that way escapes to the page edge. Use `display: flex; width: fit-content` and place it on the column explicitly.
+- **Cards that stretch to equal height in a grid row set `align-content: start`.** Otherwise the extra height goes to the header row unevenly and titles fall out of line across the row.
+- **`--scroll-offset` must exceed the sticky nav's height.** Anchor targets land at that offset; if it is shorter, a jumped-to heading slides under the nav (§9 2.4.11). Raise the token, not per-page margins.
+- **No section divider directly under the nav.** The nav card already separates the page top; `Section` skips its top border when it follows `<nav>`.
+
+### Components
+- **Numbered steps: one `Steps` component, never a summary strip plus cards that repeat the same titles.** Use `variant="card"` where the section needs a stronger visual anchor (the landings), the default plain variant elsewhere.
+- **Marketing lists use `MarkList` markers** (dot, check, cross), never bare browser bullets. A "not a fit" list takes the cross, matching the homepage.
+- **`Stat` qualifiers ("Up to") go inline before the figure,** so every figure in a row shares one line. A stacked overline pushes one figure below its neighbours.
+- **Link cards show an arrow** (`ArrowRight` in its own column, nudging right on hover). A card that is a link but looks like a text block gets skipped.
+- **Every blog figure caption uses `FigureCaption`,** and the frame wraps the whole figure (picture and caption), not just the image. Per-post caption rules drifted into two greys and two alignments.
+- **Long posts get an `ArticleToc`** built from the post's own h2 ids and text, with a test that keeps the two in sync.
+
+### Guardrails
+- **A CSS-module class referenced in TSX must exist in its stylesheet.** CSS modules turn a missing class into `undefined`, so a deleted rule fails silently and the element renders unstyled. `tests/css-module-classes.test.ts` checks every reference; when deleting CSS, remove whole rules by selector, never a range of lines.
+
+---
+
 ## How to apply this
 
 - Treat §1, §2, §5, §6, §8, §9 as gating: a page that fails any of these isn't ready to ship.

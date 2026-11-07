@@ -67,6 +67,8 @@ Use this when a change could be affected by anything that differs between `next 
 
 The dev server uses port 3000; preview uses 3001, so both can run in parallel.
 
+With several checkouts or worktrees on one machine, port 3001 may be served from a different folder. Before trusting a screenshot, confirm which checkout's `out/` is being served (`lsof -iTCP:3001 -sTCP:LISTEN` and that process's working directory).
+
 `preview` is intentionally separate from `npm run check` — it starts a long-running server, not a one-shot gate. Run it manually for UI/CSS-affecting changes. See `docs/retros/` for incident reports that motivated this workflow.
 
 ## Important configuration decisions

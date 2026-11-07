@@ -61,7 +61,7 @@
 
 ### Reference docs
 
-- `docs/design-best-practices.md` — 16-section design theory (typography, hierarchy, persuasion, motion, a11y, color, performance, etc.). Consult before introducing new typography scales, color usage, motion durations, or interaction patterns.
+- `docs/design-best-practices.md` — design theory (typography, hierarchy, persuasion, motion, a11y, color, performance, etc.) and the design rules this site follows. Read it before changing typography, color, motion, or interaction patterns.
 - `docs/engineering-checks.md` — what each `npm run` check covers and the mobile QA expectations.
 
 ## Engineering Quality
