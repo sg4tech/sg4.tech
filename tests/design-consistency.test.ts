@@ -121,6 +121,36 @@ describe("contrast of secondary graphics", () => {
   });
 });
 
+describe("Stat note placement", () => {
+  // A note stacked above one figure ("Up to") pushed that figure below its
+  // neighbours. Inline before the figure, every figure shares one line.
+  it("renders the note inline in the figure row", () => {
+    const tsx = read("app", "components", "Stat.tsx");
+    const header = tsx.split("className={styles.header}>")[1]?.split("</span>\n")[0] ?? "";
+    expect(header).toContain("styles.note");
+    expect(header.indexOf("className={styles.note}")).toBeLessThan(header.indexOf("className={styles.figure}"));
+  });
+});
+
+describe("homepage link cards", () => {
+  // Offer and featured-essay cards are links; an arrow says so at a glance.
+  it("marks every specialization card with an arrow", () => {
+    const tsx = read("app", "page.tsx");
+    const cards = tsx.match(/className=\{styles\.specializationCard\}/g) ?? [];
+    const arrows = tsx.match(/<Icon icon=\{ArrowRight\} className=\{styles\.specializationArrow\} \/>/g) ?? [];
+    expect(cards.length).toBeGreaterThan(0);
+    expect(arrows).toHaveLength(cards.length);
+  });
+});
+
+describe("mobile nav pinned item", () => {
+  it("fades scrolled pills out before the pinned item", () => {
+    const css = read("app", "components", "TopNavigation.module.css");
+    const rule = css.split(".navLinks a[data-mobile-pinned]::before {")[1]?.split("}")[0] ?? "";
+    expect(rule).toContain("linear-gradient(");
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");
