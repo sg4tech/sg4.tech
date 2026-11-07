@@ -111,3 +111,18 @@ describe("/ai-vibecoding 'Why me' panel contrast", () => {
     expect(read("app", "ai-vibecoding", "page.tsx")).toContain('<ResultsCaption tone="onDark" />');
   });
 });
+
+// Primary CTA buttons sit on the page, not the dark panel: their label must
+// pass AA against the button's own fill, at rest and on hover.
+describe("primary button contrast", () => {
+  const buttonCss = read("app", "components", "Button.module.css");
+  const label = parseColor(requiredDeclaration(buttonCss, ".primary", "color"));
+
+  it.each([
+    ["at rest", ".primary"],
+    ["on hover", ".primary:hover,\n.primary:focus-visible"]
+  ])("label passes WCAG AA %s", (_state, selector) => {
+    const fill = parseColor(requiredDeclaration(buttonCss, selector, "background"));
+    expect(contrast(label, fill)).toBeGreaterThanOrEqual(WCAG_AA_SMALL_TEXT);
+  });
+});
