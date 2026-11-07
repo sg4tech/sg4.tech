@@ -488,7 +488,7 @@ const whyMePoints: WhyMePoint[] = [
             <span className={styles.outcomeChip}>eNPS −100→100</span>
           </div>
         </div>
-        <ResultsCaption />
+        <ResultsCaption tone="onDark" />
       </div>
     )
   },

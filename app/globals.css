@@ -25,6 +25,7 @@
   --viz-warm-strong: #b85a35;
   --viz-cool: #2f7a59;
   --viz-cool-strong: #1f5a40;
+  --viz-cool-on-dark: #6cc497; /* cool text on --surface-inverse panels */
   --viz-neutral: #6b7280;
   --viz-neutral-strong: #4b5563;
   --viz-night: #1d2430;
