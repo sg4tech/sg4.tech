@@ -122,9 +122,11 @@
 
   /* ---- Semantic color aliases ---- */
   --color-primary: var(--orange-500);
-  --color-primary-hover: var(--orange-600);
+  /* Lighter on hover: ink on --orange-600 would drop below AA. */
+  --color-primary-hover: var(--orange-400);
   --color-primary-active: var(--orange-700);
-  --color-primary-contrast: #fff;
+  /* Ink, not white: white on ember is 3.47:1, ink on ember passes AA. */
+  --color-primary-contrast: var(--gray-900);
   --color-primary-tint: var(--orange-50);
   --color-primary-border: var(--orange-200);
   --color-primary-text: var(--orange-700);
