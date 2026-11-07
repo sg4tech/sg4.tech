@@ -177,9 +177,9 @@ const caseStudies = [
 
 const workSteps = [
   {
-    title: "Quick audit (1–2 weeks)",
+    title: "Quick review (1–2 weeks)",
     points: ["Analyze your system", "Identify bottlenecks", "Review metrics and flow"],
-    output: "clear diagnosis"
+    output: "clear plan"
   },
   {
     title: "System redesign",
@@ -233,7 +233,7 @@ const fitGroups = [
     kind: "x" as const,
     points: [
       "No product / no team",
-      "Looking for staff augmentation or pure hands-on coding",
+      "Looking for staff augmentation only, without ownership of the result",
       "Expect instant fixes without org or process changes"
     ]
   }
@@ -259,7 +259,7 @@ const specializationLinks = [
   {
     href: "/yii2/",
     title: "Running a Yii2 project?",
-    description: "There is a dedicated landing page for Yii2 delivery consulting: quality, release predictability, speed, and modernization without defaulting to a rewrite."
+    description: "There is a dedicated landing page for Yii2 development: quality, release predictability, speed, and modernization without defaulting to a rewrite."
   },
   {
     href: "/ai-vibecoding/",
@@ -297,9 +297,9 @@ const insightLinks = [
 
 const faqItems = [
   {
-    question: "What does a fractional CTO help with?",
+    question: "What do you actually do?",
     answer:
-      "I help product companies fix slow, unpredictable delivery systems. That includes bottlenecks, delivery metrics, engineering efficiency, flow, and applying AI where it creates real leverage."
+      "I build and fix software for product companies — writing the code, leading development, and making delivery faster and more predictable with metrics and AI."
   },
   {
     question: "When are you the right fit?",
@@ -309,7 +309,7 @@ const faqItems = [
   {
     question: "When are you not the right fit?",
     answer:
-      "Not a fit if you only need staff augmentation, pure hands-on coding, or expect instant results without process and operating model changes."
+      "Not a fit if you only need extra hands without ownership of the result, or expect instant results without changes to how the team works."
   },
   {
     question: "How fast can we see results?",
@@ -325,11 +325,11 @@ const structuredData = {
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#service`,
-      name: "Victor Demin Fractional CTO Consulting",
+      name: "Victor Demin Software Engineering",
       url: SITE_URL,
-      serviceType: "Fractional CTO and engineering delivery consulting",
+      serviceType: "Software development and technical leadership",
       description:
-        "Fractional CTO consulting for product teams that need faster, more predictable software delivery using system thinking, delivery metrics, and AI.",
+        "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
       areaServed: "Global",
       founder: {
         "@id": `${SITE_URL}/#person`
@@ -352,44 +352,43 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "Fractional CTO Consulting for Faster, Predictable Delivery",
+  title: "Software Engineering & Technical Leadership",
   description:
-    "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic.",
+    "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "Fractional CTO Consulting for Faster, Predictable Delivery",
+    title: "Software Engineering & Technical Leadership",
     description:
-      "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic.",
+      "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
     type: "website",
     siteName: BRAND_NAME,
     locale: "en_US"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fractional CTO Consulting for Faster, Predictable Delivery",
+    title: "Software Engineering & Technical Leadership",
     description:
-      "I help product teams fix broken delivery systems with metrics, system thinking, and AI so engineering becomes faster, more predictable, and less chaotic."
+      "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams."
   }
 };
 
 function HeroSection() {
   return (
     <section className={styles.hero}>
-      <Eyebrow>Fractional CTO consulting</Eyebrow>
+      <Eyebrow>Software engineering & technical leadership</Eyebrow>
       <div className={styles.heroLayout}>
         <div>
-          <h1>
-            <span className={styles.heroLeadIn}>I turn slow, expensive engineering into </span>
-            fast, predictable delivery systems.
-          </h1>
+          <h1>I build systems that work.</h1>
           <HeroSignals signals={heroSignals} className={styles.heroSignals} />
         </div>
         <div className={styles.heroSecondary}>
-          <p className={styles.heroLead}>AI alone won't fix your delivery. But combined with the right system — it will.</p>
+          <p className={styles.heroLead}>
+            Software that ships on time, holds up in production, and doesn&apos;t fall apart as it grows.
+          </p>
           <p className={styles.heroText}>
-            Using system thinking, delivery metrics, and AI, I help product teams ship faster with less chaos.
+            Using system thinking, delivery metrics, and AI, I build software with product teams — faster and with less chaos.
           </p>
           <div className={styles.heroActions}>
             <Button
@@ -399,7 +398,7 @@ function HeroSection() {
               eventName="cta_click"
               payload={{ location: "hero" }}
             >
-              Book a diagnostic call
+              Discuss your project
             </Button>
             <Button variant="secondary" href={secondaryCtaHref}>
               See how I work
@@ -626,7 +625,7 @@ function FinalCtaSection() {
       text="Share the delivery symptoms, constraints, and team stage. I'll help you locate the real bottleneck and the fastest next step."
       primary={{
         href: finalCtaHref,
-        label: "Get a delivery diagnosis",
+        label: "Discuss your project",
         target: "_blank",
         rel: "noreferrer",
         eventName: "cta_click",

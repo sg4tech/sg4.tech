@@ -55,12 +55,12 @@ export const footerDisclaimers: FooterDisclaimer[] = [
 // entity by matching consistent facts across surfaces, so these must not drift.
 // Keep in sync with public/llms.txt.
 export const VICTOR_NAME = "Victor Demin";
-const VICTOR_JOB_TITLE = "Fractional CTO";
+const VICTOR_JOB_TITLE = "Software engineer & engineering leader";
 
 // Display tagline under the name in the "Why me" identity card on every landing.
 // Distinct from VICTOR_JOB_TITLE (the schema's terse jobTitle) — this is the
 // human-facing one-liner. Single source so all three landings read identically.
-export const VICTOR_ROLE_LINE = "Fractional CTO / engineering delivery consultant";
+export const VICTOR_ROLE_LINE = "Hands-on software engineer & engineering leader";
 
 // Portrait shown in the "Why me" / trust block on every landing AND referenced as
 // Person.image in the JSON-LD below — one path so the rendered photo and the
@@ -68,10 +68,9 @@ export const VICTOR_ROLE_LINE = "Fractional CTO / engineering delivery consultan
 export const VICTOR_PHOTO_PATH = "/brand/victor-demin.jpg";
 
 // Canonical one-paragraph bio. Person.description renders this; it is also the
-// paste-in bio for external profiles (e.g. to fix Medium's "CTO and IT
-// consultant" so it matches this exactly).
+// paste-in bio for external profiles (LinkedIn, Medium) so they match it exactly.
 const VICTOR_BIO =
-  "Fractional CTO and engineering delivery consultant with 15+ years in engineering and 8+ in engineering leadership. Helps product teams of 5–50 engineers ship faster and more predictably by fixing the delivery system — using delivery metrics, system thinking (Theory of Constraints, Little's Law, Time to Market, Cycle Time, WIP), and AI leverage — without staff augmentation or default rewrites. Background includes Wowworks (B2B facility management, EU) and Skysmart by Skyeng (K-12 EdTech, 2M+ MAU).";
+  "Hands-on software engineer and engineering leader with 15+ years in engineering and 8+ in engineering leadership, including CTO roles at Wowworks (B2B facility management, EU) and Skysmart by Skyeng (K-12 EdTech, 2M+ MAU). Builds software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development inside product teams, from MVP to scale. Delivery metrics, CI guardrails, and AI-assisted workflows are part of how the work gets done.";
 
 // Topics the entity is an authority on — Person.knowsAbout. Lets engines state
 // what Victor is expert in. Distinctive concepts that map to a knowledge-graph
