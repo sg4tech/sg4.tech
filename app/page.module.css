@@ -84,15 +84,11 @@
 }
 
 
-.stageGrid,
-.caseGrid {
+.stageGrid {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-2);
   margin-top: var(--space-3);
-}
-
-.stageGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .stack {
@@ -118,8 +114,7 @@
 }
 
 .card h3,
-.caseStudy h3,
-.caseGrid h4 {
+.caseStudy h3 {
   margin: 0;
   font-size: var(--text-lg);
   line-height: var(--leading-base);
@@ -166,12 +161,6 @@
   margin: 0;
 }
 
-.caseGrid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 1.25rem;
-}
-
 /* Headline proof: each case leads with its numbers, so the detail grid below
    reads as supporting context. */
 .caseMetrics {
@@ -181,15 +170,31 @@
   margin-top: var(--space-2);
 }
 
-/* Smaller detail only on wide screens; on phones it stays body size. */
-@media (min-width: 861px) {
-  .caseStudy .caseGrid {
-    font-size: var(--text-sm);
-  }
+/* Supporting detail: two short muted lines under the numbers, the same at
+   every width. The label runs into its line ("Problem: …"). */
+.caseDetails {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+}
 
-  .caseStudy .caseGrid h4 {
-    font-size: var(--text-base);
-  }
+.caseDetails dt {
+  display: inline;
+  color: var(--text-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.caseDetails dt::after {
+  content: ": ";
+}
+
+.caseDetails dd {
+  display: inline;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
 }
 
 .fitCard {
@@ -352,8 +357,7 @@
 
 
 @media (max-width: 860px) {
-  .stageGrid,
-  .caseGrid {
+  .stageGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -425,10 +429,5 @@
   .caseHeader {
     padding-bottom: 0.9rem;
     border-bottom: 1px solid var(--border);
-  }
-
-  .caseGrid > div + div {
-    padding-left: 1.25rem;
-    border-left: 1px solid var(--border);
   }
 }

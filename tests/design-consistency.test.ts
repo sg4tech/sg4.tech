@@ -76,6 +76,19 @@ describe("homepage case studies", () => {
 
   // Qualitative outcomes join the same row as icon-led Stats, so there is no
   // separate Result column left holding a single line.
+  // Two bulleted lists under every case made the cards tall and heavy. The
+  // same phrases now sit as two muted lines, so the numbers lead and the
+  // detail reads as a footnote, at every width.
+  it("sets Problem and What I did as two muted lines, not lists", () => {
+    expect(resultsSection).not.toContain("<MarkList");
+    expect(resultsSection).toContain("<dl className={styles.caseDetails}>");
+    expect(resultsSection).toContain('{study.problem.join(" · ")}');
+    expect(resultsSection).toContain('{study.work.join(" · ")}');
+    const css = read("app", "page.module.css");
+    expect(css).toMatch(/\.caseDetails dd \{[^}]*color: var\(--muted\);/);
+    expect(css).not.toContain(".caseGrid");
+  });
+
   it("keeps every outcome in the metrics row, with no separate Result column", () => {
     expect(caseStudies).not.toContain("result: [");
     expect(resultsSection).not.toContain("<h4>Result</h4>");
