@@ -1,5 +1,4 @@
 import {
-  AlertTriangle,
   ArrowRight,
   Ban,
   BookOpen,
@@ -46,7 +45,6 @@ const finalCtaHref = "https://t.me/sg4tech?start=site_final";
 
 const navigationItems: NavigationItem[] = [
   { href: "#problem", label: "Problem", mobileNav: "primary" },
-  { href: "#solution", label: "Solution", mobileNav: "secondary" },
   { href: "#results", label: "Results", mobileNav: "primary" },
   { href: "#process", label: "How I work", mobileNav: "primary" },
   { href: "#fit", label: "Who I work with", mobileNav: "secondary" },
@@ -56,53 +54,34 @@ const navigationItems: NavigationItem[] = [
 
 const stageProblems = [
   {
-    title: "Early-stage",
+    title: "Early traction",
     icon: Rocket,
     points: [
-      "MVP takes longer than expected",
-      "Everything depends on a few key people",
-      "Constant rework and changing direction",
-      "Hard to go from idea to working product"
+      "The MVP code is hard to change",
+      "New features take longer than expected",
+      "Everything depends on one or two people"
     ],
-    closing: "You're moving — but not fast enough."
+    closing: "Traction is there. The codebase isn't ready for it."
   },
   {
-    title: "Growth-stage",
+    title: "Growth",
     icon: TrendingUp,
     points: [
       "Features take too long to ship",
       "Deadlines slip — even with planning",
-      "Teams are busy, but output feels low",
-      "Bugs increase with every release",
-      "Delivery becomes unpredictable"
+      "Bugs increase with every release"
     ],
-    closing: "You have a team. You have processes. But it still doesn't work."
+    closing: "You have a team. It's busy. Output still feels low."
   },
   {
     title: "Scale",
     icon: Layers,
     points: [
-      "Too many processes, but no real visibility",
+      "Every change touches too many parts of the system",
       "Coordination overhead slows everything down",
-      "Decisions are based on intuition, not data",
-      "Improvements don't stick"
+      "Releases get riskier as the system grows"
     ],
-    closing: "You try to fix it — but complexity keeps growing."
-  }
-];
-
-const solutionSteps = [
-  {
-    title: "Identify the real constraint",
-    description: "Using Theory of Constraints and delivery metrics, I find where your system actually breaks."
-  },
-  {
-    title: "Rebuild the flow",
-    description: "Time to Market (T2M), Cycle Time, and Work in Progress (WIP) turn chaos into a manageable system."
-  },
-  {
-    title: "Accelerate with AI",
-    description: "Reduce manual work, speed up development, and improve consistency where AI creates real leverage."
+    closing: "Complexity grows faster than the product."
   }
 ];
 
@@ -235,18 +214,6 @@ const fitGroups = [
     ]
   },
   {
-    title: "Typical triggers",
-    icon: AlertTriangle,
-    kind: "dot" as const,
-    points: [
-      "Delivery is too slow",
-      "Deadlines are unpredictable",
-      "Bugs increase",
-      "Engineering feels expensive",
-      "Scaling doesn't help"
-    ]
-  },
-  {
     title: "Not a good fit",
     icon: Ban,
     kind: "x" as const,
@@ -324,9 +291,9 @@ const faqItems = [
       "Not a fit at the idea stage — without a clear audience, a validated MVP, or revenue — or for unpaid or equity-only work, marketing or lead-generation services, or staff augmentation without ownership of the result. I ship the product; selling it stays with you."
   },
   {
-    question: "How fast can we see results?",
+    question: "How soon will something ship?",
     answer:
-      "First insights usually appear within 1–2 weeks. Visible improvements often start within weeks, not months, depending on the system and adoption speed."
+      "The review takes 1–2 weeks and ends with a scoped plan and a defined first release. Working increments usually reach production within weeks, not months — the exact pace depends on the scope and the state of the codebase."
   }
 ];
 
@@ -439,7 +406,7 @@ function HeroSection() {
 function ProblemSection() {
   return (
     <Section id="problem">
-      <SectionHeader title="Most engineering problems look different on the surface — but the root is usually the same: a broken delivery system." />
+      <SectionHeader title="The product sells. The software can't keep up." />
       <div className={styles.stageGrid}>
         {stageProblems.map((stage) => (
           <article key={stage.title} className={styles.card}>
@@ -453,25 +420,9 @@ function ProblemSection() {
         ))}
       </div>
       <div className={styles.callout}>
-        <p>This is not a people problem.</p>
-        <p>And it's not solved by adding more process.</p>
-        <p>You tried hiring more engineers. You added process. It didn't fix the problem.</p>
-        <p>It's a system problem.</p>
+        <p>More people and more process rarely fix it.</p>
+        <p>The fix is in how the software is built and shipped — and that&apos;s what I do.</p>
       </div>
-    </Section>
-  );
-}
-
-function SolutionSection() {
-  return (
-    <Section id="solution">
-      <SectionHeader title="I don't optimize developers. I fix the delivery system." />
-      <Steps
-        items={solutionSteps.map((step) => ({
-          title: step.title,
-          body: <p className={styles.stepText}>{step.description}</p>
-        }))}
-      />
     </Section>
   );
 }
@@ -479,7 +430,7 @@ function SolutionSection() {
 function ResultsSection() {
   return (
     <Section id="results">
-      <SectionHeader title="Results" intro="Real examples of what changes when the system improves." />
+      <SectionHeader title="Results" intro="Past roles and projects — what changed when I led development." />
       <div className={styles.stack}>
         {caseStudies.map((study) => (
           <article key={study.title} className={styles.caseStudy}>
@@ -512,7 +463,7 @@ function ResultsSection() {
 function TrustSection() {
   return (
     <WhyMeSection
-      intro="Operator-level engineering leader focused on fixing delivery systems, not decorating process."
+      intro="I write the code, lead the work, and stay until it runs in production."
       points={trustPoints}
     />
   );
@@ -562,7 +513,7 @@ function SpecializationSection() {
     <Section>
       <SectionHeader
         title="Specialized offers"
-        intro="If your situation is more specific than a general delivery problem, start with the offer tailored to that system."
+        intro="If your situation is more specific, start with the page built for it."
       />
       <div className={styles.specializationGrid}>
         {specializationLinks.map((link) => (
@@ -652,7 +603,6 @@ export default function HomePage() {
       <TopNavigation items={navigationItems} ariaLabel="Section navigation" />
       <HeroSection />
       <ProblemSection />
-      <SolutionSection />
       <TrustSection />
       <ResultsSection />
       <ProcessSection />
