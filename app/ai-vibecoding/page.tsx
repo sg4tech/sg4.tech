@@ -16,7 +16,6 @@ import {
   LucideIcon,
   RefreshCw,
   Rocket,
-  Search,
   ShieldCheck,
   Sparkles,
   TrendingUp,
@@ -30,12 +29,14 @@ import { FaqSection } from "../components/FaqSection";
 import { SiteFooter } from "../components/SiteFooter";
 import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
+import { MarkList } from "../components/MarkList";
 import { Page } from "../components/Page";
 import { ResultsCaption } from "../components/ResultsCaption";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { Stat } from "../components/Stat";
 import { StatementCta } from "../components/StatementCta";
+import { Steps } from "../components/Steps";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
@@ -104,7 +105,6 @@ const workSteps = [
   {
     title: "Diagnose",
     duration: "1–2 weeks",
-    icon: Search,
     points: [
       "Audit codebase, dev workflow, and AI usage patterns",
       "Find what's hurting, what's working, what's missing",
@@ -115,7 +115,6 @@ const workSteps = [
   {
     title: "Safety net",
     duration: "Weeks to ~2 months",
-    icon: ShieldCheck,
     points: [
       "Set up dev fundamentals: git, CI/CD, monitoring, logs",
       "Add all five guardrail layers including AI-workflow",
@@ -126,7 +125,6 @@ const workSteps = [
   {
     title: "Scale",
     duration: "Ongoing — months",
-    icon: TrendingUp,
     points: [
       "Define target architecture and refactor toward it safely",
       "Tune for your real load profile",
@@ -134,6 +132,12 @@ const workSteps = [
     ],
     output: "Maintainable codebase, team scales without re-breaking it"
   }
+];
+
+const expectationPoints = [
+  "First improvements in CI/CD and monitoring within 2-4 weeks",
+  "Critical bug fixes typically within the first month",
+  "Architectural maturity unfolds over months — pace depends on starting state and team velocity"
 ];
 
 const whoNotForItems = [
@@ -521,39 +525,24 @@ function ProcessSection() {
         title="How I work"
         intro="No pre-decided fixes. First we see what's actually broken. Then we make changes safe to ship. Then we make the system one that scales."
       />
-      <div className={styles.processWrapper}>
-        {workSteps.map((step, i) => (
-          <div key={`h-${step.title}`} className={landing.processVisualStep}>
-            <span className={landing.processVisualIndex}>{String(i + 1).padStart(2, "0")}</span>
-            <p className={landing.processVisualTitle}>{step.title}</p>
-            <p className={landing.processVisualText}>{step.duration}</p>
-          </div>
-        ))}
-        {workSteps.map((step) => (
-          <article key={step.title} className={landing.card}>
-            <div className={landing.cardHeader}>
-              <Icon icon={step.icon} className={landing.cardIcon} />
-              <h3>{step.title}</h3>
-            </div>
-            <ul className={landing.problemList}>
-              {step.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-            <p className={landing.output}>Output: {step.output}</p>
-          </article>
-        ))}
-      </div>
+      <Steps
+        items={workSteps.map((step) => ({
+          title: step.title,
+          body: (
+            <>
+              <p className={landing.stepSummary}>{step.duration}</p>
+              <MarkList items={step.points} />
+              <p className={landing.output}>Output: {step.output}</p>
+            </>
+          )
+        }))}
+      />
       <p className={landing.processNote}>
         The goal isn&apos;t a heroic refactor sprint. The goal is reduced chaos, predictable shipping, and the confidence to keep going.
       </p>
       <div className={landing.expectationBox}>
         <h3>What to expect</h3>
-        <ul className={landing.problemList}>
-          <li>First improvements in CI/CD and monitoring within 2-4 weeks</li>
-          <li>Critical bug fixes typically within the first month</li>
-          <li>Architectural maturity unfolds over months — pace depends on starting state and team velocity</li>
-        </ul>
+        <MarkList items={expectationPoints} kind="check" />
       </div>
     </Section>
   );
