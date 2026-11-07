@@ -10,6 +10,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
+import { FigureCaption } from "../../components/FigureCaption";
 
 const VIBECODED_HREF = "/blog/vibecoded-mvp-stopped-shipping/";
 const TEMPLATE_HREF = "https://github.com/sg4tech/python-guardrails-template";
@@ -86,10 +87,10 @@ export function LevelLadder(): ReactNode {
           );
         })}
       </ol>
-      <figcaption className={styles.ladderCaption}>
+      <FigureCaption>
         Cheapest checks at the bottom. Levels 1–6 fail the build every time; written rules on top
         guide the agent but can&apos;t stop it.
-      </figcaption>
+      </FigureCaption>
     </figure>
   );
 }

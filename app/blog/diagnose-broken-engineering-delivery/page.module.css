@@ -134,13 +134,6 @@
   stroke-dasharray: 3 3;
 }
 
-.timelineCaption {
-  margin: var(--space-1) 0 0;
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  text-align: center;
-}
 
 /* Horizontal bar chart for the "count tasks per status" diagnostic. Same
    wrapper treatment as .timelineDiagram so the two figures in the article
@@ -292,20 +285,17 @@
 /* Body illustration: full-width figure with a token-styled caption. The image
    carries the section's visual anchor; the caption doubles as an extraction
    hook for engines reading the page. */
+/* Frame the whole figure, like the SVG charts, so the caption sits inside. */
 .figure {
   margin: var(--space-3) 0 0;
+  padding: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
 .figureImage {
   width: 100%;
   height: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xs);
 }
 
-.figureCaption {
-  margin-top: var(--space-1);
-  font-size: var(--text-sm);
-  line-height: var(--leading-base);
-  color: var(--text-4);
-}

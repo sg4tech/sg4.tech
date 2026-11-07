@@ -553,11 +553,7 @@ function WhoNotForSection() {
   return (
     <Section>
       <SectionHeader title="Who I'm not for" />
-      <ul className={styles.whoNotForList}>
-        {whoNotForItems.map((item) => (
-          <li key={item} className={styles.whoNotForItem}>{item}</li>
-        ))}
-      </ul>
+      <MarkList items={whoNotForItems} kind="x" />
     </Section>
   );
 }

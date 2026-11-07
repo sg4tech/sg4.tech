@@ -8,6 +8,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
+import { FigureCaption } from "../../components/FigureCaption";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";
 
@@ -114,10 +115,10 @@ function DistributionChart(): ReactNode {
           lead time (days)
         </text>
       </svg>
-      <figcaption className={styles.distCaption}>
+      <FigureCaption>
         Lead-time distribution: most work clears in a day or two (the tall bars), but a long tail of
         stuck tasks drags the average out to where almost nothing actually lands.
-      </figcaption>
+      </FigureCaption>
     </figure>
   );
 }
