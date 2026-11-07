@@ -34,6 +34,7 @@ import { Steps } from "./components/Steps";
 import { SiteNav } from "./components/SiteNav";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
+import { formatPostDate, getLatestPosts } from "./lib/blog/posts";
 import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
@@ -217,14 +218,6 @@ const fitGroups = [
   }
 ];
 
-const featuredEssay = {
-  href: "/blog/diagnose-broken-engineering-delivery/",
-  label: "Featured essay",
-  title: "How to diagnose where engineering delivery is actually broken",
-  description:
-    "The full metrics playbook: T2M, Lead Time, Cycle Time, WIP, Little's Law, and how to introduce WIP limits without team revolt. ~4500 words, with FAQ."
-};
-
 const specializationLinks = [
   {
     href: "/yii2/",
@@ -242,26 +235,22 @@ const insightLinks = [
   {
     label: "Habr",
     href: "https://habr.com/users/sg4tech/",
-    iconPath: siHabr.path,
-    description: "Long-form breakdowns of delivery systems, bottlenecks, and engineering management patterns."
+    iconPath: siHabr.path
   },
   {
     label: "Telegram",
     href: "https://t.me/cto_lifehacks",
-    iconPath: siTelegram.path,
-    description: "Short practical notes on CTO work, delivery friction, and system-level decisions."
+    iconPath: siTelegram.path
   },
   {
     label: "Medium",
     href: "https://medium.com/@sg4tech",
-    iconPath: siMedium.path,
-    description: "English-language writing on product delivery, AI leverage, and predictable engineering flow."
+    iconPath: siMedium.path
   },
   {
     label: "LinkedIn",
     href: LINKEDIN_URL,
-    iconPath: LINKEDIN_SVG_PATH,
-    description: "Operator perspective, case-based observations, and updates on engineering leadership."
+    iconPath: LINKEDIN_SVG_PATH
   }
 ];
 
@@ -510,42 +499,59 @@ function SpecializationSection() {
   );
 }
 
+// Split a title before its last word, so the trailing arrow can be glued to
+// that word and never wrap onto a line of its own.
+function titleHead(title: string): string {
+  return title.slice(0, title.lastIndexOf(" ") + 1);
+}
+
+function titleTail(title: string): string {
+  return title.slice(title.lastIndexOf(" ") + 1);
+}
+
 function InsightsSection() {
   return (
     <Section id="insights">
-      <SectionHeader
-        title="Insights / Writing"
-        intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
-      />
-      <p className={styles.bodyCopy}>Not theory — practical patterns from real systems.</p>
-      <div className={styles.specializationGrid}>
-        <Link href={featuredEssay.href} className={styles.specializationCard}>
-          <span className={styles.specializationLabel}>{featuredEssay.label}</span>
-          <span className={styles.specializationTitle}>{featuredEssay.title}</span>
-          <span className={styles.specializationDescription}>{featuredEssay.description}</span>
-          <Icon icon={ArrowRight} className={styles.specializationArrow} />
+      <div className={styles.writingHeader}>
+        <SectionHeader
+          title="Writing"
+          intro="I write about delivery systems, bottlenecks, metrics, and how AI changes engineering workflows."
+          introClassName={styles.writingIntro}
+        />
+        <Link href="/blog/" className={styles.allPostsLink}>
+          All posts
+          <Icon icon={ArrowRight} className={styles.allPostsArrow} />
         </Link>
       </div>
-      <p className={styles.bodyCopy}>
-        Or browse the full collection at <Link href="/blog/">sg4.tech/blog</Link>, and follow the channels below for short-form notes.
-      </p>
-      <div className={styles.insightGrid} aria-label="Writing channels">
-        {insightLinks.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            className={styles.insightCard}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className={styles.insightHeader}>
-              <BrandIcon label={link.label} path={link.iconPath} className={styles.brandIcon} />
-              <span className={styles.insightLabel}>{link.label}</span>
-            </span>
-            <span className={styles.insightDescription}>{link.description}</span>
-          </a>
+      <ul className={styles.latestPosts}>
+        {getLatestPosts(3).map((post) => (
+          <li key={post.slug} className={styles.latestPostItem}>
+            <Link href={`/blog/${post.slug}/`} className={styles.latestPost}>
+              <span className={styles.latestPostMeta}>
+                <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time> ·{" "}
+                {post.readingMinutes} min read
+              </span>
+              <span className={styles.latestPostTitle}>
+                {titleHead(post.title)}
+                <span className={styles.titleTail}>
+                  {titleTail(post.title)}
+                  <Icon icon={ArrowRight} className={styles.latestPostArrow} />
+                </span>
+              </span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
+      <ul className={styles.channelList} aria-label="Writing channels">
+        {insightLinks.map((link) => (
+          <li key={link.label}>
+            <a href={link.href} className={styles.channelLink} target="_blank" rel="noreferrer">
+              <BrandIcon label={link.label} path={link.iconPath} className={styles.channelIcon} />
+              <span>{link.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }
