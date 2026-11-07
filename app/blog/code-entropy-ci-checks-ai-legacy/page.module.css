@@ -205,12 +205,6 @@
   line-height: var(--leading-snug);
 }
 
-.ladderCaption {
-  margin: var(--space-1) 0 0;
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-base);
-}
 
 @media (max-width: 640px) {
   .ladderStep {

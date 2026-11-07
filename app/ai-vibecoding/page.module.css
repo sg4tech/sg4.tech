@@ -356,26 +356,6 @@
   white-space: nowrap;
 }
 
-/* ─── Who not for ────────────────────────────────────────────────────────── */
-
-.whoNotForList {
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.whoNotForItem {
-  padding: var(--space-2) 0;
-  border-top: 1px solid var(--border);
-  line-height: var(--leading-relaxed);
-  color: var(--text);
-}
-
-.whoNotForItem:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {

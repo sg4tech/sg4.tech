@@ -13,6 +13,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
+import { FigureCaption } from "../../components/FigureCaption";
 
 export function ArticleLede(): ReactNode {
   return (
@@ -161,9 +162,9 @@ function TimelineDiagram(): ReactNode {
         <rect x="440" y="176" width="340" height="32" rx="3" className={styles.tlMeasureBar} />
         <text x="610" y="197" textAnchor="middle" className={styles.tlMeasureLabel}>Cycle Time — active work only</text>
       </svg>
-      <figcaption className={styles.timelineCaption}>
+      <FigureCaption>
         Same timeline, three different measurements. Each metric points at a different bottleneck.
-      </figcaption>
+      </FigureCaption>
     </figure>
   );
 }
@@ -316,9 +317,9 @@ function QueueChart(): ReactNode {
         <rect x="160" y="170" width="44" height="30" rx="3" className={styles.qcBar} />
         <text x="214" y="190" className={styles.qcValue}>2</text>
       </svg>
-      <figcaption className={styles.timelineCaption}>
+      <FigureCaption>
         Where tasks accumulate, the system&apos;s capacity is hitting a ceiling.
-      </figcaption>
+      </FigureCaption>
     </figure>
   );
 }
@@ -515,9 +516,9 @@ export function SectionWipLimits(): ReactNode {
           className={styles.figureImage}
           unoptimized
         />
-        <figcaption className={styles.figureCaption}>
+        <FigureCaption>
           Same throughput, different WIP: queues shrink and lead time becomes predictable.
-        </figcaption>
+        </FigureCaption>
       </figure>
       <p>What WIP limits actually improve:</p>
       <ul>

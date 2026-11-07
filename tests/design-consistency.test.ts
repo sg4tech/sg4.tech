@@ -220,6 +220,46 @@ describe("layout batch: tap targets and alignment", () => {
   });
 });
 
+describe("blog figure captions", () => {
+  const localCaption = /\.(figureCaption|timelineCaption|distCaption|ladderCaption)\s*\{/;
+
+  // Captions were styled per post: two greys (one below AA), two alignments.
+  // One shared component keeps them identical and readable.
+  it.each(blogPostSlugs)("%s uses the shared FigureCaption", (slug) => {
+    const dir = join(root, "app", "blog", slug);
+    const tsx = readdirSync(dir).filter((f) => f.endsWith(".tsx")).map((f) => readFileSync(join(dir, f), "utf8")).join("\n");
+    expect(tsx).not.toMatch(/<figcaption\b/);
+    expect(read("app", "blog", slug, "page.module.css")).not.toMatch(localCaption);
+  });
+
+  // Charts draw their frame on the whole figure, so the caption sits inside
+  // it; image figures framed only the image, leaving the caption outside.
+  it.each(["ai-made-starting-free-finishing-expensive", "ai-coding-agent-periphery-core", "diagnose-broken-engineering-delivery"])(
+    "%s frames the whole image figure, caption included",
+    (slug) => {
+      const css = read("app", "blog", slug, "page.module.css");
+      const figure = css.split(".figure {")[1]?.split("}")[0] ?? "";
+      const image = css.split(".figureImage {")[1]?.split("}")[0] ?? "";
+      expect(figure).toContain("border: 1px solid var(--border);");
+      expect(image).not.toContain("border");
+    }
+  );
+
+  it("sets captions in the readable muted grey", () => {
+    const css = read("app", "components", "FigureCaption.module.css");
+    expect(css).toContain("color: var(--muted);");
+    expect(css).not.toContain("--text-4");
+  });
+});
+
+describe("/ai-vibecoding who-not-for list", () => {
+  it("carries the same cross marker as the homepage 'Not a good fit'", () => {
+    const tsx = read("app", "ai-vibecoding", "page.tsx");
+    expect(tsx).toContain('<MarkList items={whoNotForItems} kind="x" />');
+    expect(tsx).not.toContain("styles.whoNotForItem");
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");

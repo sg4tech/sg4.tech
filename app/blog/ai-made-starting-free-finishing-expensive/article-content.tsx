@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
+import { FigureCaption } from "../../components/FigureCaption";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";
 const INTERRUPTED_WORK_HREF = "https://ics.uci.edu/~gmark/chi08-mark.pdf";
@@ -86,9 +87,9 @@ export function SectionCostVisible(): ReactNode {
           className={styles.figureImage}
           unoptimized
         />
-        <figcaption className={styles.figureCaption}>
+        <FigureCaption>
           The P&amp;L of one failed task: every attempt billed, nothing shipped.
-        </figcaption>
+        </FigureCaption>
       </figure>
       <p>To know what your delivery actually costs, you only need to count three things:</p>
       <ul>
@@ -246,9 +247,9 @@ export function SectionOneThread(): ReactNode {
           className={styles.figureImage}
           unoptimized
         />
-        <figcaption className={styles.figureCaption}>
+        <FigureCaption>
           Starting more fills the board. Finishing more fills production.
-        </figcaption>
+        </FigureCaption>
       </figure>
       <ul>
         <li>

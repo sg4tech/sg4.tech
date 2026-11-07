@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./page.module.css";
+import { FigureCaption } from "../../components/FigureCaption";
 
 const STARTING_CHEAP_HREF = "/blog/ai-made-starting-free-finishing-expensive/";
 const RESCUE_HREF = "/ai-vibecoding/";
@@ -83,10 +84,10 @@ export function SectionBarrier(): ReactNode {
           className={styles.figureImage}
           unoptimized
         />
-        <figcaption className={styles.figureCaption}>
+        <FigureCaption>
           Inside the perimeter: the agent runs on internal infrastructure, with a developer&apos;s
           own access and a full audit trail — nothing leaves the company.
-        </figcaption>
+        </FigureCaption>
       </figure>
       <p>
         Once it&apos;s in — founder&apos;s laptop or corporate VPN — the question is the same: what
@@ -166,9 +167,9 @@ export function SectionRule(): ReactNode {
           className={styles.figureImage}
           unoptimized
         />
-        <figcaption className={styles.figureCaption}>
+        <FigureCaption>
           The agent works the periphery; the human core is the engineering decision.
-        </figcaption>
+        </FigureCaption>
       </figure>
       <p>
         Engineers used to spend hours searching for information and grinding through routine. Now the
