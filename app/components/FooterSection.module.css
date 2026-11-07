@@ -68,6 +68,9 @@
 }
 
 .footerLegalLink {
+  display: inline-flex;
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad));
   color: var(--muted);
   line-height: var(--leading-none);
   transition: color var(--duration-base) var(--ease-standard);
