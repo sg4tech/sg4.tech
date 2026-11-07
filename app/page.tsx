@@ -272,16 +272,6 @@ const faqItems = [
       "I build and fix software for product companies — writing the code, leading development, and making delivery faster and more predictable with metrics and AI."
   },
   {
-    question: "When are you the right fit?",
-    answer:
-      "Founders and product companies that know their customers, have a validated MVP, and already have revenue and a working sales channel — and need software that ships on time and holds up as they grow."
-  },
-  {
-    question: "When are you not the right fit?",
-    answer:
-      "Not a fit at the idea stage — without a clear audience, a validated MVP, or revenue — or for unpaid or equity-only work, marketing or lead-generation services, or staff augmentation without ownership of the result. I ship the product; selling it stays with you."
-  },
-  {
     question: "How soon will something ship?",
     answer:
       "The review takes 1–2 weeks and ends with a scoped plan and a defined first release. Working increments usually reach production within weeks, not months — the exact pace depends on the scope and the state of the codebase."
