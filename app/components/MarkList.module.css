@@ -19,7 +19,8 @@
   width: 1.1rem;
   height: 1.1rem;
   flex: 0 0 auto;
-  margin-top: 0.15rem;
+  /* em, not rem: the offset follows the list's own font size. */
+  margin-top: 0.15em;
 }
 
 .check {
@@ -34,7 +35,7 @@
   width: 0.4rem;
   height: 0.4rem;
   flex: 0 0 auto;
-  margin-top: 0.55rem;
+  margin-top: 0.55em;
   border-radius: var(--radius-pill);
   background: var(--gray-400);
 }

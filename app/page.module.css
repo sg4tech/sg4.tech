@@ -183,6 +183,23 @@
   gap: 1.25rem;
 }
 
+/* Headline proof: each case leads with its numbers, so the detail grid below
+   reads as supporting context. */
+.caseMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.caseStudy .caseGrid {
+  font-size: var(--text-sm);
+}
+
+.caseStudy .caseGrid h4 {
+  font-size: var(--text-base);
+}
+
 .fitCard {
   padding: var(--space-2) 0;
   border-inline: 0;

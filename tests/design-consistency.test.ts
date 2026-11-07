@@ -62,6 +62,24 @@ describe("Steps component", () => {
   });
 });
 
+describe("homepage case studies", () => {
+  const tsx = read("app", "page.tsx");
+  const caseStudies = tsx.split("const caseStudies = [")[1]?.split("\n];")[0] ?? "";
+  const resultsSection = tsx.split("function ResultsSection() {")[1]?.split("\n}\n")[0] ?? "";
+
+  // The numbers are the proof: they lead each case as Stat figures instead of
+  // sitting third in a checklist next to qualitative outcomes.
+  it("leads each case with Stat headline metrics", () => {
+    expect(caseStudies.match(/metrics: \[/g)).toHaveLength(3);
+    expect(resultsSection).toContain("<Stat figure={metric.figure}");
+  });
+
+  it.each(["2–3x", "10x", "2x", "~1.5x"])("does not repeat %s in the result checklist", (figure) => {
+    const resultLists = [...caseStudies.matchAll(/result: \[([^\]]*)\]/g)].map((m) => m[1]).join(" ");
+    expect(resultLists).not.toContain(`"${figure} `);
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");
