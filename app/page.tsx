@@ -4,8 +4,11 @@ import {
   BookOpen,
   Bug,
   Calendar,
+  Gauge,
   Layers,
   Rocket,
+  ShieldCheck,
+  Smile,
   Target,
   TrendingUp,
   Users,
@@ -159,9 +162,9 @@ const caseStudies = [
     work: ["Introduced delivery metrics", "Rebuilt development flow", "Aligned engineering with product"],
     metrics: [
       { figure: "2–3x", label: "faster delivery" },
-      { figure: "10x", label: "fewer bugs" }
-    ],
-    result: ["Predictable releases"]
+      { figure: "10x", label: "fewer bugs" },
+      { icon: TrendingUp, label: "Predictable releases" }
+    ]
   },
   {
     title: "From chaos to system",
@@ -170,17 +173,20 @@ const caseStudies = [
     work: ["Split Discovery / Delivery", "Introduced structured process", "Added feedback loops"],
     metrics: [
       { figure: "2x", label: "faster time-to-market" },
-      { figure: "2x", label: "throughput" }
-    ],
-    result: ["NPS improved significantly"]
+      { figure: "2x", label: "throughput" },
+      { icon: Smile, label: "NPS improved significantly" }
+    ]
   },
   {
     title: "Cost & efficiency",
     company: "Product company (scaling phase)",
     problem: ["High engineering cost", "Low effective throughput"],
     work: ["Identified bottlenecks (ToC)", "Reduced unnecessary work", "Improved prioritization"],
-    metrics: [{ figure: "~1.5x", label: "cost reduction" }],
-    result: ["Higher effective throughput", "More stable system"]
+    metrics: [
+      { figure: "~1.5x", label: "cost reduction" },
+      { icon: Gauge, label: "Higher effective throughput" },
+      { icon: ShieldCheck, label: "More stable system" }
+    ]
   }
 ];
 
@@ -490,7 +496,7 @@ function ResultsSection() {
             </header>
             <div className={styles.caseMetrics}>
               {study.metrics.map((metric) => (
-                <Stat figure={metric.figure} label={metric.label} key={metric.label} />
+                <Stat figure={metric.figure} icon={metric.icon} label={metric.label} key={metric.label} />
               ))}
             </div>
             <div className={styles.caseGrid}>
@@ -501,10 +507,6 @@ function ResultsSection() {
               <div>
                 <h4>What I did</h4>
                 <MarkList items={study.work} />
-              </div>
-              <div>
-                <h4>Result</h4>
-                <MarkList items={study.result} kind="check" />
               </div>
             </div>
           </article>

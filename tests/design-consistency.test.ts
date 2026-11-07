@@ -74,9 +74,12 @@ describe("homepage case studies", () => {
     expect(resultsSection).toContain("<Stat figure={metric.figure}");
   });
 
-  it.each(["2–3x", "10x", "2x", "~1.5x"])("does not repeat %s in the result checklist", (figure) => {
-    const resultLists = [...caseStudies.matchAll(/result: \[([^\]]*)\]/g)].map((m) => m[1]).join(" ");
-    expect(resultLists).not.toContain(`"${figure} `);
+  // Qualitative outcomes join the same row as icon-led Stats, so there is no
+  // separate Result column left holding a single line.
+  it("keeps every outcome in the metrics row, with no separate Result column", () => {
+    expect(caseStudies).not.toContain("result: [");
+    expect(resultsSection).not.toContain("<h4>Result</h4>");
+    expect(resultsSection).toContain("icon={metric.icon}");
   });
 });
 

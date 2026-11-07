@@ -178,7 +178,7 @@
 }
 
 .caseGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
   gap: 1.25rem;
 }
@@ -192,12 +192,15 @@
   margin-top: var(--space-2);
 }
 
-.caseStudy .caseGrid {
-  font-size: var(--text-sm);
-}
+/* Smaller detail only on wide screens; on phones it stays body size. */
+@media (min-width: 861px) {
+  .caseStudy .caseGrid {
+    font-size: var(--text-sm);
+  }
 
-.caseStudy .caseGrid h4 {
-  font-size: var(--text-base);
+  .caseStudy .caseGrid h4 {
+    font-size: var(--text-base);
+  }
 }
 
 .fitCard {
