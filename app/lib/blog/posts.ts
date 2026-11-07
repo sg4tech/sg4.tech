@@ -45,7 +45,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     slug: "diagnose-broken-engineering-delivery",
     title: "How to diagnose where engineering delivery is actually broken",
     description:
-      "A fractional CTO's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the role of WIP, Little's Law, and how to introduce WIP limits without team revolt.",
+      "An engineering leader's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the role of WIP, Little's Law, and how to introduce WIP limits without team revolt.",
     publishedAt: "2026-05-22",
     modifiedAt: "2026-05-22",
     readingMinutes: 18,
@@ -56,7 +56,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     title: "Average lead time is lying to you — how to forecast delivery with percentiles",
     seoTitle: "Average lead time is lying: forecast with percentiles",
     description:
-      "Average lead time hides what your delivery system actually does. A fractional CTO's guide to median, spread, and p95 forecasting — how to commit to delivery dates you can hit instead of estimates that keep slipping.",
+      "Average lead time hides what your delivery system actually does. An engineering leader's guide to median, spread, and p95 forecasting — how to commit to delivery dates you can hit instead of estimates that keep slipping.",
     publishedAt: "2026-05-29",
     modifiedAt: "2026-05-29",
     readingMinutes: 7,
@@ -66,7 +66,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     slug: "vibecoded-mvp-stopped-shipping",
     title: "Vibecoded MVP stopped shipping? Manage your AI like a junior",
     description:
-      "A vibecoded MVP stalls the way junior-built codebases always have: code ships fast and nothing catches mistakes. A fractional CTO's playbook for managing AI coding agents with junior-developer practices — with a real rescue case and numbers.",
+      "A vibecoded MVP stalls the way junior-built codebases always have: code ships fast and nothing catches mistakes. An engineering leader's playbook for managing AI coding agents with junior-developer practices — with a real rescue case and numbers.",
     publishedAt: "2026-06-11",
     modifiedAt: "2026-06-11",
     readingMinutes: 8,
@@ -76,7 +76,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     slug: "ai-made-starting-free-finishing-expensive",
     title: "AI made starting work nearly free. Finishing is still expensive.",
     description:
-      "Why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents. A fractional CTO's case for one-thread-one-task and WIP limits in the AI era.",
+      "Why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents. An engineering leader's case for one-thread-one-task and WIP limits in the AI era.",
     publishedAt: "2026-07-11",
     modifiedAt: "2026-07-11",
     readingMinutes: 7,
@@ -86,7 +86,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
     slug: "ai-coding-agent-periphery-core",
     title: "AI coding agents: give them the periphery, keep humans on the core",
     description:
-      "AI coding agents are brilliant at some work and dangerous at other work. A fractional CTO's rule for what to delegate — give them the periphery, keep humans on the core — with the enterprise access problem and where agents actually earn their place.",
+      "AI coding agents are brilliant at some work and dangerous at other work. An engineering leader's rule for what to delegate — give them the periphery, keep humans on the core — with the enterprise access problem and where agents actually earn their place.",
     publishedAt: "2026-07-12",
     modifiedAt: "2026-07-12",
     readingMinutes: 5,
