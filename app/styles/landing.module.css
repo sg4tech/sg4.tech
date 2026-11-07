@@ -27,7 +27,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: var(--space-3);
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad)) calc(var(--space-3) - var(--tap-pad));
   color: var(--muted);
   font-size: var(--text-sm);
   line-height: var(--leading-base);
@@ -201,6 +202,12 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* The shared text-helper margin pushed this text below its icon. */
+.cardGridQuality .card p,
+.cardGridSpeed .card p {
+  margin-top: 0;
+}
+
 .cardGridQuality .card,
 .cardGridSpeed .card {
   display: grid;
@@ -356,6 +363,9 @@
 
 .linkCard {
   display: grid;
+  /* Cards in a row stretch to equal height; without this the extra height
+     went to the header row unevenly and the titles fell out of line. */
+  align-content: start;
   gap: 0.55rem;
   padding: 1.05rem 1.1rem;
   border-color: var(--border-strong);

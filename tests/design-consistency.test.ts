@@ -167,6 +167,59 @@ describe("mobile nav pinned item", () => {
   });
 });
 
+describe("layout batch: tap targets and alignment", () => {
+  const rule = (css: string, selector: string) => css.split(`${selector} {`)[1]?.split("}")[0] ?? "";
+  const landing = read("app", "styles", "landing.module.css");
+  const blog = read("app", "components", "BlogPostLayout.module.css");
+  const privacy = read("app", "privacy", "page.module.css");
+
+  // Small text links get a 44px-tall hit area through padding, cancelled by a
+  // matching negative margin, so the visible layout does not move.
+  it.each([
+    ["landing back link", landing, ".backLink"],
+    ["blog back link", blog, ".backLink"],
+    ["privacy back link", privacy, ".backLink"],
+    ["footer legal link", read("app", "components", "FooterSection.module.css"), ".footerLegalLink"]
+  ])("%s has a 44px hit area without shifting layout", (_name, css, selector) => {
+    const r = rule(css, selector);
+    expect(r).toContain("padding-block: var(--tap-pad);");
+    expect(r).toContain("margin-block: calc(-1 * var(--tap-pad))");
+  });
+
+  it("gives the phone text-style secondary button the same hit area", () => {
+    const css = read("app", "components", "Button.module.css");
+    const mobile = css.split("@media (max-width: 640px)")[1] ?? "";
+    const r = rule(mobile, ".secondary");
+    expect(r).toContain("padding: var(--tap-pad) 0;");
+    expect(r).toContain("margin-block: calc(-1 * var(--tap-pad));");
+  });
+
+  // inline-flex ignores margin-inline: auto, so the back link stuck to the
+  // page edge instead of the 42rem reading column's left edge.
+  it.each([["blog", blog], ["privacy", privacy]])("%s back link sits on the reading column", (_name, css) => {
+    const r = rule(css, ".backLink");
+    expect(r).toContain("width: fit-content;");
+    expect(r).toContain("margin-inline: max(0px, (100% - 42rem) / 2) auto;");
+  });
+
+  it("does not draw a section divider directly under the nav", () => {
+    const css = read("app", "components", "Section.module.css");
+    expect(rule(css, "nav + .section")).toContain("border-top: 0;");
+  });
+
+  it("keeps proof card headers on one line across a row", () => {
+    expect(landing).toMatch(/\.linkCard \{[^}]*align-content: start;/);
+  });
+
+  it("starts quality and speed card text level with its icon", () => {
+    expect(rule(landing, ".cardGridQuality .card p,\n.cardGridSpeed .card p")).toContain("margin-top: 0;");
+  });
+
+  it("sets the Stat note in the readable secondary text colour", () => {
+    expect(rule(read("app", "components", "Stat.module.css"), ".note")).toContain("color: var(--text-3);");
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");

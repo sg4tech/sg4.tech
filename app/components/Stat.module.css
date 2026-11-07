@@ -8,7 +8,7 @@
 /* Inline before the figure, so a qualified figure stays on its neighbours'
    line instead of being pushed down by a stacked overline. */
 .note {
-  color: var(--text-4);
+  color: var(--text-3);
   font-size: var(--text-sm);
   font-weight: 600;
   line-height: var(--leading-tight);

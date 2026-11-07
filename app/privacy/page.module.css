@@ -10,7 +10,14 @@
 }
 
 .backLink {
-  display: inline-flex;
+  display: flex;
+  /* inline-flex ignores margin-inline: auto, so place the link at the
+     reading column's left edge explicitly. */
+  width: fit-content;
+  margin-inline: max(0px, (100% - 42rem) / 2) auto;
+  padding-block: var(--tap-pad);
+  /* Now on the same axis as the eyebrow below, so it needs real space. */
+  margin-block: calc(-1 * var(--tap-pad)) calc(var(--space-2) - var(--tap-pad));
   align-items: center;
   gap: 0.35rem;
   color: var(--muted);
