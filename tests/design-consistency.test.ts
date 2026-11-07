@@ -92,21 +92,6 @@ describe("mobile layout", () => {
     expect(block(mobile(css), ".page")).toContain("width: min(100% - 2rem, var(--page-width));");
   });
 
-  // The horizontal pill row clips its last items; Contact is the conversion
-  // link, so it stays pinned to the right edge while the rest scroll under it.
-  it.each(["page.tsx", join("yii2", "page.tsx"), join("ai-vibecoding", "page.tsx")])(
-    "%s pins Contact in the mobile nav",
-    (file) => {
-      expect(read("app", file)).toContain('label: "Contact", mobileNav: "primary", mobilePinned: true');
-    }
-  );
-
-  it("renders pinned nav items as sticky on phones", () => {
-    const tsx = read("app", "components", "TopNavigation.tsx");
-    const css = read("app", "components", "TopNavigation.module.css");
-    expect(tsx).toContain("data-mobile-pinned={item.mobilePinned ? \"\" : undefined}");
-    expect(block(mobile(css), ".navLinks a[data-mobile-pinned]")).toContain("position: sticky;");
-  });
 });
 
 describe("contrast of secondary graphics", () => {
@@ -156,14 +141,6 @@ describe("homepage link cards", () => {
     const arrows = tsx.match(/<Icon icon=\{ArrowRight\} className=\{styles\.specializationArrow\} \/>/g) ?? [];
     expect(cards.length).toBeGreaterThan(0);
     expect(arrows).toHaveLength(cards.length);
-  });
-});
-
-describe("mobile nav pinned item", () => {
-  it("fades scrolled pills out before the pinned item", () => {
-    const css = read("app", "components", "TopNavigation.module.css");
-    const rule = css.split(".navLinks a[data-mobile-pinned]::before {")[1]?.split("}")[0] ?? "";
-    expect(rule).toContain("linear-gradient(");
   });
 });
 
@@ -260,11 +237,41 @@ describe("/ai-vibecoding who-not-for list", () => {
   });
 });
 
-describe("homepage navigation", () => {
-  it("links to the blog index rather than an in-page anchor", () => {
-    const tsx = read("app", "page.tsx");
+describe("one site menu", () => {
+  const nav = read("app", "lib", "navigation.ts");
+  const items = nav.split("export const siteNavigationItems")[1]?.split("];")[0] ?? "";
+  const tsx = read("app", "components", "TopNavigation.tsx");
+  const css = read("app", "components", "TopNavigation.module.css");
 
-    expect(tsx).toContain('{ href: "/blog/", label: "Blog"');
-    expect(tsx).not.toContain('href: "#insights"');
+  // Every page shows the same menu from one list, so it cannot drift apart.
+  it.each([
+    ["home", ["page.tsx"]],
+    ["yii2", ["yii2", "page.tsx"]],
+    ["ai-vibecoding", ["ai-vibecoding", "page.tsx"]],
+    ["blog index", ["blog", "page.tsx"]]
+  ])("%s renders the shared SiteNav", (_name, parts) => {
+    const page = read("app", ...parts);
+    expect(page).toMatch(/<SiteNav current="\/[^"]*" \/>/);
+    expect(page).not.toContain("<TopNavigation");
+    expect(page).not.toContain("navigationItems");
+  });
+
+  it("is navigation only: pages, no in-page anchors, no Contact", () => {
+    expect(items).not.toMatch(/href: "#/);
+    expect(items).not.toContain("Contact");
+    expect(nav).not.toContain("mobilePinned");
+  });
+
+  it("marks the current page", () => {
+    expect(tsx).toContain('aria-current={item.href === current ? "page" : undefined}');
+    expect(css).toMatch(/\.navLinks a\[aria-current="page"\] \{[^}]*color: var\(--text-strong\);/);
+  });
+
+  // Four pages fit one row on a tablet; only phones drop the secondary ones.
+  it("hides secondary items on phones only", () => {
+    const tablet = css.split("@media (max-width: 860px)")[1]?.split("@media")[0] ?? "";
+    const phone = css.split("@media (max-width: 640px)")[1]?.split("@media")[0] ?? "";
+    expect(tablet).not.toContain('data-mobile-nav="secondary"');
+    expect(phone).toContain('.navLinks a[data-mobile-nav="secondary"]');
   });
 });

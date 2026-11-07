@@ -61,44 +61,35 @@
   color: var(--text-strong);
 }
 
+.navLinks a[aria-current="page"] {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+/* Below desktop: one row, logo plus the page pills. */
 @media (max-width: 860px) {
   .nav {
     position: static;
     padding-bottom: 0.75rem;
   }
 
-  .navInner {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
   .navLinks {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.55rem;
-    padding-top: 0.25rem;
-    border-top: 1px solid var(--border);
-    font-size: var(--text-md);
+    flex-wrap: nowrap;
+    gap: var(--space-1);
   }
 
   .navLinks a {
-    display: inline-flex;
-    align-items: center;
     min-height: 2.75rem;
-    padding: 0.6rem 0.75rem;
+    padding: 0.45rem 0.75rem;
     border: 1px solid var(--border);
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-pill);
     background: var(--surface);
+    white-space: nowrap;
   }
 
   .navLinks a:hover,
   .navLinks a:focus-visible {
     background: var(--surface-alt);
-  }
-
-  .navLinks a[data-mobile-nav="secondary"] {
-    display: none;
   }
 }
 
@@ -112,49 +103,9 @@
     font-size: var(--text-base);
   }
 
-  .navLinks {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: var(--space-1);
-    overflow-x: auto;
-    padding-top: 0;
-    border-top: 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .navLinks::-webkit-scrollbar {
+  /* Four pills do not fit next to the logo on a phone. */
+  .navLinks a[data-mobile-nav="secondary"] {
     display: none;
-  }
-
-  .navLinks a {
-    min-height: 2.75rem;
-    padding: 0.45rem 0.75rem;
-    border-radius: var(--radius-pill);
-    white-space: nowrap;
-    flex: 0 0 auto;
-  }
-
-  /* Pinned item (Contact) sticks to the right edge; the solid shadow fills
-     the gap so scrolled pills disappear under it instead of peeking out. */
-  .navLinks a[data-mobile-pinned] {
-    position: sticky;
-    right: 0;
-    margin-left: auto;
-    box-shadow: calc(-1 * var(--space-1)) 0 0 var(--surface);
-  }
-
-  /* Short fade so scrolled pills slide under the pinned item instead of
-     being cut off at a hard edge. */
-  .navLinks a[data-mobile-pinned]::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: calc(100% + var(--space-1));
-    width: var(--space-3);
-    background: linear-gradient(to right, transparent, var(--surface));
-    pointer-events: none;
   }
 }
 

@@ -37,12 +37,11 @@ import { SectionHeader } from "../components/SectionHeader";
 import { Stat } from "../components/Stat";
 import { StatementCta } from "../components/StatementCta";
 import { Steps } from "../components/Steps";
-import { TopNavigation } from "../components/TopNavigation";
+import { SiteNav } from "../components/SiteNav";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
 import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
 import { getPostBySlug } from "../lib/blog/posts";
-import type { NavigationItem } from "../lib/navigation";
 import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
 
@@ -54,13 +53,6 @@ const featuredPost = getPostBySlug("vibecoded-mvp-stopped-shipping");
 const heroCtaHref = "https://t.me/sg4tech?start=site_ai_vibecoding_hero";
 const finalCtaHref = "https://t.me/sg4tech?start=site_ai_vibecoding_final";
 
-const navigationItems: NavigationItem[] = [
-  { href: "#guardrails", label: "The system", mobileNav: "primary" },
-  { href: "#process", label: "How I work", mobileNav: "primary" },
-  { href: "#why-me", label: "Why me", mobileNav: "secondary" },
-  { href: "#faq", label: "FAQ", mobileNav: "primary" },
-  { href: "#final-cta", label: "Contact", mobileNav: "primary", mobilePinned: true }
-];
 
 const heroSignals: Array<{
   label: string;
@@ -601,7 +593,7 @@ export default function AiVibecodingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <TopNavigation items={navigationItems} ariaLabel="AI vibecoding landing page navigation" />
+      <SiteNav current="/ai-vibecoding/" />
       <HeroSection />
       <ProblemSection />
       <GuardrailsSection />
