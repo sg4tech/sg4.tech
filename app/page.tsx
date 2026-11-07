@@ -193,24 +193,40 @@ const caseStudies = [
 
 const workSteps = [
   {
-    title: "Quick review (1–2 weeks)",
-    points: ["Analyze your system", "Identify bottlenecks", "Review metrics and flow"],
-    output: "clear plan"
+    title: "Review (1–2 weeks)",
+    points: [
+      "Get to know your product, users, and business goals",
+      "Review the codebase, architecture, and how it ships today",
+      "Agree on scope, priorities, and the first release"
+    ],
+    output: "a scoped plan and a defined first release"
   },
   {
-    title: "System redesign",
-    points: ["Define metrics (T2M, Cycle Time, WIP)", "Rebuild delivery flow", "Align engineering with business"],
-    output: "structured system"
+    title: "Build",
+    points: [
+      "Write the code — features, integrations, fixes",
+      "Set up CI, tests, and guardrails from day one",
+      "Short iterations with working increments you can see"
+    ],
+    output: "working software, shipped in increments"
   },
   {
-    title: "Implementation",
-    points: ["Introduce changes step by step", "Support teams", "Ensure adoption"],
-    output: "working system"
+    title: "Ship & stabilize",
+    points: [
+      "Release to production",
+      "Fix and harden what real users run into",
+      "Keep releases predictable as the product grows"
+    ],
+    output: "a product that holds up in production"
   },
   {
-    title: "AI acceleration",
-    points: ["Reduce manual work", "Increase speed", "Improve consistency"],
-    output: "faster delivery"
+    title: "Grow with the product",
+    points: [
+      "Lead development as the scope grows",
+      "Bring in and lead more engineers when needed",
+      "Use AI and delivery metrics to keep the pace up"
+    ],
+    output: "a codebase and team that keep shipping"
   }
 ];
 
@@ -638,11 +654,11 @@ function FinalCtaSection() {
       id="final-cta"
       heading={
         <>
-          Describe your situation — I&apos;ll tell you{" "}
-          <em>where your system breaks.</em>
+          Tell me what you&apos;re building —{" "}
+          <em>I&apos;ll ship it.</em>
         </>
       }
-      text="Share the delivery symptoms, constraints, and team stage. I'll help you locate the real bottleneck and the fastest next step."
+      text="Share where the product is, who uses it, and what has to ship next. I'll reply with how I'd scope the work and the first release."
       primary={{
         href: finalCtaHref,
         label: "Discuss your project",

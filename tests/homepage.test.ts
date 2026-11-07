@@ -43,8 +43,11 @@ const requiredCopy = [
   // Final-CTA headline uses the design system's two-tone device: the closing
   // clause is wrapped in <em> (flipped to ink on the ember block), so the
   // headline is asserted as its two contiguous fragments rather than one span.
-  "Describe your situation — I&apos;ll tell you",
-  "where your system breaks.",
+  "Tell me what you&apos;re building —",
+  "<em>I&apos;ll ship it.</em>",
+  "I'll reply with how I'd scope the work and the first release.",
+  "Ship & stabilize",
+  "a product that holds up in production",
   "Running a Yii2 project?",
   "/yii2/",
   "There is a dedicated landing page for Yii2 development"
