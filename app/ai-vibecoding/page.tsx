@@ -103,14 +103,14 @@ const painPoints = [
 
 const workSteps = [
   {
-    title: "Diagnose",
+    title: "Review",
     duration: "1–2 weeks",
     points: [
-      "Audit codebase, dev workflow, and AI usage patterns",
+      "Review the codebase, dev workflow, and AI usage patterns",
       "Find what's hurting, what's working, what's missing",
       "Prioritize fixes by business impact"
     ],
-    output: "A clear diagnosis and a prioritized fix plan"
+    output: "A clear picture and a prioritized fix plan"
   },
   {
     title: "Safety net",
@@ -192,9 +192,9 @@ const structuredData = {
       "@id": `${SITE_URL}/ai-vibecoding/#service`,
       name: "AI Vibecoding Cleanup",
       url: `${SITE_URL}/ai-vibecoding/`,
-      serviceType: "AI vibecoding delivery consulting",
+      serviceType: "Software development for AI-built MVPs",
       description:
-        "Consulting for founders with AI-built MVPs that have stopped shipping — I build the delivery system AI doesn't ship with the code.",
+        "Development for founders with AI-built MVPs that have stopped shipping — I build the delivery system AI doesn't ship with the code.",
       founder: { "@id": `${SITE_URL}/#person` }
     },
     personSchema,
@@ -386,7 +386,7 @@ function HeroSection() {
     <section className={landing.hero}>
       <Link href="/" className={landing.backLink}>
         <span aria-hidden="true" className={landing.backLinkArrow}>←</span>
-        Back to main consulting
+        Back to main page
       </Link>
       <div className={landing.heroPanel}>
         <div className={landing.heroLayout}>

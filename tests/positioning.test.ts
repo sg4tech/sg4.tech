@@ -15,7 +15,11 @@ const positioningSurfaces = [
   ["app", "components", "BlogCta.tsx"],
   ["public", "llms.txt"],
   ["app", "yii2", "page.tsx"],
-  ["app", "yii2", "opengraph-image.tsx"]
+  ["app", "yii2", "opengraph-image.tsx"],
+  ["app", "ai-vibecoding", "page.tsx"],
+  ["app", "ai-vibecoding", "opengraph-image.tsx"],
+  // Post descriptions render on landings (related-post cards) and as blog meta.
+  ["app", "lib", "blog", "posts.ts"]
 ];
 
 const bannedPositioning = [/consult/i, /fractional/i, /diagnostic call/i, /delivery diagnosis/i];
