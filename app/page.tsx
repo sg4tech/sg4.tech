@@ -1,5 +1,6 @@
 import {
   AlertTriangle,
+  ArrowRight,
   Ban,
   BookOpen,
   Bug,
@@ -581,6 +582,7 @@ function SpecializationSection() {
             <span className={styles.specializationLabel}>Dedicated page</span>
             <span className={styles.specializationTitle}>{link.title}</span>
             <span className={styles.specializationDescription}>{link.description}</span>
+            <Icon icon={ArrowRight} className={styles.specializationArrow} />
           </Link>
         ))}
       </div>
@@ -602,6 +604,7 @@ function InsightsSection() {
           <span className={styles.specializationLabel}>{featuredEssay.label}</span>
           <span className={styles.specializationTitle}>{featuredEssay.title}</span>
           <span className={styles.specializationDescription}>{featuredEssay.description}</span>
+          <Icon icon={ArrowRight} className={styles.specializationArrow} />
         </Link>
       </div>
       <p className={styles.bodyCopy}>

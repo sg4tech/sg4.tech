@@ -5,9 +5,12 @@
   align-items: flex-start;
 }
 
+/* Inline before the figure, so a qualified figure stays on its neighbours'
+   line instead of being pushed down by a stacked overline. */
 .note {
   color: var(--text-4);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
+  font-weight: 600;
   line-height: var(--leading-tight);
 }
 

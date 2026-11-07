@@ -143,6 +143,19 @@
     margin-left: auto;
     box-shadow: calc(-1 * var(--space-1)) 0 0 var(--surface);
   }
+
+  /* Short fade so scrolled pills slide under the pinned item instead of
+     being cut off at a hard edge. */
+  .navLinks a[data-mobile-pinned]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(100% + var(--space-1));
+    width: var(--space-3);
+    background: linear-gradient(to right, transparent, var(--surface));
+    pointer-events: none;
+  }
 }
 
 @media (max-width: 390px) {
