@@ -379,7 +379,7 @@ function HeroSection() {
     <section className={styles.hero}>
       <Eyebrow>Software engineering & technical leadership</Eyebrow>
       <div className={styles.heroLayout}>
-        <div className={styles.heroPrimary}>
+        <div>
           <h1>I build systems that work.</h1>
           <HeroSignals signals={heroSignals} className={styles.heroSignals} />
         </div>

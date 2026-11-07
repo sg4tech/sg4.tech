@@ -328,15 +328,15 @@ function FireFightingPanel() {
         </svg>
         <div className={styles.node} data-pos="top-left">
           <span className={styles.nodeIcon}><Icon icon={Search} /></span>
-          <span className={styles.nodeLabel}>manual checks</span>
+          <span>manual checks</span>
         </div>
         <div className={styles.node} data-pos="mid-right">
           <span className={styles.nodeIcon}><Icon icon={Inbox} /></span>
-          <span className={styles.nodeLabel}>hidden queue</span>
+          <span>hidden queue</span>
         </div>
         <div className={styles.node} data-pos="bottom-left">
           <span className={styles.nodeIcon}><Icon icon={Flame} /></span>
-          <span className={styles.nodeLabel}>hotfixes</span>
+          <span>hotfixes</span>
         </div>
       </div>
     </div>
@@ -365,19 +365,19 @@ function DeliverySystemPanel() {
         </svg>
         <div className={styles.node} data-pos="top-left">
           <span className={styles.nodeIcon}><Icon icon={ShieldCheck} /></span>
-          <span className={styles.nodeLabel}>guardrails</span>
+          <span>guardrails</span>
         </div>
         <div className={styles.node} data-pos="top-right">
           <span className={styles.nodeIcon}><Icon icon={InfinityIcon} /></span>
-          <span className={styles.nodeLabel}>CI/CD</span>
+          <span>CI/CD</span>
         </div>
         <div className={styles.node} data-pos="mid-center">
           <span className={styles.nodeIcon}><Icon icon={Activity} /></span>
-          <span className={styles.nodeLabel}>monitoring</span>
+          <span>monitoring</span>
         </div>
         <div className={`${styles.node} ${styles.nodeOutcome}`} data-pos="bottom-center">
           <span className={styles.nodeIcon}><Icon icon={Rocket} /></span>
-          <span className={styles.nodeLabel}>predictable releases</span>
+          <span>predictable releases</span>
         </div>
       </div>
     </div>
