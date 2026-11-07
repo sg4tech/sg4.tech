@@ -62,6 +62,27 @@ describe("Steps component", () => {
   });
 });
 
+describe("homepage case studies", () => {
+  const tsx = read("app", "page.tsx");
+  const caseStudies = tsx.split("const caseStudies = [")[1]?.split("\n];")[0] ?? "";
+  const resultsSection = tsx.split("function ResultsSection() {")[1]?.split("\n}\n")[0] ?? "";
+
+  // The numbers are the proof: they lead each case as Stat figures instead of
+  // sitting third in a checklist next to qualitative outcomes.
+  it("leads each case with Stat headline metrics", () => {
+    expect(caseStudies.match(/metrics: \[/g)).toHaveLength(3);
+    expect(resultsSection).toContain("<Stat figure={metric.figure}");
+  });
+
+  // Qualitative outcomes join the same row as icon-led Stats, so there is no
+  // separate Result column left holding a single line.
+  it("keeps every outcome in the metrics row, with no separate Result column", () => {
+    expect(caseStudies).not.toContain("result: [");
+    expect(resultsSection).not.toContain("<h4>Result</h4>");
+    expect(resultsSection).toContain("icon={metric.icon}");
+  });
+});
+
 describe("homepage navigation", () => {
   it("links to the blog index rather than an in-page anchor", () => {
     const tsx = read("app", "page.tsx");

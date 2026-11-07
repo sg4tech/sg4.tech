@@ -4,8 +4,11 @@ import {
   BookOpen,
   Bug,
   Calendar,
+  Gauge,
   Layers,
   Rocket,
+  ShieldCheck,
+  Smile,
   Target,
   TrendingUp,
   Users,
@@ -157,21 +160,33 @@ const caseStudies = [
     company: "B2B product company (international markets, 3 cross-functional teams)",
     problem: ["Slow and unpredictable delivery", "High bug rate"],
     work: ["Introduced delivery metrics", "Rebuilt development flow", "Aligned engineering with product"],
-    result: ["2–3x faster delivery", "10x fewer bugs", "Predictable releases"]
+    metrics: [
+      { figure: "2–3x", label: "faster delivery" },
+      { figure: "10x", label: "fewer bugs" },
+      { icon: TrendingUp, label: "Predictable releases" }
+    ]
   },
   {
     title: "From chaos to system",
     company: "EdTech company (growth stage)",
     problem: ["Chaotic development", "Long time-to-market", "Low NPS"],
     work: ["Split Discovery / Delivery", "Introduced structured process", "Added feedback loops"],
-    result: ["2x faster time-to-market", "2x throughput", "NPS improved significantly"]
+    metrics: [
+      { figure: "2x", label: "faster time-to-market" },
+      { figure: "2x", label: "throughput" },
+      { icon: Smile, label: "NPS improved significantly" }
+    ]
   },
   {
     title: "Cost & efficiency",
     company: "Product company (scaling phase)",
     problem: ["High engineering cost", "Low effective throughput"],
     work: ["Identified bottlenecks (ToC)", "Reduced unnecessary work", "Improved prioritization"],
-    result: ["~1.5x cost reduction", "Higher effective throughput", "More stable system"]
+    metrics: [
+      { figure: "~1.5x", label: "cost reduction" },
+      { icon: Gauge, label: "Higher effective throughput" },
+      { icon: ShieldCheck, label: "More stable system" }
+    ]
   }
 ];
 
@@ -479,6 +494,11 @@ function ResultsSection() {
               <h3>{study.title}</h3>
               <p>{study.company}</p>
             </header>
+            <div className={styles.caseMetrics}>
+              {study.metrics.map((metric) => (
+                <Stat figure={metric.figure} icon={metric.icon} label={metric.label} key={metric.label} />
+              ))}
+            </div>
             <div className={styles.caseGrid}>
               <div>
                 <h4>Problem</h4>
@@ -487,10 +507,6 @@ function ResultsSection() {
               <div>
                 <h4>What I did</h4>
                 <MarkList items={study.work} />
-              </div>
-              <div>
-                <h4>Result</h4>
-                <MarkList items={study.result} kind="check" />
               </div>
             </div>
           </article>
