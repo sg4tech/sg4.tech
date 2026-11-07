@@ -588,7 +588,6 @@ function FinalCtaSection() {
         eventName: "cta_click",
         payload: { location: "final" }
       }}
-      secondary={{ href: secondaryCtaHref, label: "See how I work" }}
     />
   );
 }

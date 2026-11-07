@@ -95,4 +95,11 @@ describe("homepage landing page", () => {
       expect(content).not.toContain(phrase);
     }
   });
+
+  it("ends with a single contact action", () => {
+    // By the final CTA the visitor has already scrolled past How I work, so
+    // "See how I work" belongs only to the hero.
+    const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
+    expect(content.split("See how I work").length - 1).toBe(1);
+  });
 });
