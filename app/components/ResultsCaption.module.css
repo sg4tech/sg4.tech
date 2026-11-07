@@ -5,3 +5,8 @@
   line-height: var(--leading-relaxed);
   text-wrap: pretty;
 }
+
+/* Inside --surface-inverse panels (the dark "Why me" block). */
+.onDark {
+  color: var(--text-on-dark-muted);
+}
