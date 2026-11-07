@@ -227,11 +227,6 @@
   font-weight: 600;
 }
 
-.insightGrid {
-  display: grid;
-  gap: 0;
-  margin-top: 1.25rem;
-}
 
 .specializationGrid {
   display: grid;
@@ -303,57 +298,147 @@
   line-height: var(--leading-relaxed);
 }
 
-.insightCard {
+
+
+
+
+/* Writing: heading with "All posts" beside it, the latest posts as
+   typographic cards (date above, title set larger), then the channels as a
+   quiet line of same-size monochrome icons. */
+.writingHeader {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-2);
+}
+
+/* The intro runs under both columns, so "All posts" only shares the heading row. */
+.writingIntro {
+  grid-column: 1 / -1;
+}
+
+.allPostsLink {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
   gap: 0.35rem;
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--border);
-  background: transparent;
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad));
+  color: var(--text-strong);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.latestPosts {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.latestPostItem {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-strong);
+}
+
+.latestPost {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+}
+
+.latestPostMeta {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.latestPostTitle {
+  color: var(--text-strong);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: var(--leading-base);
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.titleTail {
+  white-space: nowrap;
+}
+
+.latestPostArrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  vertical-align: -0.15em;
+}
+
+.latestPostArrow,
+.allPostsArrow {
+  width: 1em;
+  height: 1em;
+  color: var(--muted);
   transition:
-    border-color var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard),
     color var(--duration-base) var(--ease-standard);
 }
 
-.insightCard:last-child {
-  border-bottom: 1px solid var(--border);
-}
-
-.insightCard:hover,
-.insightCard:focus-visible {
-  border-color: var(--border-strong);
+.latestPost:hover .latestPostArrow,
+.latestPost:focus-visible .latestPostArrow,
+.allPostsLink:hover .allPostsArrow,
+.allPostsLink:focus-visible .allPostsArrow {
   color: var(--text-strong);
+  transform: translateX(3px);
 }
 
-.insightHeader {
+.latestPost:hover .latestPostTitle,
+.latestPost:focus-visible .latestPostTitle {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.channelList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.channelLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.45rem;
+  padding-block: var(--tap-pad);
+  margin-block: calc(-1 * var(--tap-pad));
+  color: var(--muted);
+  font-size: var(--text-sm);
+  transition: color var(--duration-base) var(--ease-standard);
 }
 
-.brandIcon {
-  display: inline-flex;
-  width: 1rem;
-  height: 1rem;
+.channelLink:hover,
+.channelLink:focus-visible {
   color: var(--text-strong);
-  opacity: 0.88;
+}
+
+/* Same size, same grey for every brand mark, so none of them shouts. */
+.channelIcon {
+  display: inline-flex;
+  width: 0.95rem;
+  height: 0.95rem;
   flex: 0 0 auto;
 }
 
-.brandIcon svg {
+.channelIcon svg {
   width: 100%;
   height: 100%;
 }
 
-.insightLabel {
-  font-size: var(--text-md);
-  font-weight: 700;
-  color: var(--text-strong);
-}
 
-.insightDescription {
-  color: var(--muted);
-  line-height: var(--leading-relaxed);
-}
+
+
 
 
 @media (max-width: 860px) {
@@ -363,6 +448,14 @@
 }
 
 @media (max-width: 640px) {
+  .channelList {
+    column-gap: var(--space-2);
+  }
+
+  .channelLink {
+    gap: 0.35rem;
+  }
+
   .hero {
     padding: var(--space-3) 0;
   }
@@ -420,6 +513,16 @@
 
   .caseDetails {
     margin-top: 0;
+  }
+
+  .latestPosts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-4);
+  }
+
+  .latestPostTitle {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
   }
 
   .fitGrid {

@@ -1,0 +1,82 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { describe, expect, it } from "vitest";
+import { blogPosts, getLatestPosts } from "@/app/lib/blog/posts";
+
+const read = (...parts: string[]) => readFileSync(join(process.cwd(), ...parts), "utf8");
+
+describe("getLatestPosts", () => {
+  it("returns posts newest first", () => {
+    const dates = getLatestPosts().map((p) => p.publishedAt);
+    expect(dates).toEqual([...dates].sort().reverse());
+    expect(dates).toHaveLength(blogPosts.length);
+  });
+
+  it("limits to the requested count", () => {
+    expect(getLatestPosts(3)).toHaveLength(Math.min(3, blogPosts.length));
+  });
+});
+
+// The homepage Insights block was six layers deep. It now shows the latest
+// posts (so it never goes stale), one link to the blog, and the writing
+// channels as compact pills.
+describe("homepage Insights block", () => {
+  const page = read("app", "page.tsx");
+  const section = page.split("function InsightsSection() {")[1]?.split("\n}\n")[0] ?? "";
+
+  it("lists the latest posts from the blog data", () => {
+    expect(section).toContain("getLatestPosts(3)");
+    expect(section).toContain("formatPostDate(post.publishedAt)");
+  });
+
+  it("links to the blog index with the approved label", () => {
+    expect(section).toMatch(/<Link href="\/blog\/"[^>]*>\s*All posts/);
+  });
+
+  it("drops the removed copy and the featured-essay card", () => {
+    for (const gone of ["Not theory", "Or browse the full collection", "featuredEssay", "insightDescription"]) {
+      expect(page).not.toContain(gone);
+    }
+  });
+
+  it("keeps every channel, as pills without descriptions", () => {
+    const links = page.split("const insightLinks = [")[1]?.split("\n];")[0] ?? "";
+    for (const url of ["habr.com/users/sg4tech", "t.me/cto_lifehacks", "medium.com/@sg4tech", "linkedin"]) {
+      expect(links.toLowerCase()).toContain(url.toLowerCase());
+    }
+    expect(links).not.toContain("description:");
+    expect(section).toContain("className={styles.channelLink}");
+  });
+
+  // Editorial layout: one heading with the "All posts" link beside it, the
+  // posts as a row of three typographic cards on wide screens, and the
+  // channels as a quiet line of same-size monochrome icons.
+  it("titles the block Writing with All posts beside the heading", () => {
+    expect(section).toContain('title="Writing"');
+    expect(section).toMatch(/<div className=\{styles\.writingHeader\}>[\s\S]*?<SectionHeader[\s\S]*?All posts[\s\S]*?<\/div>/);
+  });
+
+  // The arrow rides at the end of the title, glued to its last word, instead
+  // of hanging alone on its own line under every card.
+  it("keeps the arrow on the title's last line", () => {
+    expect(section).toMatch(/<span className=\{styles\.latestPostTitle\}>[\s\S]*?<span className=\{styles\.titleTail\}>[\s\S]*?<Icon icon=\{ArrowRight\} className=\{styles\.latestPostArrow\} \/>[\s\S]*?<\/span>\s*<\/span>/);
+  });
+
+  it("sets the posts in three columns on wide screens", () => {
+    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.latestPosts \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
+  });
+
+  it("keeps the channel links quiet: no pill border, muted icons", () => {
+    const css = read("app", "page.module.css");
+    const link = css.split(".channelLink {")[1]?.split("}")[0] ?? "";
+    expect(link).not.toContain("border:");
+    expect(link).toContain("color: var(--muted);");
+  });
+});
+
+describe("blog index", () => {
+  it("orders posts through the shared accessor", () => {
+    expect(read("app", "blog", "page.tsx")).toContain("getLatestPosts()");
+  });
+});

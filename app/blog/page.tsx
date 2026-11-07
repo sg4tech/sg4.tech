@@ -6,7 +6,7 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { SiteNav } from "../components/SiteNav";
 import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
-import { blogPosts, formatPostDate } from "../lib/blog/posts";
+import { blogPosts, formatPostDate, getLatestPosts } from "../lib/blog/posts";
 import styles from "./page.module.css";
 
 const structuredData = {
@@ -60,9 +60,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndexPage() {
-  const posts = [...blogPosts].sort((a, b) =>
-    a.publishedAt < b.publishedAt ? 1 : -1
-  );
+  const posts = getLatestPosts();
 
   return (
     <Page>
