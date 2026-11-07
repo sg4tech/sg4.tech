@@ -1,7 +1,8 @@
 :root {
   /* ============ Layout ============ */
   --max-width: 1120px;
-  --scroll-offset: 5.5rem;
+  /* Anchor targets land below the sticky nav: keep this above its height. */
+  --scroll-offset: 7rem;
   --page-width: 70rem;
   --page-width-wide: 74rem;
   --section-pad-y: var(--space-4);

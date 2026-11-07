@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArticleToc } from "../../components/ArticleToc";
 import { BlogPostLayout } from "../../components/BlogPostLayout";
 import { buildPostMetadata } from "../../lib/blog/post-metadata";
 import type { PostSlug } from "../../lib/blog/posts";
@@ -25,6 +26,21 @@ import styles from "./page.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "diagnose-broken-engineering-delivery";
+
+// Mirrors the section h2s (ids and text); tests/article-toc.test.ts keeps them in sync.
+const tocItems = [
+  { id: "symptoms", title: "1. Symptoms of slow delivery — and the wrong first reflex" },
+  { id: "decompose-t2m", title: "2. Decompose T2M — Discovery and Lead Time aren't the same problem" },
+  { id: "lead-time-cycle-time", title: "3. Lead Time = Waiting + Cycle Time" },
+  { id: "where-stuck", title: "4. Where work actually gets stuck: why time-in-status can mislead" },
+  { id: "count-tasks", title: "5. How to find bottlenecks without measuring time" },
+  { id: "wip", title: "6. Work in Progress (WIP): the variable that controls delivery speed" },
+  { id: "littles-law", title: "7. Little's Law: Lead Time = WIP / Throughput" },
+  { id: "wip-limits", title: "8. WIP limits: the lever that fixes most slow engineering teams" },
+  { id: "introduce-wip-limits", title: "9. How to introduce WIP limits without team revolt" },
+  { id: "full-system-view", title: "10. The full system view: speed, value, and sustainability in engineering delivery" },
+  { id: "closing", title: "When metrics become a diagnostic tool" }
+];
 
 // FAQ items must not duplicate body content. Paraphrased FAQ entries reduce
 // the citation-trust signal for AI engines that index the FAQPage schema
@@ -139,6 +155,7 @@ function ArticleBody() {
   return (
     <div className={styles.body}>
       <IntroSection />
+      <ArticleToc items={tocItems} />
       <SectionSymptoms />
       <SectionDecomposeT2M />
       <SectionLeadTimeCycleTime />
