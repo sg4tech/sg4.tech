@@ -89,6 +89,18 @@ describe("homepage case studies", () => {
     expect(css).not.toContain(".caseGrid");
   });
 
+  // Full-width cards left half of each frame empty on desktop. From 1100px the
+  // three cases sit side by side with outcomes stacked, and subgrid lines up
+  // header, outcomes and details across the row even when a title wraps.
+  it("lays the cases out in three aligned columns on wide screens", () => {
+    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.stack \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
+    expect(wide).toMatch(/\.caseStudy \{[^}]*grid-template-rows: subgrid;/);
+    expect(wide).toMatch(/\.caseMetrics \{[^}]*flex-direction: column;/);
+    // A stretched header row must not spread title and company apart.
+    expect(wide).toMatch(/\.caseHeader \{[^}]*align-content: start;/);
+  });
+
   it("keeps every outcome in the metrics row, with no separate Result column", () => {
     expect(caseStudies).not.toContain("result: [");
     expect(resultsSection).not.toContain("<h4>Result</h4>");
