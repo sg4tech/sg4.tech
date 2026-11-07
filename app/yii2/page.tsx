@@ -569,6 +569,7 @@ function ProcessSection() {
         intro="No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow."
       />
       <Steps
+        variant="card"
         items={workSteps.map((step) => ({
           title: step.title,
           body: (

@@ -526,6 +526,7 @@ function ProcessSection() {
         intro="No pre-decided fixes. First we see what's actually broken. Then we make changes safe to ship. Then we make the system one that scales."
       />
       <Steps
+        variant="card"
         items={workSteps.map((step) => ({
           title: step.title,
           body: (

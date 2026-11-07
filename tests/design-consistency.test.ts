@@ -36,6 +36,8 @@ describe("landing 'How I work' section", () => {
     const tsx = read("app", page, "page.tsx");
 
     expect(tsx).toContain('from "../components/Steps"');
+    // Carded steps keep the landing's visual anchor while sharing the pattern.
+    expect(tsx).toContain('<Steps\n        variant="card"');
     expect(tsx).not.toContain("processVisual");
     expect(tsx).not.toContain("processWrapper");
   });
@@ -46,6 +48,17 @@ describe("landing 'How I work' section", () => {
 
     expect(tsx).toContain('from "../components/MarkList"');
     expect(tsx).not.toContain("landing.problemList");
+  });
+});
+
+describe("Steps component", () => {
+  it("offers a card variant and keeps the plain layout as the default", () => {
+    const tsx = read("app", "components", "Steps.tsx");
+    const css = read("app", "components", "Steps.module.css");
+
+    expect(tsx).toContain('variant = "plain"');
+    expect(tsx).toContain('variant === "card"');
+    expect(css).toMatch(/\.card \.step[,\s{]/);
   });
 });
 
