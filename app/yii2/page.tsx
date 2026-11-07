@@ -29,12 +29,14 @@ import { FaqSection } from "../components/FaqSection";
 import { SiteFooter } from "../components/SiteFooter";
 import { HeroSignals } from "../components/HeroSignals";
 import { Icon } from "../components/Icon";
+import { MarkList } from "../components/MarkList";
 import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { ResultsCaption } from "../components/ResultsCaption";
 import { SectionHeader } from "../components/SectionHeader";
 import { Stat } from "../components/Stat";
 import { StatementCta } from "../components/StatementCta";
+import { Steps } from "../components/Steps";
 import { TopNavigation } from "../components/TopNavigation";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
@@ -162,23 +164,29 @@ const heroSignals = [
 
 const workSteps = [
   {
-    title: "1. Audit (1-2 weeks)",
-    icon: Search,
+    title: "Audit (1-2 weeks)",
+    summary: "Find what is actually slowing delivery down.",
     points: ["Review the codebase and deployment health", "Find the real bottlenecks", "Assess release risk, quality, and coverage"],
     output: "a clear diagnosis and a prioritized action list"
   },
   {
-    title: "2. Quality foundation",
-    icon: ShieldCheck,
+    title: "Quality foundation",
+    summary: "Reduce risk before the next release goes out.",
     points: ["Add CI/CD and guardrails", "Set up monitoring and alerts", "Reduce the probability of production incidents"],
     output: "stable, lower-risk releases"
   },
   {
-    title: "3. Delivery acceleration",
-    icon: Zap,
+    title: "Delivery acceleration",
+    summary: "Shorten the path from request to production.",
     points: ["Fix the team flow", "Introduce delivery metrics", "Apply AI where it creates real leverage"],
     output: "faster, more predictable delivery"
   }
+];
+
+const expectationPoints = [
+  "First visible improvements in CI/CD and monitoring within 2-4 weeks",
+  "Clear delivery improvements typically within months, not quarters",
+  "The pace depends on team size and the depth of accumulated debt"
 ];
 
 const faqItems = [
@@ -428,30 +436,6 @@ function TransformationSection() {
   );
 }
 
-function ProcessVisual() {
-  return (
-    <div className={landing.processVisual} aria-hidden="true">
-      <div className={landing.processVisualStep}>
-        <span className={landing.processVisualIndex}>01</span>
-        <p className={landing.processVisualTitle}>Audit</p>
-        <p className={landing.processVisualText}>Find what is actually slowing delivery down.</p>
-      </div>
-      <div className={landing.processVisualArrow} />
-      <div className={landing.processVisualStep}>
-        <span className={landing.processVisualIndex}>02</span>
-        <p className={landing.processVisualTitle}>Guardrails</p>
-        <p className={landing.processVisualText}>Reduce risk before the next release goes out.</p>
-      </div>
-      <div className={landing.processVisualArrow} />
-      <div className={landing.processVisualStep}>
-        <span className={landing.processVisualIndex}>03</span>
-        <p className={landing.processVisualTitle}>Acceleration</p>
-        <p className={landing.processVisualText}>Shorten the path from request to production.</p>
-      </div>
-    </div>
-  );
-}
-
 function HeroMetricList() {
   return (
     <>
@@ -584,31 +568,23 @@ function ProcessSection() {
         title="How I work"
         intro="No magic, and no pre-decided fixes. First we make the system observable and safe. Then we speed up the delivery flow."
       />
-      <ProcessVisual />
-      <div className={landing.processGrid}>
-        {workSteps.map((step) => (
-          <article key={step.title} className={landing.card}>
-            <div className={landing.cardHeader}>
-              <Icon icon={step.icon} className={landing.cardIcon} />
-              <h3>{step.title}</h3>
-            </div>
-            <ul className={landing.problemList}>
-              {step.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-            <p className={landing.output}>Output: {step.output}</p>
-          </article>
-        ))}
-      </div>
+      <Steps
+        variant="card"
+        items={workSteps.map((step) => ({
+          title: step.title,
+          body: (
+            <>
+              <p className={landing.stepSummary}>{step.summary}</p>
+              <MarkList items={step.points} />
+              <p className={landing.output}>Output: {step.output}</p>
+            </>
+          )
+        }))}
+      />
       <p className={landing.processNote}>The goal is not heroic effort. The goal is a delivery system that starts working for the business.</p>
       <div className={landing.expectationBox}>
         <h3>What to expect</h3>
-        <ul className={landing.problemList}>
-          <li>First visible improvements in CI/CD and monitoring within 2-4 weeks</li>
-          <li>Clear delivery improvements typically within months, not quarters</li>
-          <li>The pace depends on team size and the depth of accumulated debt</li>
-        </ul>
+        <MarkList items={expectationPoints} kind="check" />
       </div>
     </Section>
   );

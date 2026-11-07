@@ -59,3 +59,28 @@
     border-left: 1px solid var(--border);
   }
 }
+
+/* Card variant: each step in its own bordered card. Comes after the plain
+   rules so it overrides their dividers and padding at every width. */
+.card {
+  gap: var(--space-2);
+}
+
+.card .step,
+.card .step:first-child,
+.card .step:last-child {
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+@media (min-width: 860px) {
+  .card {
+    gap: var(--space-2);
+  }
+
+  .card .step + .step {
+    border-left: 1px solid var(--border);
+  }
+}

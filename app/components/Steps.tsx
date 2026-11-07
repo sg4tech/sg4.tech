@@ -6,8 +6,13 @@ export type StepItem = {
   body?: ReactNode;
 };
 
+type StepsVariant = "plain" | "card";
+
 type StepsProps = {
   items: StepItem[];
+  // plain → hairline dividers between steps (default); card → each step sits
+  // in its own bordered card, for sections that need a stronger visual anchor.
+  variant?: StepsVariant;
   className?: string;
 };
 
@@ -18,8 +23,10 @@ type StepsProps = {
  * mobile. Rendered as an <ol> so the order is semantic; the visual number
  * is decorative and hidden from assistive tech.
  */
-export function Steps({ items, className }: StepsProps) {
-  const classes = [styles.steps, className].filter(Boolean).join(" ");
+export function Steps({ items, variant = "plain", className }: StepsProps) {
+  const classes = [styles.steps, variant === "card" ? styles.card : undefined, className]
+    .filter(Boolean)
+    .join(" ");
   return (
     <ol className={classes}>
       {items.map((item, index) => (

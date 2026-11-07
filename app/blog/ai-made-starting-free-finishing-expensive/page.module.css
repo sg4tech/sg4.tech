@@ -8,7 +8,7 @@
   font-size: var(--text-h2);
   line-height: var(--leading-tight);
   letter-spacing: -0.015em;
-  text-wrap: balance;
+  text-wrap: pretty;
   scroll-margin-top: var(--scroll-offset);
 }
 

@@ -46,7 +46,7 @@ const navigationItems: NavigationItem[] = [
   { href: "#results", label: "Results", mobileNav: "primary" },
   { href: "#process", label: "How I work", mobileNav: "primary" },
   { href: "#fit", label: "Who I work with", mobileNav: "secondary" },
-  { href: "#insights", label: "Insights", mobileNav: "secondary" },
+  { href: "/blog/", label: "Blog", mobileNav: "secondary" },
   { href: "#final-cta", label: "Contact", mobileNav: "primary" }
 ];
 
