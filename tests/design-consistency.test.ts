@@ -443,3 +443,15 @@ describe("one site menu", () => {
     expect(phone).toContain('.navLinks a[data-mobile-nav="secondary"]');
   });
 });
+
+describe("two-tone hero headline", () => {
+  // The muted setup clause and the strong payoff must never share a line: a
+  // line that starts muted and ends strong ("project / is slowing") reads as a
+  // colour glitch. The lead-in is its own block, balanced on its own, and the
+  // payoff starts on a new line at every width.
+  it("sets the lead-in as its own block", () => {
+    const css = read("app", "styles", "landing.module.css").replace(/^[ \t]+/gm, "");
+    const rule = css.split(".heroLeadIn {")[1]?.split("}")[0] ?? "";
+    expect(rule).toContain("display: block;");
+  });
+});

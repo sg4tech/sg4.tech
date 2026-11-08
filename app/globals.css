@@ -212,7 +212,7 @@
     --text-h2: clamp(1.75rem, 4vw, 2.5rem);
     --text-h1: clamp(2rem, 5.5vw, 3rem);
 
-    --text-hero-action: clamp(1.3rem, 3.4vw, 2rem);
+    --text-hero-action: clamp(1.3rem, 3.4vw, 1.9rem);
     --text-hero-metric: clamp(1.7rem, 3.6vw, 2.4rem);
 
     /* ============ Typography — line heights ============ */
