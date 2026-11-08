@@ -1,8 +1,10 @@
+// Global styles load first so every CSS module cascades after them
+// (import order is CSS order — see docs/engineering-checks.md).
+import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { RootDocument } from "../components/RootDocument";
 import { buildSiteMetadata, siteViewport } from "../lib/site-metadata";
-import "../globals.css";
 
 export const metadata: Metadata = buildSiteMetadata("en");
 export const viewport: Viewport = siteViewport;

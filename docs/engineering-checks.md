@@ -65,6 +65,14 @@ Use this when a change could be affected by anything that differs between `next 
 - Image optimization (none in this project's `output: export`, but worth knowing)
 - Static asset hashing and chunk boundaries
 
+### Import order is CSS order
+
+In the production build, Turbopack merges CSS modules into shared chunks in the order files import them. When two files import the same shared components in a different relative order, the merge can place a component's stylesheet *after* a page's own stylesheet, and every equal-specificity rule between them flips. The page still renders — just with different spacing — and nothing in the HTML shows it.
+
+- Do not sort imports alphabetically or let a tool do it. When code moves between files (a page into a view, a section into a component), keep the relative order of its component imports.
+- Root files (`app/(<locale>)/layout.tsx`, `app/global-not-found.tsx`) import `app/globals.css` first, so global styles always precede every module.
+- For a refactor that moves components or routes, compare the built pages against the previous build visually (headless screenshots at 375px and 1280px, pixel-diffed), not only by HTML: the HTML can be identical while the cascade is not.
+
 The dev server uses port 3000; preview uses 3001, so both can run in parallel.
 
 With several checkouts or worktrees on one machine, port 3001 may be served from a different folder. Before trusting a screenshot, confirm which checkout's `out/` is being served (`lsof -iTCP:3001 -sTCP:LISTEN` and that process's working directory).

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteFooter } from "../../components/SiteFooter";
 import { Page } from "../../components/Page";
 import { Section } from "../../components/Section";
 import { SectionHeader } from "../../components/SectionHeader";
-import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { blogPosts, formatPostDate, getLatestPosts, postPath } from "../../lib/blog/posts";
 import { BRAND_NAME, personSchema, SITE_URL } from "../../lib/brand";

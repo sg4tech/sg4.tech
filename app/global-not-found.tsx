@@ -1,3 +1,6 @@
+// Global styles load first so every CSS module cascades after them
+// (import order is CSS order — see docs/engineering-checks.md).
+import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Button } from "./components/Button";
 import { Page } from "./components/Page";
@@ -9,7 +12,6 @@ import { getDictionary } from "./lib/i18n/dictionary";
 import { DEFAULT_LOCALE, localizePath } from "./lib/i18n/locales";
 import { buildSiteMetadata, SITE_TITLE_TEMPLATE, siteViewport } from "./lib/site-metadata";
 import styles from "./not-found.module.css";
-import "./globals.css";
 
 // The app has one root layout per locale, so the 404 for unmatched URLs is the
 // global one: it renders outside every layout and brings its own document.
