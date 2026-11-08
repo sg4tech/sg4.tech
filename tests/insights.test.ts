@@ -45,7 +45,7 @@ describe("homepage Insights block", () => {
       expect(links.toLowerCase()).toContain(url.toLowerCase());
     }
     expect(links).not.toContain("description:");
-    expect(section).toContain("className={styles.channelLink}");
+    expect(section).toContain("<ChannelLinks items={insightLinks}");
   });
 
   // Editorial layout: one heading with the "All posts" link beside it, the
@@ -68,7 +68,7 @@ describe("homepage Insights block", () => {
   });
 
   it("keeps the channel links quiet: no pill border, muted icons", () => {
-    const css = read("app", "page.module.css");
+    const css = read("app", "components", "ChannelLinks.module.css");
     const link = css.split(".channelLink {")[1]?.split("}")[0] ?? "";
     expect(link).not.toContain("border:");
     expect(link).toContain("color: var(--muted);");

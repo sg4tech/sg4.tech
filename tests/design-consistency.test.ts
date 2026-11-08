@@ -320,6 +320,35 @@ describe("landing layout", () => {
   });
 });
 
+describe("channel links", () => {
+  const home = read("app", "page.tsx");
+  const yii2 = read("app", "yii2", "page.tsx");
+
+  // One quiet channel line, shared, so it looks the same wherever it appears.
+  it.each([["home", home], ["yii2", yii2]])("%s renders the shared ChannelLinks", (_name, src) => {
+    expect(src).toMatch(/<ChannelLinks items=\{\w+\} ariaLabel="[^"]+" \/>/);
+  });
+
+  it.each([["home", home, "insightLinks"], ["yii2", yii2, "writingLinks"]])(
+    "%s channel data carries no descriptions",
+    (_name, src, list) => {
+      const block = src.split(`const ${list} = [`)[1]?.split("\n];")[0] ?? "";
+      expect(block).toContain("href:");
+      expect(block).not.toContain("description:");
+    }
+  );
+
+  // Proof: the Yii2 talk is the evidence, so only it gets cards; the
+  // channels drop to the quiet line under it.
+  it("/yii2 Proof shows only the talk as cards, in two columns", () => {
+    const proof = yii2.split("function ProofSection() {")[1]?.split("\n}\n")[0] ?? "";
+    expect(proof).toContain("talkLinks.map(");
+    expect(proof).not.toContain("...writingLinks");
+    const wide = read("app", "styles", "landing.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.proofGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  });
+});
+
 describe("one site menu", () => {
   const nav = read("app", "lib", "navigation.ts");
   const items = nav.split("export const siteNavigationItems")[1]?.split("];")[0] ?? "";

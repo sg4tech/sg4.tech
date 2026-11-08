@@ -1,6 +1,7 @@
 import {
   Activity,
   AlertTriangle,
+  ArrowRight,
   BarChart3,
   Building2,
   Bug,
@@ -24,6 +25,7 @@ import {
 import type { Metadata } from "next";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
+import { ChannelLinks } from "../components/ChannelLinks";
 import { FaqSection } from "../components/FaqSection";
 import { SiteFooter } from "../components/SiteFooter";
 import { HeroSignals } from "../components/HeroSignals";
@@ -204,26 +206,22 @@ const writingLinks = [
   {
     label: "Habr",
     href: "https://habr.com/users/sg4tech/",
-    iconPath: siHabr.path,
-    description: "Long-form breakdowns of delivery systems, bottlenecks, metrics, and engineering operating models."
+    iconPath: siHabr.path
   },
   {
     label: "Telegram",
     href: "https://t.me/cto_lifehacks",
-    iconPath: siTelegram.path,
-    description: "Short practical notes on CTO work, process design, and faster engineering delivery."
+    iconPath: siTelegram.path
   },
   {
     label: "Medium",
     href: "https://medium.com/@sg4tech",
-    iconPath: siMedium.path,
-    description: "English-language writing on engineering flow, AI leverage, and system-level change."
+    iconPath: siMedium.path
   },
   {
     label: "LinkedIn",
     href: LINKEDIN_URL,
-    iconPath: LINKEDIN_SVG_PATH,
-    description: "Role history, operating context, and additional public material."
+    iconPath: LINKEDIN_SVG_PATH
   }
 ];
 
@@ -586,16 +584,18 @@ function ProofSection() {
         intro="Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering."
       />
       <div className={landing.proofGrid}>
-        {[...talkLinks, ...writingLinks].map((link) => (
+        {talkLinks.map((link) => (
           <a key={link.label} href={link.href} className={landing.linkCard} target="_blank" rel="noreferrer">
             <span className={landing.linkHeader}>
               <BrandIcon label={link.label} path={link.iconPath} className={landing.brandIcon} />
               <span className={landing.linkLabel}>{link.label}</span>
             </span>
             <span className={landing.linkDescription}>{link.description}</span>
+            <Icon icon={ArrowRight} className={landing.linkArrow} />
           </a>
         ))}
       </div>
+      <ChannelLinks items={writingLinks} ariaLabel="Writing channels" />
     </Section>
   );
 }

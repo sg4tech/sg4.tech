@@ -324,6 +324,7 @@
 
 .linkCard {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   /* Cards in a row stretch to equal height; without this the extra height
      went to the header row unevenly and the titles fell out of line. */
   align-content: start;
@@ -373,6 +374,29 @@
 }
 
 /* ─── Proof grid ───────────────────────────────────────────────────────────── */
+
+/* Text in the first column; the link arrow in its own, centred on the rows. */
+.linkCard > span {
+  grid-column: 1;
+}
+
+.linkArrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--muted);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.linkCard:hover .linkArrow,
+.linkCard:focus-visible .linkArrow {
+  color: var(--text-strong);
+  transform: translateX(3px);
+}
 
 .proofGrid {
   display: grid;
@@ -511,8 +535,10 @@
     align-items: start;
   }
 
+  /* Proof: the two talk cards side by side; the channels follow as a
+     quiet line, not as more cards. */
   .proofGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
   }
 }
