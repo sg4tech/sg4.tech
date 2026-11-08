@@ -15,6 +15,7 @@
 - [Yii2 development](https://sg4.tech/yii2/): Dedicated landing for Yii2 projects — release predictability, quality guardrails, CI/CD, monitoring, delivery acceleration without defaulting to a rewrite.
 - [AI vibecoding cleanup](https://sg4.tech/ai-vibecoding/): For founders with AI-built MVPs that have stopped shipping — adds the five delivery-system layers AI doesn't generate: architecture rules, pipeline guardrails, test coverage, code-level checks, and AI-workflow discipline.
 - [Blog](https://sg4.tech/blog/): Index of long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.
+- [Blog RSS feed](https://sg4.tech/blog/feed.xml): RSS 2.0 feed of all blog posts, newest first.
 
 ## Articles
 

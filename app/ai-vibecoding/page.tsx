@@ -208,9 +208,9 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "AI Vibecoding Cleanup: From Stuck MVP to Shipping Business",
+  title: "AI Vibecoding Cleanup: Get Your MVP Shipping",
   description:
-    "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code.",
+    "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never shipped.",
   alternates: {
     canonical: LANDING_PATHS.aiVibecoding
   },
