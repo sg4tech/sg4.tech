@@ -1,16 +1,19 @@
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Manrope } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import { getDictionary } from "../lib/i18n/dictionary";
 import { getLocaleConfig, type Locale } from "../lib/i18n/locales";
 import { umamiTracker } from "../lib/umami-tracker";
 
-// Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
-// display + body + UI; JetBrains Mono is reserved for code/technical strings.
+// Brand typeface: Manrope carries display + body + UI in every locale (it has
+// full Cyrillic); JetBrains Mono is reserved for code/technical strings.
 // next/font self-hosts both at build time — no Google Fonts runtime request.
-const hankenGrotesk = Hanken_Grotesk({
+// `subsets` only picks what is preloaded: every subset ships as its own
+// unicode-range face, so Cyrillic loads on pages that use it and English
+// pages don't download it.
+const brandSans = Manrope({
   subsets: ["latin"],
-  variable: "--font-hanken",
+  variable: "--font-brand",
   display: "swap"
 });
 
@@ -30,7 +33,7 @@ type RootDocumentProps = {
 // files imports app/globals.css itself — shared components stay style-agnostic.
 export function RootDocument({ locale, children }: RootDocumentProps) {
   return (
-    <html lang={getLocaleConfig(locale).htmlLang} className={`${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang={getLocaleConfig(locale).htmlLang} className={`${brandSans.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           {getDictionary(locale).document.skipLink}
