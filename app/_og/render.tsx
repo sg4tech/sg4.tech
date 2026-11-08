@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { VICTOR_NAME } from "../lib/brand";
 import { OgCard, type OgCardProps } from "./Card";
 import { loadOgFonts } from "./fonts";
 import { loadLogoDataUrl } from "./logo";
@@ -8,7 +9,8 @@ import { loadLogoDataUrl } from "./logo";
 export const ogImageSize = { width: 1200, height: 630 };
 export const ogImageContentType = "image/png";
 
-type OgCardText = Omit<OgCardProps, "logoSrc">;
+// The footer defaults to the author's name; posts add their reading time.
+type OgCardText = Omit<OgCardProps, "logoSrc" | "footer"> & { footer?: string };
 
 // The text on a route's link-preview card, plus its alt text.
 export type OgCardContent = OgCardText & {
@@ -22,7 +24,7 @@ export async function renderOgCard(card: OgCardText): Promise<ImageResponse> {
       eyebrow={card.eyebrow}
       title={card.title}
       subtitle={card.subtitle}
-      footer={card.footer}
+      footer={card.footer ?? VICTOR_NAME}
       logoSrc={logoSrc}
     />,
     { ...ogImageSize, fonts }

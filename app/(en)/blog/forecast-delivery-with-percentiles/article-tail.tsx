@@ -6,7 +6,7 @@
 import type { ReactNode } from "react";
 import { BlogCta } from "../../../components/BlogCta";
 import { BlogRelated } from "../../../components/BlogRelated";
-import { getPostBySlug } from "../../../lib/blog/posts";
+import { getPostBySlug, getPostPath } from "../../../lib/blog/posts";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_forecast";
 
@@ -22,7 +22,7 @@ const relatedLinks = [
       "The metrics playbook this builds on: decomposing T2M into Lead Time and Cycle Time, WIP, and Little's Law."
   },
   {
-    href: `/blog/${finishingPost.slug}/`,
+    href: getPostPath(finishingPost.slug),
     title: finishingPost.title,
     description: finishingPost.description
   },

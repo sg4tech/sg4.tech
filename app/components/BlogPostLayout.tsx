@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { buildPostStructuredData } from "../lib/blog/post-schema";
 import { getPostBySlug, type PostSlug } from "../lib/blog/posts";
 import { getDictionary } from "../lib/i18n/dictionary";
-import { localizePath } from "../lib/i18n/locales";
+import { pagePath } from "../lib/i18n/pages";
 import { BlogPostHeader } from "./BlogPostHeader";
 import { Eyebrow } from "./Eyebrow";
 import { FaqSection, type FaqItemData } from "./FaqSection";
@@ -40,7 +40,7 @@ export function BlogPostLayout({
   const post = getPostBySlug(slug);
   // A post is written in one language; the registry says which.
   const { locale } = post;
-  const blogPath = localizePath(locale, "/blog/");
+  const blogPath = pagePath(locale, "blog");
   const structuredData = buildPostStructuredData(slug, faqItems, { headline, partOf });
 
   return (

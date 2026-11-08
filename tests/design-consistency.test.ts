@@ -5,12 +5,14 @@ import { homeContent } from "@/app/(en)/content";
 import { writingChannelLinks } from "@/app/lib/brand";
 import { getSiteNavigationItems } from "@/app/lib/navigation";
 
+import { POST_SLUGS } from "@/app/lib/blog/posts";
+
 const root = process.cwd();
 const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
 
-const blogPostSlugs = readdirSync(join(root, "app", "(en)", "blog"), { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name);
+// The post registry, not the folder listing: the blog folder also holds non-post
+// routes such as the RSS feed.
+const blogPostSlugs = POST_SLUGS;
 
 const landingPages = ["yii2", "ai-vibecoding"] as const;
 // Each landing renders through a shared view in app/views (copy per locale

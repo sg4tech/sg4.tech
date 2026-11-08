@@ -6,7 +6,7 @@
 import type { ReactNode } from "react";
 import { BlogCta } from "../../../components/BlogCta";
 import { BlogRelated } from "../../../components/BlogRelated";
-import { getPostBySlug } from "../../../lib/blog/posts";
+import { getPostBySlug, getPostPath } from "../../../lib/blog/posts";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_vibecoding";
 
@@ -29,12 +29,12 @@ const relatedLinks = [
       "The metrics playbook: decomposing T2M into Lead Time and Cycle Time, WIP, and Little's Law — for teams of any size."
   },
   {
-    href: `/blog/${finishingPost.slug}/`,
+    href: getPostPath(finishingPost.slug),
     title: finishingPost.title,
     description: finishingPost.description
   },
   {
-    href: `/blog/${entropyPost.slug}/`,
+    href: getPostPath(entropyPost.slug),
     title: entropyPost.title,
     description: entropyPost.description
   }

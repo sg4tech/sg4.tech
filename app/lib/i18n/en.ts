@@ -18,7 +18,6 @@ export const en: SiteDictionary = {
   footer: {
     ariaLabel: "Footer",
     legalAriaLabel: "Legal",
-    copyright: "© 2026 Victor Demin",
     privacyLabel: "Privacy",
     // Fine print at the foot of every page — light-touch legal cover for the
     // quantified case results, the informational blog content, and the
@@ -54,8 +53,10 @@ export const en: SiteDictionary = {
     backLink: "← Blog",
     readingTime: (minutes) => `${minutes} min read`,
     tagsAriaLabel: "Tags",
-    bylineBio:
-      " has 15+ years helping engineering organizations improve delivery speed, predictability, and system health.",
+    byline: {
+      beforeName: "",
+      afterName: " has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."
+    },
     tocHeading: "Contents",
     relatedHeading: "Related",
     relatedIntro: "Where to go next, depending on what you're working with.",

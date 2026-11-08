@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { BRAND_NAME, LINKEDIN_URL, SITE_URL } from "../brand";
+import { absoluteUrl, BRAND_NAME, LINKEDIN_URL } from "../brand";
 import { buildLanguageAlternates } from "../i18n/alternates";
 import { DEFAULT_LOCALE, getLocaleConfig } from "../i18n/locales";
-import { getPostBySlug, getPostTranslations, postPath, type PostSlug } from "./posts";
+import { blogFeedAlternates } from "./feed";
+import { getPostBySlug, getPostPath, getPostTranslations, type PostSlug } from "./posts";
 
 /** hreflang map across a post's language versions; undefined while it has one. */
 export function postLanguageAlternates(slug: PostSlug): Record<string, string> | undefined {
   return buildLanguageAlternates(
-    getPostTranslations(slug).map((post) => ({ lang: getLocaleConfig(post.locale).htmlLang, path: postPath(post) })),
+    getPostTranslations(slug).map((post) => ({
+      lang: getLocaleConfig(post.locale).htmlLang,
+      path: getPostPath(post.slug)
+    })),
     getLocaleConfig(DEFAULT_LOCALE).htmlLang
   );
 }
@@ -16,7 +20,7 @@ export function postLanguageAlternates(slug: PostSlug): Record<string, string> |
 // present themselves to search engines and social cards happens in one place.
 export function buildPostMetadata(slug: PostSlug): Metadata {
   const post = getPostBySlug(slug);
-  const path = postPath(post);
+  const path = getPostPath(slug);
   const languages = postLanguageAlternates(slug);
 
   return {
@@ -26,7 +30,8 @@ export function buildPostMetadata(slug: PostSlug): Metadata {
     description: post.description,
     alternates: {
       canonical: path,
-      ...(languages ? { languages } : {})
+      ...(languages ? { languages } : {}),
+      types: blogFeedAlternates(post.locale)
     },
     openGraph: {
       title: post.title,
@@ -34,7 +39,7 @@ export function buildPostMetadata(slug: PostSlug): Metadata {
       type: "article",
       siteName: BRAND_NAME,
       locale: getLocaleConfig(post.locale).ogLocale,
-      url: `${SITE_URL}${path}`,
+      url: absoluteUrl(path),
       publishedTime: post.publishedAt,
       modifiedTime: post.modifiedAt,
       authors: [LINKEDIN_URL]

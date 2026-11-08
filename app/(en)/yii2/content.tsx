@@ -216,6 +216,5 @@ export const yii2OgCard: OgCardContent = {
   alt: "Yii2 Development — Faster Delivery, Better Quality",
   eyebrow: "Yii2 development",
   title: "Quality, predictability, speed — without rewrite",
-  subtitle: "CI/CD, monitoring, delivery metrics, AI leverage",
-  footer: "Victor Demin"
+  subtitle: "CI/CD, monitoring, delivery metrics, AI leverage"
 };

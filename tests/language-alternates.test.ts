@@ -6,7 +6,7 @@ import { metadata as blogIndexMetadata } from "@/app/(en)/blog/page";
 import { metadata as homeMetadata } from "@/app/(en)/page";
 import { metadata as yii2Metadata } from "@/app/(en)/yii2/page";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import { POST_SLUGS } from "@/app/lib/blog/posts";
+import { POST_SLUGS, validateTranslations } from "@/app/lib/blog/posts";
 import { buildLanguageAlternates } from "@/app/lib/i18n/alternates";
 
 describe("buildLanguageAlternates", () => {
@@ -28,6 +28,18 @@ describe("buildLanguageAlternates", () => {
       ru: "https://sg4.tech/ru/yii2/",
       "x-default": "https://sg4.tech/yii2/"
     });
+  });
+
+  it("refuses two versions in one language instead of silently dropping one", () => {
+    expect(() =>
+      buildLanguageAlternates(
+        [
+          { lang: "en", path: "/a/" },
+          { lang: "en", path: "/b/" }
+        ],
+        "en"
+      )
+    ).toThrow('two versions in "en"');
   });
 
   it("uses absolute, trailing-slash URLs (the served form)", () => {
@@ -63,5 +75,22 @@ describe("untranslated site", () => {
     for (const entry of sitemap()) {
       expect(entry.alternates).toBeUndefined();
     }
+  });
+});
+
+describe("post translation links", () => {
+  const post = (slug: string, locale: string, translationOf?: string) =>
+    ({ slug, locale, translationOf }) as unknown as Parameters<typeof validateTranslations>[0][number];
+
+  it("accepts originals and one translation per language", () => {
+    expect(() => validateTranslations([post("a", "en"), post("a-ru", "ru", "a")])).not.toThrow();
+  });
+
+  it.each([
+    ["a translation of a translation", [post("a", "en"), post("b", "ru", "a"), post("c", "de", "b")], "must translate an original"],
+    ["a link to a missing post", [post("b", "ru", "nope")], "must translate an original"],
+    ["two versions in one language", [post("a", "en"), post("b", "en", "a")], "two en versions"]
+  ])("rejects %s", (_name, posts, message) => {
+    expect(() => validateTranslations(posts)).toThrow(message);
   });
 });

@@ -240,6 +240,5 @@ export const homeOgCard: OgCardContent = {
   alt: "Victor Demin — Software engineering & technical leadership",
   eyebrow: "Software engineering & technical leadership",
   title: "I build systems that work.",
-  subtitle: "Software that ships on time and holds up in production",
-  footer: "Victor Demin"
+  subtitle: "Software that ships on time and holds up in production"
 };

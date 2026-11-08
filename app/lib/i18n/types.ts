@@ -21,7 +21,6 @@ export type SiteDictionary = {
   footer: {
     ariaLabel: string;
     legalAriaLabel: string;
-    copyright: string;
     privacyLabel: string;
     disclaimers: ReadonlyArray<FooterDisclaimer>;
   };
@@ -45,7 +44,8 @@ export type SiteDictionary = {
     backLink: string;
     readingTime: (minutes: number) => string;
     tagsAriaLabel: string;
-    bylineBio: string;
+    /** The author byline around the (styled) name, so each language sets its own word order. */
+    byline: { beforeName: string; afterName: string };
     tocHeading: string;
     relatedHeading: string;
     relatedIntro: string;

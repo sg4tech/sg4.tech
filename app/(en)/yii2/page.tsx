@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { buildYii2Metadata, Yii2View } from "../../views/yii2/Yii2View";
+import { Yii2View } from "../../views/yii2/Yii2View";
+import { buildYii2Metadata } from "../../views/yii2/yii2-seo";
 import { yii2Content } from "./content";
 
 export const metadata: Metadata = buildYii2Metadata("en", yii2Content);

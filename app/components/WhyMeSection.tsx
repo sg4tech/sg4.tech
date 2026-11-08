@@ -20,6 +20,15 @@ export type WhyMePoint = {
   content: ReactNode;
 };
 
+// Proof points that are plain text: each item's icon comes from the view's
+// id → icon map, the copy from the locale's content.
+export function iconTextPoints<Id extends string>(
+  items: ReadonlyArray<{ id: Id; text: ReactNode }>,
+  iconOf: (id: Id) => LucideIcon
+): WhyMePoint[] {
+  return items.map((item) => ({ id: item.id, icon: iconOf(item.id), content: <span>{item.text}</span> }));
+}
+
 type WhyMeSectionProps = {
   locale: Locale;
   // Per-landing pitch. The heading ("Why me") and the identity card (photo,

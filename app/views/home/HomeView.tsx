@@ -15,7 +15,6 @@ import {
   Zap,
   type LucideIcon
 } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ChannelLinks } from "../../components/ChannelLinks";
 import { Eyebrow } from "../../components/Eyebrow";
@@ -29,20 +28,18 @@ import { Section } from "../../components/Section";
 import { SectionHeader } from "../../components/SectionHeader";
 import { ResultsCaption } from "../../components/ResultsCaption";
 import { Stat } from "../../components/Stat";
-import { StatementCta } from "../../components/StatementCta";
+import { ContactCta } from "../../components/ContactCta";
 import { Steps } from "../../components/Steps";
 import { SiteNav } from "../../components/SiteNav";
 import { Button } from "../../components/Button";
-import { WhyMeSection } from "../../components/WhyMeSection";
-import { formatPostDate, getLatestPosts, postPath } from "../../lib/blog/posts";
-import { personSchema, SITE_URL, VICTOR_SAME_AS, withSiteName, writingChannelLinks } from "../../lib/brand";
+import { iconTextPoints, WhyMeSection } from "../../components/WhyMeSection";
+import { formatPostDate, getLatestPosts, getPostPath } from "../../lib/blog/posts";
+import { writingChannelLinks } from "../../lib/brand";
 import { getDictionary } from "../../lib/i18n/dictionary";
 import type { Locale } from "../../lib/i18n/locales";
 import { pagePath } from "../../lib/i18n/pages";
-import { buildLandingMetadata } from "../../lib/landing-metadata";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals, PHP_RUSSIA_LOGO } from "../../lib/proof";
-import { buildFaqPageSchema } from "../../lib/structured-data";
 import type {
   CaseMetricIconId,
   FitGroupId,
@@ -51,6 +48,7 @@ import type {
   StageId,
   TrustPointId
 } from "./home-content";
+import { buildHomeStructuredData } from "./home-seo";
 import styles from "./HomeView.module.css";
 
 
@@ -80,35 +78,7 @@ const fitGroupStyle = createLookup<FitGroupId, { icon: LucideIcon; kind: "check"
   notFit: { icon: Ban, kind: "x" }
 });
 
-// The home page sits in its root layout's own segment, where the layout's
-// title template does not apply, so its search title carries the site name
-// itself. Link previews keep the bare title.
-export function buildHomeMetadata(locale: Locale, content: HomeContent): Metadata {
-  return { ...buildLandingMetadata(locale, "home", content.meta), title: withSiteName(content.meta.title) };
-}
 
-function buildStructuredData(locale: Locale, content: HomeContent) {
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      personSchema,
-      {
-        "@type": "ProfessionalService",
-        "@id": `${SITE_URL}/#service`,
-        name: content.service.name,
-        url: SITE_URL,
-        serviceType: content.service.serviceType,
-        description: content.service.description,
-        areaServed: "Global",
-        founder: {
-          "@id": `${SITE_URL}/#person`
-        },
-        sameAs: VICTOR_SAME_AS
-      },
-      buildFaqPageSchema(pagePath(locale, "home"), content.faq)
-    ]
-  };
-}
 
 type SectionProps = {
   locale: Locale;
@@ -226,11 +196,7 @@ function TrustSection({ locale, content: { trust } }: SectionProps) {
     <WhyMeSection
       locale={locale}
       intro={trust.intro}
-      points={trust.points.map((point) => ({
-        id: point.id,
-        icon: trustPointIcon(point.id),
-        content: <span>{point.text}</span>
-      }))}
+      points={iconTextPoints(trust.points, trustPointIcon)}
     />
   );
 }
@@ -326,7 +292,7 @@ function InsightsSection({ locale, content: { writing } }: SectionProps) {
       <ul className={styles.latestPosts}>
         {getLatestPosts(locale, 3).map((post) => (
           <li key={post.slug} className={styles.latestPostItem}>
-            <Link href={postPath(post)} className={styles.latestPost}>
+            <Link href={getPostPath(post.slug)} className={styles.latestPost}>
               <span className={styles.latestPostMeta}>
                 <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt, locale)}</time> ·{" "}
                 {blog.readingTime(post.readingMinutes)}
@@ -348,21 +314,7 @@ function InsightsSection({ locale, content: { writing } }: SectionProps) {
 }
 
 function FinalCtaSection({ content: { finalCta } }: SectionProps) {
-  return (
-    <StatementCta
-      id="final-cta"
-      heading={finalCta.heading}
-      text={finalCta.text}
-      primary={{
-        href: finalCta.href,
-        label: finalCta.label,
-        target: "_blank",
-        rel: "noreferrer",
-        eventName: "cta_click",
-        payload: { location: "final" }
-      }}
-    />
-  );
+  return <ContactCta cta={finalCta} location="final" />;
 }
 
 // The home page, the same in every locale; only `content` differs.
@@ -371,7 +323,7 @@ export function HomeView({ locale, content }: SectionProps) {
     <Page>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildHomeStructuredData(locale, content)) }}
       />
       <SiteNav locale={locale} current={pagePath(locale, "home")} />
       <HeroSection locale={locale} content={content} />

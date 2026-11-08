@@ -1,5 +1,4 @@
-import { SITE_URL } from "../brand";
-import type { SitePath } from "./locales";
+import { absoluteUrl, type SitePath } from "../brand";
 
 // One language version of a page: its hreflang code and served path.
 export type LanguageVariant = {
@@ -18,7 +17,12 @@ export function buildLanguageAlternates(
   if (variants.length < 2) {
     return undefined;
   }
-  const languages = Object.fromEntries(variants.map(({ lang, path }) => [lang, `${SITE_URL}${path}`]));
+  const duplicate = variants.find((variant, index) => variants.findIndex((other) => other.lang === variant.lang) !== index);
+  if (duplicate) {
+    // Two versions in one language would silently collapse into one entry.
+    throw new Error(`[hreflang] two versions in "${duplicate.lang}": ${variants.map((v) => v.path).join(", ")}`);
+  }
+  const languages = Object.fromEntries(variants.map(({ lang, path }) => [lang, absoluteUrl(path)]));
   const fallback = variants.find((variant) => variant.lang === defaultLang) ?? variants[0];
-  return fallback ? { ...languages, "x-default": `${SITE_URL}${fallback.path}` } : languages;
+  return fallback ? { ...languages, "x-default": absoluteUrl(fallback.path) } : languages;
 }

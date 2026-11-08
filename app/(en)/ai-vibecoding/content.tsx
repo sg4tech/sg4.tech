@@ -257,6 +257,5 @@ export const aiVibecodingOgCard: OgCardContent = {
   alt: "AI Vibecoding Cleanup — From Stuck MVP to Shipping Business",
   eyebrow: "AI vibecoding",
   title: "From stuck MVP to shipping business",
-  subtitle: "Guardrails, tests, pipeline, and architecture AI never ships",
-  footer: "Victor Demin"
+  subtitle: "Guardrails, tests, pipeline, and architecture AI never ships"
 };

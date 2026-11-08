@@ -1,5 +1,5 @@
 import { FooterSection } from "./FooterSection";
-import { footerLinks } from "../lib/brand";
+import { BRAND_COPYRIGHT, footerLinks } from "../lib/brand";
 import { getDictionary } from "../lib/i18n/dictionary";
 import type { Locale } from "../lib/i18n/locales";
 import { getLegalLinks } from "../lib/navigation";
@@ -17,7 +17,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   return (
     <FooterSection
       links={footerLinks}
-      copyright={footer.copyright}
+      copyright={BRAND_COPYRIGHT}
       legalLinks={getLegalLinks(locale)}
       disclaimers={footer.disclaimers}
       ariaLabel={footer.ariaLabel}

@@ -9,7 +9,8 @@ import { Section } from "./components/Section";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteNav } from "./components/SiteNav";
 import { getDictionary } from "./lib/i18n/dictionary";
-import { DEFAULT_LOCALE, localizePath } from "./lib/i18n/locales";
+import { DEFAULT_LOCALE } from "./lib/i18n/locales";
+import { pagePath } from "./lib/i18n/pages";
 import { withSiteName } from "./lib/brand";
 import { buildSiteMetadata, siteViewport } from "./lib/site-metadata";
 import styles from "./not-found.module.css";
@@ -39,7 +40,7 @@ export default function NotFound() {
           <h1 className={styles.title}>{notFound.title}</h1>
           <p className={styles.text}>{notFound.text}</p>
           <div className={styles.actions}>
-            <Button href={localizePath(locale, "/")}>{notFound.backHome}</Button>
+            <Button href={pagePath(locale, "home")}>{notFound.backHome}</Button>
           </div>
         </Section>
         <SiteFooter locale={locale} />

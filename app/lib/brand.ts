@@ -8,6 +8,14 @@ import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-
 // Centralized so a domain migration is a one-file change.
 export const SITE_URL = "https://sg4.tech";
 export const BRAND_NAME = "sg4.tech";
+
+// A page path as it is served: next.config.mjs sets trailingSlash: true, so
+// every page lives at "/" or "/<segments>/" and the slash-less form is a 301.
+export type SitePath = "/" | `/${string}/`;
+
+export function absoluteUrl(path: SitePath): string {
+  return `${SITE_URL}${path}`;
+}
 export const LINKEDIN_URL = "https://www.linkedin.com/in/victor-demin/";
 
 // Where Victor writes, as the quiet channel line under a landing's writing or
@@ -31,6 +39,8 @@ export const footerLinks: FooterLink[] = [
 // entity by matching consistent facts across surfaces, so these must not drift.
 // Keep in sync with public/llms.txt.
 export const VICTOR_NAME = "Victor Demin";
+
+export const BRAND_COPYRIGHT = `© 2026 ${VICTOR_NAME}`;
 
 // Search-title format for every page: each root layout's title.template, and
 // withSiteName() where the template does not apply — the home page, which sits

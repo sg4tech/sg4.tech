@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
+import type { ContactCtaContent } from "../../components/ContactCta";
 import type { FaqItemData } from "../../components/FaqSection";
-import type { LandingMeta } from "../../lib/landing-metadata";
+import type { PageMeta } from "../../lib/page-metadata";
+import type { ServiceInfo } from "../../lib/structured-data";
 
 // Item ids tie translated copy to the view's fixed design (icons, visual
 // treatment), so every locale renders the same page.
@@ -16,12 +18,8 @@ type IconText<Id extends string> = { id: Id; text: ReactNode };
 
 // Everything the /yii2 landing says, in one locale.
 export type Yii2Content = {
-  meta: LandingMeta;
-  service: {
-    name: string;
-    serviceType: string;
-    description: string;
-  };
+  meta: PageMeta;
+  service: ServiceInfo;
   hero: {
     headlineLeadIn: string;
     headline: string;
@@ -70,10 +68,5 @@ export type Yii2Content = {
     channelsAriaLabel: string;
   };
   faq: ReadonlyArray<FaqItemData>;
-  finalCta: {
-    heading: ReactNode;
-    text: ReactNode;
-    label: string;
-    href: string;
-  };
+  finalCta: ContactCtaContent;
 };

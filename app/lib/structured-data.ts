@@ -1,5 +1,6 @@
-import { SITE_URL } from "./brand";
-import type { SitePath } from "./i18n/locales";
+import { absoluteUrl, personSchema, type SitePath } from "./brand";
+import type { Locale } from "./i18n/locales";
+import { pagePath, type PageKey } from "./i18n/pages";
 
 // A question with its plain-text answer, as engines read it from FAQPage
 // JSON-LD. Pages may render a richer answer for people; the schema text stays.
@@ -12,7 +13,7 @@ export type FaqSchemaEntry = {
 export function buildFaqPageSchema(path: SitePath, items: ReadonlyArray<FaqSchemaEntry>) {
   return {
     "@type": "FAQPage",
-    "@id": `${SITE_URL}${path}#faq`,
+    "@id": `${absoluteUrl(path)}#faq`,
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -21,5 +22,42 @@ export function buildFaqPageSchema(path: SitePath, items: ReadonlyArray<FaqSchem
         text: item.answer
       }
     }))
+  };
+}
+
+// What a landing offers, as its schema.org ProfessionalService node says it.
+export type ServiceInfo = {
+  name: string;
+  serviceType: string;
+  description: string;
+};
+
+// A landing's JSON-LD graph: the shared Person, the page's service (operated by
+// that Person), and its FAQ. `serviceExtra` carries the few service fields only
+// some landings state (e.g. areaServed on the home page).
+export function buildLandingStructuredData(
+  locale: Locale,
+  page: PageKey,
+  service: ServiceInfo,
+  faq: ReadonlyArray<FaqSchemaEntry>,
+  serviceExtra: Record<string, unknown> = {}
+) {
+  const path = pagePath(locale, page);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      personSchema,
+      {
+        "@type": "ProfessionalService",
+        "@id": `${absoluteUrl(path)}#service`,
+        name: service.name,
+        url: absoluteUrl(path),
+        serviceType: service.serviceType,
+        description: service.description,
+        ...serviceExtra,
+        founder: { "@id": personSchema["@id"] }
+      },
+      buildFaqPageSchema(path, faq)
+    ]
   };
 }

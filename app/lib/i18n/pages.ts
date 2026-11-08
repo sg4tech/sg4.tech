@@ -1,12 +1,14 @@
 import { createLookup } from "../lookup";
 import { buildLanguageAlternates } from "./alternates";
-import { DEFAULT_LOCALE, getLocaleConfig, localizePath, type Locale, type SitePath } from "./locales";
+import type { SitePath } from "../brand";
+import { DEFAULT_LOCALE, getLocaleConfig, type Locale } from "./locales";
 
 // The site's pages (other than blog posts, which the post registry owns): where
 // each lives and which languages it is published in. A page is listed under a
 // locale only once that locale's route exists — this is what hreflang, the
 // sitemap, and language links read.
-export type PageKey = "home" | "yii2" | "ai-vibecoding" | "blog" | "privacy";
+export const PAGE_KEYS = ["home", "yii2", "ai-vibecoding", "blog", "privacy"] as const;
+export type PageKey = (typeof PAGE_KEYS)[number];
 
 type PageSpec = {
   path: SitePath;
@@ -20,6 +22,14 @@ const getPageSpec = createLookup<PageKey, PageSpec>({
   blog: { path: "/blog/", locales: ["en"] },
   privacy: { path: "/privacy/", locales: ["en"] }
 });
+
+// Prefixes a path with the locale's URL segment. Private: every localized path
+// goes through the registry (pagePath here, getPostPath for posts), so none can
+// point at a page that does not exist in that locale.
+function localizePath(locale: Locale, path: SitePath): SitePath {
+  const { pathPrefix } = getLocaleConfig(locale);
+  return pathPrefix === "" ? path : `${pathPrefix}${path}`;
+}
 
 /** Whether the page has a version in `locale`. */
 export function isPagePublished(locale: Locale, page: PageKey): boolean {

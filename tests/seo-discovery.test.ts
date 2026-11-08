@@ -1,15 +1,13 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import type { Metadata } from "next";
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
-import { SITE_URL, withSiteName } from "@/app/lib/brand";
-import { metadata as aiVibecodingMetadata } from "@/app/(en)/ai-vibecoding/page";
-import { metadata as blogIndexMetadata } from "@/app/(en)/blog/page";
-import { metadata as homeMetadata } from "@/app/(en)/page";
-import { metadata as yii2Metadata } from "@/app/(en)/yii2/page";
+import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS } from "@/app/lib/blog/posts";
+import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
+import { PAGE_KEYS, pagePath, type PageKey } from "@/app/lib/i18n/pages";
 import { englishLandings } from "./support/landings";
 
 describe("sitemap", () => {
@@ -72,17 +70,45 @@ describe("home metadata", () => {
   });
 });
 
-describe("canonical metadata", () => {
-  it.each([
-    ["home", homeMetadata, "/"],
-    ["yii2", yii2Metadata, "/yii2/"],
-    ["ai-vibecoding", aiVibecodingMetadata, "/ai-vibecoding/"]
-  ] as const)("declares the %s page canonical relative to metadataBase", (_name, metadata, path) => {
-    expect(metadata.alternates?.canonical).toBe(path);
+describe("page URLs", () => {
+  // One English page module per registry page; the coverage test fails if a
+  // page is added to the registry without being added here.
+  const pages: ReadonlyArray<{ page: PageKey; load: () => Promise<{ metadata: Metadata }> }> = [
+    { page: "home", load: () => import("@/app/(en)/page") },
+    { page: "yii2", load: () => import("@/app/(en)/yii2/page") },
+    { page: "ai-vibecoding", load: () => import("@/app/(en)/ai-vibecoding/page") },
+    { page: "blog", load: () => import("@/app/(en)/blog/page") },
+    { page: "privacy", load: () => import("@/app/(en)/privacy/page") }
+  ];
+
+  it("covers every page in the registry", () => {
+    expect(pages.map((entry) => entry.page).sort()).toEqual([...PAGE_KEYS].sort());
   });
 
-  it("declares the blog index canonical", () => {
-    expect(blogIndexMetadata.alternates?.canonical).toBe("/blog/");
+  // Without og:url, share scrapers fall back to whatever URL was shared
+  // (with tracking params or a slash-less variant) as the card's identity.
+  for (const { page, load } of pages) {
+    it(`gives ${page} a canonical and og:url from the page registry`, async () => {
+      const { metadata } = await load();
+      const path = pagePath("en", page);
+
+      expect(metadata.alternates?.canonical).toBe(path);
+      expect(metadata.openGraph?.url).toBe(absoluteUrl(path));
+    });
+  }
+
+  it("lists every landing in the sitemap", () => {
+    const urls = sitemap().map((entry) => entry.url);
+
+    for (const page of ["home", "yii2", "ai-vibecoding"] as const) {
+      expect(urls).toContain(absoluteUrl(pagePath("en", page)));
+    }
+  });
+});
+
+describe("canonical metadata", () => {
+  it("serves the blog index from the page registry", () => {
+    expect(pagePath("en", "blog")).toBe("/blog/");
   });
 
   // Every post page takes its metadata from the shared builder, so the checks
@@ -95,6 +121,23 @@ describe("canonical metadata", () => {
       expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
     });
   }
+});
+
+describe("post URLs", () => {
+  it("serves posts at their trailing-slash path under /blog/", () => {
+    expect(getPostPath("diagnose-broken-engineering-delivery")).toBe(
+      "/blog/diagnose-broken-engineering-delivery/"
+    );
+    expect(getPostUrl("diagnose-broken-engineering-delivery")).toBe(
+      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
+    );
+  });
+
+  it("dates the blog by its newest post change", () => {
+    const newest = POST_SLUGS.map((slug) => getPostBySlug(slug).modifiedAt).sort().at(-1);
+
+    expect(getBlogLastModifiedAt("en")).toBe(newest);
+  });
 });
 
 describe("buildPostMetadata", () => {

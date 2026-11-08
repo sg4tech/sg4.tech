@@ -30,8 +30,9 @@ export function BlogPostHeader({ locale, title, publishedAt, readingMinutes, led
         />
         <div className={styles.bylineMeta}>
           <p className={styles.bylineBio}>
+            {blog.byline.beforeName}
             <span className={styles.bylineName}>{VICTOR_NAME}</span>
-            {blog.bylineBio}
+            {blog.byline.afterName}
           </p>
           <p className={styles.bylineDate}>
             <time dateTime={publishedAt}>{formatPostDate(publishedAt, locale)}</time>

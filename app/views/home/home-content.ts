@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+import type { ContactCtaContent } from "../../components/ContactCta";
 import type { FaqItemData } from "../../components/FaqSection";
 import type { PageKey } from "../../lib/i18n/pages";
-import type { LandingMeta } from "../../lib/landing-metadata";
+import type { PageMeta } from "../../lib/page-metadata";
+import type { ServiceInfo } from "../../lib/structured-data";
 
 // Item ids tie translated copy to the view's fixed design (icons, order of
 // visual treatment), so every locale renders the same page.
@@ -24,12 +26,8 @@ type CaseMetric = { figure: string; label: string } | { icon: CaseMetricIconId; 
 
 // Everything the home page says, in one locale.
 export type HomeContent = {
-  meta: LandingMeta;
-  service: {
-    name: string;
-    serviceType: string;
-    description: string;
-  };
+  meta: PageMeta;
+  service: ServiceInfo;
   hero: {
     eyebrow: string;
     headline: string;
@@ -88,10 +86,5 @@ export type HomeContent = {
     channelsAriaLabel: string;
   };
   faq: ReadonlyArray<FaqItemData>;
-  finalCta: {
-    heading: ReactNode;
-    text: ReactNode;
-    label: string;
-    href: string;
-  };
+  finalCta: ContactCtaContent;
 };

@@ -5,7 +5,7 @@
 import type { ReactNode } from "react";
 import { BlogCta } from "../../../components/BlogCta";
 import { BlogRelated } from "../../../components/BlogRelated";
-import { getPostBySlug } from "../../../lib/blog/posts";
+import { getPostBySlug, getPostPath } from "../../../lib/blog/posts";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_metrics";
 
@@ -21,17 +21,17 @@ const finishingPost = getPostBySlug("ai-made-starting-free-finishing-expensive")
 // ever rerouted, re-check this list for overlap.
 const relatedLinks = [
   {
-    href: `/blog/${percentilesPost.slug}/`,
+    href: getPostPath(percentilesPost.slug),
     title: percentilesPost.title,
     description: percentilesPost.description
   },
   {
-    href: `/blog/${vibecodingPost.slug}/`,
+    href: getPostPath(vibecodingPost.slug),
     title: vibecodingPost.title,
     description: vibecodingPost.description
   },
   {
-    href: `/blog/${finishingPost.slug}/`,
+    href: getPostPath(finishingPost.slug),
     title: finishingPost.title,
     description: finishingPost.description
   },

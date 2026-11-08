@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+import type { ContactCtaContent } from "../../components/ContactCta";
 import type { FaqItemData } from "../../components/FaqSection";
 import type { PostSlug } from "../../lib/blog/posts";
-import type { LandingMeta } from "../../lib/landing-metadata";
+import type { PageMeta } from "../../lib/page-metadata";
+import type { ServiceInfo } from "../../lib/structured-data";
 
 // Item ids tie translated copy to the view's fixed design (icons, visual
 // treatment), so every locale renders the same page.
@@ -39,12 +41,8 @@ type TransformationLabels = {
 
 // Everything the /ai-vibecoding landing says, in one locale.
 export type AiVibecodingContent = {
-  meta: LandingMeta;
-  service: {
-    name: string;
-    serviceType: string;
-    description: string;
-  };
+  meta: PageMeta;
+  service: ServiceInfo;
   hero: {
     eyebrow: string;
     headlineLeadIn: string;
@@ -99,10 +97,5 @@ export type AiVibecodingContent = {
     slug: PostSlug;
   };
   faq: ReadonlyArray<FaqItemData>;
-  finalCta: {
-    heading: ReactNode;
-    text: ReactNode;
-    label: string;
-    href: string;
-  };
+  finalCta: ContactCtaContent;
 };

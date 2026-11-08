@@ -23,7 +23,6 @@ import {
   Zap,
   type LucideIcon
 } from "lucide-react";
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { siPhp, siYoutube } from "simple-icons";
 import { BrandIcon } from "../../components/BrandIcon";
@@ -38,18 +37,16 @@ import { Section } from "../../components/Section";
 import { ResultsCaption } from "../../components/ResultsCaption";
 import { SectionHeader } from "../../components/SectionHeader";
 import { Stat } from "../../components/Stat";
-import { StatementCta } from "../../components/StatementCta";
+import { ContactCta } from "../../components/ContactCta";
 import { Steps } from "../../components/Steps";
 import { SiteNav } from "../../components/SiteNav";
 import { Button } from "../../components/Button";
-import { WhyMeSection } from "../../components/WhyMeSection";
-import { personSchema, SITE_URL, writingChannelLinks } from "../../lib/brand";
+import { iconTextPoints, WhyMeSection } from "../../components/WhyMeSection";
+import { writingChannelLinks } from "../../lib/brand";
 import type { Locale } from "../../lib/i18n/locales";
 import { pagePath } from "../../lib/i18n/pages";
-import { buildLandingMetadata } from "../../lib/landing-metadata";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals, PHP_RUSSIA_LOGO } from "../../lib/proof";
-import { buildFaqPageSchema } from "../../lib/structured-data";
 import landing from "../../styles/landing.module.css";
 import type {
   QualityLeverId,
@@ -61,6 +58,7 @@ import type {
   Yii2PainPointId,
   Yii2WhyMeId
 } from "./yii2-content";
+import { buildYii2StructuredData } from "./yii2-seo";
 import styles from "./Yii2View.module.css";
 
 
@@ -98,29 +96,7 @@ const visualStateIcon = createLookup<VisualStateId, LucideIcon>({
   goal: Target
 });
 
-export function buildYii2Metadata(locale: Locale, content: Yii2Content): Metadata {
-  return buildLandingMetadata(locale, "yii2", content.meta);
-}
 
-function buildStructuredData(locale: Locale, content: Yii2Content) {
-  const path = pagePath(locale, "yii2");
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ProfessionalService",
-        "@id": `${SITE_URL}${path}#service`,
-        name: content.service.name,
-        url: `${SITE_URL}${path}`,
-        serviceType: content.service.serviceType,
-        description: content.service.description,
-        founder: { "@id": `${SITE_URL}/#person` }
-      },
-      personSchema,
-      buildFaqPageSchema(path, content.faq)
-    ]
-  };
-}
 
 type SectionProps = {
   locale: Locale;
@@ -329,11 +305,7 @@ function TrustSection({ locale, content: { trust } }: SectionProps) {
     <WhyMeSection
       locale={locale}
       intro={trust.intro}
-      points={trust.points.map((point) => ({
-        id: point.id,
-        icon: whyMeIcon(point.id),
-        content: <span>{point.text}</span>
-      }))}
+      points={iconTextPoints(trust.points, whyMeIcon)}
     />
   );
 }
@@ -388,21 +360,7 @@ function ProofSection({ content: { proof } }: SectionProps) {
 }
 
 function FinalCtaSection({ content: { finalCta } }: SectionProps) {
-  return (
-    <StatementCta
-      id="final-cta"
-      heading={finalCta.heading}
-      text={finalCta.text}
-      primary={{
-        href: finalCta.href,
-        label: finalCta.label,
-        target: "_blank",
-        rel: "noreferrer",
-        eventName: "cta_click",
-        payload: { location: "yii2_final" }
-      }}
-    />
-  );
+  return <ContactCta cta={finalCta} location="yii2_final" />;
 }
 
 // The /yii2 landing, the same in every locale; only `content` differs.
@@ -411,7 +369,7 @@ export function Yii2View({ locale, content }: SectionProps) {
     <Page>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildYii2StructuredData(locale, content)) }}
       />
       <SiteNav locale={locale} current={pagePath(locale, "yii2")} />
       <HeroSection locale={locale} content={content} />

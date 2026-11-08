@@ -1,14 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { formatPostDate } from "@/app/lib/blog/posts";
 import { getDictionary } from "@/app/lib/i18n/dictionary";
-import { DEFAULT_LOCALE, LOCALES, localizePath } from "@/app/lib/i18n/locales";
+import { DEFAULT_LOCALE, LOCALES } from "@/app/lib/i18n/locales";
+import { pagePath } from "@/app/lib/i18n/pages";
 import { createLookup } from "@/app/lib/lookup";
 
 describe("locales", () => {
   it("serves the default locale at the site root, with no prefix", () => {
     expect(DEFAULT_LOCALE).toBe("en");
-    expect(localizePath("en", "/")).toBe("/");
-    expect(localizePath("en", "/yii2/")).toBe("/yii2/");
+    expect(pagePath("en", "home")).toBe("/");
+    expect(pagePath("en", "yii2")).toBe("/yii2/");
   });
 
   it.each(LOCALES)("has a dictionary for %s", (locale) => {

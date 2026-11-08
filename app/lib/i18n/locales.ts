@@ -8,10 +8,6 @@ export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE = "en" satisfies Locale;
 
-// A site path in its served form: starts and ends with "/" (next.config sets
-// trailingSlash: true, so that is the canonical URL, not a redirect).
-export type SitePath = "/" | `/${string}/`;
-
 type LocaleConfig = {
   /** Language code for <html lang>. */
   htmlLang: string;
@@ -26,8 +22,3 @@ type LocaleConfig = {
 export const getLocaleConfig = createLookup<Locale, LocaleConfig>({
   en: { htmlLang: "en", intlTag: "en-US", ogLocale: "en_US", pathPrefix: "" }
 });
-
-export function localizePath(locale: Locale, path: SitePath): SitePath {
-  const { pathPrefix } = getLocaleConfig(locale);
-  return pathPrefix === "" ? path : `${pathPrefix}${path}`;
-}

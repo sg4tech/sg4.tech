@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { AiVibecodingView, buildAiVibecodingMetadata } from "../../views/ai-vibecoding/AiVibecodingView";
+import { AiVibecodingView } from "../../views/ai-vibecoding/AiVibecodingView";
+import { buildAiVibecodingMetadata } from "../../views/ai-vibecoding/ai-vibecoding-seo";
 import { aiVibecodingContent } from "./content";
 
 export const metadata: Metadata = buildAiVibecodingMetadata("en", aiVibecodingContent);

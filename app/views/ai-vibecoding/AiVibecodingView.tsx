@@ -22,7 +22,6 @@ import {
   Wrench,
   type LucideIcon
 } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { siHabr } from "simple-icons";
 import { Eyebrow } from "../../components/Eyebrow";
@@ -36,19 +35,16 @@ import { ResultsCaption } from "../../components/ResultsCaption";
 import { Section } from "../../components/Section";
 import { SectionHeader } from "../../components/SectionHeader";
 import { Stat } from "../../components/Stat";
-import { StatementCta } from "../../components/StatementCta";
+import { ContactCta } from "../../components/ContactCta";
 import { Steps } from "../../components/Steps";
 import { SiteNav } from "../../components/SiteNav";
 import { Button } from "../../components/Button";
 import { WhyMeSection } from "../../components/WhyMeSection";
-import { getPostBySlug, postPath } from "../../lib/blog/posts";
-import { personSchema, SITE_URL } from "../../lib/brand";
+import { getPostBySlug, getPostPath } from "../../lib/blog/posts";
 import type { Locale } from "../../lib/i18n/locales";
 import { pagePath } from "../../lib/i18n/pages";
-import { buildLandingMetadata } from "../../lib/landing-metadata";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals } from "../../lib/proof";
-import { buildFaqPageSchema } from "../../lib/structured-data";
 import landing from "../../styles/landing.module.css";
 import type {
   AiMetricId,
@@ -57,6 +53,7 @@ import type {
   AiWhyMeId,
   GuardrailLayerId
 } from "./ai-vibecoding-content";
+import { buildAiVibecodingStructuredData } from "./ai-vibecoding-seo";
 import styles from "./AiVibecodingView.module.css";
 
 
@@ -83,29 +80,7 @@ const whyMeIcon = createLookup<AiWhyMeId, LucideIcon>({
   "hands-on": Wrench
 });
 
-export function buildAiVibecodingMetadata(locale: Locale, content: AiVibecodingContent): Metadata {
-  return buildLandingMetadata(locale, "ai-vibecoding", content.meta);
-}
 
-function buildStructuredData(locale: Locale, content: AiVibecodingContent) {
-  const path = pagePath(locale, "ai-vibecoding");
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ProfessionalService",
-        "@id": `${SITE_URL}${path}#service`,
-        name: content.service.name,
-        url: `${SITE_URL}${path}`,
-        serviceType: content.service.serviceType,
-        description: content.service.description,
-        founder: { "@id": `${SITE_URL}/#person` }
-      },
-      personSchema,
-      buildFaqPageSchema(path, content.faq)
-    ]
-  };
-}
 
 type SectionProps = {
   locale: Locale;
@@ -380,21 +355,7 @@ function WhoNotForSection({ content: { whoNotFor } }: SectionProps) {
 }
 
 function FinalCtaSection({ content: { finalCta } }: SectionProps) {
-  return (
-    <StatementCta
-      id="final-cta"
-      heading={finalCta.heading}
-      text={finalCta.text}
-      primary={{
-        href: finalCta.href,
-        label: finalCta.label,
-        target: "_blank",
-        rel: "noreferrer",
-        eventName: "cta_click",
-        payload: { location: "ai_vibecoding_final" }
-      }}
-    />
-  );
+  return <ContactCta cta={finalCta} location="ai_vibecoding_final" />;
 }
 
 // Hub ⇄ spoke backlink: this landing is the hub for the vibecoding blog spoke.
@@ -405,7 +366,7 @@ function FeaturedEssaySection({ content: { featuredEssay } }: SectionProps) {
   return (
     <Section aria-label={featuredEssay.label}>
       <div className={styles.featuredEssayGrid}>
-        <Link href={postPath(post)} className={styles.featuredEssayCard}>
+        <Link href={getPostPath(post.slug)} className={styles.featuredEssayCard}>
           <span className={styles.featuredEssayLabel}>{featuredEssay.label}</span>
           <span className={styles.featuredEssayTitle}>{post.title}</span>
           <span className={styles.featuredEssayDescription}>{post.description}</span>
@@ -422,7 +383,7 @@ export function AiVibecodingView({ locale, content }: SectionProps) {
     <Page>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildAiVibecodingStructuredData(locale, content)) }}
       />
       <SiteNav locale={locale} current={pagePath(locale, "ai-vibecoding")} />
       <HeroSection locale={locale} content={content} />

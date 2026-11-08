@@ -82,7 +82,9 @@ describe("yii2 landing page", () => {
     // The event fires from the click handler, so it is not in the HTML.
     const source = readFileSync(view, "utf8");
     expect(source).toMatch(/eventName="cta_click"\s+payload=\{\{ location: "yii2_hero" \}\}/);
-    expect(source).toMatch(/eventName: "cta_click",\s+payload: \{ location: "yii2_final" \}/);
+    expect(source).toContain('<ContactCta cta={finalCta} location="yii2_final" />');
+    // The shared closing block reports the click with the location it is given.
+    expect(readFileSync("app/components/ContactCta.tsx", "utf8")).toMatch(/eventName: "cta_click",\s+payload: \{ location \}/);
     expect(source).toContain('<SiteNav locale={locale} current={pagePath(locale, "yii2")} />');
   });
 });

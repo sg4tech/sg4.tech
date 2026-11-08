@@ -76,7 +76,9 @@ describe("homepage landing page", () => {
     // The event fires from the click handler, so it is not in the HTML.
     const view = readFileSync(englishLandings.home.view, "utf8");
     expect(view).toMatch(/eventName="cta_click"\s+payload=\{\{ location: "hero" \}\}/);
-    expect(view).toMatch(/eventName: "cta_click",\s+payload: \{ location: "final" \}/);
+    expect(view).toContain('<ContactCta cta={finalCta} location="final" />');
+    // The shared closing block reports the click with the location it is given.
+    expect(readFileSync("app/components/ContactCta.tsx", "utf8")).toMatch(/eventName: "cta_click",\s+payload: \{ location \}/);
   });
 
   it("does not repeat blocks that duplicate other sections", () => {

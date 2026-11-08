@@ -1,4 +1,6 @@
-import { getLocaleConfig, localizePath, type Locale, type SitePath } from "../i18n/locales";
+import { absoluteUrl, type SitePath } from "../brand";
+import { getLocaleConfig, type Locale } from "../i18n/locales";
+import { pagePath } from "../i18n/pages";
 
 // Single source of truth for blog posts. Referenced by:
 // - /blog index page (post list)
@@ -24,7 +26,7 @@ export const POST_SLUGS = [
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
-type BlogPost = {
+export type BlogPost = {
   slug: PostSlug;
   /** The language the post is written in; it is published under that locale's blog. */
   locale: Locale;
@@ -137,9 +139,50 @@ export function getPostTranslations(slug: PostSlug): ReadonlyArray<BlogPost> {
   return blogPosts.filter((post) => post.slug === original || post.translationOf === original);
 }
 
-/** The post's URL path, under its locale's blog. */
-export function postPath(post: Pick<BlogPost, "slug" | "locale">): SitePath {
-  return localizePath(post.locale, `/blog/${post.slug}/`);
+// The translation links must form simple groups: every translation points at
+// an original (never at another translation), in another language, and each
+// language appears once per group. Anything else yields a broken hreflang set,
+// so the registry is checked when it loads and the build fails on a bad link.
+export function validateTranslations(posts: ReadonlyArray<Pick<BlogPost, "slug" | "locale" | "translationOf">>): void {
+  const bySlug = new Map(posts.map((post) => [post.slug, post]));
+  const groupLocales = new Map<string, Set<string>>();
+  for (const post of posts) {
+    const original = post.translationOf === undefined ? post : bySlug.get(post.translationOf);
+    if (original === undefined || original.translationOf !== undefined) {
+      throw new Error(`[blog] "${post.slug}" must translate an original post, not "${String(post.translationOf)}"`);
+    }
+    const locales = groupLocales.get(original.slug) ?? new Set<string>();
+    if (locales.has(post.locale)) {
+      throw new Error(`[blog] "${original.slug}" has two ${post.locale} versions`);
+    }
+    locales.add(post.locale);
+    groupLocales.set(original.slug, locales);
+  }
+}
+
+validateTranslations(blogPosts);
+
+// Where a post is served: under its own language's blog, as the page registry
+// places it. Every link, canonical, schema @id, sitemap entry, and feed item
+// derives its URL from here.
+export function getPostPath(slug: PostSlug): SitePath {
+  const post = getPostBySlug(slug);
+  return `${pagePath(post.locale, "blog")}${post.slug}/`;
+}
+
+export function getPostUrl(slug: PostSlug): string {
+  return absoluteUrl(getPostPath(slug));
+}
+
+// A blog's last content change: the newest modifiedAt among the locale's posts.
+// ISO-8601 dates sort lexically the same as chronologically. Undefined when the
+// locale has no posts.
+export function getBlogLastModifiedAt(locale: Locale): string | undefined {
+  return blogPosts
+    .filter((post) => post.locale === locale)
+    .map((post) => post.modifiedAt)
+    .sort()
+    .at(-1);
 }
 
 export function getPostBySlug(slug: PostSlug): BlogPost {
@@ -152,13 +195,17 @@ export function getPostBySlug(slug: PostSlug): BlogPost {
   return post;
 }
 
-// Formats an ISO-8601 YYYY-MM-DD date string as a long, locale-native date
-// ("May 22, 2026" in English) without pulling in a date library. Centralized
-// here so every page that renders a post date formats it the same way.
+// Post dates are calendar days (YYYY-MM-DD); pinned to UTC midnight so every
+// consumer (display, sitemap, feed) reads the same day regardless of time zone.
+export function parsePostDate(iso: string): Date {
+  return new Date(`${iso}T00:00:00Z`);
+}
+
+// Formats a post date as a long, locale-native date ("May 22, 2026" in
+// English) without a date library, the same way on every page.
 export function formatPostDate(iso: string, locale: Locale): string {
-  const [year, month, day] = iso.split("-").map((part) => Number.parseInt(part, 10));
   return new Intl.DateTimeFormat(getLocaleConfig(locale).intlTag, {
     dateStyle: "long",
     timeZone: "UTC"
-  }).format(new Date(Date.UTC(year, month - 1, day)));
+  }).format(parsePostDate(iso));
 }

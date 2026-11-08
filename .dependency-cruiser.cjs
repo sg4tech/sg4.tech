@@ -11,6 +11,9 @@
 // group segment is matched separately so `$1` below is the route folder alone.
 const sharedLayers = "^app/(lib|components|_og|styles|views)/";
 const routeGroup = "[(][a-z]+[)]/";
+// The feed route of a locale's blog; $1 is the locale (without parentheses, so
+// it can be substituted back into a pattern safely).
+const blogFeedRoute = "^app/[(]([a-z]+)[)]/blog/feed[.]xml/route[.]ts$";
 
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
@@ -55,8 +58,15 @@ module.exports = {
       name: "no-cross-route-imports",
       comment: "A route imports only shared layers and its own folder. Move shared code to app/components or app/lib.",
       severity: "error",
-      from: { path: `^app/${routeGroup}([^()]+)/[^/]+$`, pathNot: sharedLayers },
+      from: { path: `^app/${routeGroup}([^()]+)/[^/]+$`, pathNot: [sharedLayers, blogFeedRoute] },
       to: { path: "^app/", pathNot: [sharedLayers, `^app/${routeGroup}$1/[^/]+$`] }
+    },
+    {
+      name: "blog-feed-reads-only-its-blog-content",
+      comment: "A locale's RSS feed route takes the channel title and description from that locale's blog index content, and nothing else from routes.",
+      severity: "error",
+      from: { path: blogFeedRoute },
+      to: { path: "^app/", pathNot: [sharedLayers, "^app/[(]$1[)]/blog/content[.]ts$"] }
     },
     {
       name: "no-root-route-to-nested-route",

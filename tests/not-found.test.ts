@@ -32,7 +32,7 @@ describe("custom 404 page", () => {
   it("uses the site nav and footer and links home", () => {
     expect(source).toContain("<SiteNav locale={locale} />");
     expect(source).toContain("<SiteFooter locale={locale} />");
-    expect(source).toMatch(/<Button href=\{localizePath\(locale, "\/"\)\}>/);
+    expect(source).toMatch(/<Button href=\{pagePath\(locale, "home"\)\}>/);
   });
 
   it("keeps the page out of search results", () => {
