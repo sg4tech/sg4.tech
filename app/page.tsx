@@ -390,7 +390,7 @@ function ProblemSection() {
         ))}
       </div>
       <div className={styles.callout}>
-        <p>More people and more process rarely fix it.</p>
+        <p>Hiring more people rarely fixes it.</p>
         <p>The fix is in how the software is built and shipped — and that&apos;s what I do.</p>
       </div>
     </Section>
