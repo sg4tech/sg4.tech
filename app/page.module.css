@@ -34,7 +34,6 @@
 .heroText,
 .bodyCopy,
 .caseHeader p,
-.cardNote,
 .output,
 .processNote {
   margin: var(--space-2) 0 0;
@@ -103,9 +102,7 @@
   margin-top: var(--space-3);
 }
 
-.card,
 .caseStudy,
-.callout,
 .fitCard {
   padding: 1.25rem;
   border: 1px solid var(--border);
@@ -113,15 +110,10 @@
   background: var(--surface);
 }
 
-.card h3,
 .caseStudy h3 {
   margin: 0;
   font-size: var(--text-lg);
   line-height: var(--leading-base);
-}
-
-.cardNote {
-  font-weight: 600;
 }
 
 .cardHeading {
@@ -137,18 +129,60 @@
   opacity: 0.7;
 }
 
-.callout {
-  margin-top: var(--space-3);
-  background: var(--surface-alt);
+/* Problem: each stage opens with its conclusion as the headline (stage name
+   as a small kicker above, symptoms small below), unboxed under a rule like
+   the Writing cards. The closing thought is a pull quote. */
+.stageItem {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-strong);
 }
 
-.callout p {
+.stageKicker {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
   margin: 0;
-  font-size: var(--text-lg);
-  line-height: var(--leading-loose);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-base);
 }
 
-.callout p + p {
+.stageKickerIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.stageStatement {
+  margin: var(--space-1) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.stageSymptoms {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.problemQuote {
+  margin: var(--space-4) 0 0;
+  padding: 0 0 0 var(--space-3);
+  border-left: 3px solid var(--color-primary);
+}
+
+.problemQuote p {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: var(--leading-base);
+}
+
+.problemQuote p + p {
   margin-top: 0.35rem;
 }
 

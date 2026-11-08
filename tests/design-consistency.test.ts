@@ -349,6 +349,28 @@ describe("channel links", () => {
   });
 });
 
+describe("homepage Problem block", () => {
+  const page = read("app", "page.tsx");
+  const section = page.split("function ProblemSection() {")[1]?.split("\n}\n")[0] ?? "";
+  const css = read("app", "page.module.css");
+
+  // Each stage opens with its conclusion as the headline; the symptoms follow
+  // small. Unboxed under a rule, like the Writing cards, and the closing
+  // thought is a pull quote rather than a grey box.
+  it("leads each stage with its closing statement, symptoms after", () => {
+    expect(section.indexOf("styles.stageStatement")).toBeGreaterThan(-1);
+    expect(section.indexOf("styles.stageStatement")).toBeLessThan(section.indexOf("<MarkList"));
+    expect(section).toContain("className={styles.stageSymptoms}");
+  });
+
+  it("drops the boxed card and grey callout styles", () => {
+    expect(section).not.toContain("styles.card}");
+    expect(section).not.toContain("styles.callout");
+    expect(css).not.toMatch(/\.callout[\s,{]/);
+    expect(css).toMatch(/\.problemQuote \{[^}]*border-left: 3px solid var\(--color-primary\);/);
+  });
+});
+
 describe("one site menu", () => {
   const nav = read("app", "lib", "navigation.ts");
   const items = nav.split("export const siteNavigationItems")[1]?.split("];")[0] ?? "";
