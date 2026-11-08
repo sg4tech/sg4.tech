@@ -43,7 +43,8 @@ import { Steps } from "../../components/Steps";
 import { WhyMeSection } from "../../components/WhyMeSection";
 import { getPostBySlug, postPath } from "../../lib/blog/posts";
 import { personSchema, SITE_URL } from "../../lib/brand";
-import { localizePath, type Locale, type SitePath } from "../../lib/i18n/locales";
+import type { Locale } from "../../lib/i18n/locales";
+import { pagePath } from "../../lib/i18n/pages";
 import { buildLandingMetadata } from "../../lib/landing-metadata";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals } from "../../lib/proof";
@@ -58,7 +59,6 @@ import type {
 } from "./ai-vibecoding-content";
 import styles from "./AiVibecodingView.module.css";
 
-const PATH: SitePath = "/ai-vibecoding/";
 
 // The design side of each item: which icon it carries. Copy comes from the
 // locale's content; these stay the same in every locale.
@@ -84,11 +84,11 @@ const whyMeIcon = createLookup<AiWhyMeId, LucideIcon>({
 });
 
 export function buildAiVibecodingMetadata(locale: Locale, content: AiVibecodingContent): Metadata {
-  return buildLandingMetadata(locale, localizePath(locale, PATH), content.meta);
+  return buildLandingMetadata(locale, "ai-vibecoding", content.meta);
 }
 
 function buildStructuredData(locale: Locale, content: AiVibecodingContent) {
-  const path = localizePath(locale, PATH);
+  const path = pagePath(locale, "ai-vibecoding");
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -424,7 +424,7 @@ export function AiVibecodingView({ locale, content }: SectionProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={localizePath(locale, PATH)} />
+      <SiteNav locale={locale} current={pagePath(locale, "ai-vibecoding")} />
       <HeroSection locale={locale} content={content} />
       <ProblemSection locale={locale} content={content} />
       <GuardrailsSection locale={locale} content={content} />

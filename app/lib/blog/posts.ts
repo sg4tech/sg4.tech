@@ -28,6 +28,9 @@ type BlogPost = {
   slug: PostSlug;
   /** The language the post is written in; it is published under that locale's blog. */
   locale: Locale;
+  /** For a translation: the slug of the original post. Links the language
+   * versions for hreflang; leave unset on originals. */
+  translationOf?: PostSlug;
   title: string;
   /** Search-result title for the <title> tag when it should name the searched-for topic more
    * plainly than the on-page headline. Falls back to `title`; H1, Open Graph, and schema
@@ -126,6 +129,12 @@ export function getLatestPosts(locale: Locale, limit?: number): ReadonlyArray<Bl
     .filter((post) => post.locale === locale)
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
   return limit === undefined ? sorted : sorted.slice(0, limit);
+}
+
+/** Every language version of a post (the original and its translations). */
+export function getPostTranslations(slug: PostSlug): ReadonlyArray<BlogPost> {
+  const original = getPostBySlug(slug).translationOf ?? slug;
+  return blogPosts.filter((post) => post.slug === original || post.translationOf === original);
 }
 
 /** The post's URL path, under its locale's blog. */

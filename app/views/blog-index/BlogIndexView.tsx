@@ -8,10 +8,10 @@ import { SiteNav } from "../../components/SiteNav";
 import { blogPosts, formatPostDate, getLatestPosts, postPath } from "../../lib/blog/posts";
 import { BRAND_NAME, personSchema, SITE_URL } from "../../lib/brand";
 import { getDictionary } from "../../lib/i18n/dictionary";
-import { getLocaleConfig, localizePath, type Locale, type SitePath } from "../../lib/i18n/locales";
+import { getLocaleConfig, type Locale } from "../../lib/i18n/locales";
+import { pageLanguageAlternates, pagePath } from "../../lib/i18n/pages";
 import styles from "./BlogIndexView.module.css";
 
-const PATH: SitePath = "/blog/";
 
 // Everything the blog index says, in one locale. Post titles, dates, and
 // descriptions come from the post registry.
@@ -25,12 +25,14 @@ export type BlogIndexContent = {
 };
 
 export function buildBlogIndexMetadata(locale: Locale, content: BlogIndexContent): Metadata {
-  const path = localizePath(locale, PATH);
+  const path = pagePath(locale, "blog");
+  const languages = pageLanguageAlternates("blog");
   return {
     title: content.title,
     description: content.description,
     alternates: {
-      canonical: path
+      canonical: path,
+      ...(languages ? { languages } : {})
     },
     openGraph: {
       title: content.socialTitle,
@@ -49,7 +51,7 @@ export function buildBlogIndexMetadata(locale: Locale, content: BlogIndexContent
 }
 
 function buildStructuredData(locale: Locale, content: BlogIndexContent) {
-  const blogUrl = `${SITE_URL}${localizePath(locale, PATH)}`;
+  const blogUrl = `${SITE_URL}${pagePath(locale, "blog")}`;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -93,7 +95,7 @@ export function BlogIndexView({ locale, content }: BlogIndexViewProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={localizePath(locale, PATH)} />
+      <SiteNav locale={locale} current={pagePath(locale, "blog")} />
       <Section className={styles.intro}>
         <SectionHeader level="h1" title={content.heading} intro={content.intro} />
         <ul className={styles.list}>

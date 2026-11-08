@@ -83,6 +83,6 @@ describe("yii2 landing page", () => {
     const source = readFileSync(view, "utf8");
     expect(source).toMatch(/eventName="cta_click"\s+payload=\{\{ location: "yii2_hero" \}\}/);
     expect(source).toMatch(/eventName: "cta_click",\s+payload: \{ location: "yii2_final" \}/);
-    expect(source).toContain("<SiteNav locale={locale} current={localizePath(locale, PATH)} />");
+    expect(source).toContain('<SiteNav locale={locale} current={pagePath(locale, "yii2")} />');
   });
 });

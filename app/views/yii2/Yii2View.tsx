@@ -44,7 +44,8 @@ import { StatementCta } from "../../components/StatementCta";
 import { Steps } from "../../components/Steps";
 import { WhyMeSection } from "../../components/WhyMeSection";
 import { personSchema, SITE_URL, writingChannelLinks } from "../../lib/brand";
-import { localizePath, type Locale, type SitePath } from "../../lib/i18n/locales";
+import type { Locale } from "../../lib/i18n/locales";
+import { pagePath } from "../../lib/i18n/pages";
 import { buildLandingMetadata } from "../../lib/landing-metadata";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals, PHP_RUSSIA_LOGO } from "../../lib/proof";
@@ -62,7 +63,6 @@ import type {
 } from "./yii2-content";
 import styles from "./Yii2View.module.css";
 
-const PATH: SitePath = "/yii2/";
 
 // The design side of each item: which icon it carries. Copy comes from the
 // locale's content; these stay the same in every locale.
@@ -99,11 +99,11 @@ const visualStateIcon = createLookup<VisualStateId, LucideIcon>({
 });
 
 export function buildYii2Metadata(locale: Locale, content: Yii2Content): Metadata {
-  return buildLandingMetadata(locale, localizePath(locale, PATH), content.meta);
+  return buildLandingMetadata(locale, "yii2", content.meta);
 }
 
 function buildStructuredData(locale: Locale, content: Yii2Content) {
-  const path = localizePath(locale, PATH);
+  const path = pagePath(locale, "yii2");
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -413,7 +413,7 @@ export function Yii2View({ locale, content }: SectionProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={localizePath(locale, PATH)} />
+      <SiteNav locale={locale} current={pagePath(locale, "yii2")} />
       <HeroSection locale={locale} content={content} />
       <TransformationSection locale={locale} content={content} />
       <ProblemSection locale={locale} content={content} />

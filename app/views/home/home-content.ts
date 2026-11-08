@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { FaqItemData } from "../../components/FaqSection";
+import type { PageKey } from "../../lib/i18n/pages";
 import type { LandingMeta } from "../../lib/landing-metadata";
 
 // Item ids tie translated copy to the view's fixed design (icons, order of
@@ -9,7 +10,8 @@ export type StageId = "early" | "growth" | "scale";
 export type TrustPointId = "experience" | "leadership" | "mvp" | "scale" | "writing";
 export type CaseMetricIconId = "predictable" | "nps" | "throughput" | "stable";
 export type FitGroupId = "fit" | "notFit";
-export type SpecializationTarget = "yii2" | "ai-vibecoding";
+/** A specialized landing the home page links to; a key of the page registry. */
+type SpecializationTarget = Extract<PageKey, "yii2" | "ai-vibecoding">;
 
 type Metric = {
   /** Small qualifier before the figure, e.g. "Up to". */

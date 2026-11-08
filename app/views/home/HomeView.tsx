@@ -37,7 +37,8 @@ import { WhyMeSection } from "../../components/WhyMeSection";
 import { formatPostDate, getLatestPosts, postPath } from "../../lib/blog/posts";
 import { personSchema, SITE_URL, VICTOR_SAME_AS, writingChannelLinks } from "../../lib/brand";
 import { getDictionary } from "../../lib/i18n/dictionary";
-import { localizePath, type Locale, type SitePath } from "../../lib/i18n/locales";
+import type { Locale } from "../../lib/i18n/locales";
+import { pagePath } from "../../lib/i18n/pages";
 import { buildLandingMetadata } from "../../lib/landing-metadata";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals, PHP_RUSSIA_LOGO } from "../../lib/proof";
@@ -47,13 +48,11 @@ import type {
   FitGroupId,
   HeroMetricId,
   HomeContent,
-  SpecializationTarget,
   StageId,
   TrustPointId
 } from "./home-content";
 import styles from "./HomeView.module.css";
 
-const PATH: SitePath = "/";
 
 // The design side of each item: which icon it carries. Copy comes from the
 // locale's content; these stay the same in every locale.
@@ -80,13 +79,9 @@ const fitGroupStyle = createLookup<FitGroupId, { icon: LucideIcon; kind: "check"
   fit: { icon: Target, kind: "check" },
   notFit: { icon: Ban, kind: "x" }
 });
-const specializationPath = createLookup<SpecializationTarget, SitePath>({
-  yii2: "/yii2/",
-  "ai-vibecoding": "/ai-vibecoding/"
-});
 
 export function buildHomeMetadata(locale: Locale, content: HomeContent): Metadata {
-  return buildLandingMetadata(locale, localizePath(locale, PATH), content.meta);
+  return buildLandingMetadata(locale, "home", content.meta);
 }
 
 function buildStructuredData(locale: Locale, content: HomeContent) {
@@ -107,7 +102,7 @@ function buildStructuredData(locale: Locale, content: HomeContent) {
         },
         sameAs: VICTOR_SAME_AS
       },
-      buildFaqPageSchema(localizePath(locale, PATH), content.faq)
+      buildFaqPageSchema(pagePath(locale, "home"), content.faq)
     ]
   };
 }
@@ -289,7 +284,7 @@ function SpecializationSection({ locale, content: { specializations } }: Section
         {specializations.links.map((link) => (
           <Link
             key={link.target}
-            href={localizePath(locale, specializationPath(link.target))}
+            href={pagePath(locale, link.target)}
             className={styles.specializationCard}
           >
             <span className={styles.specializationTitle}>{link.title}</span>
@@ -318,7 +313,7 @@ function InsightsSection({ locale, content: { writing } }: SectionProps) {
     <Section id="insights">
       <div className={styles.writingHeader}>
         <SectionHeader title={writing.title} intro={writing.intro} introClassName={styles.writingIntro} />
-        <Link href={localizePath(locale, "/blog/")} className={styles.allPostsLink}>
+        <Link href={pagePath(locale, "blog")} className={styles.allPostsLink}>
           {writing.allPostsLabel}
           <Icon icon={ArrowRight} className={styles.allPostsArrow} />
         </Link>
@@ -373,7 +368,7 @@ export function HomeView({ locale, content }: SectionProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={localizePath(locale, PATH)} />
+      <SiteNav locale={locale} current={pagePath(locale, "home")} />
       <HeroSection locale={locale} content={content} />
       <ProblemSection locale={locale} content={content} />
       <TrustSection locale={locale} content={content} />

@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getSiteNavigationItems } from "@/app/lib/navigation";
 
 describe("responsive layout guardrails", () => {
   it("keeps the dedicated mobile navigation and CTA rules", () => {
@@ -17,9 +18,9 @@ describe("responsive layout guardrails", () => {
     const pageMobileSection = pageCss.split("@media (max-width: 640px)")[1] ?? "";
 
     // Nav data shape: items carry mobileNav role + the component honours it via data-attr.
-    const navData = readFileSync(join(process.cwd(), "app", "lib", "navigation.ts"), "utf8");
-    expect(navData).toContain('mobileNav: "primary"');
-    expect(navData).toContain('mobileNav: "secondary"');
+    const mobileNav = getSiteNavigationItems("en").map((item) => item.mobileNav);
+    expect(mobileNav).toContain("primary");
+    expect(mobileNav).toContain("secondary");
     expect(navTsx).toContain("data-mobile-nav={item.mobileNav}");
 
     // Below desktop the nav is one row: logo plus a few pills, never a tile grid

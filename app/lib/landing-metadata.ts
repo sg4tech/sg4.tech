@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BRAND_NAME } from "./brand";
-import { getLocaleConfig, type Locale, type SitePath } from "./i18n/locales";
+import { getLocaleConfig, type Locale } from "./i18n/locales";
+import { pageLanguageAlternates, pagePath, type PageKey } from "./i18n/pages";
 
 // What a landing says about itself to search results and link previews.
 export type LandingMeta = {
@@ -12,13 +13,15 @@ export type LandingMeta = {
 
 // One builder for every landing's Next.js metadata, so canonical, Open Graph,
 // and Twitter cards are shaped the same way on every landing and locale.
-export function buildLandingMetadata(locale: Locale, path: SitePath, meta: LandingMeta): Metadata {
+export function buildLandingMetadata(locale: Locale, page: PageKey, meta: LandingMeta): Metadata {
+  const languages = pageLanguageAlternates(page);
   const socialDescription = meta.socialDescription ?? meta.description;
   return {
     title: meta.title,
     description: meta.description,
     alternates: {
-      canonical: path
+      canonical: pagePath(locale, page),
+      ...(languages ? { languages } : {})
     },
     openGraph: {
       title: meta.title,
