@@ -194,6 +194,13 @@
     --weight-bold: 700;
     --weight-black: 800;
 
+    /* Weights by role, tuned to the brand typeface's density: display for
+       large headings, heading for small ones, figure for ember numbers and
+       the closing statement. */
+    --weight-display: var(--weight-semibold);
+    --weight-heading: 650;
+    --weight-figure: var(--weight-bold);
+
     --tracking-tight: -0.022em; /* display / large headings */
     --tracking-snug: -0.012em; /* headings */
     --tracking-normal: 0em;
@@ -292,6 +299,16 @@
 
   img {
     max-width: 100%;
+  }
+
+  h1,
+  h2 {
+    font-weight: var(--weight-display);
+  }
+
+  h3,
+  h4 {
+    font-weight: var(--weight-heading);
   }
 
   main {

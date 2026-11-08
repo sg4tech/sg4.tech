@@ -455,3 +455,30 @@ describe("two-tone hero headline", () => {
     expect(rule).toContain("display: block;");
   });
 });
+
+describe("type weights by role", () => {
+  // Weights are tuned to the brand typeface's density, so they live as role
+  // tokens in one place: display headings, smaller headings, and figures.
+  const strip = (s: string) => s.replace(/^[ \t]+/gm, "");
+  const globals = strip(read("app", "globals.css"));
+  const rule = (css: string, selector: string) => css.split(`${selector} {`)[1]?.split("}")[0] ?? "";
+
+  it("defines the three role tokens", () => {
+    for (const token of ["--weight-display:", "--weight-heading:", "--weight-figure:"]) {
+      expect(globals).toContain(token);
+    }
+  });
+
+  it("sets heading tags from the role tokens", () => {
+    expect(rule(globals, "h1,\nh2")).toContain("font-weight: var(--weight-display);");
+    expect(rule(globals, "h3,\nh4")).toContain("font-weight: var(--weight-heading);");
+  });
+
+  it.each([
+    ["app/components/Stat.module.css", ".figure"],
+    ["app/components/Steps.module.css", ".number"],
+    ["app/components/StatementCta.module.css", ".heading"]
+  ])("%s %s uses the figure weight", (file, selector) => {
+    expect(rule(strip(read(file)), selector)).toContain("font-weight: var(--weight-figure);");
+  });
+});

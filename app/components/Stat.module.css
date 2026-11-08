@@ -37,7 +37,7 @@
   .figure {
     color: var(--color-primary);
     font-size: var(--text-hero-metric);
-    font-weight: 800;
+    font-weight: var(--weight-figure);
     line-height: var(--leading-none);
     letter-spacing: var(--tracking-tight);
     font-variant-numeric: tabular-nums;
