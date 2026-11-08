@@ -3,6 +3,7 @@ import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import { LINKEDIN_URL, SITE_URL } from "./lib/brand";
+import { umamiTracker } from "./lib/umami-tracker";
 import "./globals.css";
 
 // Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
@@ -59,8 +60,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         {children}
         <Script
           defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="e6f16f01-14da-478f-95c7-d574ee9122c2"
+          src={umamiTracker.src}
+          data-website-id={umamiTracker.websiteId}
+          data-domains={umamiTracker.domains}
         />
       </body>
     </html>
