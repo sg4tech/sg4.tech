@@ -401,6 +401,11 @@ Use system fonts (Arial, Verdana, Tahoma) only as **fallbacks** in the `font-fam
 
 Rules this site has settled on, each with its reason and where it lives. Sections 1–16 are general theory; this one is local. Values live in `app/globals.css` and the named components; don't copy them into prose.
 
+### Navigation and page structure
+- **One menu on every page, from `SiteNav`.** It lists pages only: no in-page anchors (a one-page landing is read top to bottom) and no Contact (each page has its own CTAs). The current page is marked with `aria-current`. Below desktop it stays a single row of pills; secondary items hide on phones only. A per-page menu list drifts, so pages never pass their own items.
+- **FAQ comes last, right before the final CTA.** Proof, fit ("who it's for") and featured reading go above it; FAQ is secondary and closes the page.
+- **Don't repeat what the menu or a neighbouring section already says.** A "Back to home" link under a menu that has Home, a label repeated on every card, or an FAQ answer that restates the "who it's for" section above it are cut, not restyled.
+
 ### Buttons and contrast
 - **Primary buttons use an ink label on ember, never white.** White on the brand ember fails §9 contrast at button text size; ink passes, and the ember fill stays the brand colour. The hover state **lightens** the fill, because darkening it would drop ink below AA. Lives in `--color-primary-contrast` / `--color-primary-hover`; guarded by `tests/dark-surface-contrast.test.ts`.
 - **Small text sets in `--text-3` or darker, not `--text-4`,** wherever it carries meaning (captions, qualifiers, notes). `--text-4` is for placeholders and decoration only.
@@ -411,6 +416,8 @@ Rules this site has settled on, each with its reason and where it lives. Section
 ### Layout
 - **Anything that should sit on the 42rem reading column must be block-level.** `inline-flex` ignores `margin-inline: auto`, so a back link styled that way escapes to the page edge. Use `display: flex; width: fit-content` and place it on the column explicitly.
 - **Cards that stretch to equal height in a grid row set `align-content: start`.** Otherwise the extra height goes to the header row unevenly and titles fall out of line across the row.
+- **Side-by-side cards or columns built from the same parts (header, figures, details) share rows through `subgrid`.** Each card spans the parent's rows (`grid-row: span N; grid-template-rows: subgrid`), so a wrapped title in one card does not push the rest of that card below its neighbours. Used by the homepage Results and the /yii2 Quality/Speed columns.
+- **On wide screens, prefer columns to full-width bands.** Content that fills half a full-width card reads as empty; two or three items side by side (Results, Writing, offers, Quality/Speed) use the width and shorten the page. Narrow screens stay single-column.
 - **`--scroll-offset` must exceed the sticky nav's height.** Anchor targets land at that offset; if it is shorter, a jumped-to heading slides under the nav (§9 2.4.11). Raise the token, not per-page margins.
 - **No section divider directly under the nav.** The nav card already separates the page top; `Section` skips its top border when it follows `<nav>`.
 
@@ -418,9 +425,16 @@ Rules this site has settled on, each with its reason and where it lives. Section
 - **Numbered steps: one `Steps` component, never a summary strip plus cards that repeat the same titles.** Use `variant="card"` where the section needs a stronger visual anchor (the landings), the default plain variant elsewhere.
 - **Marketing lists use `MarkList` markers** (dot, check, cross), never bare browser bullets. A "not a fit" list takes the cross, matching the homepage.
 - **`Stat` qualifiers ("Up to") go inline before the figure,** so every figure in a row shares one line. A stacked overline pushes one figure below its neighbours.
-- **Link cards show an arrow** (`ArrowRight` in its own column, nudging right on hover). A card that is a link but looks like a text block gets skipped.
+- **Link cards show an arrow** (`ArrowRight` in its own column, nudging right on hover). A card that is a link but looks like a text block gets skipped. Inside a text title the arrow is glued to the last word (a `nowrap` span) so it never wraps onto a line of its own.
+- **FAQ items are native `<details>`, closed by default,** with the question in `<summary>` and a plus that turns into a cross. No JS; the answer stays in the DOM, and FAQPage JSON-LD is built from data, not markup.
+- **Writing channels render through `ChannelLinks`:** one quiet line of same-size monochrome icons and muted labels. They are never cards with descriptions; cards are for evidence (a talk, a case), not for profile links.
+- **Inside a card, supporting detail is a short muted line, not a headed bullet list.** "Problem: … · …" under the figures keeps the numbers as the headline; headed lists of two or three phrases make cards tall and heavy.
+- **Lists that should stay fresh are built from data** (`getLatestPosts`), not hand-picked copies that go stale.
 - **Every blog figure caption uses `FigureCaption`,** and the frame wraps the whole figure (picture and caption), not just the image. Per-post caption rules drifted into two greys and two alignments.
 - **Long posts get an `ArticleToc`** built from the post's own h2 ids and text, with a test that keeps the two in sync.
+
+### Process
+- **When two layouts are argued on paper, build both as throwaway drafts and compare screenshots.** Several rounds of verbal "rate it, revise it" did not converge; built drafts decided in one look (hero balance, Results layout). Drafts live on a local branch and are discarded.
 
 ### Guardrails
 - **A CSS-module class referenced in TSX must exist in its stylesheet.** CSS modules turn a missing class into `undefined`, so a deleted rule fails silently and the element renders unstyled. `tests/css-module-classes.test.ts` checks every reference; when deleting CSS, remove whole rules by selector, never a range of lines.

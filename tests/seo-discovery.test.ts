@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
-import { SITE_URL } from "@/app/lib/brand";
+import { SITE_URL, withSiteName } from "@/app/lib/brand";
 import { metadata as aiVibecodingMetadata } from "@/app/(en)/ai-vibecoding/page";
 import { metadata as blogIndexMetadata } from "@/app/(en)/blog/page";
 import { metadata as homeMetadata } from "@/app/(en)/page";
@@ -55,6 +55,20 @@ describe("sitemap", () => {
     for (const url of placeholderRoutes) {
       expect(urls).not.toContain(url);
     }
+  });
+});
+
+describe("home metadata", () => {
+  // The root layout's title template does not apply to the page in its own
+  // segment, so the home page applies the same format itself.
+  it("formats the home search title like every other page", async () => {
+    const { metadata } = await import("@/app/(en)/page");
+    const pageTitle = metadata.openGraph?.title;
+    if (typeof pageTitle !== "string") {
+      throw new Error("home openGraph.title must be a plain string");
+    }
+
+    expect(metadata.title).toBe(withSiteName(pageTitle));
   });
 });
 
@@ -108,24 +122,25 @@ describe("llms.txt", () => {
     expect(content).toContain("https://t.me/sg4tech");
   });
 
-  it("advertises the blog index and the cornerstone article", () => {
+  it("advertises the blog index", () => {
     const filePath = join(process.cwd(), "public", "llms.txt");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toContain("https://sg4.tech/blog/");
-    expect(content).toContain(
-      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/"
-    );
   });
+
+  // Answer engines read llms.txt as the site's table of contents, so a post
+  // without its own entry is invisible to them even though it is live and in
+  // the sitemap. A bare URL mention elsewhere (e.g. a playbook link) does not count.
+  for (const slug of POST_SLUGS) {
+    it(`lists the "${slug}" post as its own entry`, () => {
+      const filePath = join(process.cwd(), "public", "llms.txt");
+      const lines = readFileSync(filePath, "utf8").split("\n");
+      const entryLink = `](${SITE_URL}/blog/${slug}/)`;
+
+      expect(lines.some((line) => line.startsWith("- [") && line.includes(entryLink))).toBe(true);
+    });
+  }
 });
 
 describe("landing schema", () => {

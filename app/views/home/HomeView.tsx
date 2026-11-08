@@ -35,7 +35,7 @@ import { SiteNav } from "../../components/SiteNav";
 import { Button } from "../../components/Button";
 import { WhyMeSection } from "../../components/WhyMeSection";
 import { formatPostDate, getLatestPosts, postPath } from "../../lib/blog/posts";
-import { personSchema, SITE_URL, VICTOR_SAME_AS, writingChannelLinks } from "../../lib/brand";
+import { personSchema, SITE_URL, VICTOR_SAME_AS, withSiteName, writingChannelLinks } from "../../lib/brand";
 import { getDictionary } from "../../lib/i18n/dictionary";
 import type { Locale } from "../../lib/i18n/locales";
 import { pagePath } from "../../lib/i18n/pages";
@@ -80,8 +80,11 @@ const fitGroupStyle = createLookup<FitGroupId, { icon: LucideIcon; kind: "check"
   notFit: { icon: Ban, kind: "x" }
 });
 
+// The home page sits in its root layout's own segment, where the layout's
+// title template does not apply, so its search title carries the site name
+// itself. Link previews keep the bare title.
 export function buildHomeMetadata(locale: Locale, content: HomeContent): Metadata {
-  return buildLandingMetadata(locale, "home", content.meta);
+  return { ...buildLandingMetadata(locale, "home", content.meta), title: withSiteName(content.meta.title) };
 }
 
 function buildStructuredData(locale: Locale, content: HomeContent) {
@@ -162,17 +165,17 @@ function ProblemSection({ content: { problem } }: SectionProps) {
       <SectionHeader title={problem.title} />
       <div className={styles.stageGrid}>
         {problem.stages.map((stage) => (
-          <article key={stage.id} className={styles.card}>
-            <h3 className={styles.cardHeading}>
-              <Icon icon={stageIcon(stage.id)} className={styles.cardHeadingIcon} />
+          <article key={stage.id} className={styles.stageItem}>
+            <h3 className={styles.stageKicker}>
+              <Icon icon={stageIcon(stage.id)} className={styles.stageKickerIcon} />
               {stage.title}
             </h3>
-            <MarkList items={stage.points} />
-            <p className={styles.cardNote}>{stage.closing}</p>
+            <p className={styles.stageStatement}>{stage.closing}</p>
+            <MarkList items={stage.points} className={styles.stageSymptoms} />
           </article>
         ))}
       </div>
-      <div className={styles.callout}>
+      <div className={styles.pullQuote}>
         {problem.callout.map((line, index) => (
           <p key={index}>{line}</p>
         ))}
@@ -241,15 +244,17 @@ function ProcessSection({ content: { process } }: SectionProps) {
           title: step.title,
           body: (
             <>
-              <MarkList items={step.points} />
-              <p className={styles.output}>
-                {process.outputLabel} {step.output}
+              <p className={styles.stepResult}>
+                <span className={styles.stepResultLabel}>{process.outputLabel}</span> {step.output}
               </p>
+              <MarkList items={step.points} className={styles.stepPoints} />
             </>
           )
         }))}
       />
-      <p className={styles.processNote}>{process.note}</p>
+      <div className={styles.pullQuote}>
+        <p>{process.note}</p>
+      </div>
     </Section>
   );
 }

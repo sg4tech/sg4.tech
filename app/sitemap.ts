@@ -32,9 +32,9 @@ type Landing = {
 };
 
 const landings: ReadonlyArray<Landing> = [
-  { page: "home", modifiedAt: "2026-06-15", changeFrequency: "monthly", priority: 1 },
-  { page: "yii2", modifiedAt: "2026-06-15", changeFrequency: "monthly", priority: 0.8 },
-  { page: "ai-vibecoding", modifiedAt: "2026-06-15", changeFrequency: "monthly", priority: 0.8 }
+  { page: "home", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 1 },
+  { page: "yii2", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 0.8 },
+  { page: "ai-vibecoding", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 0.8 }
 ];
 
 // Newest modifiedAt among a locale's posts, used as that locale's blog index

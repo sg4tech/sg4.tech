@@ -10,7 +10,8 @@ import { SiteFooter } from "./components/SiteFooter";
 import { SiteNav } from "./components/SiteNav";
 import { getDictionary } from "./lib/i18n/dictionary";
 import { DEFAULT_LOCALE, localizePath } from "./lib/i18n/locales";
-import { buildSiteMetadata, SITE_TITLE_TEMPLATE, siteViewport } from "./lib/site-metadata";
+import { withSiteName } from "./lib/brand";
+import { buildSiteMetadata, siteViewport } from "./lib/site-metadata";
 import styles from "./not-found.module.css";
 
 // The app has one root layout per locale, so the 404 for unmatched URLs is the
@@ -22,7 +23,7 @@ const { notFound } = getDictionary(locale);
 
 export const metadata: Metadata = {
   ...buildSiteMetadata(locale),
-  title: SITE_TITLE_TEMPLATE.replace("%s", notFound.title),
+  title: withSiteName(notFound.title),
   robots: { index: false, follow: true }
 };
 export const viewport: Viewport = siteViewport;

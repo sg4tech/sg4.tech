@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { LINKEDIN_URL, SITE_URL, VICTOR_NAME } from "./brand";
+import { LINKEDIN_URL, SITE_TITLE_TEMPLATE, SITE_URL, VICTOR_NAME } from "./brand";
 import { getDictionary } from "./i18n/dictionary";
 import type { Locale } from "./i18n/locales";
 
 // Site-wide metadata defaults. Each locale's root layout exports these; the
 // global 404 spreads them too, because it renders outside every layout and
 // inherits nothing.
-export const SITE_TITLE_TEMPLATE = `%s | ${VICTOR_NAME}`;
 
 export function buildSiteMetadata(locale: Locale): Metadata {
   return {
