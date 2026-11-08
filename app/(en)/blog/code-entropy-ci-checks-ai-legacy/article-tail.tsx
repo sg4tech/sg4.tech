@@ -30,7 +30,7 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta locale="en" heading="Agents writing code faster than you can review it?" href={CTA_HREF}>
+    <BlogCta post="code-entropy-ci-checks-ai-legacy" heading="Agents writing code faster than you can review it?" href={CTA_HREF}>
       The first call is 30 minutes on Telegram. Tell me what your CI checks today, and I&apos;ll
       help you find which levels are missing and in what order to add them.
     </BlogCta>
@@ -38,5 +38,5 @@ export function ArticleCta(): ReactNode {
 }
 
 export function ArticleRelated(): ReactNode {
-  return <BlogRelated locale="en" links={relatedLinks} />;
+  return <BlogRelated post="code-entropy-ci-checks-ai-legacy" links={relatedLinks} />;
 }

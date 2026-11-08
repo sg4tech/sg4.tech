@@ -1,7 +1,5 @@
 /* Framed like the post's figures so it reads as a navigation aid, not prose. */
 
-/* Cascade layer order: see docs/engineering-checks.md. Declared first in
-   every stylesheet so it holds whichever chunk the browser loads first. */
 @layer base, primitives, components, landing, views;
 
 @layer components {

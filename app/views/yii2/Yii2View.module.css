@@ -1,7 +1,5 @@
 /* DeliveryTransformationVisual — yii2-specific diagram */
 
-/* Cascade layer order: see docs/engineering-checks.md. Declared first in
-   every stylesheet so it holds whichever chunk the browser loads first. */
 @layer base, primitives, components, landing, views;
 
 @layer views {

@@ -155,7 +155,7 @@ function ArticleBody() {
   return (
     <div className={styles.body}>
       <IntroSection />
-      <ArticleToc locale="en" items={tocItems} />
+      <ArticleToc post="diagnose-broken-engineering-delivery" items={tocItems} />
       <SectionSymptoms />
       <SectionDecomposeT2M />
       <SectionLeadTimeCycleTime />

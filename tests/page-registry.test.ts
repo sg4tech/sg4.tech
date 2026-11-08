@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Locale } from "@/app/lib/i18n/locales";
-import { isPagePublished, pagePath } from "@/app/lib/i18n/pages";
+import { createPageRegistry, isPagePublished, pagePath } from "@/app/lib/i18n/pages";
 import { getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
 
 // A locale the registry does not publish anything in yet.
@@ -35,5 +35,44 @@ describe("site menu", () => {
       (key) => (published as ReadonlyArray<string>).includes(key)
     );
     expect(kept.map((item) => item.key)).toEqual(expected);
+  });
+});
+
+// The site publishes one language today; this registry has two, so the
+// multi-locale paths (prefixes, hreflang, x-default, refusal) are exercised now
+// rather than on the first Russian page.
+describe("page registry with two published locales", () => {
+  const urls = { en: { htmlLang: "en", pathPrefix: "" }, ru: { htmlLang: "ru", pathPrefix: "/ru" } } as const;
+  const twoLocale = createPageRegistry<"en" | "ru">(
+    {
+      home: { path: "/", locales: ["en", "ru"] },
+      yii2: { path: "/yii2/", locales: ["en", "ru"] },
+      "ai-vibecoding": { path: "/ai-vibecoding/", locales: ["en"] },
+      blog: { path: "/blog/", locales: ["en"] },
+      privacy: { path: "/privacy/", locales: ["en"] }
+    },
+    (locale) => (locale === "en" ? urls.en : urls.ru),
+    "en"
+  );
+
+  it.each([
+    ["en", "home", "/"],
+    ["ru", "home", "/ru/"],
+    ["ru", "yii2", "/ru/yii2/"]
+  ] as const)("serves %s %s at %s", (locale, page, path) => {
+    expect(twoLocale.pagePath(locale, page)).toBe(path);
+  });
+
+  it("links the language versions of a translated page, with x-default on English", () => {
+    expect(twoLocale.pageLanguageAlternates("yii2")).toEqual({
+      en: "https://sg4.tech/yii2/",
+      ru: "https://sg4.tech/ru/yii2/",
+      "x-default": "https://sg4.tech/yii2/"
+    });
+  });
+
+  it("gives an untranslated page no alternates and refuses its missing version", () => {
+    expect(twoLocale.pageLanguageAlternates("blog")).toBeUndefined();
+    expect(() => twoLocale.pagePath("ru", "blog")).toThrow('"blog" is not published in ru');
   });
 });

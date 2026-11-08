@@ -29,12 +29,12 @@ describe("diagnose post table of contents", () => {
   });
 
   it("renders the contents after the intro", () => {
-    expect(page).toMatch(/<IntroSection \/>\s*<ArticleToc locale="en" items=\{tocItems\} \/>\s*<SectionSymptoms \/>/);
+    expect(page).toMatch(/<IntroSection \/>\s*<ArticleToc post="diagnose-broken-engineering-delivery" items=\{tocItems\} \/>\s*<SectionSymptoms \/>/);
   });
 
   it("labels the list with the approved heading", () => {
     expect(getDictionary("en").blog.tocHeading).toBe("Contents");
-    expect(readFileSync(join(process.cwd(), "app", "components", "ArticleToc.tsx"), "utf8")).toContain(">{getDictionary(locale).blog.tocHeading}<");
+    expect(readFileSync(join(process.cwd(), "app", "components", "ArticleToc.tsx"), "utf8")).toContain(">{getDictionary(getPostBySlug(post).locale).blog.tocHeading}<");
   });
 });
 

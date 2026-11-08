@@ -32,7 +32,7 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta locale="en" heading="Starting a lot and shipping little?" href={CTA_HREF}>
+    <BlogCta post="ai-made-starting-free-finishing-expensive" heading="Starting a lot and shipping little?" href={CTA_HREF}>
       The first diagnostic call is 30 minutes on Telegram. Describe how your team and agents work
       today, and I&apos;ll help you find where the finished work is leaking.
     </BlogCta>
@@ -40,5 +40,5 @@ export function ArticleCta(): ReactNode {
 }
 
 export function ArticleRelated(): ReactNode {
-  return <BlogRelated locale="en" links={relatedLinks} />;
+  return <BlogRelated post="ai-made-starting-free-finishing-expensive" links={relatedLinks} />;
 }

@@ -28,10 +28,10 @@ export type RenderedPage = {
 
 export function toRenderedPage(rawHtml: string): RenderedPage {
   const html = decodeEntities(rawHtml);
-  const text = decodeEntities(rawHtml.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " "))
+  const text = decodeEntities(rawHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script[^>]*>/gi, " ").replace(/<[^>]+>/g, " "))
     .replace(/[ \t\n]+/g, " ")
     .trim();
-  const jsonLd = [...rawHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(
+  const jsonLd = [...rawHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script[^>]*>/gi)].flatMap(
     ([, json]) => (JSON.parse(json ?? "{}") as { "@graph"?: Array<Record<string, unknown>> })["@graph"] ?? []
   );
   return {

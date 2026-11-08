@@ -1,8 +1,6 @@
 /* Short page: give the message room so the footer does not ride up under
    the nav, and keep the text on the same 42rem axis as the content pages. */
 
-/* Cascade layer order: see docs/engineering-checks.md. Declared first in
-   every stylesheet so it holds whichever chunk the browser loads first. */
 @layer base, primitives, components, landing, views;
 
 @layer views {

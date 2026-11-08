@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { getDictionary } from "../lib/i18n/dictionary";
-import type { Locale } from "../lib/i18n/locales";
+import { getPostBySlug, type PostSlug } from "../lib/blog/posts";
 import styles from "./BlogRelated.module.css";
 
 type RelatedLink = {
@@ -11,15 +11,16 @@ type RelatedLink = {
 };
 
 type BlogRelatedProps = {
-  locale: Locale;
+  /** The post this block belongs to; its language comes from the post registry. */
+  post: PostSlug;
   links: ReadonlyArray<RelatedLink>;
   intro?: ReactNode;
 };
 
 // Related links run across the post's topic cluster and to the matching
 // service page, never to the CTA destination.
-export function BlogRelated({ locale, links, intro }: BlogRelatedProps) {
-  const { blog } = getDictionary(locale);
+export function BlogRelated({ post, links, intro }: BlogRelatedProps) {
+  const { blog } = getDictionary(getPostBySlug(post).locale);
   return (
     <aside className={styles.related}>
       <h3 className={styles.relatedTitle}>{blog.relatedHeading}</h3>

@@ -8,8 +8,8 @@ import { Section } from "./components/Section";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteNav } from "./components/SiteNav";
 import { getDictionary } from "./lib/i18n/dictionary";
-import { DEFAULT_LOCALE } from "./lib/i18n/locales";
-import { pagePath } from "./lib/i18n/pages";
+import { DEFAULT_LOCALE, getLocaleConfig, LOCALES } from "./lib/i18n/locales";
+import { isPagePublished, pagePath } from "./lib/i18n/pages";
 import { withSiteName } from "./lib/brand";
 import { buildSiteMetadata, siteViewport } from "./lib/site-metadata";
 import styles from "./not-found.module.css";
@@ -17,9 +17,11 @@ import styles from "./not-found.module.css";
 // The app has one root layout per locale, so the 404 for unmatched URLs is the
 // global one: it renders outside every layout and brings its own document.
 // Static hosting serves one 404.html for every unknown URL, so it speaks the
-// default locale.
+// default locale — and offers every other published locale's home in that
+// locale's own words, so a visitor from a translated page has a way back.
 const locale = DEFAULT_LOCALE;
 const { notFound } = getDictionary(locale);
+const otherHomes = LOCALES.filter((other) => other !== locale && isPagePublished(other, "home"));
 
 export const metadata: Metadata = {
   ...buildSiteMetadata(locale),
@@ -40,6 +42,13 @@ export default function NotFound() {
           <p className={styles.text}>{notFound.text}</p>
           <div className={styles.actions}>
             <Button href={pagePath(locale, "home")}>{notFound.backHome}</Button>
+            {otherHomes.map((other) => (
+              <span key={other} lang={getLocaleConfig(other).htmlLang}>
+                <Button variant="secondary" href={pagePath(other, "home")}>
+                  {getDictionary(other).notFound.backHome}
+                </Button>
+              </span>
+            ))}
           </div>
         </Section>
         <SiteFooter locale={locale} />

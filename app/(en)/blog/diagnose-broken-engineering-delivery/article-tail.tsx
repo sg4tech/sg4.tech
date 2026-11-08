@@ -268,7 +268,7 @@ export function SectionClosing(): ReactNode {
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta locale="en" heading="Want a second pair of eyes on your delivery system?" href={CTA_HREF}>
+    <BlogCta post="diagnose-broken-engineering-delivery" heading="Want a second pair of eyes on your delivery system?" href={CTA_HREF}>
       The first diagnostic call is 30 minutes on Telegram. Describe the symptoms, I&apos;ll help you
       locate the real bottleneck.
     </BlogCta>
@@ -276,6 +276,6 @@ export function ArticleCta(): ReactNode {
 }
 
 export function ArticleRelated(): ReactNode {
-  return <BlogRelated locale="en" links={relatedLinks} intro="If these symptoms match yours, here's where to go next depending on the codebase shape." />;
+  return <BlogRelated post="diagnose-broken-engineering-delivery" links={relatedLinks} intro="If these symptoms match yours, here's where to go next depending on the codebase shape." />;
 }
 

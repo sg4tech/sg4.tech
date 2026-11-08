@@ -32,15 +32,21 @@ export type ServiceInfo = {
   description: string;
 };
 
+// Service fields only some landings state. Named, so they cannot overwrite the
+// node's @id, url, or description, which come from the registry and content.
+type ServiceExtra = {
+  areaServed?: string;
+  sameAs?: ReadonlyArray<string>;
+};
+
 // A landing's JSON-LD graph: the shared Person, the page's service (operated by
-// that Person), and its FAQ. `serviceExtra` carries the few service fields only
-// some landings state (e.g. areaServed on the home page).
+// that Person), and its FAQ.
 export function buildLandingStructuredData(
   locale: Locale,
   page: PageKey,
   service: ServiceInfo,
   faq: ReadonlyArray<FaqSchemaEntry>,
-  serviceExtra: Record<string, unknown> = {}
+  serviceExtra: ServiceExtra = {}
 ) {
   const path = pagePath(locale, page);
   return {

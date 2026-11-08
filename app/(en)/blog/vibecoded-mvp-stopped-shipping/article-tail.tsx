@@ -42,7 +42,7 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta locale="en" heading="MVP stalled and every fix breaks something else?" href={CTA_HREF}>
+    <BlogCta post="vibecoded-mvp-stopped-shipping" heading="MVP stalled and every fix breaks something else?" href={CTA_HREF}>
       The first diagnostic call is 30 minutes on Telegram. Describe what stopped shipping —
       I&apos;ll point at which layer is missing and what to add first.
     </BlogCta>
@@ -50,5 +50,5 @@ export function ArticleCta(): ReactNode {
 }
 
 export function ArticleRelated(): ReactNode {
-  return <BlogRelated locale="en" links={relatedLinks} />;
+  return <BlogRelated post="vibecoded-mvp-stopped-shipping" links={relatedLinks} />;
 }
