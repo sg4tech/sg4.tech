@@ -32,7 +32,7 @@ const requiredCopy = [
   "The product sells. The software can't keep up.",
   "Traction is there. The codebase isn't ready for it.",
   "Releases get riskier as the system grows",
-  "More people and more process rarely fix it.",
+  "Hiring more people rarely fixes it.",
   "The fix is in how the software is built and shipped — and that&apos;s what I do.",
   "I write the code, lead the work, and stay until it runs in production.",
   "Past roles and projects — what changed when I led development.",
@@ -98,5 +98,12 @@ describe("homepage landing page", () => {
     // "See how I work" belongs only to the hero.
     const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
     expect(content.split("See how I work").length - 1).toBe(1);
+  });
+
+  it("does not deny process work that the results section shows", () => {
+    // The case studies describe delivery and process changes, so the Problem
+    // bridge must not claim that process rarely helps.
+    const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
+    expect(content).not.toContain("more process rarely");
   });
 });
