@@ -8,7 +8,7 @@ const requiredCopy = [
   "Software engineering & technical leadership",
   "I build systems that work.",
   "Software that ships on time, holds up in production, and doesn&apos;t fall apart as it grows.",
-  "Using system thinking, delivery metrics, and AI, I build software with product teams — faster and with less chaos.",
+  "Using system thinking, delivery metrics, and AI, I&nbsp;build it — faster and with less chaos.",
   "Discuss your project",
   "See how I work",
   "https://t.me/sg4tech",

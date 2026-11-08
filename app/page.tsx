@@ -337,7 +337,7 @@ function HeroSection() {
             Software that ships on time, holds up in production, and doesn&apos;t fall apart as it grows.
           </p>
           <p className={styles.heroText}>
-            Using system thinking, delivery metrics, and AI, I build software with product teams — faster and with less chaos.
+            Using system thinking, delivery metrics, and AI, I&nbsp;build it — faster and with less chaos.
           </p>
           <div className={styles.heroActions}>
             <Button
