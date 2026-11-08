@@ -3,6 +3,7 @@ import Script from "next/script";
 import type { ReactNode } from "react";
 import { getDictionary } from "../lib/i18n/dictionary";
 import { getLocaleConfig, type Locale } from "../lib/i18n/locales";
+import { umamiTracker } from "../lib/umami-tracker";
 
 // Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
 // display + body + UI; JetBrains Mono is reserved for code/technical strings.
@@ -37,8 +38,9 @@ export function RootDocument({ locale, children }: RootDocumentProps) {
         {children}
         <Script
           defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="e6f16f01-14da-478f-95c7-d574ee9122c2"
+          src={umamiTracker.src}
+          data-website-id={umamiTracker.websiteId}
+          data-domains={umamiTracker.domains}
         />
       </body>
     </html>
