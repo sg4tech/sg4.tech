@@ -35,7 +35,14 @@ import { SiteNav } from "./components/SiteNav";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
 import { formatPostDate, getLatestPosts } from "./lib/blog/posts";
-import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL, VICTOR_SAME_AS } from "./lib/brand";
+import {
+  BRAND_NAME,
+  LINKEDIN_URL,
+  personSchema,
+  SITE_URL,
+  VICTOR_SAME_AS,
+  withSiteName
+} from "./lib/brand";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
 
@@ -300,15 +307,17 @@ const structuredData = {
   ]
 };
 
+const homeTitle = "Software Engineering & Technical Leadership";
+
 export const metadata: Metadata = {
-  title: "Software Engineering & Technical Leadership | Victor Demin",
+  title: withSiteName(homeTitle),
   description:
     "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "Software Engineering & Technical Leadership",
+    title: homeTitle,
     description:
       "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
     type: "website",
@@ -317,7 +326,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Engineering & Technical Leadership",
+    title: homeTitle,
     description:
       "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams."
   }

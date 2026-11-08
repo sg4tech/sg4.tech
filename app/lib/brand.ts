@@ -55,6 +55,15 @@ export const footerDisclaimers: FooterDisclaimer[] = [
 // entity by matching consistent facts across surfaces, so these must not drift.
 // Keep in sync with public/llms.txt.
 export const VICTOR_NAME = "Victor Demin";
+
+// Search-title format for every page: the root layout's title.template, and
+// withSiteName() for the one page the template skips — the home page, which
+// sits in the layout's own segment.
+export const SITE_TITLE_TEMPLATE = `%s | ${VICTOR_NAME}`;
+
+export function withSiteName(title: string): string {
+  return SITE_TITLE_TEMPLATE.replace("%s", title);
+}
 const VICTOR_JOB_TITLE = "Software engineer & engineering leader";
 
 // Display tagline under the name in the "Why me" identity card on every landing.

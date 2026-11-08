@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
-import { LINKEDIN_URL, SITE_URL } from "./lib/brand";
+import { LINKEDIN_URL, SITE_TITLE_TEMPLATE, SITE_URL, VICTOR_NAME } from "./lib/brand";
 import "./globals.css";
 
 // Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
@@ -23,8 +23,8 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Victor Demin",
-    template: "%s | Victor Demin"
+    default: VICTOR_NAME,
+    template: SITE_TITLE_TEMPLATE
   },
   description:
     "Victor Demin — hands-on software engineer and engineering leader. Software systems that ship on time and hold up in production.",

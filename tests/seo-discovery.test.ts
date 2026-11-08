@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
-import { SITE_URL } from "@/app/lib/brand";
+import { SITE_URL, withSiteName } from "@/app/lib/brand";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -53,16 +53,21 @@ describe("sitemap", () => {
   });
 });
 
-describe("canonical metadata", () => {
+describe("home metadata", () => {
   // The root layout's title template does not apply to the page in its own
-  // segment, so the home page has to carry the name itself.
-  it("puts the name in the home page search title", () => {
-    const filePath = join(process.cwd(), "app", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
+  // segment, so the home page applies the same format itself.
+  it("formats the home search title like every other page", async () => {
+    const { metadata } = await import("@/app/page");
+    const pageTitle = metadata.openGraph?.title;
+    if (typeof pageTitle !== "string") {
+      throw new Error("home openGraph.title must be a plain string");
+    }
 
-    expect(content).toMatch(/^ {2}title: ".* \| Victor Demin",$/m);
+    expect(metadata.title).toBe(withSiteName(pageTitle));
   });
+});
 
+describe("canonical metadata", () => {
   it("declares the home page canonical relative to metadataBase", () => {
     const filePath = join(process.cwd(), "app", "page.tsx");
     const content = readFileSync(filePath, "utf8");
@@ -136,13 +141,15 @@ describe("llms.txt", () => {
   });
 
   // Answer engines read llms.txt as the site's table of contents, so a post
-  // missing here is invisible to them even though it is live and in the sitemap.
+  // without its own entry is invisible to them even though it is live and in
+  // the sitemap. A bare URL mention elsewhere (e.g. a playbook link) does not count.
   for (const slug of POST_SLUGS) {
-    it(`lists the "${slug}" post`, () => {
+    it(`lists the "${slug}" post as its own entry`, () => {
       const filePath = join(process.cwd(), "public", "llms.txt");
-      const content = readFileSync(filePath, "utf8");
+      const lines = readFileSync(filePath, "utf8").split("\n");
+      const entryLink = `](${SITE_URL}/blog/${slug}/)`;
 
-      expect(content).toContain(`${SITE_URL}/blog/${slug}/`);
+      expect(lines.some((line) => line.startsWith("- [") && line.includes(entryLink))).toBe(true);
     });
   }
 });
