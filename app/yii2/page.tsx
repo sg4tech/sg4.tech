@@ -22,7 +22,6 @@ import {
   Zap
 } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
 import { FaqSection } from "../components/FaqSection";
@@ -443,10 +442,6 @@ function HeroMetricList() {
 function HeroSection() {
   return (
     <section className={landing.hero}>
-      <Link href="/" className={landing.backLink}>
-        <span aria-hidden="true" className={landing.backLinkArrow}>←</span>
-        Back to main page
-      </Link>
       <div className={landing.heroPanel}>
         <div className={landing.heroLayout}>
           <div className={landing.heroMain}>
