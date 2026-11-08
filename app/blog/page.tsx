@@ -5,14 +5,17 @@ import { Page } from "../components/Page";
 import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { SiteNav } from "../components/SiteNav";
-import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
-import { BLOG_FEED_ALTERNATE } from "../lib/blog/feed";
+import { absoluteUrl, BRAND_NAME, personSchema } from "../lib/brand";
+import { blogFeedAlternates } from "../lib/blog/post-metadata";
 import {
   BLOG_DESCRIPTION,
+  BLOG_INDEX_PATH,
   BLOG_TITLE,
   blogPosts,
   formatPostDate,
-  getLatestPosts
+  getLatestPosts,
+  getPostPath,
+  getPostUrl
 } from "../lib/blog/posts";
 import styles from "./page.module.css";
 
@@ -22,20 +25,20 @@ const structuredData = {
     personSchema,
     {
       "@type": "Blog",
-      "@id": `${SITE_URL}/blog/#blog`,
-      url: `${SITE_URL}/blog/`,
+      "@id": `${absoluteUrl(BLOG_INDEX_PATH)}#blog`,
+      url: absoluteUrl(BLOG_INDEX_PATH),
       name: BLOG_TITLE,
       description: BLOG_DESCRIPTION,
-      author: { "@id": `${SITE_URL}/#person` },
+      author: { "@id": personSchema["@id"] },
       blogPost: blogPosts.map((post) => ({
         "@type": "BlogPosting",
-        "@id": `${SITE_URL}/blog/${post.slug}/#article`,
-        url: `${SITE_URL}/blog/${post.slug}/`,
+        "@id": `${getPostUrl(post.slug)}#article`,
+        url: getPostUrl(post.slug),
         headline: post.title,
         description: post.description,
         datePublished: post.publishedAt,
         dateModified: post.modifiedAt,
-        author: { "@id": `${SITE_URL}/#person` }
+        author: { "@id": personSchema["@id"] }
       }))
     }
   ]
@@ -45,8 +48,8 @@ export const metadata: Metadata = {
   title: "Blog",
   description: BLOG_DESCRIPTION,
   alternates: {
-    canonical: "/blog/",
-    types: BLOG_FEED_ALTERNATE
+    canonical: BLOG_INDEX_PATH,
+    types: blogFeedAlternates
   },
   openGraph: {
     title: BLOG_TITLE,
@@ -54,7 +57,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: BRAND_NAME,
     locale: "en_US",
-    url: `${SITE_URL}/blog/`
+    url: absoluteUrl(BLOG_INDEX_PATH)
   },
   twitter: {
     card: "summary_large_image",
@@ -82,7 +85,7 @@ export default function BlogIndexPage() {
         <ul className={styles.list}>
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/blog/${post.slug}/`} className={styles.card}>
+              <Link href={getPostPath(post.slug)} className={styles.card}>
                 <p className={styles.meta}>
                   <span className={styles.metaItem}>
                     <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time>

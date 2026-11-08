@@ -34,8 +34,9 @@ import { Steps } from "./components/Steps";
 import { SiteNav } from "./components/SiteNav";
 import { Button } from "./components/Button";
 import { WhyMeSection, type WhyMePoint } from "./components/WhyMeSection";
-import { formatPostDate, getLatestPosts } from "./lib/blog/posts";
+import { formatPostDate, getLatestPosts, getPostPath } from "./lib/blog/posts";
 import {
+  absoluteUrl,
   BRAND_NAME,
   LINKEDIN_URL,
   personSchema,
@@ -43,6 +44,7 @@ import {
   VICTOR_SAME_AS,
   withSiteName
 } from "./lib/brand";
+import { LANDING_PATHS } from "./lib/landings";
 import { LINKEDIN_SVG_PATH } from "./lib/social-icons";
 import styles from "./page.module.css";
 
@@ -314,7 +316,7 @@ export const metadata: Metadata = {
   description:
     "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
   alternates: {
-    canonical: "/"
+    canonical: LANDING_PATHS.home
   },
   openGraph: {
     title: homeTitle,
@@ -323,7 +325,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: BRAND_NAME,
     locale: "en_US",
-    url: `${SITE_URL}/`
+    url: absoluteUrl(LANDING_PATHS.home)
   },
   twitter: {
     card: "summary_large_image",
@@ -539,7 +541,7 @@ function InsightsSection() {
       <ul className={styles.latestPosts}>
         {getLatestPosts(3).map((post) => (
           <li key={post.slug} className={styles.latestPostItem}>
-            <Link href={`/blog/${post.slug}/`} className={styles.latestPost}>
+            <Link href={getPostPath(post.slug)} className={styles.latestPost}>
               <span className={styles.latestPostMeta}>
                 <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time> ·{" "}
                 {post.readingMinutes} min read

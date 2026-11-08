@@ -41,8 +41,9 @@ import { Steps } from "../components/Steps";
 import { SiteNav } from "../components/SiteNav";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
-import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
-import { getPostBySlug } from "../lib/blog/posts";
+import { absoluteUrl, BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
+import { LANDING_PATHS } from "../lib/landings";
+import { getPostBySlug, getPostPath } from "../lib/blog/posts";
 import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
 
@@ -211,7 +212,7 @@ export const metadata: Metadata = {
   description:
     "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code.",
   alternates: {
-    canonical: "/ai-vibecoding/"
+    canonical: LANDING_PATHS.aiVibecoding
   },
   openGraph: {
     title: "AI Vibecoding Cleanup: From Stuck MVP to Shipping Business",
@@ -220,7 +221,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: BRAND_NAME,
     locale: "en_US",
-    url: `${SITE_URL}/ai-vibecoding/`
+    url: absoluteUrl(LANDING_PATHS.aiVibecoding)
   },
   twitter: {
     card: "summary_large_image",
@@ -574,7 +575,7 @@ function FeaturedEssaySection() {
   return (
     <Section aria-label="Featured essay">
       <div className={styles.featuredEssayGrid}>
-        <Link href={`/blog/${featuredPost.slug}/`} className={styles.featuredEssayCard}>
+        <Link href={getPostPath(featuredPost.slug)} className={styles.featuredEssayCard}>
           <span className={styles.featuredEssayLabel}>Featured essay</span>
           <span className={styles.featuredEssayTitle}>{featuredPost.title}</span>
           <span className={styles.featuredEssayDescription}>{featuredPost.description}</span>

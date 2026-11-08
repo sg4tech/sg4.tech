@@ -1,5 +1,5 @@
-import { personSchema, SITE_URL } from "../brand";
-import { getPostBySlug, type PostSlug } from "./posts";
+import { absoluteUrl, personSchema } from "../brand";
+import { BLOG_INDEX_PATH, getPostBySlug, getPostUrl, type PostSlug } from "./posts";
 
 // One builder for every post's JSON-LD graph (Person, Article, FAQPage,
 // BreadcrumbList), so posts differ only in their data, not in schema shape.
@@ -17,11 +17,11 @@ type PostSchemaOptions = {
   partOf?: PostSlug;
 };
 
-const articleId = (slug: PostSlug): string => `${SITE_URL}/blog/${slug}/#article`;
+const articleId = (slug: PostSlug): string => `${getPostUrl(slug)}#article`;
 
 function buildArticleSchema(slug: PostSlug, options: PostSchemaOptions) {
   const post = getPostBySlug(slug);
-  const postUrl = `${SITE_URL}/blog/${slug}/`;
+  const postUrl = getPostUrl(slug);
 
   return {
     "@type": "Article",
@@ -41,10 +41,10 @@ function buildArticleSchema(slug: PostSlug, options: PostSchemaOptions) {
       width: 1200,
       height: 630
     },
-    author: { "@id": `${SITE_URL}/#person` },
+    author: { "@id": personSchema["@id"] },
     // Publisher = Person (same @id as author): sg4.tech is a personal brand, not a
     // separate organization. Victor is both author and publishing entity.
-    publisher: { "@id": `${SITE_URL}/#person` },
+    publisher: { "@id": personSchema["@id"] },
     ...(options.partOf ? { isPartOf: { "@id": articleId(options.partOf) } } : {}),
     keywords: post.tags.join(", ")
   };
@@ -53,7 +53,7 @@ function buildArticleSchema(slug: PostSlug, options: PostSchemaOptions) {
 function buildFaqPageSchema(slug: PostSlug, faqItems: ReadonlyArray<FaqSchemaEntry>) {
   return {
     "@type": "FAQPage",
-    "@id": `${SITE_URL}/blog/${slug}/#faq`,
+    "@id": `${getPostUrl(slug)}#faq`,
     mainEntity: faqItems.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -67,14 +67,14 @@ function buildFaqPageSchema(slug: PostSlug, faqItems: ReadonlyArray<FaqSchemaEnt
 
 function buildBreadcrumbSchema(slug: PostSlug) {
   const post = getPostBySlug(slug);
-  const postUrl = `${SITE_URL}/blog/${slug}/`;
+  const postUrl = getPostUrl(slug);
 
   return {
     "@type": "BreadcrumbList",
     "@id": `${postUrl}#breadcrumb`,
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog/` },
+      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl(BLOG_INDEX_PATH) },
       { "@type": "ListItem", position: 3, name: post.title, item: postUrl }
     ]
   };
