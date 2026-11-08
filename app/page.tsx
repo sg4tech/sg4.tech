@@ -322,7 +322,8 @@ export const metadata: Metadata = {
       "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
     type: "website",
     siteName: BRAND_NAME,
-    locale: "en_US"
+    locale: "en_US",
+    url: `${SITE_URL}/`
   },
   twitter: {
     card: "summary_large_image",

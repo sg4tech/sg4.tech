@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BRAND_NAME, LINKEDIN_URL, SITE_URL } from "../brand";
+import { BLOG_FEED_ALTERNATE } from "./feed";
 import { getPostBySlug, type PostSlug } from "./posts";
 
 // One builder for every post's Next.js metadata, so a change to how posts
@@ -14,7 +15,8 @@ export function buildPostMetadata(slug: PostSlug): Metadata {
     title: { absolute: post.seoTitle ?? post.title },
     description: post.description,
     alternates: {
-      canonical: path
+      canonical: path,
+      types: BLOG_FEED_ALTERNATE
     },
     openGraph: {
       title: post.title,

@@ -6,7 +6,14 @@ import { Section } from "../components/Section";
 import { SectionHeader } from "../components/SectionHeader";
 import { SiteNav } from "../components/SiteNav";
 import { BRAND_NAME, personSchema, SITE_URL } from "../lib/brand";
-import { blogPosts, formatPostDate, getLatestPosts } from "../lib/blog/posts";
+import { BLOG_FEED_ALTERNATE } from "../lib/blog/feed";
+import {
+  BLOG_DESCRIPTION,
+  BLOG_TITLE,
+  blogPosts,
+  formatPostDate,
+  getLatestPosts
+} from "../lib/blog/posts";
 import styles from "./page.module.css";
 
 const structuredData = {
@@ -17,9 +24,8 @@ const structuredData = {
       "@type": "Blog",
       "@id": `${SITE_URL}/blog/#blog`,
       url: `${SITE_URL}/blog/`,
-      name: "Blog — Victor Demin",
-      description:
-        "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.",
+      name: BLOG_TITLE,
+      description: BLOG_DESCRIPTION,
       author: { "@id": `${SITE_URL}/#person` },
       blogPost: blogPosts.map((post) => ({
         "@type": "BlogPosting",
@@ -37,15 +43,14 @@ const structuredData = {
 
 export const metadata: Metadata = {
   title: "Blog",
-  description:
-    "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.",
+  description: BLOG_DESCRIPTION,
   alternates: {
-    canonical: "/blog/"
+    canonical: "/blog/",
+    types: BLOG_FEED_ALTERNATE
   },
   openGraph: {
-    title: "Blog — Victor Demin",
-    description:
-      "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.",
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
     type: "website",
     siteName: BRAND_NAME,
     locale: "en_US",
@@ -53,9 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog — Victor Demin",
-    description:
-      "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping."
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION
   }
 };
 

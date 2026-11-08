@@ -219,7 +219,8 @@ export const metadata: Metadata = {
       "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code.",
     type: "website",
     siteName: BRAND_NAME,
-    locale: "en_US"
+    locale: "en_US",
+    url: `${SITE_URL}/ai-vibecoding/`
   },
   twitter: {
     card: "summary_large_image",

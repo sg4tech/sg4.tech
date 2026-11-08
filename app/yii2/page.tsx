@@ -282,7 +282,8 @@ export const metadata: Metadata = {
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting.",
     type: "website",
     siteName: BRAND_NAME,
-    locale: "en_US"
+    locale: "en_US",
+    url: `${SITE_URL}/yii2/`
   },
   twitter: {
     card: "summary_large_image",

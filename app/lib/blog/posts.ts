@@ -1,3 +1,5 @@
+import { VICTOR_NAME } from "../brand";
+
 // Single source of truth for blog posts. Referenced by:
 // - /blog index page (post list)
 // - /blog/[slug] page metadata (title, description, dates)
@@ -12,6 +14,12 @@
 // is derived from it, so any string passed to getPostBySlug() is checked at
 // compile time — a slug typo in a route file fails the build instead of
 // crashing at runtime. blogPosts entries must use one of these slugs.
+// Blog-level name and summary, shared by the blog index metadata, its JSON-LD,
+// and the RSS feed channel.
+export const BLOG_TITLE = `Blog — ${VICTOR_NAME}`;
+export const BLOG_DESCRIPTION =
+  "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.";
+
 export const POST_SLUGS = [
   "diagnose-broken-engineering-delivery",
   "forecast-delivery-with-percentiles",

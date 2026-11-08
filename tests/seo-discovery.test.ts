@@ -67,6 +67,24 @@ describe("home metadata", () => {
   });
 });
 
+describe("landing Open Graph URL", () => {
+  // Without og:url, share scrapers fall back to whatever URL was shared
+  // (with tracking params or a slash-less variant) as the card's identity.
+  const landings = [
+    { path: "/", load: () => import("@/app/page") },
+    { path: "/yii2/", load: () => import("@/app/yii2/page") },
+    { path: "/ai-vibecoding/", load: () => import("@/app/ai-vibecoding/page") }
+  ];
+
+  for (const landing of landings) {
+    it(`points og:url of ${landing.path} at its canonical URL`, async () => {
+      const { metadata } = await landing.load();
+
+      expect(metadata.openGraph?.url).toBe(`${SITE_URL}${landing.path}`);
+    });
+  }
+});
+
 describe("canonical metadata", () => {
   it("declares the home page canonical relative to metadataBase", () => {
     const filePath = join(process.cwd(), "app", "page.tsx");
