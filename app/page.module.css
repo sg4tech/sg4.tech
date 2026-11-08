@@ -33,9 +33,7 @@
 
 .heroText,
 .bodyCopy,
-.caseHeader p,
-.output,
-.processNote {
+.caseHeader p {
   margin: var(--space-2) 0 0;
   color: var(--muted);
   line-height: var(--leading-loose);
@@ -131,7 +129,8 @@
 
 /* Problem: each stage opens with its conclusion as the headline (stage name
    as a small kicker above, symptoms small below), unboxed under a rule like
-   the Writing cards. The closing thought is a pull quote. */
+   the Writing cards. The closing thought is a pull quote (shared with How I
+   work). */
 .stageItem {
   padding-top: var(--space-2);
   border-top: 1px solid var(--border-strong);
@@ -168,13 +167,35 @@
   font-size: var(--text-sm);
 }
 
-.problemQuote {
+/* How I work: each step's result reads as its statement (a small muted
+   "Output:" prefix, the value in ink), with the steps behind it small and
+   muted. */
+.stepResult {
+  margin: var(--space-1) 0 0;
+  color: var(--text-strong);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: var(--leading-base);
+}
+
+.stepResultLabel {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.stepPoints {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.pullQuote {
   margin: var(--space-4) 0 0;
   padding: 0 0 0 var(--space-3);
   border-left: 3px solid var(--color-primary);
 }
 
-.problemQuote p {
+.pullQuote p {
   margin: 0;
   color: var(--text-strong);
   font-size: var(--text-xl);
@@ -182,7 +203,7 @@
   line-height: var(--leading-base);
 }
 
-.problemQuote p + p {
+.pullQuote p + p {
   margin-top: 0.35rem;
 }
 
@@ -253,13 +274,6 @@
 }
 
 
-.output {
-  font-weight: 600;
-}
-
-.processNote {
-  font-weight: 600;
-}
 
 
 .specializationGrid {

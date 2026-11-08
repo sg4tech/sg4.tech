@@ -367,7 +367,27 @@ describe("homepage Problem block", () => {
     expect(section).not.toContain("styles.card}");
     expect(section).not.toContain("styles.callout");
     expect(css).not.toMatch(/\.callout[\s,{]/);
-    expect(css).toMatch(/\.problemQuote \{[^}]*border-left: 3px solid var\(--color-primary\);/);
+    expect(css).toMatch(/\.pullQuote \{[^}]*border-left: 3px solid var\(--color-primary\);/);
+  });
+});
+
+describe("homepage How I work", () => {
+  const page = read("app", "page.tsx");
+  const section = page.split("function ProcessSection() {")[1]?.split("\n}\n")[0] ?? "";
+
+  // Same treatment as Problem: each step's result reads as its statement,
+  // the steps behind it small and muted, and the closing line as a pull
+  // quote instead of a lone muted sentence.
+  it("sets each step's result before its points, points small", () => {
+    expect(section.indexOf("styles.stepResult")).toBeGreaterThan(-1);
+    expect(section.indexOf("styles.stepResult")).toBeLessThan(section.indexOf("<MarkList"));
+    expect(section).toContain("className={styles.stepPoints}");
+  });
+
+  it("closes with the shared pull quote", () => {
+    expect(section).toContain("className={styles.pullQuote}");
+    expect(section).not.toContain("styles.processNote");
+    expect(page).not.toContain("styles.problemQuote");
   });
 });
 

@@ -389,7 +389,7 @@ function ProblemSection() {
           </article>
         ))}
       </div>
-      <div className={styles.problemQuote}>
+      <div className={styles.pullQuote}>
         <p>Hiring more people rarely fixes it.</p>
         <p>The fix is in how the software is built and shipped — and that&apos;s what I do.</p>
       </div>
@@ -448,13 +448,17 @@ function ProcessSection() {
           title: step.title,
           body: (
             <>
-              <MarkList items={step.points} />
-              <p className={styles.output}>Output: {step.output}</p>
+              <p className={styles.stepResult}>
+                <span className={styles.stepResultLabel}>Output:</span> {step.output}
+              </p>
+              <MarkList items={step.points} className={styles.stepPoints} />
             </>
           )
         }))}
       />
-      <p className={styles.processNote}>No magic. Just a system that works.</p>
+      <div className={styles.pullQuote}>
+        <p>No magic. Just a system that works.</p>
+      </div>
     </Section>
   );
 }
