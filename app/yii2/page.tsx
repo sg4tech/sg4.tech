@@ -498,39 +498,42 @@ function ProblemSection() {
   );
 }
 
-function QualitySection() {
+// Quality and Speed are two stages of one plan, so they sit side by side as
+// two columns of one section. Both anchors (#quality, #speed) are kept.
+function LeversSection() {
   return (
     <Section id="quality">
-      <SectionHeader
-        title="First we fix quality: uptime, bugs, and release predictability."
-        intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
-      />
-      <div className={`${landing.cardGrid} ${landing.cardGridQuality}`}>
-        {qualityLevers.map((item) => (
-          <article key={item.text} className={landing.card}>
-            <Icon icon={item.icon} className={landing.cardIcon} />
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function SpeedSection() {
-  return (
-    <Section id="speed">
-      <SectionHeader
-        title="Then we fix speed. Speed is not solved by code alone."
-        intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
-      />
-      <div className={`${landing.cardGrid} ${landing.cardGridSpeed}`}>
-        {speedLevers.map((item) => (
-          <article key={item.text} className={landing.card}>
-            <Icon icon={item.icon} className={landing.cardIcon} />
-            <p>{item.text}</p>
-          </article>
-        ))}
+      <div className={landing.stageColumns}>
+        <div className={landing.stageColumn}>
+          <SectionHeader
+            title="First we fix quality: uptime, bugs, and release predictability."
+            intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
+            headingClassName={landing.stageHeading}
+          />
+          <ul className={landing.iconList} data-tone="cool">
+            {qualityLevers.map((item) => (
+              <li key={item.text}>
+                <Icon icon={item.icon} className={landing.cardIcon} />
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div id="speed" className={`${landing.stageColumn} ${landing.stageAnchor}`}>
+          <SectionHeader
+            title="Then we fix speed. Speed is not solved by code alone."
+            intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
+            headingClassName={landing.stageHeading}
+          />
+          <ul className={landing.iconList} data-tone="warm">
+            {speedLevers.map((item) => (
+              <li key={item.text}>
+                <Icon icon={item.icon} className={landing.cardIcon} />
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );
@@ -631,12 +634,11 @@ export default function Yii2Page() {
       <HeroSection />
       <TransformationSection />
       <ProblemSection />
-      <QualitySection />
-      <SpeedSection />
+      <LeversSection />
       <TrustSection />
       <ProcessSection />
-      <FaqSection items={faqItems} />
       <ProofSection />
+      <FaqSection items={faqItems} />
       <FinalCtaSection />
       <SiteFooter />
     </Page>
