@@ -1,4 +1,4 @@
-import { getLocaleConfig, type Locale } from "../i18n/locales";
+import { getLocaleConfig, localizePath, type Locale, type SitePath } from "../i18n/locales";
 
 // Single source of truth for blog posts. Referenced by:
 // - /blog index page (post list)
@@ -26,6 +26,8 @@ export type PostSlug = (typeof POST_SLUGS)[number];
 
 type BlogPost = {
   slug: PostSlug;
+  /** The language the post is written in; it is published under that locale's blog. */
+  locale: Locale;
   title: string;
   /** Search-result title for the <title> tag when it should name the searched-for topic more
    * plainly than the on-page headline. Falls back to `title`; H1, Open Graph, and schema
@@ -45,6 +47,7 @@ type BlogPost = {
 export const blogPosts: ReadonlyArray<BlogPost> = [
   {
     slug: "diagnose-broken-engineering-delivery",
+    locale: "en",
     title: "How to diagnose where engineering delivery is actually broken",
     description:
       "An engineering leader's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the role of WIP, Little's Law, and how to introduce WIP limits without team revolt.",
@@ -55,6 +58,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   },
   {
     slug: "forecast-delivery-with-percentiles",
+    locale: "en",
     title: "Average lead time is lying to you — how to forecast delivery with percentiles",
     seoTitle: "Average lead time is lying: forecast with percentiles",
     description:
@@ -66,6 +70,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   },
   {
     slug: "vibecoded-mvp-stopped-shipping",
+    locale: "en",
     title: "Vibecoded MVP stopped shipping? Manage your AI like a junior",
     description:
       "A vibecoded MVP stalls the way junior-built codebases always have: code ships fast and nothing catches mistakes. An engineering leader's playbook for managing AI coding agents with junior-developer practices — with a real rescue case and numbers.",
@@ -76,6 +81,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   },
   {
     slug: "ai-made-starting-free-finishing-expensive",
+    locale: "en",
     title: "AI made starting work nearly free. Finishing is still expensive.",
     description:
       "Why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents. An engineering leader's case for one-thread-one-task and WIP limits in the AI era.",
@@ -86,6 +92,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   },
   {
     slug: "ai-coding-agent-periphery-core",
+    locale: "en",
     title: "AI coding agents: give them the periphery, keep humans on the core",
     description:
       "AI coding agents are brilliant at some work and dangerous at other work. An engineering leader's rule for what to delegate — give them the periphery, keep humans on the core — with the enterprise access problem and where agents actually earn their place.",
@@ -96,6 +103,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   },
   {
     slug: "code-entropy-ci-checks-ai-legacy",
+    locale: "en",
     title: "Code entropy: how CI checks keep AI from piling up legacy",
     seoTitle: "Prevent AI-generated technical debt with CI checks",
     description:
@@ -112,10 +120,17 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
 // fall out of sync inside this file (e.g., slug added to one but not the
 // other) — runtime check because the type system can't enforce that every
 // PostSlug literal has a matching blogPosts entry.
-/** Posts newest first; pass `limit` to take only the most recent ones. */
-export function getLatestPosts(limit?: number): ReadonlyArray<BlogPost> {
-  const sorted = [...blogPosts].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+/** A locale's posts, newest first; pass `limit` to take only the most recent ones. */
+export function getLatestPosts(locale: Locale, limit?: number): ReadonlyArray<BlogPost> {
+  const sorted = blogPosts
+    .filter((post) => post.locale === locale)
+    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
   return limit === undefined ? sorted : sorted.slice(0, limit);
+}
+
+/** The post's URL path, under its locale's blog. */
+export function postPath(post: Pick<BlogPost, "slug" | "locale">): SitePath {
+  return localizePath(post.locale, `/blog/${post.slug}/`);
 }
 
 export function getPostBySlug(slug: PostSlug): BlogPost {

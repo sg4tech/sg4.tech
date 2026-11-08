@@ -82,7 +82,7 @@ function ArticleBody() {
 
 export default function ArticlePage() {
   return (
-    <BlogPostLayout locale="en"
+    <BlogPostLayout
       slug={SLUG}
       eyebrow="AI-assisted delivery"
       lede={<ArticleLede />}

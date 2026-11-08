@@ -368,7 +368,7 @@ describe("one site menu", () => {
     ["home", ["views", "home", "HomeView.tsx"]],
     ["yii2", ["views", "yii2", "Yii2View.tsx"]],
     ["ai-vibecoding", ["views", "ai-vibecoding", "AiVibecodingView.tsx"]],
-    ["blog index", ["(en)", "blog", "page.tsx"]]
+    ["blog index", ["views", "blog-index", "BlogIndexView.tsx"]]
   ])("%s renders the shared SiteNav", (_name, parts) => {
     const page = read("app", ...parts);
     expect(page).toMatch(/<SiteNav locale(="en"|=\{locale\}) current=(?:"\/[^"]*"|\{localizePath\(locale, PATH\)\}) \/>/);

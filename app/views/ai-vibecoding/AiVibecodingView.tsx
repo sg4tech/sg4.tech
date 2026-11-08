@@ -41,7 +41,7 @@ import { Stat } from "../../components/Stat";
 import { StatementCta } from "../../components/StatementCta";
 import { Steps } from "../../components/Steps";
 import { WhyMeSection } from "../../components/WhyMeSection";
-import { getPostBySlug } from "../../lib/blog/posts";
+import { getPostBySlug, postPath } from "../../lib/blog/posts";
 import { personSchema, SITE_URL } from "../../lib/brand";
 import { localizePath, type Locale, type SitePath } from "../../lib/i18n/locales";
 import { buildLandingMetadata } from "../../lib/landing-metadata";
@@ -400,12 +400,12 @@ function FinalCtaSection({ content: { finalCta } }: SectionProps) {
 // Hub ⇄ spoke backlink: this landing is the hub for the vibecoding blog spoke.
 // Title/description come from the post registry so the card never drifts from
 // the article's own metadata.
-function FeaturedEssaySection({ locale, content: { featuredEssay } }: SectionProps) {
+function FeaturedEssaySection({ content: { featuredEssay } }: SectionProps) {
   const post = getPostBySlug(featuredEssay.slug);
   return (
     <Section aria-label={featuredEssay.label}>
       <div className={styles.featuredEssayGrid}>
-        <Link href={localizePath(locale, `/blog/${post.slug}/`)} className={styles.featuredEssayCard}>
+        <Link href={postPath(post)} className={styles.featuredEssayCard}>
           <span className={styles.featuredEssayLabel}>{featuredEssay.label}</span>
           <span className={styles.featuredEssayTitle}>{post.title}</span>
           <span className={styles.featuredEssayDescription}>{post.description}</span>

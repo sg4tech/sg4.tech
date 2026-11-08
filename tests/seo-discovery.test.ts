@@ -7,6 +7,7 @@ import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
 import { SITE_URL } from "@/app/lib/brand";
 import { metadata as aiVibecodingMetadata } from "@/app/(en)/ai-vibecoding/page";
+import { metadata as blogIndexMetadata } from "@/app/(en)/blog/page";
 import { metadata as homeMetadata } from "@/app/(en)/page";
 import { metadata as yii2Metadata } from "@/app/(en)/yii2/page";
 import { englishLandings } from "./support/landings";
@@ -67,10 +68,7 @@ describe("canonical metadata", () => {
   });
 
   it("declares the blog index canonical", () => {
-    const filePath = join(process.cwd(), "app", "(en)", "blog", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/blog\/"/);
+    expect(blogIndexMetadata.alternates?.canonical).toBe("/blog/");
   });
 
   // Every post page takes its metadata from the shared builder, so the checks

@@ -34,7 +34,7 @@ import { Stat } from "../../components/Stat";
 import { StatementCta } from "../../components/StatementCta";
 import { Steps } from "../../components/Steps";
 import { WhyMeSection } from "../../components/WhyMeSection";
-import { formatPostDate, getLatestPosts } from "../../lib/blog/posts";
+import { formatPostDate, getLatestPosts, postPath } from "../../lib/blog/posts";
 import { personSchema, SITE_URL, VICTOR_SAME_AS, writingChannelLinks } from "../../lib/brand";
 import { getDictionary } from "../../lib/i18n/dictionary";
 import { localizePath, type Locale, type SitePath } from "../../lib/i18n/locales";
@@ -324,9 +324,9 @@ function InsightsSection({ locale, content: { writing } }: SectionProps) {
         </Link>
       </div>
       <ul className={styles.latestPosts}>
-        {getLatestPosts(3).map((post) => (
+        {getLatestPosts(locale, 3).map((post) => (
           <li key={post.slug} className={styles.latestPostItem}>
-            <Link href={localizePath(locale, `/blog/${post.slug}/`)} className={styles.latestPost}>
+            <Link href={postPath(post)} className={styles.latestPost}>
               <span className={styles.latestPostMeta}>
                 <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt, locale)}</time> ·{" "}
                 {blog.readingTime(post.readingMinutes)}

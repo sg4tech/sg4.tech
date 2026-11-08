@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { BRAND_NAME, LINKEDIN_URL, SITE_URL } from "../brand";
-import { getPostBySlug, type PostSlug } from "./posts";
+import { getLocaleConfig } from "../i18n/locales";
+import { getPostBySlug, postPath, type PostSlug } from "./posts";
 
 // One builder for every post's Next.js metadata, so a change to how posts
 // present themselves to search engines and social cards happens in one place.
 export function buildPostMetadata(slug: PostSlug): Metadata {
   const post = getPostBySlug(slug);
-  const path = `/blog/${slug}/`;
+  const path = postPath(post);
 
   return {
     // Absolute: the layout's site-name suffix would push post titles past the
@@ -21,7 +22,7 @@ export function buildPostMetadata(slug: PostSlug): Metadata {
       description: post.description,
       type: "article",
       siteName: BRAND_NAME,
-      locale: "en_US",
+      locale: getLocaleConfig(post.locale).ogLocale,
       url: `${SITE_URL}${path}`,
       publishedTime: post.publishedAt,
       modifiedTime: post.modifiedAt,

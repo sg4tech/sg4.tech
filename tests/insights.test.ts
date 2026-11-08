@@ -9,13 +9,17 @@ const read = (...parts: string[]) => readFileSync(join(process.cwd(), ...parts),
 
 describe("getLatestPosts", () => {
   it("returns posts newest first", () => {
-    const dates = getLatestPosts().map((p) => p.publishedAt);
+    const dates = getLatestPosts("en").map((p) => p.publishedAt);
     expect(dates).toEqual([...dates].sort().reverse());
     expect(dates).toHaveLength(blogPosts.length);
   });
 
+  it("keeps each locale's posts apart", () => {
+    expect(getLatestPosts("en").every((post) => post.locale === "en")).toBe(true);
+  });
+
   it("limits to the requested count", () => {
-    expect(getLatestPosts(3)).toHaveLength(Math.min(3, blogPosts.length));
+    expect(getLatestPosts("en", 3)).toHaveLength(Math.min(3, blogPosts.length));
   });
 });
 
@@ -29,8 +33,8 @@ describe("homepage Insights block", () => {
   const block = home.html.split('id="insights"')[1]?.split("</section>")[0] ?? "";
 
   it("lists the latest posts from the blog data", () => {
-    expect(section).toContain("getLatestPosts(3)");
-    for (const post of getLatestPosts(3)) {
+    expect(section).toContain("getLatestPosts(locale, 3)");
+    for (const post of getLatestPosts("en", 3)) {
       // next/link drops the trailing slash outside a Next build (no next.config).
       const href = `/blog/${post.slug}`;
       expect(block.includes(`href="${href}/"`) || block.includes(`href="${href}"`)).toBe(true);
@@ -89,6 +93,6 @@ describe("homepage Insights block", () => {
 
 describe("blog index", () => {
   it("orders posts through the shared accessor", () => {
-    expect(read("app", "(en)", "blog", "page.tsx")).toContain("getLatestPosts()");
+    expect(read("app", "views", "blog-index", "BlogIndexView.tsx")).toContain("getLatestPosts(locale).map(");
   });
 });

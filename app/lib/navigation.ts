@@ -43,6 +43,15 @@ export function getSiteNavigationItems(locale: Locale): NavigationItem[] {
   });
 }
 
+// The menu label for one page, e.g. for breadcrumbs that should read like the nav.
+export function getNavigationLabel(locale: Locale, key: NavigationKey): string {
+  const item = getDictionary(locale).navigation.items.find((entry) => entry.key === key);
+  if (!item) {
+    throw new Error(`[navigation] the ${locale} dictionary has no menu label for "${key}"`);
+  }
+  return item.label;
+}
+
 // Internal legal/utility links in the footer. Trailing-slash paths match
 // next.config trailingSlash: true (the slash-less form 301-redirects).
 export function getLegalLinks(locale: Locale): LegalLink[] {

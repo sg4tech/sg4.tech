@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { buildPostStructuredData } from "../lib/blog/post-schema";
 import { getPostBySlug, type PostSlug } from "../lib/blog/posts";
 import { getDictionary } from "../lib/i18n/dictionary";
-import { localizePath, type Locale } from "../lib/i18n/locales";
+import { localizePath } from "../lib/i18n/locales";
 import { BlogPostHeader } from "./BlogPostHeader";
 import { Eyebrow } from "./Eyebrow";
 import { FaqSection, type FaqItemData } from "./FaqSection";
@@ -14,7 +14,6 @@ import { SiteNav } from "./SiteNav";
 import styles from "./BlogPostLayout.module.css";
 
 type BlogPostLayoutProps = {
-  locale: Locale;
   slug: PostSlug;
   eyebrow: string;
   lede: ReactNode;
@@ -30,7 +29,6 @@ type BlogPostLayoutProps = {
 // Shell shared by every blog post: JSON-LD, nav, a single 42rem reading column
 // (back link → eyebrow → header → body), the FAQ in the same column, footer.
 export function BlogPostLayout({
-  locale,
   slug,
   eyebrow,
   lede,
@@ -40,6 +38,8 @@ export function BlogPostLayout({
   children
 }: BlogPostLayoutProps) {
   const post = getPostBySlug(slug);
+  // A post is written in one language; the registry says which.
+  const { locale } = post;
   const blogPath = localizePath(locale, "/blog/");
   const structuredData = buildPostStructuredData(slug, faqItems, { headline, partOf });
 
