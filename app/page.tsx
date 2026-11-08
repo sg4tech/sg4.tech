@@ -301,7 +301,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "Software Engineering & Technical Leadership",
+  title: "Software Engineering & Technical Leadership | Victor Demin",
   description:
     "I build software systems that ship on time and hold up in production — writing the code, fixing what's broken, and leading development with product teams.",
   alternates: {

@@ -54,6 +54,15 @@ describe("sitemap", () => {
 });
 
 describe("canonical metadata", () => {
+  // The root layout's title template does not apply to the page in its own
+  // segment, so the home page has to carry the name itself.
+  it("puts the name in the home page search title", () => {
+    const filePath = join(process.cwd(), "app", "page.tsx");
+    const content = readFileSync(filePath, "utf8");
+
+    expect(content).toMatch(/^ {2}title: ".* \| Victor Demin",$/m);
+  });
+
   it("declares the home page canonical relative to metadataBase", () => {
     const filePath = join(process.cwd(), "app", "page.tsx");
     const content = readFileSync(filePath, "utf8");
@@ -119,24 +128,23 @@ describe("llms.txt", () => {
     expect(content).toContain("https://t.me/sg4tech");
   });
 
-  it("advertises the blog index and the cornerstone article", () => {
+  it("advertises the blog index", () => {
     const filePath = join(process.cwd(), "public", "llms.txt");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toContain("https://sg4.tech/blog/");
-    expect(content).toContain(
-      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/"
-    );
   });
+
+  // Answer engines read llms.txt as the site's table of contents, so a post
+  // missing here is invisible to them even though it is live and in the sitemap.
+  for (const slug of POST_SLUGS) {
+    it(`lists the "${slug}" post`, () => {
+      const filePath = join(process.cwd(), "public", "llms.txt");
+      const content = readFileSync(filePath, "utf8");
+
+      expect(content).toContain(`${SITE_URL}/blog/${slug}/`);
+    });
+  }
 });
 
 describe("landing schema", () => {
