@@ -7,15 +7,22 @@
 // mime mapping. So we rename every emitted asset to *.png and rewrite the
 // corresponding HTML references.
 //
+// Inside a route group (app/(en)/...) Next.js appends a hash to the asset name
+// (`opengraph-image-1mrh97`) so groups can't collide. The rename drops that
+// suffix, so the public URL stays `/<route>/opengraph-image.png` whatever
+// group the route lives in.
+//
 // Auto-discover (vs a hardcoded route list) prevents a class of silent
 // regressions where new OG-emitting routes ship without their asset URLs
 // being normalized, because nobody remembered to update this script.
 
 import { readdir, readFile, rename, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 const out = join(process.cwd(), "out");
-const PATTERN = "/opengraph-image?";
+// Extensionless asset name, with the optional route-group hash suffix.
+const ASSET_NAME = /^opengraph-image(-[a-z0-9]+)?$/;
+const REFERENCE = /\/opengraph-image(-[a-z0-9]+)?\?/g;
 const REPLACEMENT = "/opengraph-image.png?";
 
 async function walk(dir) {
@@ -27,7 +34,7 @@ async function walk(dir) {
       const sub = await walk(full);
       ogFiles.push(...sub.ogFiles);
       htmlFiles.push(...sub.htmlFiles);
-    } else if (entry.name === "opengraph-image") {
+    } else if (ASSET_NAME.test(entry.name)) {
       ogFiles.push(full);
     } else if (entry.name === "index.html") {
       htmlFiles.push(full);
@@ -45,14 +52,15 @@ if (ogFiles.length === 0) {
 }
 
 for (const path of ogFiles) {
-  await rename(path, `${path}.png`);
+  await rename(path, join(dirname(path), "opengraph-image.png"));
 }
 
 let rewritten = 0;
 for (const path of htmlFiles) {
   const content = await readFile(path, "utf8");
-  if (content.includes(PATTERN)) {
-    await writeFile(path, content.replaceAll(PATTERN, REPLACEMENT));
+  const updated = content.replace(REFERENCE, REPLACEMENT);
+  if (updated !== content) {
+    await writeFile(path, updated);
     rewritten++;
   }
 }

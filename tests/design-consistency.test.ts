@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 const root = process.cwd();
 const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
 
-const blogPostSlugs = readdirSync(join(root, "app", "blog"), { withFileTypes: true })
+const blogPostSlugs = readdirSync(join(root, "app", "(en)", "blog"), { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name);
 
@@ -20,7 +20,7 @@ describe("blog article headings", () => {
   // heading visibly narrower than the reading column. `pretty` fills the first
   // line and only guards against a lone last word.
   it.each(blogPostSlugs)("%s body h2 fills the reading column", (slug) => {
-    const css = read("app", "blog", slug, "page.module.css");
+    const css = read("app", "(en)", "blog", slug, "page.module.css");
     const h2Rule = css.split(".body h2 {")[1]?.split("}")[0] ?? "";
 
     expect(h2Rule).toContain("text-wrap: pretty;");
@@ -33,9 +33,9 @@ describe("landing 'How I work' section", () => {
   // pattern as the homepage — instead of a summary strip followed by cards
   // that repeat the same step titles.
   it.each(landingPages)("/%s renders its process steps once, via Steps", (page) => {
-    const tsx = read("app", page, "page.tsx");
+    const tsx = read("app", "(en)", page, "page.tsx");
 
-    expect(tsx).toContain('from "../components/Steps"');
+    expect(tsx).toMatch(/from "(\.\.\/)+components\/Steps"/);
     // Carded steps keep the landing's visual anchor while sharing the pattern.
     expect(tsx).toContain('<Steps\n        variant="card"');
     expect(tsx).not.toContain("processVisual");
@@ -44,9 +44,9 @@ describe("landing 'How I work' section", () => {
 
   // Bare browser disc bullets read as unstyled; MarkList carries the DS marker.
   it.each(landingPages)("/%s uses MarkList instead of bare bullet lists", (page) => {
-    const tsx = read("app", page, "page.tsx");
+    const tsx = read("app", "(en)", page, "page.tsx");
 
-    expect(tsx).toContain('from "../components/MarkList"');
+    expect(tsx).toMatch(/from "(\.\.\/)+components\/MarkList"/);
     expect(tsx).not.toContain("landing.problemList");
   });
 });
@@ -63,7 +63,7 @@ describe("Steps component", () => {
 });
 
 describe("homepage case studies", () => {
-  const tsx = read("app", "page.tsx");
+  const tsx = read("app", "(en)", "page.tsx");
   const caseStudies = tsx.split("const caseStudies = [")[1]?.split("\n];")[0] ?? "";
   const resultsSection = tsx.split("function ResultsSection() {")[1]?.split("\n}\n")[0] ?? "";
 
@@ -84,7 +84,7 @@ describe("homepage case studies", () => {
     expect(resultsSection).toContain("<dl className={styles.caseDetails}>");
     expect(resultsSection).toContain('{study.problem.join(" · ")}');
     expect(resultsSection).toContain('{study.work.join(" · ")}');
-    const css = read("app", "page.module.css");
+    const css = read("app", "(en)", "page.module.css");
     expect(css).toMatch(/\.caseDetails dd \{[^}]*color: var\(--muted\);/);
     expect(css).not.toContain(".caseGrid");
   });
@@ -93,7 +93,7 @@ describe("homepage case studies", () => {
   // three cases sit side by side with outcomes stacked, and subgrid lines up
   // header, outcomes and details across the row even when a title wraps.
   it("lays the cases out in three aligned columns on wide screens", () => {
-    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "(en)", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.stack \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
     expect(wide).toMatch(/\.caseStudy \{[^}]*grid-template-rows: subgrid;/);
     expect(wide).toMatch(/\.caseMetrics \{[^}]*flex-direction: column;/);
@@ -126,13 +126,13 @@ describe("contrast of secondary graphics", () => {
   });
 
   it("draws the lead-time histogram bars visibly against the card", () => {
-    const css = read("app", "blog", "forecast-delivery-with-percentiles", "page.module.css");
+    const css = read("app", "(en)", "blog", "forecast-delivery-with-percentiles", "page.module.css");
     expect(css.split(".distChart .dcBar {")[1]?.split("}")[0]).toContain("fill: var(--gray-400);");
   });
 });
 
 describe("homepage hero layout", () => {
-  const css = read("app", "page.module.css");
+  const css = read("app", "(en)", "page.module.css");
   const wide = css.split("@media (min-width: 1100px)").slice(1).join("");
 
   // The one-line headline left the left column mostly empty. On wide screens
@@ -161,7 +161,7 @@ describe("Stat note placement", () => {
 describe("homepage link cards", () => {
   // Offer and featured-essay cards are links; an arrow says so at a glance.
   it("marks every specialization card with an arrow", () => {
-    const tsx = read("app", "page.tsx");
+    const tsx = read("app", "(en)", "page.tsx");
     const cards = tsx.match(/className=\{styles\.specializationCard\}/g) ?? [];
     const arrows = tsx.match(/<Icon icon=\{ArrowRight\} className=\{styles\.specializationArrow\} \/>/g) ?? [];
     expect(cards.length).toBeGreaterThan(0);
@@ -173,7 +173,7 @@ describe("layout batch: tap targets and alignment", () => {
   const rule = (css: string, selector: string) => css.split(`${selector} {`)[1]?.split("}")[0] ?? "";
   const landing = read("app", "styles", "landing.module.css");
   const blog = read("app", "components", "BlogPostLayout.module.css");
-  const privacy = read("app", "privacy", "page.module.css");
+  const privacy = read("app", "(en)", "privacy", "page.module.css");
 
   // Small text links get a 44px-tall hit area through padding, cancelled by a
   // matching negative margin, so the visible layout does not move.
@@ -223,10 +223,10 @@ describe("blog figure captions", () => {
   // Captions were styled per post: two greys (one below AA), two alignments.
   // One shared component keeps them identical and readable.
   it.each(blogPostSlugs)("%s uses the shared FigureCaption", (slug) => {
-    const dir = join(root, "app", "blog", slug);
+    const dir = join(root, "app", "(en)", "blog", slug);
     const tsx = readdirSync(dir).filter((f) => f.endsWith(".tsx")).map((f) => readFileSync(join(dir, f), "utf8")).join("\n");
     expect(tsx).not.toMatch(/<figcaption\b/);
-    expect(read("app", "blog", slug, "page.module.css")).not.toMatch(localCaption);
+    expect(read("app", "(en)", "blog", slug, "page.module.css")).not.toMatch(localCaption);
   });
 
   // Charts draw their frame on the whole figure, so the caption sits inside
@@ -234,7 +234,7 @@ describe("blog figure captions", () => {
   it.each(["ai-made-starting-free-finishing-expensive", "ai-coding-agent-periphery-core", "diagnose-broken-engineering-delivery"])(
     "%s frames the whole image figure, caption included",
     (slug) => {
-      const css = read("app", "blog", slug, "page.module.css");
+      const css = read("app", "(en)", "blog", slug, "page.module.css");
       const figure = css.split(".figure {")[1]?.split("}")[0] ?? "";
       const image = css.split(".figureImage {")[1]?.split("}")[0] ?? "";
       expect(figure).toContain("border: 1px solid var(--border);");
@@ -251,7 +251,7 @@ describe("blog figure captions", () => {
 
 describe("/ai-vibecoding who-not-for list", () => {
   it("carries the same cross marker as the homepage 'Not a good fit'", () => {
-    const tsx = read("app", "ai-vibecoding", "page.tsx");
+    const tsx = read("app", "(en)", "ai-vibecoding", "page.tsx");
     expect(tsx).toContain('<MarkList items={whoNotForItems} kind="x" />');
     expect(tsx).not.toContain("styles.whoNotForItem");
   });
@@ -261,7 +261,7 @@ describe("homepage specialized offers", () => {
   // Two full-width cards left most of each frame empty on desktop; side by
   // side they fill the row, on the same breakpoint as Who I work with.
   it("sets the offer cards in two columns on wide screens", () => {
-    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "(en)", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.specializationGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   });
 });
@@ -270,7 +270,7 @@ describe("no duplicate navigation on the landings", () => {
   // The shared menu has Home on every page, so a "Back to main page" link
   // under it on the landings only repeated it.
   it.each([["yii2"], ["ai-vibecoding"]])("/%s drops the back link", (page) => {
-    expect(read("app", page, "page.tsx")).not.toContain("Back to main page");
+    expect(read("app", "(en)", page, "page.tsx")).not.toContain("Back to main page");
   });
 
   it("removes the back-link styles from the shared landing stylesheet", () => {
@@ -278,15 +278,15 @@ describe("no duplicate navigation on the landings", () => {
   });
 
   it("drops the repeated 'Dedicated page' label from the offer cards", () => {
-    const page = read("app", "page.tsx");
+    const page = read("app", "(en)", "page.tsx");
     expect(page).not.toContain("Dedicated page");
-    expect(read("app", "page.module.css")).not.toContain(".specializationLabel");
+    expect(read("app", "(en)", "page.module.css")).not.toContain(".specializationLabel");
   });
 });
 
 describe("landing layout", () => {
-  const yii2 = read("app", "yii2", "page.tsx");
-  const ai = read("app", "ai-vibecoding", "page.tsx");
+  const yii2 = read("app", "(en)", "yii2", "page.tsx");
+  const ai = read("app", "(en)", "ai-vibecoding", "page.tsx");
   const order = (src: string, names: string[]) => names.map((n) => src.indexOf(`<${n}`));
 
   // Quality and Speed were two identical 2x2 card grids back to back. One
@@ -321,8 +321,8 @@ describe("landing layout", () => {
 });
 
 describe("channel links", () => {
-  const home = read("app", "page.tsx");
-  const yii2 = read("app", "yii2", "page.tsx");
+  const home = read("app", "(en)", "page.tsx");
+  const yii2 = read("app", "(en)", "yii2", "page.tsx");
 
   // One quiet channel line, shared, so it looks the same wherever it appears.
   it.each([["home", home], ["yii2", yii2]])("%s renders the shared ChannelLinks", (_name, src) => {
@@ -362,7 +362,7 @@ describe("one site menu", () => {
     ["ai-vibecoding", ["ai-vibecoding", "page.tsx"]],
     ["blog index", ["blog", "page.tsx"]]
   ])("%s renders the shared SiteNav", (_name, parts) => {
-    const page = read("app", ...parts);
+    const page = read("app", "(en)", ...parts);
     expect(page).toMatch(/<SiteNav current="\/[^"]*" \/>/);
     expect(page).not.toContain("<TopNavigation");
     expect(page).not.toContain("navigationItems");

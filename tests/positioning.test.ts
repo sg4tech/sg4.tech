@@ -8,16 +8,16 @@ import { describe, expect, it } from "vitest";
 // a "fractional CTO" service. Past CTO roles stay as facts of experience; that
 // wording is allowed.
 const positioningSurfaces = [
-  ["app", "page.tsx"],
+  ["app", "(en)", "page.tsx"],
   ["app", "lib", "brand.ts"],
-  ["app", "layout.tsx"],
-  ["app", "opengraph-image.tsx"],
+  ["app", "(en)", "layout.tsx"],
+  ["app", "(en)", "opengraph-image.tsx"],
   ["app", "components", "BlogCta.tsx"],
   ["public", "llms.txt"],
-  ["app", "yii2", "page.tsx"],
-  ["app", "yii2", "opengraph-image.tsx"],
-  ["app", "ai-vibecoding", "page.tsx"],
-  ["app", "ai-vibecoding", "opengraph-image.tsx"],
+  ["app", "(en)", "yii2", "page.tsx"],
+  ["app", "(en)", "yii2", "opengraph-image.tsx"],
+  ["app", "(en)", "ai-vibecoding", "page.tsx"],
+  ["app", "(en)", "ai-vibecoding", "opengraph-image.tsx"],
   // Post descriptions render on landings (related-post cards) and as blog meta.
   ["app", "lib", "blog", "posts.ts"]
 ];

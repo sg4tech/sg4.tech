@@ -5,7 +5,10 @@
 //   styles/     shared CSS modules
 //   everything else is a route: it imports the shared layers and files in
 //   its own folder, never another route's files.
+// Every route sits inside a per-locale route group, e.g. app/(en)/yii2/. The
+// group segment is matched separately so `$1` below is the route folder alone.
 const sharedLayers = "^app/(lib|components|_og|styles)/";
+const routeGroup = "[(][a-z]+[)]/";
 
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
@@ -43,15 +46,15 @@ module.exports = {
       name: "no-cross-route-imports",
       comment: "A route imports only shared layers and its own folder. Move shared code to app/components or app/lib.",
       severity: "error",
-      from: { path: "^app/(.+)/[^/]+$", pathNot: sharedLayers },
-      to: { path: "^app/", pathNot: [sharedLayers, "^app/$1/[^/]+$"] }
+      from: { path: `^app/${routeGroup}([^()]+)/[^/]+$`, pathNot: sharedLayers },
+      to: { path: "^app/", pathNot: [sharedLayers, `^app/${routeGroup}$1/[^/]+$`] }
     },
     {
       name: "no-root-route-to-nested-route",
-      comment: "Root route files (app/page.tsx, app/layout.tsx, ...) must not reach into another route's folder.",
+      comment: "Root route files (app/(en)/page.tsx, app/(en)/layout.tsx, ...) must not reach into another route's folder.",
       severity: "error",
-      from: { path: "^app/[^/]+$" },
-      to: { path: "^app/.+/", pathNot: sharedLayers }
+      from: { path: ["^app/[^/]+$", `^app/${routeGroup}[^/]+$`] },
+      to: { path: "^app/.+/", pathNot: [sharedLayers, `^app/${routeGroup}[^/]+$`] }
     }
   ],
   options: {

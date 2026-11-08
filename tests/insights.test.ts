@@ -21,7 +21,7 @@ describe("getLatestPosts", () => {
 // posts (so it never goes stale), one link to the blog, and the writing
 // channels as compact pills.
 describe("homepage Insights block", () => {
-  const page = read("app", "page.tsx");
+  const page = read("app", "(en)", "page.tsx");
   const section = page.split("function InsightsSection() {")[1]?.split("\n}\n")[0] ?? "";
 
   it("lists the latest posts from the blog data", () => {
@@ -63,7 +63,7 @@ describe("homepage Insights block", () => {
   });
 
   it("sets the posts in three columns on wide screens", () => {
-    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "(en)", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.latestPosts \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
   });
 
@@ -77,6 +77,6 @@ describe("homepage Insights block", () => {
 
 describe("blog index", () => {
   it("orders posts through the shared accessor", () => {
-    expect(read("app", "blog", "page.tsx")).toContain("getLatestPosts()");
+    expect(read("app", "(en)", "blog", "page.tsx")).toContain("getLatestPosts()");
   });
 });

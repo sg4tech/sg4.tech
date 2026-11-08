@@ -62,7 +62,7 @@ describe("homepage landing page", () => {
     // Read the page + the shared brand module: footer links + copyright live
     // in app/lib/brand.ts, but the contract is still that they end up rendered
     // on the homepage.
-    const pagePath = join(process.cwd(), "app", "page.tsx");
+    const pagePath = join(process.cwd(), "app", "(en)", "page.tsx");
     const brandPath = join(process.cwd(), "app", "lib", "brand.ts");
     const content = `${readFileSync(pagePath, "utf8")}\n${readFileSync(brandPath, "utf8")}`;
 
@@ -78,7 +78,7 @@ describe("homepage landing page", () => {
   it("does not repeat blocks that duplicate other sections", () => {
     // "What to expect" repeated the FAQ answer, "Why this works" repeated
     // "Why me", and the bare topic list repeated the writing links below it.
-    const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
+    const content = readFileSync(join(process.cwd(), "app", "(en)", "page.tsx"), "utf8");
     for (const phrase of [
       "What to expect",
       "Why this works",
@@ -96,14 +96,14 @@ describe("homepage landing page", () => {
   it("ends with a single contact action", () => {
     // By the final CTA the visitor has already scrolled past How I work, so
     // "See how I work" belongs only to the hero.
-    const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
+    const content = readFileSync(join(process.cwd(), "app", "(en)", "page.tsx"), "utf8");
     expect(content.split("See how I work").length - 1).toBe(1);
   });
 
   it("does not deny process work that the results section shows", () => {
     // The case studies describe delivery and process changes, so the Problem
     // bridge must not claim that process rarely helps.
-    const content = readFileSync(join(process.cwd(), "app", "page.tsx"), "utf8");
+    const content = readFileSync(join(process.cwd(), "app", "(en)", "page.tsx"), "utf8");
     expect(content).not.toContain("more process rarely");
   });
 });

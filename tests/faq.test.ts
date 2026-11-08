@@ -27,7 +27,7 @@ describe("collapsible FAQ", () => {
 // The homepage's "right fit" / "not the right fit" answers repeated the
 // "Who I work with" section on the same page.
 describe("homepage FAQ", () => {
-  const page = read("app", "page.tsx");
+  const page = read("app", "(en)", "page.tsx");
   const faq = page.split("const faqItems = [")[1]?.split("\n];")[0] ?? "";
 
   it.each(["When are you the right fit?", "When are you not the right fit?"])("drops the duplicate: %s", (q) => {

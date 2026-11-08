@@ -55,28 +55,28 @@ describe("sitemap", () => {
 
 describe("canonical metadata", () => {
   it("declares the home page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "page.tsx");
+    const filePath = join(process.cwd(), "app", "(en)", "page.tsx");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/"/);
   });
 
   it("declares the yii2 page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "yii2", "page.tsx");
+    const filePath = join(process.cwd(), "app", "(en)", "yii2", "page.tsx");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2\/"/);
   });
 
   it("declares the ai-vibecoding page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "ai-vibecoding", "page.tsx");
+    const filePath = join(process.cwd(), "app", "(en)", "ai-vibecoding", "page.tsx");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/ai-vibecoding\/"/);
   });
 
   it("declares the blog index canonical", () => {
-    const filePath = join(process.cwd(), "app", "blog", "page.tsx");
+    const filePath = join(process.cwd(), "app", "(en)", "blog", "page.tsx");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/blog\/"/);
@@ -86,7 +86,7 @@ describe("canonical metadata", () => {
   // on buildPostMetadata below cover each post, including ones added later.
   for (const slug of POST_SLUGS) {
     it(`builds the "${slug}" metadata with buildPostMetadata`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
@@ -146,7 +146,7 @@ describe("landing schema", () => {
   // Person @id — without it the two nodes sit in the same graph unconnected.
   for (const landing of ["yii2", "ai-vibecoding"] as const) {
     it(`/${landing} renders FAQPage JSON-LD and links the service to the Person via founder`, () => {
-      const filePath = join(process.cwd(), "app", landing, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", landing, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain('"@type": "FAQPage"');
@@ -162,7 +162,7 @@ describe("article schema", () => {
   // built by buildPostStructuredData (covered in post-schema.test.ts).
   for (const slug of POST_SLUGS) {
     it(`renders "${slug}" through BlogPostLayout`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("<BlogPostLayout");

@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-const dir = join(process.cwd(), "app", "blog", "diagnose-broken-engineering-delivery");
+const dir = join(process.cwd(), "app", "(en)", "blog", "diagnose-broken-engineering-delivery");
 const read = (file: string) => readFileSync(join(dir, file), "utf8");
 const unescape = (s: string) => s.replace(/&apos;/g, "'").replace(/\s+/g, " ").trim();
 

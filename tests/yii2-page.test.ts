@@ -74,7 +74,7 @@ describe("yii2 landing page", () => {
     // here because removing either anchor would break in-page nav on the Yii2
     // landing.
     const sources = [
-      join(process.cwd(), "app", "yii2", "page.tsx"),
+      join(process.cwd(), "app", "(en)", "yii2", "page.tsx"),
       join(process.cwd(), "app", "components", "FaqSection.tsx"),
       join(process.cwd(), "app", "components", "WhyMeSection.tsx")
     ];

@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-const file = join(process.cwd(), "app", "not-found.tsx");
+const file = join(process.cwd(), "app", "global-not-found.tsx");
 
 // Without app/not-found.tsx, the static export ships Next's default black
 // 404: no brand, no nav, no way back to the site.
