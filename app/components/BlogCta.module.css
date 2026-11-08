@@ -14,7 +14,6 @@
     margin: 0;
     color: var(--on-strong);
     font-size: var(--text-h3);
-    font-weight: var(--weight-display);
     line-height: var(--leading-tight);
     text-wrap: pretty;
   }

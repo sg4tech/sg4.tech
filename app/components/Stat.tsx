@@ -4,7 +4,7 @@ import styles from "./Stat.module.css";
 
 type StatProps = {
   // The headline figure — a big tabular ember number (design-system rule:
-  // numbers live in the brand sans, bold + tabular, never mono). Ember is the
+  // numbers live in Hanken, bold + tabular, never mono). Ember is the
   // "proof" highlight. When a metric is qualitative and has no number, pass
   // `icon` alone — it becomes the ember anchor.
   figure?: string;
