@@ -17,7 +17,7 @@ import {
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siHabr, siMedium, siTelegram } from "simple-icons";
-import { BrandIcon } from "./components/BrandIcon";
+import { ChannelLinks } from "./components/ChannelLinks";
 import { Eyebrow } from "./components/Eyebrow";
 import { FaqSection } from "./components/FaqSection";
 import { SiteFooter } from "./components/SiteFooter";
@@ -541,16 +541,7 @@ function InsightsSection() {
           </li>
         ))}
       </ul>
-      <ul className={styles.channelList} aria-label="Writing channels">
-        {insightLinks.map((link) => (
-          <li key={link.label}>
-            <a href={link.href} className={styles.channelLink} target="_blank" rel="noreferrer">
-              <BrandIcon label={link.label} path={link.iconPath} className={styles.channelIcon} />
-              <span>{link.label}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <ChannelLinks items={insightLinks} ariaLabel="Writing channels" />
     </Section>
   );
 }

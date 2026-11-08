@@ -212,10 +212,6 @@ describe("layout batch: tap targets and alignment", () => {
     expect(landing).toMatch(/\.linkCard \{[^}]*align-content: start;/);
   });
 
-  it("starts quality and speed card text level with its icon", () => {
-    expect(rule(landing, ".cardGridQuality .card p,\n.cardGridSpeed .card p")).toContain("margin-top: 0;");
-  });
-
   it("sets the Stat note in the readable secondary text colour", () => {
     expect(rule(read("app", "components", "Stat.module.css"), ".note")).toContain("color: var(--text-3);");
   });
@@ -285,6 +281,71 @@ describe("no duplicate navigation on the landings", () => {
     const page = read("app", "page.tsx");
     expect(page).not.toContain("Dedicated page");
     expect(read("app", "page.module.css")).not.toContain(".specializationLabel");
+  });
+});
+
+describe("landing layout", () => {
+  const yii2 = read("app", "yii2", "page.tsx");
+  const ai = read("app", "ai-vibecoding", "page.tsx");
+  const order = (src: string, names: string[]) => names.map((n) => src.indexOf(`<${n}`));
+
+  // Quality and Speed were two identical 2x2 card grids back to back. One
+  // section with two columns shows them as two stages of one plan.
+  it("/yii2 shows Quality and Speed as two columns of one section", () => {
+    const block = yii2.split("function LeversSection() {")[1]?.split("\n}\n")[0] ?? "";
+    expect(block).toContain('id="quality"');
+    expect(block).toContain('id="speed"');
+    expect(block).toContain("className={landing.stageColumns}");
+    // Heading, intro and list line up across the two columns even when one
+    // heading wraps.
+    const wide = read("app", "styles", "landing.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.stageColumn \{[^}]*grid-template-rows: subgrid;/);
+    expect(yii2).not.toContain("cardGridQuality");
+    expect(yii2).not.toContain("cardGridSpeed");
+  });
+
+  // FAQ is secondary: proof and fit come first, FAQ last before the CTA.
+  it.each([
+    ["yii2", yii2, ["ProcessSection", "ProofSection", "FaqSection", "FinalCtaSection"]],
+    ["ai-vibecoding", ai, ["ProcessSection", "WhoNotForSection", "FeaturedEssaySection", "FaqSection", "FinalCtaSection"]]
+  ])("/%s puts FAQ right before the final CTA", (_name, src, names) => {
+    const idx = order(src, names);
+    expect(idx.every((i) => i > 0)).toBe(true);
+    expect([...idx].sort((x, y) => x - y)).toEqual(idx);
+  });
+
+  it("/ai-vibecoding's featured essay card shows a link arrow", () => {
+    const block = ai.split("function FeaturedEssaySection() {")[1]?.split("\n}\n")[0] ?? "";
+    expect(block).toContain("<Icon icon={ArrowRight} className={styles.featuredEssayArrow} />");
+  });
+});
+
+describe("channel links", () => {
+  const home = read("app", "page.tsx");
+  const yii2 = read("app", "yii2", "page.tsx");
+
+  // One quiet channel line, shared, so it looks the same wherever it appears.
+  it.each([["home", home], ["yii2", yii2]])("%s renders the shared ChannelLinks", (_name, src) => {
+    expect(src).toMatch(/<ChannelLinks items=\{\w+\} ariaLabel="[^"]+" \/>/);
+  });
+
+  it.each([["home", home, "insightLinks"], ["yii2", yii2, "writingLinks"]])(
+    "%s channel data carries no descriptions",
+    (_name, src, list) => {
+      const block = src.split(`const ${list} = [`)[1]?.split("\n];")[0] ?? "";
+      expect(block).toContain("href:");
+      expect(block).not.toContain("description:");
+    }
+  );
+
+  // Proof: the Yii2 talk is the evidence, so only it gets cards; the
+  // channels drop to the quiet line under it.
+  it("/yii2 Proof shows only the talk as cards, in two columns", () => {
+    const proof = yii2.split("function ProofSection() {")[1]?.split("\n}\n")[0] ?? "";
+    expect(proof).toContain("talkLinks.map(");
+    expect(proof).not.toContain("...writingLinks");
+    const wide = read("app", "styles", "landing.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    expect(wide).toMatch(/\.proofGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   });
 });
 

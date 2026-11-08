@@ -1,6 +1,7 @@
 import {
   Activity,
   AlertTriangle,
+  ArrowRight,
   BookOpen,
   Bot,
   Bug,
@@ -576,6 +577,7 @@ function FeaturedEssaySection() {
           <span className={styles.featuredEssayLabel}>Featured essay</span>
           <span className={styles.featuredEssayTitle}>{featuredPost.title}</span>
           <span className={styles.featuredEssayDescription}>{featuredPost.description}</span>
+          <Icon icon={ArrowRight} className={styles.featuredEssayArrow} />
         </Link>
       </div>
     </Section>
@@ -595,9 +597,9 @@ export default function AiVibecodingPage() {
       <GuardrailsSection />
       <TrustSection />
       <ProcessSection />
+      <WhoNotForSection />
       <FeaturedEssaySection />
       <FaqSection items={faqItems} />
-      <WhoNotForSection />
       <FinalCtaSection />
       <SiteFooter />
     </Page>

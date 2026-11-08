@@ -1,6 +1,7 @@
 import {
   Activity,
   AlertTriangle,
+  ArrowRight,
   BarChart3,
   Building2,
   Bug,
@@ -24,6 +25,7 @@ import {
 import type { Metadata } from "next";
 import { siHabr, siMedium, siPhp, siTelegram, siYoutube } from "simple-icons";
 import { BrandIcon } from "../components/BrandIcon";
+import { ChannelLinks } from "../components/ChannelLinks";
 import { FaqSection } from "../components/FaqSection";
 import { SiteFooter } from "../components/SiteFooter";
 import { HeroSignals } from "../components/HeroSignals";
@@ -204,26 +206,22 @@ const writingLinks = [
   {
     label: "Habr",
     href: "https://habr.com/users/sg4tech/",
-    iconPath: siHabr.path,
-    description: "Long-form breakdowns of delivery systems, bottlenecks, metrics, and engineering operating models."
+    iconPath: siHabr.path
   },
   {
     label: "Telegram",
     href: "https://t.me/cto_lifehacks",
-    iconPath: siTelegram.path,
-    description: "Short practical notes on CTO work, process design, and faster engineering delivery."
+    iconPath: siTelegram.path
   },
   {
     label: "Medium",
     href: "https://medium.com/@sg4tech",
-    iconPath: siMedium.path,
-    description: "English-language writing on engineering flow, AI leverage, and system-level change."
+    iconPath: siMedium.path
   },
   {
     label: "LinkedIn",
     href: LINKEDIN_URL,
-    iconPath: LINKEDIN_SVG_PATH,
-    description: "Role history, operating context, and additional public material."
+    iconPath: LINKEDIN_SVG_PATH
   }
 ];
 
@@ -498,39 +496,42 @@ function ProblemSection() {
   );
 }
 
-function QualitySection() {
+// Quality and Speed are two stages of one plan, so they sit side by side as
+// two columns of one section. Both anchors (#quality, #speed) are kept.
+function LeversSection() {
   return (
     <Section id="quality">
-      <SectionHeader
-        title="First we fix quality: uptime, bugs, and release predictability."
-        intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
-      />
-      <div className={`${landing.cardGrid} ${landing.cardGridQuality}`}>
-        {qualityLevers.map((item) => (
-          <article key={item.text} className={landing.card}>
-            <Icon icon={item.icon} className={landing.cardIcon} />
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function SpeedSection() {
-  return (
-    <Section id="speed">
-      <SectionHeader
-        title="Then we fix speed. Speed is not solved by code alone."
-        intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
-      />
-      <div className={`${landing.cardGrid} ${landing.cardGridSpeed}`}>
-        {speedLevers.map((item) => (
-          <article key={item.text} className={landing.card}>
-            <Icon icon={item.icon} className={landing.cardIcon} />
-            <p>{item.text}</p>
-          </article>
-        ))}
+      <div className={landing.stageColumns}>
+        <div className={landing.stageColumn}>
+          <SectionHeader
+            title="First we fix quality: uptime, bugs, and release predictability."
+            intro="With guardrails, CI/CD, AI, and monitoring, we reduce release risk before customers or the business ever see the problem."
+            headingClassName={landing.stageHeading}
+          />
+          <ul className={landing.iconList} data-tone="cool">
+            {qualityLevers.map((item) => (
+              <li key={item.text}>
+                <Icon icon={item.icon} className={landing.cardIcon} />
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div id="speed" className={`${landing.stageColumn} ${landing.stageAnchor}`}>
+          <SectionHeader
+            title="Then we fix speed. Speed is not solved by code alone."
+            intro="Speed is solved through people, process, metrics, and AI agents. Otherwise the Yii2 team stays trapped in urgent work and constant firefighting."
+            headingClassName={landing.stageHeading}
+          />
+          <ul className={landing.iconList} data-tone="warm">
+            {speedLevers.map((item) => (
+              <li key={item.text}>
+                <Icon icon={item.icon} className={landing.cardIcon} />
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );
@@ -583,16 +584,18 @@ function ProofSection() {
         intro="Use these to quickly evaluate the thinking, operating style, and the way I work with quality, speed, systems, and AI in engineering."
       />
       <div className={landing.proofGrid}>
-        {[...talkLinks, ...writingLinks].map((link) => (
+        {talkLinks.map((link) => (
           <a key={link.label} href={link.href} className={landing.linkCard} target="_blank" rel="noreferrer">
             <span className={landing.linkHeader}>
               <BrandIcon label={link.label} path={link.iconPath} className={landing.brandIcon} />
               <span className={landing.linkLabel}>{link.label}</span>
             </span>
             <span className={landing.linkDescription}>{link.description}</span>
+            <Icon icon={ArrowRight} className={landing.linkArrow} />
           </a>
         ))}
       </div>
+      <ChannelLinks items={writingLinks} ariaLabel="Writing channels" />
     </Section>
   );
 }
@@ -631,12 +634,11 @@ export default function Yii2Page() {
       <HeroSection />
       <TransformationSection />
       <ProblemSection />
-      <QualitySection />
-      <SpeedSection />
+      <LeversSection />
       <TrustSection />
       <ProcessSection />
-      <FaqSection items={faqItems} />
       <ProofSection />
+      <FaqSection items={faqItems} />
       <FinalCtaSection />
       <SiteFooter />
     </Page>
