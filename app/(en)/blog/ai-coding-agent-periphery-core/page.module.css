@@ -1,74 +1,79 @@
-.body {
-  max-width: 42rem;
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.body h2 {
-  margin: var(--space-4) 0 0;
-  color: var(--text-strong);
-  font-size: var(--text-h2);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.015em;
-  text-wrap: pretty;
-  scroll-margin-top: var(--scroll-offset);
-}
+@layer views {
+  .body {
+    max-width: 42rem;
+  }
 
-.body h2:first-child {
-  margin-top: var(--space-3);
-}
+  .body h2 {
+    margin: var(--space-4) 0 0;
+    color: var(--text-strong);
+    font-size: var(--text-h2);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.015em;
+    text-wrap: pretty;
+    scroll-margin-top: var(--scroll-offset);
+  }
 
-/* Direct-child selectors so prose styles don't leak into <aside> blocks (CTA,
-   Related) which sit on accent backgrounds. */
-.body > p {
-  margin: var(--space-2) 0 0;
-  color: var(--text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-loose);
-  text-wrap: pretty;
-}
+  .body h2:first-child {
+    margin-top: var(--space-3);
+  }
 
-.body strong {
-  color: var(--text-strong);
-}
+  /* Direct-child selectors so prose styles don't leak into <aside> blocks (CTA,
+     Related) which sit on accent backgrounds. */
+  .body > p {
+    margin: var(--space-2) 0 0;
+    color: var(--text);
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    text-wrap: pretty;
+  }
 
-.body a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
+  .body strong {
+    color: var(--text-strong);
+  }
 
-.body > ul,
-.body > ol {
-  margin: var(--space-2) 0 0;
-  padding-left: 1.4rem;
-  color: var(--text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-loose);
-}
+  .body a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
 
-.body > ul > li,
-.body > ol > li {
-  margin: 0.4rem 0 0;
-}
+  .body > ul,
+  .body > ol {
+    margin: var(--space-2) 0 0;
+    padding-left: 1.4rem;
+    color: var(--text);
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+  }
 
-.body > ul > li:first-child,
-.body > ol > li:first-child {
-  margin-top: 0;
-}
+  .body > ul > li,
+  .body > ol > li {
+    margin: 0.4rem 0 0;
+  }
 
-/* Body illustration: full-width figure with a token-styled caption. The image
-   carries the section's visual anchor; the caption doubles as an extraction
-   hook for engines reading the page. */
-/* Frame the whole figure, like the SVG charts, so the caption sits inside. */
-.figure {
-  margin: var(--space-3) 0 0;
-  padding: var(--space-2);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
+  .body > ul > li:first-child,
+  .body > ol > li:first-child {
+    margin-top: 0;
+  }
 
-.figureImage {
-  width: 100%;
-  height: auto;
-}
+  /* Body illustration: full-width figure with a token-styled caption. The image
+     carries the section's visual anchor; the caption doubles as an extraction
+     hook for engines reading the page. */
+  /* Frame the whole figure, like the SVG charts, so the caption sits inside. */
+  .figure {
+    margin: var(--space-3) 0 0;
+    padding: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
 
+  .figureImage {
+    width: 100%;
+    height: auto;
+  }
+}

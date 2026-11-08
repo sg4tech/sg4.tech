@@ -1,101 +1,107 @@
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.9rem;
-  padding: 0.8rem 1.15rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-strong);
-  font-weight: 600;
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.primary {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-primary-contrast);
-}
-
-.primary:hover,
-.primary:focus-visible {
-  background: var(--color-primary-hover);
-  border-color: var(--color-primary-hover);
-}
-
-.secondary {
-  background: var(--surface);
-  color: var(--text);
-}
-
-.secondary:hover,
-.secondary:focus-visible {
-  background: var(--surface-alt);
-}
-
-/* Reversed variants — for use on the ember / ink statement block. */
-.inverse {
-  background: var(--white);
-  border-color: var(--white);
-  color: var(--gray-900);
-}
-
-.inverse:hover,
-.inverse:focus-visible {
-  background: var(--paper-3);
-  border-color: var(--paper-3);
-}
-
-/* Ink ghost — secondary on the ember block. Ink text/border keeps it
-   AA-readable on the saturated ember field where white text would not be. */
-.ghost {
-  background: transparent;
-  border-color: var(--gray-900);
-  color: var(--gray-900);
-}
-
-.ghost:hover,
-.ghost:focus-visible {
-  background: rgba(23, 24, 27, 0.08);
-}
-
-/* On the ember block the ember focus outline is invisible — make it show:
-   white around the white pill, ink around the ink ghost. */
-.inverse:focus-visible {
-  outline-color: var(--white);
-}
-
-.ghost:focus-visible {
-  outline-color: var(--gray-900);
-}
-
-@media (max-width: 640px) {
-  .primary {
-    width: 100%;
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.9rem;
+    padding: 0.8rem 1.15rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong);
+    font-weight: 600;
+    transition:
+      background-color var(--duration-base) var(--ease-standard),
+      border-color var(--duration-base) var(--ease-standard),
+      color var(--duration-base) var(--ease-standard);
   }
 
-  .inverse,
-  .ghost {
-    width: 100%;
+  .primary {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+
+  .primary:hover,
+  .primary:focus-visible {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
   }
 
   .secondary {
-    width: auto;
-    min-height: auto;
-    padding: var(--tap-pad) 0;
-    margin-block: calc(-1 * var(--tap-pad));
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    color: var(--muted);
-    justify-content: flex-start;
+    background: var(--surface);
+    color: var(--text);
   }
 
   .secondary:hover,
   .secondary:focus-visible {
+    background: var(--surface-alt);
+  }
+
+  /* Reversed variants — for use on the ember / ink statement block. */
+  .inverse {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--gray-900);
+  }
+
+  .inverse:hover,
+  .inverse:focus-visible {
+    background: var(--paper-3);
+    border-color: var(--paper-3);
+  }
+
+  /* Ink ghost — secondary on the ember block. Ink text/border keeps it
+     AA-readable on the saturated ember field where white text would not be. */
+  .ghost {
     background: transparent;
-    color: var(--text-strong);
+    border-color: var(--gray-900);
+    color: var(--gray-900);
+  }
+
+  .ghost:hover,
+  .ghost:focus-visible {
+    background: rgba(23, 24, 27, 0.08);
+  }
+
+  /* On the ember block the ember focus outline is invisible — make it show:
+     white around the white pill, ink around the ink ghost. */
+  .inverse:focus-visible {
+    outline-color: var(--white);
+  }
+
+  .ghost:focus-visible {
+    outline-color: var(--gray-900);
+  }
+
+  @media (max-width: 640px) {
+    .primary {
+      width: 100%;
+    }
+
+    .inverse,
+    .ghost {
+      width: 100%;
+    }
+
+    .secondary {
+      width: auto;
+      min-height: auto;
+      padding: var(--tap-pad) 0;
+      margin-block: calc(-1 * var(--tap-pad));
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      justify-content: flex-start;
+    }
+
+    .secondary:hover,
+    .secondary:focus-visible {
+      background: transparent;
+      color: var(--text-strong);
+    }
   }
 }

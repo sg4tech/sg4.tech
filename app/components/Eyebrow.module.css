@@ -1,6 +1,12 @@
-.eyebrow {
-  margin: 0 0 var(--space-2);
-  color: var(--muted);
-  font-size: var(--text-sm);
-  font-weight: 600;
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
+
+@layer components {
+  .eyebrow {
+    margin: 0 0 var(--space-2);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
 }

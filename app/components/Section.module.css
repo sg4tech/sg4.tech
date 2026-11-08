@@ -1,17 +1,23 @@
-.section {
-  scroll-margin-top: var(--scroll-offset);
-  padding: var(--section-pad-y) 0;
-  border-top: 1px solid var(--border);
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-/* The nav card already separates the page top; a divider right under it
-   doubled the line. Sibling of <nav>, as rendered by Page + TopNavigation. */
-nav + .section {
-  border-top: 0;
-}
-
-@media (max-width: 640px) {
+@layer primitives {
   .section {
-    padding: var(--space-3) 0;
+    scroll-margin-top: var(--scroll-offset);
+    padding: var(--section-pad-y) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* The nav card already separates the page top; a divider right under it
+     doubled the line. Sibling of <nav>, as rendered by Page + TopNavigation. */
+  nav + .section {
+    border-top: 0;
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding: var(--space-3) 0;
+    }
   }
 }

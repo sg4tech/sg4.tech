@@ -65,13 +65,21 @@ Use this when a change could be affected by anything that differs between `next 
 - Image optimization (none in this project's `output: export`, but worth knowing)
 - Static asset hashing and chunk boundaries
 
-### Import order is CSS order
+### Cascade layers decide CSS order
 
-In the production build, Turbopack merges CSS modules into shared chunks in the order files import them. When two files import the same shared components in a different relative order, the merge can place a component's stylesheet *after* a page's own stylesheet, and every equal-specificity rule between them flips. The page still renders — just with different spacing — and nothing in the HTML shows it.
+In the production build, Turbopack merges CSS modules into shared chunks in an order derived from imports, which no single file controls. When two rules of equal specificity target the same element — a page passing its class to a shared component, a component restyling another — the winner would depend on that bundle order. It did once: pages kept identical HTML while their spacing changed.
 
-- Do not sort imports alphabetically or let a tool do it. When code moves between files (a page into a view, a section into a component), keep the relative order of its component imports.
-- Root files (`app/(<locale>)/layout.tsx`, `app/global-not-found.tsx`) import `app/globals.css` first, so global styles always precede every module.
-- For a refactor that moves components or routes, compare the built pages against the previous build visually (headless screenshots at 375px and 1280px, pixel-diffed), not only by HTML: the HTML can be identical while the cascade is not.
+So every stylesheet sits in an explicit cascade layer, and the layer order — not the bundle — decides:
+
+- `base` — `app/globals.css` (tokens and tag defaults)
+- `primitives` — shared components that other components restyle via a class prop
+- `components` — the other shared components
+- `landing` — `app/styles/landing.module.css`
+- `views` — page views and route stylesheets
+
+Each stylesheet starts with the full layer-order statement, so the order holds whichever chunk the browser loads first. `tests/css-layers.test.ts` enforces where each stylesheet sits and that a component which passes its class to another component is in a later layer than it. A new override between components that breaks this fails the test: move the overridden one to `primitives`.
+
+For a refactor that moves components, routes, or stylesheets, compare the built pages against the previous build by computed style, not only by HTML.
 
 The dev server uses port 3000; preview uses 3001, so both can run in parallel.
 

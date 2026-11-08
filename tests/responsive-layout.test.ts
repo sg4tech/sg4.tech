@@ -9,7 +9,8 @@ describe("responsive layout guardrails", () => {
     const navTsxPath = join(process.cwd(), "app", "components", "TopNavigation.tsx");
     const navCssPath = join(process.cwd(), "app", "components", "TopNavigation.module.css");
 
-    const pageCss = readFileSync(buttonCssPath, "utf8");
+    // Leading indentation dropped: rules read the same inside a cascade layer block.
+    const pageCss = readFileSync(buttonCssPath, "utf8").replace(/^[ \t]+/gm, "");
     const navTsx = readFileSync(navTsxPath, "utf8");
     const navCss = readFileSync(navCssPath, "utf8");
 
@@ -35,7 +36,7 @@ describe("responsive layout guardrails", () => {
     expect(navMobileSection).toContain(".brand {");
 
     // Button component collapse rules live in Button.module.css.
-    expect(pageMobileSection).toContain(".primary {\n    width: 100%;");
-    expect(pageMobileSection).toContain(".secondary {\n    width: auto;");
+    expect(pageMobileSection).toContain(".primary {\nwidth: 100%;");
+    expect(pageMobileSection).toContain(".secondary {\nwidth: auto;");
   });
 });

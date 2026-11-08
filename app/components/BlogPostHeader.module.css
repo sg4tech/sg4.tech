@@ -1,61 +1,67 @@
-.header {
-  margin: 0 auto var(--space-3);
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.title {
-  margin: var(--space-2) 0 0;
-  color: var(--text-strong);
-  font-size: var(--text-h1);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
+@layer components {
+  .header {
+    margin: 0 auto var(--space-3);
+  }
 
-.lede {
-  margin: var(--space-3) 0 0;
-  color: var(--muted);
-  font-size: var(--text-xl);
-  line-height: var(--leading-relaxed);
-  text-wrap: pretty;
-}
+  .title {
+    margin: var(--space-2) 0 0;
+    color: var(--text-strong);
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
 
-.byline {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin: var(--space-2) 0 0;
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-snug);
-}
+  .lede {
+    margin: var(--space-3) 0 0;
+    color: var(--muted);
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    text-wrap: pretty;
+  }
 
-.bylineAvatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-pill);
-  object-fit: cover;
-  border: 1px solid var(--border);
-  flex-shrink: 0;
-}
+  .byline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: var(--space-2) 0 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
 
-.bylineMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
-}
+  .bylineAvatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-pill);
+    object-fit: cover;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
 
-.bylineBio {
-  margin: 0;
-  color: var(--text-strong);
-  font-weight: 400;
-}
+  .bylineMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
 
-.bylineName {
-  font-weight: 600;
-}
+  .bylineBio {
+    margin: 0;
+    color: var(--text-strong);
+    font-weight: 400;
+  }
 
-.bylineDate {
-  margin: 0;
-  color: var(--muted);
+  .bylineName {
+    font-weight: 600;
+  }
+
+  .bylineDate {
+    margin: 0;
+    color: var(--muted);
+  }
 }

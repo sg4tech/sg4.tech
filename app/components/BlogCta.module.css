@@ -1,40 +1,46 @@
-.cta {
-  margin: var(--space-4) 0 0;
-  padding: var(--space-3);
-  background: var(--accent);
-  color: var(--on-strong);
-  border-radius: var(--radius-md);
-  text-align: center;
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.ctaHeading {
-  margin: 0;
-  color: var(--on-strong);
-  font-size: var(--text-h3);
-  line-height: var(--leading-tight);
-  text-wrap: pretty;
-}
+@layer components {
+  .cta {
+    margin: var(--space-4) 0 0;
+    padding: var(--space-3);
+    background: var(--accent);
+    color: var(--on-strong);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
 
-.ctaText {
-  margin: var(--space-1) 0 var(--space-2);
-  color: var(--on-strong);
-  opacity: 0.85;
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-}
+  .ctaHeading {
+    margin: 0;
+    color: var(--on-strong);
+    font-size: var(--text-h3);
+    line-height: var(--leading-tight);
+    text-wrap: pretty;
+  }
 
-.ctaButton {
-  display: inline-block;
-  padding: 0.7rem 1.4rem;
-  background: var(--on-strong);
-  color: var(--accent);
-  font-weight: 600;
-  font-size: var(--text-base);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-}
+  .ctaText {
+    margin: var(--space-1) 0 var(--space-2);
+    color: var(--on-strong);
+    opacity: 0.85;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
 
-.ctaButton:hover,
-.ctaButton:focus-visible {
-  background: var(--surface-alt);
+  .ctaButton {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    background: var(--on-strong);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: var(--text-base);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+  }
+
+  .ctaButton:hover,
+  .ctaButton:focus-visible {
+    background: var(--surface-alt);
+  }
 }

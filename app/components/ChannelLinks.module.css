@@ -1,48 +1,54 @@
-.channelList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--space-3);
-  margin: var(--space-4) 0 0;
-  padding: 0;
-  list-style: none;
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.channelLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding-block: var(--tap-pad);
-  margin-block: calc(-1 * var(--tap-pad));
-  color: var(--muted);
-  font-size: var(--text-sm);
-  transition: color var(--duration-base) var(--ease-standard);
-}
-
-.channelLink:hover,
-.channelLink:focus-visible {
-  color: var(--text-strong);
-}
-
-/* Same size, same grey for every brand mark, so none of them shouts. */
-.channelIcon {
-  display: inline-flex;
-  width: 0.95rem;
-  height: 0.95rem;
-  flex: 0 0 auto;
-}
-
-.channelIcon svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* Phones: tighter spacing so all channels fit one line. */
-@media (max-width: 640px) {
+@layer components {
   .channelList {
-    column-gap: var(--space-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-3);
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
   }
 
   .channelLink {
-    gap: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding-block: var(--tap-pad);
+    margin-block: calc(-1 * var(--tap-pad));
+    color: var(--muted);
+    font-size: var(--text-sm);
+    transition: color var(--duration-base) var(--ease-standard);
+  }
+
+  .channelLink:hover,
+  .channelLink:focus-visible {
+    color: var(--text-strong);
+  }
+
+  /* Same size, same grey for every brand mark, so none of them shouts. */
+  .channelIcon {
+    display: inline-flex;
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: 0 0 auto;
+  }
+
+  .channelIcon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Phones: tighter spacing so all channels fit one line. */
+  @media (max-width: 640px) {
+    .channelList {
+      column-gap: var(--space-2);
+    }
+
+    .channelLink {
+      gap: 0.35rem;
+    }
   }
 }

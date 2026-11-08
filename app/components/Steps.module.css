@@ -1,86 +1,92 @@
-.steps {
-  display: grid;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-  padding: 0;
-  list-style: none;
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.step {
-  padding-top: var(--space-2);
-  border-top: 1px solid var(--border);
-}
-
-.step:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.number {
-  display: block;
-  color: var(--color-primary);
-  font-size: var(--text-hero-metric);
-  font-weight: 800;
-  line-height: var(--leading-none);
-  letter-spacing: var(--tracking-tight);
-  font-variant-numeric: tabular-nums;
-}
-
-.title {
-  margin: 0.6rem 0 0;
-  color: var(--text-1);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  line-height: var(--leading-base);
-  letter-spacing: var(--tracking-snug);
-}
-
-@media (min-width: 860px) {
+@layer components {
   .steps {
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: 0;
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: 0;
+    list-style: none;
   }
 
   .step {
-    padding: 0 var(--space-3);
-    border-top: 0;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border);
   }
 
   .step:first-child {
-    padding-left: 0;
+    padding-top: 0;
+    border-top: 0;
   }
 
-  .step:last-child {
-    padding-right: 0;
+  .number {
+    display: block;
+    color: var(--color-primary);
+    font-size: var(--text-hero-metric);
+    font-weight: 800;
+    line-height: var(--leading-none);
+    letter-spacing: var(--tracking-tight);
+    font-variant-numeric: tabular-nums;
   }
 
-  .step + .step {
-    border-left: 1px solid var(--border);
+  .title {
+    margin: 0.6rem 0 0;
+    color: var(--text-1);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: var(--leading-base);
+    letter-spacing: var(--tracking-snug);
   }
-}
 
-/* Card variant: each step in its own bordered card. Comes after the plain
-   rules so it overrides their dividers and padding at every width. */
-.card {
-  gap: var(--space-2);
-}
+  @media (min-width: 860px) {
+    .steps {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      gap: 0;
+    }
 
-.card .step,
-.card .step:first-child,
-.card .step:last-child {
-  padding: 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
+    .step {
+      padding: 0 var(--space-3);
+      border-top: 0;
+    }
 
-@media (min-width: 860px) {
+    .step:first-child {
+      padding-left: 0;
+    }
+
+    .step:last-child {
+      padding-right: 0;
+    }
+
+    .step + .step {
+      border-left: 1px solid var(--border);
+    }
+  }
+
+  /* Card variant: each step in its own bordered card. Comes after the plain
+     rules so it overrides their dividers and padding at every width. */
   .card {
     gap: var(--space-2);
   }
 
-  .card .step + .step {
-    border-left: 1px solid var(--border);
+  .card .step,
+  .card .step:first-child,
+  .card .step:last-child {
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  @media (min-width: 860px) {
+    .card {
+      gap: var(--space-2);
+    }
+
+    .card .step + .step {
+      border-left: 1px solid var(--border);
+    }
   }
 }

@@ -1,5 +1,4 @@
-// Global styles load first so every CSS module cascades after them
-// (import order is CSS order — see docs/engineering-checks.md).
+// Global styles (the `base` cascade layer — see docs/engineering-checks.md).
 import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";

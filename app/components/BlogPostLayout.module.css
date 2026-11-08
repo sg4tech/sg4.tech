@@ -1,41 +1,47 @@
-.article {
-  padding: 2.2rem 0 0;
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-/* Center every direct child in a 42rem reading column so back link → header →
-   body → CTA → related sit on one visual axis instead of left-anchored inside
-   the wider page container. */
-.article > * {
-  max-width: 42rem;
-  margin-inline: auto;
-}
+@layer components {
+  .article {
+    padding: 2.2rem 0 0;
+  }
 
-.backLink {
-  display: flex;
-  /* inline-flex ignores margin-inline: auto, so place the link at the
-     reading column's left edge explicitly. */
-  width: fit-content;
-  margin-inline: max(0px, (100% - 42rem) / 2) auto;
-  padding-block: var(--tap-pad);
-  /* Now on the same axis as the eyebrow below, so it needs real space. */
-  margin-block: calc(-1 * var(--tap-pad)) calc(var(--space-2) - var(--tap-pad));
-  align-items: center;
-  gap: 0.35rem;
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-tight);
-  text-decoration: none;
-}
+  /* Center every direct child in a 42rem reading column so back link → header →
+     body → CTA → related sit on one visual axis instead of left-anchored inside
+     the wider page container. */
+  .article > * {
+    max-width: 42rem;
+    margin-inline: auto;
+  }
 
-.backLink:hover,
-.backLink:focus-visible {
-  color: var(--text-strong);
-}
+  .backLink {
+    display: flex;
+    /* inline-flex ignores margin-inline: auto, so place the link at the
+       reading column's left edge explicitly. */
+    width: fit-content;
+    margin-inline: max(0px, (100% - 42rem) / 2) auto;
+    padding-block: var(--tap-pad);
+    /* Now on the same axis as the eyebrow below, so it needs real space. */
+    margin-block: calc(-1 * var(--tap-pad)) calc(var(--space-2) - var(--tap-pad));
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
+    text-decoration: none;
+  }
 
-/* FAQ constrained to the same 42rem reading column as the body so the page
-   reads on a single visual axis. Passed as contentWrapperClassName to
-   FaqSection. */
-.faqColumn {
-  max-width: 42rem;
-  margin-inline: auto;
+  .backLink:hover,
+  .backLink:focus-visible {
+    color: var(--text-strong);
+  }
+
+  /* FAQ constrained to the same 42rem reading column as the body so the page
+     reads on a single visual axis. Passed as contentWrapperClassName to
+     FaqSection. */
+  .faqColumn {
+    max-width: 42rem;
+    margin-inline: auto;
+  }
 }

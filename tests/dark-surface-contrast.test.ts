@@ -7,7 +7,9 @@ import { describe, expect, it } from "vitest";
 // token or rule change that drops contrast fails here instead of in review.
 
 const root = process.cwd();
-const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
+// Leading indentation dropped, so rules read the same whether or not a
+// stylesheet wraps them in a cascade layer block.
+const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8").replace(/^[ \t]+/gm, "");
 
 const WCAG_AA_SMALL_TEXT = 4.5;
 

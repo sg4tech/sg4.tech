@@ -1,219 +1,225 @@
-.body {
-  max-width: 42rem;
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.body h2 {
-  margin: var(--space-4) 0 0;
-  color: var(--text-strong);
-  font-size: var(--text-h2);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.015em;
-  text-wrap: pretty;
-  scroll-margin-top: var(--scroll-offset);
-}
+@layer views {
+  .body {
+    max-width: 42rem;
+  }
 
-.body h2:first-child {
-  margin-top: var(--space-3);
-}
+  .body h2 {
+    margin: var(--space-4) 0 0;
+    color: var(--text-strong);
+    font-size: var(--text-h2);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.015em;
+    text-wrap: pretty;
+    scroll-margin-top: var(--scroll-offset);
+  }
 
-/* Direct-child selectors so prose styles don't leak into <aside> blocks (CTA,
-   Related) which sit on accent backgrounds. */
-.body > p {
-  margin: var(--space-2) 0 0;
-  color: var(--text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-loose);
-  text-wrap: pretty;
-}
+  .body h2:first-child {
+    margin-top: var(--space-3);
+  }
 
-.body strong {
-  color: var(--text-strong);
-}
+  /* Direct-child selectors so prose styles don't leak into <aside> blocks (CTA,
+     Related) which sit on accent backgrounds. */
+  .body > p {
+    margin: var(--space-2) 0 0;
+    color: var(--text);
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    text-wrap: pretty;
+  }
 
-.body a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
+  .body strong {
+    color: var(--text-strong);
+  }
 
-.body > ul,
-.body > ol {
-  margin: var(--space-2) 0 0;
-  padding-left: 1.4rem;
-  color: var(--text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-loose);
-}
+  .body a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
 
-.body > ul > li,
-.body > ol > li {
-  margin: 0.4rem 0 0;
-}
+  .body > ul,
+  .body > ol {
+    margin: var(--space-2) 0 0;
+    padding-left: 1.4rem;
+    color: var(--text);
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+  }
 
-.body > ul > li:first-child,
-.body > ol > li:first-child {
-  margin-top: 0;
-}
+  .body > ul > li,
+  .body > ol > li {
+    margin: 0.4rem 0 0;
+  }
 
-/* Tool matrix: level x language. On mobile (<640px) rows stack and each cell
-   prints its column name from data-label, because the hidden thead no longer
-   says which language a tool belongs to. */
-.body > .toolTable {
-  width: 100%;
-  margin: var(--space-3) 0 0;
-  border-collapse: collapse;
-  font-size: var(--text-md);
-  line-height: var(--leading-base);
-  color: var(--text);
-}
+  .body > ul > li:first-child,
+  .body > ol > li:first-child {
+    margin-top: 0;
+  }
 
-.toolTable thead th {
-  padding: 0.6rem var(--space-1);
-  background: var(--surface-strong);
-  color: var(--text-strong);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  text-align: left;
-  border-bottom: 1px solid var(--border-strong);
-}
+  /* Tool matrix: level x language. On mobile (<640px) rows stack and each cell
+     prints its column name from data-label, because the hidden thead no longer
+     says which language a tool belongs to. */
+  .body > .toolTable {
+    width: 100%;
+    margin: var(--space-3) 0 0;
+    border-collapse: collapse;
+    font-size: var(--text-md);
+    line-height: var(--leading-base);
+    color: var(--text);
+  }
 
-.toolTable tbody tr {
-  border-bottom: 1px solid var(--border);
-}
-
-.toolTable tbody tr:last-child {
-  border-bottom: 0;
-}
-
-.toolTable tbody th {
-  padding: var(--space-1);
-  color: var(--text-strong);
-  font-weight: 600;
-  text-align: left;
-  vertical-align: top;
-}
-
-.toolTable tbody td {
-  padding: var(--space-1);
-  vertical-align: top;
-}
-
-@media (max-width: 640px) {
-  .toolTable thead {
-    display: none;
+  .toolTable thead th {
+    padding: 0.6rem var(--space-1);
+    background: var(--surface-strong);
+    color: var(--text-strong);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 1px solid var(--border-strong);
   }
 
   .toolTable tbody tr {
-    display: block;
-    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .toolTable tbody th,
+  .toolTable tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .toolTable tbody th {
+    padding: var(--space-1);
+    color: var(--text-strong);
+    font-weight: 600;
+    text-align: left;
+    vertical-align: top;
+  }
+
   .toolTable tbody td {
-    display: block;
-    padding: 0.2rem 0;
+    padding: var(--space-1);
+    vertical-align: top;
   }
 
-  .toolTable tbody td::before {
-    content: attr(data-label) ": ";
+  @media (max-width: 640px) {
+    .toolTable thead {
+      display: none;
+    }
+
+    .toolTable tbody tr {
+      display: block;
+      padding: var(--space-2) 0;
+    }
+
+    .toolTable tbody th,
+    .toolTable tbody td {
+      display: block;
+      padding: 0.2rem 0;
+    }
+
+    .toolTable tbody td::before {
+      content: attr(data-label) ": ";
+      color: var(--muted);
+    }
+  }
+
+  .tableCaption {
+    caption-side: top;
+    padding: 0 0 var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  /* Inline code and the single shell block. */
+  .body code {
+    font-family: var(--font-mono);
+    font-size: inherit;
+  }
+
+  .body > pre {
+    margin: var(--space-2) 0 0;
+    padding: var(--space-2);
+    overflow-x: auto;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-strong);
+    font-size: var(--text-md);
+    line-height: var(--leading-base);
+  }
+
+
+  /* Seven-level staircase. Steps render top-down from level 7 to level 1
+     (column-reverse) and each shifts right by its level times --step-shift (set
+     inline), so the cheapest check sits
+     at the bottom-left and the ladder climbs toward written rules. */
+  .ladderFigure {
+    margin: var(--space-3) 0 0;
+  }
+
+  .ladder {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ladderStep {
+    --step-shift: 1.6rem;
+
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.55rem var(--space-2);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+    color: var(--text-strong);
+    font-size: var(--text-md);
+    line-height: var(--leading-snug);
+  }
+
+  .ladderStepSoft {
+    border-style: dashed;
+    background: var(--surface);
     color: var(--muted);
   }
-}
 
-.tableCaption {
-  caption-side: top;
-  padding: 0 0 var(--space-1);
-  color: var(--muted);
-  font-size: var(--text-sm);
-  text-align: left;
-}
+  .ladderNumber {
+    flex: none;
+    min-width: 1.4rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
 
-/* Inline code and the single shell block. */
-.body code {
-  font-family: var(--font-mono);
-  font-size: inherit;
-}
-
-.body > pre {
-  margin: var(--space-2) 0 0;
-  padding: var(--space-2);
-  overflow-x: auto;
-  background: var(--surface-strong);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  color: var(--text-strong);
-  font-size: var(--text-md);
-  line-height: var(--leading-base);
-}
-
-
-/* Seven-level staircase. Steps render top-down from level 7 to level 1
-   (column-reverse) and each shifts right by its level times --step-shift (set
-   inline), so the cheapest check sits
-   at the bottom-left and the ladder climbs toward written rules. */
-.ladderFigure {
-  margin: var(--space-3) 0 0;
-}
-
-.ladder {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 0.35rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ladderStep {
-  --step-shift: 1.6rem;
-
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
-  padding: 0.55rem var(--space-2);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--surface-alt);
-  color: var(--text-strong);
-  font-size: var(--text-md);
-  line-height: var(--leading-snug);
-}
-
-.ladderStepSoft {
-  border-style: dashed;
-  background: var(--surface);
-  color: var(--muted);
-}
-
-.ladderNumber {
-  flex: none;
-  min-width: 1.4rem;
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-weight: 700;
-}
-
-.ladderName {
-  flex: 1 1 auto;
-  font-weight: 600;
-}
-
-.ladderTag {
-  flex: none;
-  color: var(--muted);
-  font-size: var(--text-xs);
-  line-height: var(--leading-snug);
-}
-
-
-@media (max-width: 640px) {
-  .ladderStep {
-    --step-shift: 0.6rem;
-
-    padding: 0.5rem var(--space-1);
+  .ladderName {
+    flex: 1 1 auto;
+    font-weight: 600;
   }
 
   .ladderTag {
-    display: none;
+    flex: none;
+    color: var(--muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
+
+
+  @media (max-width: 640px) {
+    .ladderStep {
+      --step-shift: 0.6rem;
+
+      padding: 0.5rem var(--space-1);
+    }
+
+    .ladderTag {
+      display: none;
+    }
   }
 }

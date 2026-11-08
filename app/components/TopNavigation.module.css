@@ -1,116 +1,122 @@
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 0.75rem 0 1.25rem;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-}
+/* Cascade layer order: see docs/engineering-checks.md. Declared first in
+   every stylesheet so it holds whichever chunk the browser loads first. */
+@layer base, primitives, components, landing, views;
 
-.navInner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: 0.85rem var(--space-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 44px;
-  font-size: var(--text-md);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-/* SG4 monogram — ink on the light navbar. */
-.brandMark {
-  flex: 0 0 auto;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: url("/brand/logo-ink.svg") no-repeat center / contain;
-}
-
-/* Brand device: the ember full stop = "this is settled." */
-.brandDot {
-  color: var(--color-primary);
-}
-
-.navLinks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem var(--space-1);
-  color: var(--muted);
-  font-size: var(--text-md);
-}
-
-.navLinks a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0.25rem var(--space-1);
-  border-radius: var(--radius-sm);
-}
-
-.navLinks a:hover,
-.navLinks a:focus-visible {
-  color: var(--text-strong);
-}
-
-.navLinks a[aria-current="page"] {
-  color: var(--text-strong);
-  font-weight: 600;
-}
-
-/* Below desktop: one row, logo plus the page pills. */
-@media (max-width: 860px) {
+@layer components {
   .nav {
-    position: static;
-    padding-bottom: 0.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 0.75rem 0 1.25rem;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+  }
+
+  .navInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: 0.85rem var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-size: var(--text-md);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* SG4 monogram — ink on the light navbar. */
+  .brandMark {
+    flex: 0 0 auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url("/brand/logo-ink.svg") no-repeat center / contain;
+  }
+
+  /* Brand device: the ember full stop = "this is settled." */
+  .brandDot {
+    color: var(--color-primary);
   }
 
   .navLinks {
-    flex-wrap: nowrap;
-    gap: var(--space-1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-md);
   }
 
   .navLinks a {
-    min-height: 2.75rem;
-    padding: 0.45rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-pill);
-    background: var(--surface);
-    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.25rem var(--space-1);
+    border-radius: var(--radius-sm);
   }
 
   .navLinks a:hover,
   .navLinks a:focus-visible {
-    background: var(--surface-alt);
-  }
-}
-
-@media (max-width: 640px) {
-  .navInner {
-    gap: 0.7rem;
-    padding: 0.8rem 0.9rem;
+    color: var(--text-strong);
   }
 
-  .brand {
-    font-size: var(--text-base);
+  .navLinks a[aria-current="page"] {
+    color: var(--text-strong);
+    font-weight: 600;
   }
 
-  /* Four pills do not fit next to the logo on a phone. */
-  .navLinks a[data-mobile-nav="secondary"] {
-    display: none;
-  }
-}
+  /* Below desktop: one row, logo plus the page pills. */
+  @media (max-width: 860px) {
+    .nav {
+      position: static;
+      padding-bottom: 0.75rem;
+    }
 
-@media (max-width: 390px) {
-  .navInner {
-    padding-inline: 0.8rem;
+    .navLinks {
+      flex-wrap: nowrap;
+      gap: var(--space-1);
+    }
+
+    .navLinks a {
+      min-height: 2.75rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      white-space: nowrap;
+    }
+
+    .navLinks a:hover,
+    .navLinks a:focus-visible {
+      background: var(--surface-alt);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .navInner {
+      gap: 0.7rem;
+      padding: 0.8rem 0.9rem;
+    }
+
+    .brand {
+      font-size: var(--text-base);
+    }
+
+    /* Four pills do not fit next to the logo on a phone. */
+    .navLinks a[data-mobile-nav="secondary"] {
+      display: none;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .navInner {
+      padding-inline: 0.8rem;
+    }
   }
 }
