@@ -21,8 +21,18 @@ const getPageSpec = createLookup<PageKey, PageSpec>({
   privacy: { path: "/privacy/", locales: ["en"] }
 });
 
-/** The page's served path in `locale`. */
+/** Whether the page has a version in `locale`. */
+export function isPagePublished(locale: Locale, page: PageKey): boolean {
+  return getPageSpec(page).locales.includes(locale);
+}
+
+/** The page's served path in `locale`. Throws for a page with no version in
+ * that locale: the link would be a 404, so the build fails and whoever adds
+ * it decides where it should point instead. */
 export function pagePath(locale: Locale, page: PageKey): SitePath {
+  if (!isPagePublished(locale, page)) {
+    throw new Error(`[pages] "${page}" is not published in ${locale}; add it to the registry or link elsewhere`);
+  }
   return localizePath(locale, getPageSpec(page).path);
 }
 

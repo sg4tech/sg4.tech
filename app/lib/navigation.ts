@@ -1,6 +1,6 @@
 import { getDictionary } from "./i18n/dictionary";
 import type { Locale } from "./i18n/locales";
-import { pagePath } from "./i18n/pages";
+import { isPagePublished, pagePath } from "./i18n/pages";
 import type { SiteDictionary } from "./i18n/types";
 import { createLookup } from "./lookup";
 
@@ -34,11 +34,21 @@ const getMobileNav = createLookup<NavigationKey, NavigationItem["mobileNav"]>({
   "ai-vibecoding": "secondary"
 });
 
+// Menu entries whose page exists in the locale; a page not yet translated
+// drops out of that locale's menu instead of linking to a 404.
+export function keepPublishedItems<Item extends { key: NavigationKey }>(
+  items: ReadonlyArray<Item>,
+  isPublished: (key: NavigationKey) => boolean
+): Item[] {
+  return items.filter((item) => isPublished(item.key));
+}
+
 // The one site menu, rendered on every page via <SiteNav />. Navigation only:
 // pages, no in-page anchors and no Contact (each page has its own CTAs).
 // "secondary" items are hidden on phones, where four pills do not fit.
 export function getSiteNavigationItems(locale: Locale): NavigationItem[] {
-  return getDictionary(locale).navigation.items.map(({ key, label }) => ({
+  const items = keepPublishedItems(getDictionary(locale).navigation.items, (key) => isPagePublished(locale, key));
+  return items.map(({ key, label }) => ({
     href: pagePath(locale, key),
     label,
     mobileNav: getMobileNav(key)
