@@ -36,7 +36,7 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta heading="Dates slipping and you can't say why?" href={CTA_HREF}>
+    <BlogCta locale="en" heading="Dates slipping and you can't say why?" href={CTA_HREF}>
       The first diagnostic call is 30 minutes on Telegram. Describe the symptoms, I&apos;ll help you
       find where the distribution — and the system — is breaking.
     </BlogCta>
@@ -44,5 +44,5 @@ export function ArticleCta(): ReactNode {
 }
 
 export function ArticleRelated(): ReactNode {
-  return <BlogRelated links={relatedLinks} />;
+  return <BlogRelated locale="en" links={relatedLinks} />;
 }

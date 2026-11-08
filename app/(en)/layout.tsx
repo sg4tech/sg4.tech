@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { RootDocument } from "../components/RootDocument";
-import { siteMetadata, siteViewport } from "../lib/site-metadata";
+import { buildSiteMetadata, siteViewport } from "../lib/site-metadata";
 import "../globals.css";
 
-export const metadata: Metadata = siteMetadata;
+export const metadata: Metadata = buildSiteMetadata("en");
 export const viewport: Viewport = siteViewport;
 
 type RootLayoutProps = {
@@ -13,7 +13,7 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <RootDocument lang="en" skipLinkLabel="Skip to main content">
+    <RootDocument locale="en">
       {children}
     </RootDocument>
   );

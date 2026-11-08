@@ -5,15 +5,17 @@ import styles from "./TopNavigation.module.css";
 type TopNavigationProps = {
   items: ReadonlyArray<NavigationItem>;
   ariaLabel: string;
+  // Home page of the current locale, linked from the brand mark.
+  homeHref: string;
   // href of the page being shown, marked with aria-current.
   current?: string;
 };
 
-export function TopNavigation({ items, ariaLabel, current }: TopNavigationProps) {
+export function TopNavigation({ items, ariaLabel, homeHref, current }: TopNavigationProps) {
   return (
     <nav className={styles.nav} aria-label={ariaLabel}>
       <div className={styles.navInner}>
-        <Link href="/" className={styles.brand}>
+        <Link href={homeHref} className={styles.brand}>
           <span aria-hidden className={styles.brandMark} />
           <span>
             Victor Demin<span aria-hidden className={styles.brandDot}>.</span>

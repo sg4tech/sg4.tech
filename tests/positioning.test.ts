@@ -10,6 +10,8 @@ import { describe, expect, it } from "vitest";
 const positioningSurfaces = [
   ["app", "(en)", "page.tsx"],
   ["app", "lib", "brand.ts"],
+  // Shared UI strings: footer fine print, byline, blog CTA label.
+  ["app", "lib", "i18n", "en.ts"],
   ["app", "(en)", "layout.tsx"],
   ["app", "(en)", "opengraph-image.tsx"],
   ["app", "components", "BlogCta.tsx"],

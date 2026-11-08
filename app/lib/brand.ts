@@ -1,4 +1,4 @@
-import type { FooterDisclaimer, FooterLink, LegalLink } from "./navigation";
+import type { FooterLink } from "./navigation";
 import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-icons";
 
 // Single source of truth for the brand's canonical site URL and short name.
@@ -9,44 +9,10 @@ export const SITE_URL = "https://sg4.tech";
 export const BRAND_NAME = "sg4.tech";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/victor-demin/";
 
-export const BRAND_COPYRIGHT = "© 2026 Victor Demin";
-
-// Short proximate disclaimer rendered directly under the quantified stat blocks
-// on the landings (home hero, /yii2, /ai-vibecoding). Complements — does not
-// replace — the fuller "Results" fine print in the footer: proximity to the
-// claim is what makes the disclosure effective. Single source so all three read
-// identically.
-export const RESULTS_CAPTION =
-  "Historical results from specific roles and projects. Actual outcomes vary and are not guaranteed.";
-
 export const footerLinks: FooterLink[] = [
   { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },
   { label: "LinkedIn", href: LINKEDIN_URL, iconPath: LINKEDIN_SVG_PATH },
   { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: TELEGRAM_SVG_PATH }
-];
-
-// Internal legal links surfaced in the footer alongside the social row. Kept as
-// trailing-slash paths to match next.config trailingSlash: true (the slash-less
-// form 301-redirects, so linking the final URL avoids a redirect hop).
-export const legalLinks: LegalLink[] = [{ label: "Privacy", href: "/privacy/" }];
-
-// Site-wide fine-print disclaimers rendered at the foot of every page. Kept as
-// footer fine print (not a standalone page) on purpose — light-touch legal
-// cover for the quantified case results, the informational blog content, and
-// the third-party logos/employer references shown across the site.
-export const footerDisclaimers: FooterDisclaimer[] = [
-  {
-    label: "Results",
-    body: "Results shown on this website are historical examples from specific roles and projects. They do not guarantee similar outcomes for future clients. Actual results depend on the organization, team, product, starting conditions, available data, and implementation."
-  },
-  {
-    label: "Professional information",
-    body: "Materials published on this website are provided for general informational purposes. They do not constitute technical, security, legal, financial, or other professional advice for any particular situation."
-  },
-  {
-    label: "Trademarks",
-    body: "Company names, logos, and trademarks belong to their respective owners. References to former employers and clients describe Victor Demin's professional experience and do not imply endorsement, partnership, or current affiliation."
-  }
 ];
 
 // Canonical entity facts for Victor Demin — the single source of truth for the
@@ -56,11 +22,6 @@ export const footerDisclaimers: FooterDisclaimer[] = [
 // Keep in sync with public/llms.txt.
 export const VICTOR_NAME = "Victor Demin";
 const VICTOR_JOB_TITLE = "Software engineer & engineering leader";
-
-// Display tagline under the name in the "Why me" identity card on every landing.
-// Distinct from VICTOR_JOB_TITLE (the schema's terse jobTitle) — this is the
-// human-facing one-liner. Single source so all three landings read identically.
-export const VICTOR_ROLE_LINE = "Hands-on software engineer & engineering leader";
 
 // Portrait shown in the "Why me" / trust block on every landing AND referenced as
 // Person.image in the JSON-LD below — one path so the rendered photo and the

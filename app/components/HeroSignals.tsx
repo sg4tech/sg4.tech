@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { getDictionary } from "../lib/i18n/dictionary";
+import type { Locale } from "../lib/i18n/locales";
 import { BrandIcon } from "./BrandIcon";
 import styles from "./HeroSignals.module.css";
 
@@ -18,8 +20,8 @@ export type HeroSignal = {
 };
 
 type HeroSignalsProps = {
+  locale: Locale;
   signals: HeroSignal[];
-  ariaLabel?: string;
   className?: string;
 };
 
@@ -28,10 +30,10 @@ type HeroSignalsProps = {
  * a client logo, a brand-icon link, or a plain label. Shared across all three
  * landing heroes so the trust row stays identical and edits land in one place.
  */
-export function HeroSignals({ signals, ariaLabel = "Selected credibility signals", className }: HeroSignalsProps) {
+export function HeroSignals({ locale, signals, className }: HeroSignalsProps) {
   const cls = [styles.signals, className].filter(Boolean).join(" ");
   return (
-    <div className={cls} aria-label={ariaLabel}>
+    <div className={cls} aria-label={getDictionary(locale).proof.heroSignalsAriaLabel}>
       {signals.map((item) => {
         const inner = (
           <>

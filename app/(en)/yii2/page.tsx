@@ -432,7 +432,7 @@ function HeroMetricList() {
           </li>
         ))}
       </ul>
-      <ResultsCaption />
+      <ResultsCaption locale="en" />
     </>
   );
 }
@@ -470,7 +470,7 @@ function HeroSection() {
             </div>
           </div>
           <div className={landing.heroAside}>
-            <HeroSignals signals={heroSignals} />
+            <HeroSignals locale="en" signals={heroSignals} />
             <HeroMetricList />
           </div>
         </div>
@@ -539,7 +539,7 @@ function LeversSection() {
 
 function TrustSection() {
   return (
-    <WhyMeSection
+    <WhyMeSection locale="en"
       intro="Not an outside advisor in theory, but an operator-level engineering leader who has fixed delivery systems inside real companies, repeatedly and hands-on."
       points={whyMePoints}
     />
@@ -630,7 +630,7 @@ export default function Yii2Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav current="/yii2/" />
+      <SiteNav locale="en" current="/yii2/" />
       <HeroSection />
       <TransformationSection />
       <ProblemSection />
@@ -638,9 +638,9 @@ export default function Yii2Page() {
       <TrustSection />
       <ProcessSection />
       <ProofSection />
-      <FaqSection items={faqItems} />
+      <FaqSection locale="en" items={faqItems} />
       <FinalCtaSection />
-      <SiteFooter />
+      <SiteFooter locale="en" />
     </Page>
   );
 }

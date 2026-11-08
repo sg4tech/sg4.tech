@@ -1,3 +1,8 @@
+import { getDictionary } from "./i18n/dictionary";
+import { localizePath, type Locale, type SitePath } from "./i18n/locales";
+import type { SiteDictionary } from "./i18n/types";
+import { createLookup } from "./lookup";
+
 export type NavigationItem = {
   href: string;
   label: string;
@@ -17,19 +22,29 @@ export type LegalLink = {
   href: string;
 };
 
-// Fine-print legal disclaimers rendered as small muted text at the foot of every
-// page. `label` is the bold lead-in; `body` is the running text after it.
-export type FooterDisclaimer = {
-  label: string;
-  body: string;
-};
+type NavigationKey = SiteDictionary["navigation"]["items"][number]["key"];
+
+// Where each menu item points and how it behaves on phones. Labels and their
+// order come from the locale's dictionary.
+const getNavigationRoute = createLookup<NavigationKey, { path: SitePath; mobileNav: NavigationItem["mobileNav"] }>({
+  home: { path: "/", mobileNav: "primary" },
+  blog: { path: "/blog/", mobileNav: "primary" },
+  yii2: { path: "/yii2/", mobileNav: "secondary" },
+  "ai-vibecoding": { path: "/ai-vibecoding/", mobileNav: "secondary" }
+});
 
 // The one site menu, rendered on every page via <SiteNav />. Navigation only:
 // pages, no in-page anchors and no Contact (each page has its own CTAs).
 // "secondary" items are hidden on phones, where four pills do not fit.
-export const siteNavigationItems: NavigationItem[] = [
-  { href: "/", label: "Home", mobileNav: "primary" },
-  { href: "/blog/", label: "Blog", mobileNav: "primary" },
-  { href: "/yii2/", label: "Yii2", mobileNav: "secondary" },
-  { href: "/ai-vibecoding/", label: "AI vibecoding", mobileNav: "secondary" }
-];
+export function getSiteNavigationItems(locale: Locale): NavigationItem[] {
+  return getDictionary(locale).navigation.items.map(({ key, label }) => {
+    const route = getNavigationRoute(key);
+    return { href: localizePath(locale, route.path), label, mobileNav: route.mobileNav };
+  });
+}
+
+// Internal legal/utility links in the footer. Trailing-slash paths match
+// next.config trailingSlash: true (the slash-less form 301-redirects).
+export function getLegalLinks(locale: Locale): LegalLink[] {
+  return [{ label: getDictionary(locale).footer.privacyLabel, href: localizePath(locale, "/privacy/") }];
+}

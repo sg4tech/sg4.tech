@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <Page>
-      <SiteNav />
+      <SiteNav locale="en" />
       <Section className={styles.article}>
         <Link href="/" className={styles.backLink}>
           ← Home
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
         <p className={styles.updated}>Last updated: 12 July 2026</p>
         <PrivacyBody />
       </Section>
-      <SiteFooter />
+      <SiteFooter locale="en" />
     </Page>
   );
 }

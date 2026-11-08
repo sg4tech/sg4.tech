@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
-import { VICTOR_NAME, VICTOR_PHOTO_PATH, VICTOR_ROLE_LINE } from "../lib/brand";
+import { VICTOR_NAME, VICTOR_PHOTO_PATH } from "../lib/brand";
+import { getDictionary } from "../lib/i18n/dictionary";
+import type { Locale } from "../lib/i18n/locales";
 import landing from "../styles/landing.module.css";
 import { Icon } from "./Icon";
 import { Section } from "./Section";
@@ -19,6 +21,7 @@ export type WhyMePoint = {
 };
 
 type WhyMeSectionProps = {
+  locale: Locale;
   // Per-landing pitch. The heading ("Why me") and the identity card (photo,
   // name, role) are fixed here so every landing presents the founder
   // identically — only the intro and the proof points differ.
@@ -27,10 +30,11 @@ type WhyMeSectionProps = {
   points: WhyMePoint[];
 };
 
-export function WhyMeSection({ intro, introClassName, points }: WhyMeSectionProps) {
+export function WhyMeSection({ locale, intro, introClassName, points }: WhyMeSectionProps) {
+  const { whyMe } = getDictionary(locale);
   return (
     <Section id="why-me">
-      <SectionHeader title="Why me" intro={intro} introClassName={introClassName} />
+      <SectionHeader title={whyMe.heading} intro={intro} introClassName={introClassName} />
       <div className={`${landing.whyGrid} ${landing.whySurface}`}>
         <div className={landing.profileCard}>
           <Image
@@ -42,7 +46,7 @@ export function WhyMeSection({ intro, introClassName, points }: WhyMeSectionProp
             unoptimized
           />
           <p className={landing.profileName}>{VICTOR_NAME}</p>
-          <p className={landing.profileRole}>{VICTOR_ROLE_LINE}</p>
+          <p className={landing.profileRole}>{whyMe.roleLine}</p>
         </div>
         <div className={landing.profileBody}>
           <ul className={landing.iconList}>

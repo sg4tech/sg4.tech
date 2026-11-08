@@ -104,7 +104,7 @@ function ArticleBody() {
 
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <BlogPostLayout locale="en"
       slug={SLUG}
       eyebrow="AI vibecoding"
       lede={<ArticleLede />}

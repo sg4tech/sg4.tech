@@ -1,6 +1,8 @@
 import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
+import { getDictionary } from "../lib/i18n/dictionary";
+import { getLocaleConfig, type Locale } from "../lib/i18n/locales";
 
 // Brand typeface (Victor Demin Design System v2): Hanken Grotesk carries
 // display + body + UI; JetBrains Mono is reserved for code/technical strings.
@@ -18,20 +20,19 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 type RootDocumentProps = {
-  lang: string;
-  skipLinkLabel: string;
+  locale: Locale;
   children: ReactNode;
 };
 
 // The one <html> shell. Every root layout (one per locale) and the global 404
 // render through it, so fonts and analytics stay identical. Each of those root
 // files imports app/globals.css itself — shared components stay style-agnostic.
-export function RootDocument({ lang, skipLinkLabel, children }: RootDocumentProps) {
+export function RootDocument({ locale, children }: RootDocumentProps) {
   return (
-    <html lang={lang} className={`${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang={getLocaleConfig(locale).htmlLang} className={`${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a href="#main" className="skip-link">
-          {skipLinkLabel}
+          {getDictionary(locale).document.skipLink}
         </a>
         {children}
         <Script

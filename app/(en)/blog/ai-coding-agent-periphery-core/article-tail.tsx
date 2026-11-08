@@ -41,7 +41,7 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta heading="Running agents on real work?" href={CTA_HREF}>
+    <BlogCta locale="en" heading="Running agents on real work?" href={CTA_HREF}>
       The first call is 30 minutes on Telegram. Tell me how your team and agents work today, and
       I&apos;ll help you find the line between what to hand the agent and what to keep on the core.
     </BlogCta>
@@ -49,5 +49,5 @@ export function ArticleCta(): ReactNode {
 }
 
 export function ArticleRelated(): ReactNode {
-  return <BlogRelated links={relatedLinks} />;
+  return <BlogRelated locale="en" links={relatedLinks} />;
 }

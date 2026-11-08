@@ -26,7 +26,7 @@ describe("homepage Insights block", () => {
 
   it("lists the latest posts from the blog data", () => {
     expect(section).toContain("getLatestPosts(3)");
-    expect(section).toContain("formatPostDate(post.publishedAt)");
+    expect(section).toContain('formatPostDate(post.publishedAt, "en")');
   });
 
   it("links to the blog index with the approved label", () => {

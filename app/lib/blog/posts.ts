@@ -1,3 +1,5 @@
+import { getLocaleConfig, type Locale } from "../i18n/locales";
+
 // Single source of truth for blog posts. Referenced by:
 // - /blog index page (post list)
 // - /blog/[slug] page metadata (title, description, dates)
@@ -126,14 +128,13 @@ export function getPostBySlug(slug: PostSlug): BlogPost {
   return post;
 }
 
-// Formats an ISO-8601 YYYY-MM-DD date string as "Month D, YYYY" without
-// pulling in a date library. Centralized here to avoid the previous shape
-// where every page that rendered a post date had its own copy.
-export function formatPostDate(iso: string): string {
+// Formats an ISO-8601 YYYY-MM-DD date string as a long, locale-native date
+// ("May 22, 2026" in English) without pulling in a date library. Centralized
+// here so every page that renders a post date formats it the same way.
+export function formatPostDate(iso: string, locale: Locale): string {
   const [year, month, day] = iso.split("-").map((part) => Number.parseInt(part, 10));
-  const monthName = new Date(Date.UTC(year, month - 1, day)).toLocaleString("en-US", {
-    month: "long",
+  return new Intl.DateTimeFormat(getLocaleConfig(locale).intlTag, {
+    dateStyle: "long",
     timeZone: "UTC"
-  });
-  return `${monthName} ${day}, ${year}`;
+  }).format(new Date(Date.UTC(year, month - 1, day)));
 }

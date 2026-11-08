@@ -155,7 +155,7 @@ function ArticleBody() {
   return (
     <div className={styles.body}>
       <IntroSection />
-      <ArticleToc items={tocItems} />
+      <ArticleToc locale="en" items={tocItems} />
       <SectionSymptoms />
       <SectionDecomposeT2M />
       <SectionLeadTimeCycleTime />
@@ -175,7 +175,7 @@ function ArticleBody() {
 
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <BlogPostLayout locale="en"
       slug={SLUG}
       eyebrow="Engineering delivery"
       lede={<ArticleLede />}

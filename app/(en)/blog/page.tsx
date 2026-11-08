@@ -7,6 +7,7 @@ import { SectionHeader } from "../../components/SectionHeader";
 import { SiteNav } from "../../components/SiteNav";
 import { BRAND_NAME, personSchema, SITE_URL } from "../../lib/brand";
 import { blogPosts, formatPostDate, getLatestPosts } from "../../lib/blog/posts";
+import { getDictionary } from "../../lib/i18n/dictionary";
 import styles from "./page.module.css";
 
 const structuredData = {
@@ -61,6 +62,7 @@ export const metadata: Metadata = {
 
 export default function BlogIndexPage() {
   const posts = getLatestPosts();
+  const { blog } = getDictionary("en");
 
   return (
     <Page>
@@ -68,7 +70,7 @@ export default function BlogIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav current="/blog/" />
+      <SiteNav locale="en" current="/blog/" />
       <Section className={styles.intro}>
         <SectionHeader
           level="h1"
@@ -81,14 +83,14 @@ export default function BlogIndexPage() {
               <Link href={`/blog/${post.slug}/`} className={styles.card}>
                 <p className={styles.meta}>
                   <span className={styles.metaItem}>
-                    <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time>
+                    <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt, "en")}</time>
                   </span>
-                  <span className={styles.metaItem}>{post.readingMinutes} min read</span>
+                  <span className={styles.metaItem}>{blog.readingTime(post.readingMinutes)}</span>
                 </p>
                 <h2 className={styles.title}>{post.title}</h2>
                 <p className={styles.description}>{post.description}</p>
                 {post.tags.length > 0 ? (
-                  <ul className={styles.tags} aria-label="Tags">
+                  <ul className={styles.tags} aria-label={blog.tagsAriaLabel}>
                     {post.tags.map((tag) => (
                       <li key={tag} className={styles.tag}>
                         {tag}
@@ -101,7 +103,7 @@ export default function BlogIndexPage() {
           ))}
         </ul>
       </Section>
-      <SiteFooter />
+      <SiteFooter locale="en" />
     </Page>
   );
 }

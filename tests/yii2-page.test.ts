@@ -62,7 +62,7 @@ const requiredCopy = [
   "cta_click",
 
   // Home is reachable through the shared site menu (Home + logo)
-  '<SiteNav current="/yii2/" />'
+  '<SiteNav locale="en" current="/yii2/" />'
 ];
 
 describe("yii2 landing page", () => {

@@ -35,6 +35,7 @@ import { SiteNav } from "../components/SiteNav";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
 import { formatPostDate, getLatestPosts } from "../lib/blog/posts";
+import { getDictionary } from "../lib/i18n/dictionary";
 import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL, VICTOR_SAME_AS } from "../lib/brand";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import styles from "./page.module.css";
@@ -330,7 +331,7 @@ function HeroSection() {
       <div className={styles.heroLayout}>
         <div>
           <h1>I build systems that work.</h1>
-          <HeroSignals signals={heroSignals} className={styles.heroSignals} />
+          <HeroSignals locale="en" signals={heroSignals} className={styles.heroSignals} />
         </div>
         <div className={styles.heroSecondary}>
           <p className={styles.heroLead}>
@@ -367,7 +368,7 @@ function HeroSection() {
             );
           })}
         </ul>
-        <ResultsCaption />
+        <ResultsCaption locale="en" />
       </div>
     </section>
   );
@@ -432,7 +433,7 @@ function ResultsSection() {
 
 function TrustSection() {
   return (
-    <WhyMeSection
+    <WhyMeSection locale="en"
       intro="I write the code, lead the work, and stay until it runs in production."
       points={trustPoints}
     />
@@ -527,8 +528,8 @@ function InsightsSection() {
           <li key={post.slug} className={styles.latestPostItem}>
             <Link href={`/blog/${post.slug}/`} className={styles.latestPost}>
               <span className={styles.latestPostMeta}>
-                <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time> ·{" "}
-                {post.readingMinutes} min read
+                <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt, "en")}</time> ·{" "}
+                {getDictionary("en").blog.readingTime(post.readingMinutes)}
               </span>
               <span className={styles.latestPostTitle}>
                 {titleHead(post.title)}
@@ -576,7 +577,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav current="/" />
+      <SiteNav locale="en" current="/" />
       <HeroSection />
       <ProblemSection />
       <TrustSection />
@@ -585,9 +586,9 @@ export default function HomePage() {
       <FitSection />
       <SpecializationSection />
       <InsightsSection />
-      <FaqSection items={faqItems} />
+      <FaqSection locale="en" items={faqItems} />
       <FinalCtaSection />
-      <SiteFooter />
+      <SiteFooter locale="en" />
     </Page>
   );
 }

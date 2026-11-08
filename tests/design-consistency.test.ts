@@ -363,7 +363,7 @@ describe("one site menu", () => {
     ["blog index", ["blog", "page.tsx"]]
   ])("%s renders the shared SiteNav", (_name, parts) => {
     const page = read("app", "(en)", ...parts);
-    expect(page).toMatch(/<SiteNav current="\/[^"]*" \/>/);
+    expect(page).toMatch(/<SiteNav locale="en" current="\/[^"]*" \/>/);
     expect(page).not.toContain("<TopNavigation");
     expect(page).not.toContain("navigationItems");
   });

@@ -1,23 +1,28 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { VICTOR_NAME, VICTOR_PHOTO_PATH } from "../lib/brand";
 import { formatPostDate } from "../lib/blog/posts";
+import { getDictionary } from "../lib/i18n/dictionary";
+import type { Locale } from "../lib/i18n/locales";
 import styles from "./BlogPostHeader.module.css";
 
 type BlogPostHeaderProps = {
+  locale: Locale;
   title: string;
   publishedAt: string;
   readingMinutes: number;
   lede: ReactNode;
 };
 
-export function BlogPostHeader({ title, publishedAt, readingMinutes, lede }: BlogPostHeaderProps) {
+export function BlogPostHeader({ locale, title, publishedAt, readingMinutes, lede }: BlogPostHeaderProps) {
+  const { blog } = getDictionary(locale);
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.byline}>
         <Image
-          src="/brand/victor-demin.jpg"
-          alt="Victor Demin"
+          src={VICTOR_PHOTO_PATH}
+          alt={VICTOR_NAME}
           width={40}
           height={40}
           className={styles.bylineAvatar}
@@ -25,13 +30,13 @@ export function BlogPostHeader({ title, publishedAt, readingMinutes, lede }: Blo
         />
         <div className={styles.bylineMeta}>
           <p className={styles.bylineBio}>
-            <span className={styles.bylineName}>Victor Demin</span>
-            {" has 15+ years helping engineering organizations improve delivery speed, predictability, and system health."}
+            <span className={styles.bylineName}>{VICTOR_NAME}</span>
+            {blog.bylineBio}
           </p>
           <p className={styles.bylineDate}>
-            <time dateTime={publishedAt}>{formatPostDate(publishedAt)}</time>
+            <time dateTime={publishedAt}>{formatPostDate(publishedAt, locale)}</time>
             {" · "}
-            {readingMinutes} min read
+            {blog.readingTime(readingMinutes)}
           </p>
         </div>
       </div>

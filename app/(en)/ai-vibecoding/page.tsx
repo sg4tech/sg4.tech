@@ -392,7 +392,7 @@ function HeroSection() {
               I find what&apos;s missing, build it, and leave you with a codebase that ships without me.
             </p>
             <p className={landing.heroOutcome}>So you can ship without fear of breaking what works.</p>
-            <HeroSignals signals={heroSignals} />
+            <HeroSignals locale="en" signals={heroSignals} />
             <HeroMetricList />
             <div className={landing.actions}>
               <Button
@@ -477,7 +477,7 @@ const whyMePoints: WhyMePoint[] = [
             <span className={styles.outcomeChip}>eNPS −100→100</span>
           </div>
         </div>
-        <ResultsCaption tone="onDark" />
+        <ResultsCaption locale="en" tone="onDark" />
       </div>
     )
   },
@@ -499,7 +499,7 @@ const whyMePoints: WhyMePoint[] = [
 
 function TrustSection() {
   return (
-    <WhyMeSection
+    <WhyMeSection locale="en"
       intro="I don't replace your AI. I build the system around it. Same pattern as the startup-mode codebases I've cleaned up for years — different generator, same fix."
       introClassName={styles.introWide}
       points={whyMePoints}
@@ -591,7 +591,7 @@ export default function AiVibecodingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav current="/ai-vibecoding/" />
+      <SiteNav locale="en" current="/ai-vibecoding/" />
       <HeroSection />
       <ProblemSection />
       <GuardrailsSection />
@@ -599,9 +599,9 @@ export default function AiVibecodingPage() {
       <ProcessSection />
       <WhoNotForSection />
       <FeaturedEssaySection />
-      <FaqSection items={faqItems} />
+      <FaqSection locale="en" items={faqItems} />
       <FinalCtaSection />
-      <SiteFooter />
+      <SiteFooter locale="en" />
     </Page>
   );
 }

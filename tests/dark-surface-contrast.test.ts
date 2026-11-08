@@ -108,7 +108,7 @@ describe("/ai-vibecoding 'Why me' panel contrast", () => {
   });
 
   it("renders the results caption in its dark-panel tone", () => {
-    expect(read("app", "(en)", "ai-vibecoding", "page.tsx")).toContain('<ResultsCaption tone="onDark" />');
+    expect(read("app", "(en)", "ai-vibecoding", "page.tsx")).toContain('<ResultsCaption locale="en" tone="onDark" />');
   });
 });
 
