@@ -61,8 +61,8 @@ const requiredCopy = [
   "https://t.me/sg4tech?start=site_yii2_final",
   "cta_click",
 
-  // Home link from the dedicated page
-  'href="/"'
+  // Home is reachable through the shared site menu (Home + logo)
+  '<SiteNav current="/yii2/" />'
 ];
 
 describe("yii2 landing page", () => {

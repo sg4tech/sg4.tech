@@ -21,35 +21,6 @@
   color: var(--muted);
 }
 
-/* ─── Back link ────────────────────────────────────────────────────────────── */
-
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding-block: var(--tap-pad);
-  margin-block: calc(-1 * var(--tap-pad)) calc(var(--space-3) - var(--tap-pad));
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-base);
-  transition: color var(--duration-base) var(--ease-standard);
-}
-
-.backLinkArrow {
-  display: inline-block;
-  transition: transform var(--duration-base) var(--ease-standard);
-}
-
-.backLink:hover,
-.backLink:focus-visible {
-  color: var(--text-strong);
-}
-
-.backLink:hover .backLinkArrow,
-.backLink:focus-visible .backLinkArrow {
-  transform: translateX(-2px);
-}
-
 /* ─── Hero panel & layout ──────────────────────────────────────────────────── */
 
 .heroPanel {

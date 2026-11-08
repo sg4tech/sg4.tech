@@ -178,7 +178,6 @@ describe("layout batch: tap targets and alignment", () => {
   // Small text links get a 44px-tall hit area through padding, cancelled by a
   // matching negative margin, so the visible layout does not move.
   it.each([
-    ["landing back link", landing, ".backLink"],
     ["blog back link", blog, ".backLink"],
     ["privacy back link", privacy, ".backLink"],
     ["footer legal link", read("app", "components", "FooterSection.module.css"), ".footerLegalLink"]
@@ -268,6 +267,24 @@ describe("homepage specialized offers", () => {
   it("sets the offer cards in two columns on wide screens", () => {
     const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.specializationGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  });
+});
+
+describe("no duplicate navigation on the landings", () => {
+  // The shared menu has Home on every page, so a "Back to main page" link
+  // under it on the landings only repeated it.
+  it.each([["yii2"], ["ai-vibecoding"]])("/%s drops the back link", (page) => {
+    expect(read("app", page, "page.tsx")).not.toContain("Back to main page");
+  });
+
+  it("removes the back-link styles from the shared landing stylesheet", () => {
+    expect(read("app", "styles", "landing.module.css")).not.toContain(".backLink");
+  });
+
+  it("drops the repeated 'Dedicated page' label from the offer cards", () => {
+    const page = read("app", "page.tsx");
+    expect(page).not.toContain("Dedicated page");
+    expect(read("app", "page.module.css")).not.toContain(".specializationLabel");
   });
 });
 

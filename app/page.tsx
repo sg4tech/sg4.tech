@@ -488,7 +488,6 @@ function SpecializationSection() {
       <div className={styles.specializationGrid}>
         {specializationLinks.map((link) => (
           <Link key={link.href} href={link.href} className={styles.specializationCard}>
-            <span className={styles.specializationLabel}>Dedicated page</span>
             <span className={styles.specializationTitle}>{link.title}</span>
             <span className={styles.specializationDescription}>{link.description}</span>
             <Icon icon={ArrowRight} className={styles.specializationArrow} />

@@ -376,10 +376,6 @@ function HeroMetricList() {
 function HeroSection() {
   return (
     <section className={landing.hero}>
-      <Link href="/" className={landing.backLink}>
-        <span aria-hidden="true" className={landing.backLinkArrow}>←</span>
-        Back to main page
-      </Link>
       <div className={landing.heroPanel}>
         <div className={landing.heroLayout}>
           <div className={landing.heroMain}>
