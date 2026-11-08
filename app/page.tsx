@@ -379,17 +379,17 @@ function ProblemSection() {
       <SectionHeader title="The product sells. The software can't keep up." />
       <div className={styles.stageGrid}>
         {stageProblems.map((stage) => (
-          <article key={stage.title} className={styles.card}>
-            <h3 className={styles.cardHeading}>
-              <Icon icon={stage.icon} className={styles.cardHeadingIcon} />
+          <article key={stage.title} className={styles.stageItem}>
+            <h3 className={styles.stageKicker}>
+              <Icon icon={stage.icon} className={styles.stageKickerIcon} />
               {stage.title}
             </h3>
-            <MarkList items={stage.points} />
-            <p className={styles.cardNote}>{stage.closing}</p>
+            <p className={styles.stageStatement}>{stage.closing}</p>
+            <MarkList items={stage.points} className={styles.stageSymptoms} />
           </article>
         ))}
       </div>
-      <div className={styles.callout}>
+      <div className={styles.problemQuote}>
         <p>Hiring more people rarely fixes it.</p>
         <p>The fix is in how the software is built and shipped — and that&apos;s what I do.</p>
       </div>
