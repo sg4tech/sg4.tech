@@ -19,8 +19,10 @@
 
   /* Two-tone headline: the setup clause is muted so the eye lands on the
      payoff (which keeps the strong ink). Tonal contrast only — ember stays
-     reserved for the action layer (stats + CTA). */
+     reserved for the action layer (stats + CTA). The lead-in is its own
+     block, balanced on its own, so a line never starts muted and ends strong. */
   .heroLeadIn {
+    display: block;
     color: var(--muted);
   }
 
@@ -51,7 +53,7 @@
     margin: 0.6rem 0 0;
     color: var(--text-strong);
     font-size: var(--text-hero-action);
-    font-weight: 700;
+    font-weight: var(--weight-display);
     line-height: var(--leading-snug);
     letter-spacing: -0.025em;
     text-wrap: balance;

@@ -41,7 +41,7 @@
     margin: 0;
     color: var(--white);
     font-size: var(--text-h2);
-    font-weight: 800;
+    font-weight: var(--weight-figure);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
     text-wrap: balance;

@@ -23,7 +23,7 @@ export default {
           "app/globals.css",
           {
             customProperties: {
-              "--font-hanken": "",
+              "--font-brand": "",
               "--font-jetbrains-mono": "",
             },
           },
