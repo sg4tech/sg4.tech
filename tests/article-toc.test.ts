@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getDictionary } from "@/app/lib/i18n/dictionary";
 
-const dir = join(process.cwd(), "app", "blog", "diagnose-broken-engineering-delivery");
+const dir = join(process.cwd(), "app", "(en)", "blog", "diagnose-broken-engineering-delivery");
 const read = (file: string) => readFileSync(join(dir, file), "utf8");
 const unescape = (s: string) => s.replace(/&apos;/g, "'").replace(/\s+/g, " ").trim();
 
@@ -28,11 +29,12 @@ describe("diagnose post table of contents", () => {
   });
 
   it("renders the contents after the intro", () => {
-    expect(page).toMatch(/<IntroSection \/>\s*<ArticleToc items=\{tocItems\} \/>\s*<SectionSymptoms \/>/);
+    expect(page).toMatch(/<IntroSection \/>\s*<ArticleToc post="diagnose-broken-engineering-delivery" items=\{tocItems\} \/>\s*<SectionSymptoms \/>/);
   });
 
   it("labels the list with the approved heading", () => {
-    expect(readFileSync(join(process.cwd(), "app", "components", "ArticleToc.tsx"), "utf8")).toContain(">Contents<");
+    expect(getDictionary("en").blog.tocHeading).toBe("Contents");
+    expect(readFileSync(join(process.cwd(), "app", "components", "ArticleToc.tsx"), "utf8")).toContain(">{getDictionary(getPostBySlug(post).locale).blog.tocHeading}<");
   });
 });
 

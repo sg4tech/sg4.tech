@@ -11,16 +11,17 @@
 
 ## Pages
 
-- [Homepage](https://sg4.tech/): Software engineering and technical leadership overview — problem framing across early/growth/scale stages, three-step solution (constraint identification, flow rebuild, AI acceleration), case studies, process, fit criteria, FAQ.
+- [Homepage](https://sg4.tech/): Hands-on software engineering and technical leadership for founders and product companies (B2B / SaaS / platforms) — problems by stage (early traction, growth, scale), anonymized results from past roles, a four-step way of working (review, build, ship & stabilize, grow with the product), fit criteria, specialized offers, latest writing, FAQ.
 - [Yii2 development](https://sg4.tech/yii2/): Dedicated landing for Yii2 projects — release predictability, quality guardrails, CI/CD, monitoring, delivery acceleration without defaulting to a rewrite.
 - [AI vibecoding cleanup](https://sg4.tech/ai-vibecoding/): For founders with AI-built MVPs that have stopped shipping — adds the five delivery-system layers AI doesn't generate: architecture rules, pipeline guardrails, test coverage, code-level checks, and AI-workflow discipline.
 - [Blog](https://sg4.tech/blog/): Index of long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.
+- [Blog RSS feed](https://sg4.tech/blog/feed.xml): RSS 2.0 feed of all blog posts, newest first.
 
 ## Articles
 
 - [How to diagnose where engineering delivery is actually broken](https://sg4.tech/blog/diagnose-broken-engineering-delivery/) — an engineering leader's metrics playbook: decomposing T2M into Lead Time and Cycle Time, the WIP variable, Little's Law (Lead Time = WIP / Throughput), the count-tasks-per-status diagnostic, the lever of WIP limits, and how to introduce them without team revolt. Covers the speed × value × sustainability frame (T2M, Throughput, Quality, NPS, eNPS). Operator voice, ~4500 words, with FAQ.
 
-  Key claims from the article (safe to quote directly):
+  Key points from the article (paraphrased — quote the article itself for exact wording):
   - Lead Time = WIP / Throughput (Little's Law, applied to software delivery)
   - T2M (Time to Market) = Discovery + Lead Time (Delivery)
   - Lead Time = Waiting + Cycle Time
@@ -33,7 +34,7 @@
 
 - [Average lead time is lying to you — how to forecast delivery with percentiles](https://sg4.tech/blog/forecast-delivery-with-percentiles/) — why the arithmetic mean misrepresents a delivery system, and how to forecast with median, spread, and percentiles instead. Operator voice, ~7-min read, with FAQ.
 
-  Key claims from the article (safe to quote directly):
+  Key points from the article (paraphrased — quote the article itself for exact wording):
   - The average lead time describes a system you don't have — a few slow outliers pull the mean far above what most tasks actually take (e.g. 9 tasks of ~1 day + 1 task of a month → average ≈ 4 days, but median ≈ 1 day).
   - The median is the typical (middle) task; comparing mean vs median reveals the spread — mean far above median signals queues/blockers, mean ≈ median signals a stable, predictable system.
   - Pick the delivery date from a percentile (p85 for routine, p95 when a miss is expensive), not the average — e.g. a distribution of P50=2d / P85=6d / P95=11d. Give stakeholders one flat date you'll actually hit, not a probability lecture.
@@ -43,7 +44,7 @@
 
 - [Your vibecoded MVP stopped shipping — like every junior-built codebase before it](https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/) — why AI-built MVPs stall after launch (the "vibe-coding hangover") and the rescue method: manage AI coding agents with the junior-developer practices the industry has used for decades. Operator voice, ~8-min read, with FAQ and a practice-mapping table.
 
-  Key claims from the article (safe to quote directly):
+  Key points from the article (paraphrased — quote the article itself for exact wording):
   - A vibecoded MVP stalls for the same reason a team of junior developers without a senior stalls: code gets written fast, nothing catches mistakes before production, and every next change quietly breaks the last one.
   - An AI coding agent is the fastest junior developer you've ever worked with: a feature in minutes, zero memory of past decisions, no fear of touching anything, no ownership of the outcome.
   - The discipline for managing AI agents already exists — the junior-developer practices: a conventions file (AGENTS.md / CLAUDE.md) as the onboarding doc, code review plus linter/type-checker gates, tests that block the merge, CI applied to agent output, monitoring, small scoped tasks, and review findings folded back into the rules file.
@@ -54,7 +55,7 @@
 
 - [AI made starting work nearly free. Finishing is still expensive.](https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/) — why AI-assisted teams start more work than ever and ship about the same: waiting queues, context limits, and Little's Law applied to agents; the case for one-thread-one-task and WIP limits in the AI era. Operator voice, ~7-min read, with FAQ and a metrics-mapping table.
 
-  Key claims from the article (safe to quote directly):
+  Key points from the article (paraphrased — quote the article itself for exact wording):
   - AI collapsed the cost of starting work; the cost of finishing — verification, integration, review, deployment — stayed almost unchanged. So teams start more than ever and ship about the same.
   - Humans lose focus, agents lose context — but it's the same failure: too much work in progress degrades the worker, whether the worker is made of neurons or tokens.
   - Little's Law (Lead Time = WIP / Throughput) doesn't care whether the workers are humans or AI agents: start more without finishing more, and every task lives longer.
@@ -68,9 +69,20 @@
   - Now that starting is nearly free, the winner isn't whoever launches the most — it's whoever finishes the most.
   - AI doesn't abolish systems thinking — it makes system errors more expensive: the bill arrives immediately, itemized, in dollars.
 
+- [AI coding agents: give them the periphery, keep humans on the core](https://sg4.tech/blog/ai-coding-agent-periphery-core/) — what to delegate to AI coding agents and what to keep with humans, plus how companies get past the security barrier by running agents inside their own perimeter. Operator voice, ~5-min read, with FAQ.
+
+  Key points from the article (paraphrased — quote the article itself for exact wording):
+  - The periphery-vs-core rule: agents cover the periphery around development — routine work, supporting tasks, navigating unfamiliar code, artifacts — where volume is high and the cost of error is relatively low. The core, where the cost of error is measured in money and users, stays with humans.
+  - Where agents earn their place: getting up to speed on unfamiliar code and root-causing bugs, development-support tools nobody had time for, artifacts around the code (docs, UML, tests, TestRail cases), and reviews — about 50/50 between noise and useful catches so far.
+  - What agents shouldn't own: end-to-end development of anything that matters — money, blockchains, high-load systems, core architecture. Agents speed things up; they don't replace a senior developer.
+  - Inside a company, the barrier isn't the agent — it's approvals: security reviews, data exposure, platform ownership, governance.
+  - Nothing has to leave the building: an open-source model (e.g. Qwen) served through LiteLLM and vLLM as an OpenAI-compatible API, reachable only over the corporate VPN, with an IDE agent and MCP servers to Jira, GitLab, and Confluence — running on the developer's own credentials, with every action logged for audit.
+  - Agents don't need training or fine-tuning on your codebase; they read code, docs, tasks, and logs at run time, so access setup matters more than model tuning.
+  - Engineers used to spend hours searching for information and grinding through routine; now the main job is making the right engineering decision.
+
 - [Code entropy: how CI checks keep AI from piling up legacy](https://sg4.tech/blog/code-entropy-ci-checks-ai-legacy/) — why code complexity grows on its own (Lehman's law, 1974) and AI only speeds it up; seven levels of CI checks that hold it back, a tool table for Python, PHP, and JS/TS, and a ready-made Python template. Operator voice, ~6-min read, with FAQ and a tool table.
 
-  Key claims from the article (safe to quote directly):
+  Key points from the article (paraphrased — quote the article itself for exact wording):
   - A system's complexity increases unless work is done to reduce it (Lehman, 1974). AI didn't change that; it only made legacy pile up faster.
   - Seven levels of CI checks, cheapest first: dead code, linters and formatters, strict static analysis, unit tests with a coverage threshold, complexity and duplication limits, architecture boundaries, and written rules (AGENTS.md) as the last mile.
   - A coverage threshold constrains design: bad code is hard to unit-test, so testable code forces smaller units, explicit interfaces, dependency injection, and no global state.

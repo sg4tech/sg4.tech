@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { getDictionary } from "../lib/i18n/dictionary";
+import type { Locale } from "../lib/i18n/locales";
 import { FaqItem } from "./FaqItem";
 import { Section } from "./Section";
 import { SectionHeader } from "./SectionHeader";
@@ -16,6 +18,7 @@ export type FaqItemData = {
 };
 
 type FaqSectionProps = {
+  locale: Locale;
   items: ReadonlyArray<FaqItemData>;
   /**
    * Optional class applied to the wrapper div around the FAQ header + list.
@@ -29,11 +32,11 @@ type FaqSectionProps = {
   contentWrapperClassName?: string;
 };
 
-export function FaqSection({ items, contentWrapperClassName }: FaqSectionProps) {
+export function FaqSection({ locale, items, contentWrapperClassName }: FaqSectionProps) {
   return (
     <Section id="faq" aria-labelledby="faq-title">
       <div className={contentWrapperClassName}>
-        <SectionHeader title="FAQ" id="faq-title" />
+        <SectionHeader title={getDictionary(locale).faq.heading} id="faq-title" />
         <div className={styles.faqList}>
           {items.map((item) => (
             <FaqItem

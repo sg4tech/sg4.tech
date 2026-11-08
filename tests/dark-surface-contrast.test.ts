@@ -7,7 +7,9 @@ import { describe, expect, it } from "vitest";
 // token or rule change that drops contrast fails here instead of in review.
 
 const root = process.cwd();
-const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
+// Leading indentation dropped, so rules read the same whether or not a
+// stylesheet wraps them in a cascade layer block.
+const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8").replace(/^[ \t]+/gm, "");
 
 const WCAG_AA_SMALL_TEXT = 4.5;
 
@@ -84,7 +86,7 @@ function requiredDeclaration(css: string, selector: string, property: string): s
 const panel = parseColor(
   requiredDeclaration(read("app", "styles", "landing.module.css"), ".whySurface", "background")
 );
-const pageCss = read("app", "ai-vibecoding", "page.module.css");
+const pageCss = read("app", "views", "ai-vibecoding", "AiVibecodingView.module.css");
 const captionCss = read("app", "components", "ResultsCaption.module.css");
 
 function textContrast(css: string, selector: string): number {
@@ -108,7 +110,7 @@ describe("/ai-vibecoding 'Why me' panel contrast", () => {
   });
 
   it("renders the results caption in its dark-panel tone", () => {
-    expect(read("app", "ai-vibecoding", "page.tsx")).toContain('<ResultsCaption tone="onDark" />');
+    expect(read("app", "views", "ai-vibecoding", "AiVibecodingView.tsx")).toContain('<ResultsCaption locale={locale} tone="onDark" />');
   });
 });
 

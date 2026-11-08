@@ -9,7 +9,7 @@ export type StepItem = {
 type StepsVariant = "plain" | "card";
 
 type StepsProps = {
-  items: StepItem[];
+  items: ReadonlyArray<StepItem>;
   // plain → hairline dividers between steps (default); card → each step sits
   // in its own bordered card, for sections that need a stronger visual anchor.
   variant?: StepsVariant;

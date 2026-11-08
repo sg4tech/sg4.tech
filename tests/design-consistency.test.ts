@@ -1,15 +1,24 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { homeContent } from "@/app/(en)/content";
+import { writingChannelLinks } from "@/app/lib/brand";
+import { getSiteNavigationItems } from "@/app/lib/navigation";
+
+import { POST_SLUGS } from "@/app/lib/blog/posts";
 
 const root = process.cwd();
 const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
 
-const blogPostSlugs = readdirSync(join(root, "app", "blog"), { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name);
+// The post registry, not the folder listing: the blog folder also holds non-post
+// routes such as the RSS feed.
+const blogPostSlugs = POST_SLUGS;
 
 const landingPages = ["yii2", "ai-vibecoding"] as const;
+// Each landing renders through a shared view in app/views (copy per locale
+// lives next to the route), so structural checks read the view.
+const landingView = (page: (typeof landingPages)[number]) =>
+  page === "yii2" ? ["views", "yii2", "Yii2View.tsx"] : ["views", "ai-vibecoding", "AiVibecodingView.tsx"];
 
 describe("blog article headings", () => {
   it("finds the blog posts", () => {
@@ -20,7 +29,7 @@ describe("blog article headings", () => {
   // heading visibly narrower than the reading column. `pretty` fills the first
   // line and only guards against a lone last word.
   it.each(blogPostSlugs)("%s body h2 fills the reading column", (slug) => {
-    const css = read("app", "blog", slug, "page.module.css");
+    const css = read("app", "(en)", "blog", slug, "page.module.css");
     const h2Rule = css.split(".body h2 {")[1]?.split("}")[0] ?? "";
 
     expect(h2Rule).toContain("text-wrap: pretty;");
@@ -33,9 +42,9 @@ describe("landing 'How I work' section", () => {
   // pattern as the homepage — instead of a summary strip followed by cards
   // that repeat the same step titles.
   it.each(landingPages)("/%s renders its process steps once, via Steps", (page) => {
-    const tsx = read("app", page, "page.tsx");
+    const tsx = read("app", ...landingView(page));
 
-    expect(tsx).toContain('from "../components/Steps"');
+    expect(tsx).toMatch(/from "(\.\.\/)+components\/Steps"/);
     // Carded steps keep the landing's visual anchor while sharing the pattern.
     expect(tsx).toContain('<Steps\n        variant="card"');
     expect(tsx).not.toContain("processVisual");
@@ -44,9 +53,9 @@ describe("landing 'How I work' section", () => {
 
   // Bare browser disc bullets read as unstyled; MarkList carries the DS marker.
   it.each(landingPages)("/%s uses MarkList instead of bare bullet lists", (page) => {
-    const tsx = read("app", page, "page.tsx");
+    const tsx = read("app", ...landingView(page));
 
-    expect(tsx).toContain('from "../components/MarkList"');
+    expect(tsx).toMatch(/from "(\.\.\/)+components\/MarkList"/);
     expect(tsx).not.toContain("landing.problemList");
   });
 });
@@ -63,14 +72,15 @@ describe("Steps component", () => {
 });
 
 describe("homepage case studies", () => {
-  const tsx = read("app", "page.tsx");
-  const caseStudies = tsx.split("const caseStudies = [")[1]?.split("\n];")[0] ?? "";
-  const resultsSection = tsx.split("function ResultsSection() {")[1]?.split("\n}\n")[0] ?? "";
+  const tsx = read("app", "views", "home", "HomeView.tsx");
+  const { cases } = homeContent.results;
+  const resultsSection = tsx.split("function ResultsSection(")[1]?.split("\n}\n")[0] ?? "";
 
   // The numbers are the proof: they lead each case as Stat figures instead of
   // sitting third in a checklist next to qualitative outcomes.
   it("leads each case with Stat headline metrics", () => {
-    expect(caseStudies.match(/metrics: \[/g)).toHaveLength(3);
+    expect(cases).toHaveLength(3);
+    expect(cases.every((study) => study.metrics.some((metric) => "figure" in metric))).toBe(true);
     expect(resultsSection).toContain("<Stat figure={metric.figure}");
   });
 
@@ -84,7 +94,7 @@ describe("homepage case studies", () => {
     expect(resultsSection).toContain("<dl className={styles.caseDetails}>");
     expect(resultsSection).toContain('{study.problem.join(" · ")}');
     expect(resultsSection).toContain('{study.work.join(" · ")}');
-    const css = read("app", "page.module.css");
+    const css = read("app", "views", "home", "HomeView.module.css");
     expect(css).toMatch(/\.caseDetails dd \{[^}]*color: var\(--muted\);/);
     expect(css).not.toContain(".caseGrid");
   });
@@ -93,7 +103,7 @@ describe("homepage case studies", () => {
   // three cases sit side by side with outcomes stacked, and subgrid lines up
   // header, outcomes and details across the row even when a title wraps.
   it("lays the cases out in three aligned columns on wide screens", () => {
-    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "views", "home", "HomeView.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.stack \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
     expect(wide).toMatch(/\.caseStudy \{[^}]*grid-template-rows: subgrid;/);
     expect(wide).toMatch(/\.caseMetrics \{[^}]*flex-direction: column;/);
@@ -102,9 +112,9 @@ describe("homepage case studies", () => {
   });
 
   it("keeps every outcome in the metrics row, with no separate Result column", () => {
-    expect(caseStudies).not.toContain("result: [");
+    expect(cases.every((study) => !("result" in study))).toBe(true);
     expect(resultsSection).not.toContain("<h4>Result</h4>");
-    expect(resultsSection).toContain("icon={metric.icon}");
+    expect(resultsSection).toContain("<Stat icon={caseMetricIcon(metric.icon)}");
   });
 });
 
@@ -126,13 +136,13 @@ describe("contrast of secondary graphics", () => {
   });
 
   it("draws the lead-time histogram bars visibly against the card", () => {
-    const css = read("app", "blog", "forecast-delivery-with-percentiles", "page.module.css");
+    const css = read("app", "(en)", "blog", "forecast-delivery-with-percentiles", "page.module.css");
     expect(css.split(".distChart .dcBar {")[1]?.split("}")[0]).toContain("fill: var(--gray-400);");
   });
 });
 
 describe("homepage hero layout", () => {
-  const css = read("app", "page.module.css");
+  const css = read("app", "views", "home", "HomeView.module.css");
   const wide = css.split("@media (min-width: 1100px)").slice(1).join("");
 
   // The one-line headline left the left column mostly empty. On wide screens
@@ -161,7 +171,7 @@ describe("Stat note placement", () => {
 describe("homepage link cards", () => {
   // Offer and featured-essay cards are links; an arrow says so at a glance.
   it("marks every specialization card with an arrow", () => {
-    const tsx = read("app", "page.tsx");
+    const tsx = read("app", "views", "home", "HomeView.tsx");
     const cards = tsx.match(/className=\{styles\.specializationCard\}/g) ?? [];
     const arrows = tsx.match(/<Icon icon=\{ArrowRight\} className=\{styles\.specializationArrow\} \/>/g) ?? [];
     expect(cards.length).toBeGreaterThan(0);
@@ -173,7 +183,7 @@ describe("layout batch: tap targets and alignment", () => {
   const rule = (css: string, selector: string) => css.split(`${selector} {`)[1]?.split("}")[0] ?? "";
   const landing = read("app", "styles", "landing.module.css");
   const blog = read("app", "components", "BlogPostLayout.module.css");
-  const privacy = read("app", "privacy", "page.module.css");
+  const privacy = read("app", "(en)", "privacy", "page.module.css");
 
   // Small text links get a 44px-tall hit area through padding, cancelled by a
   // matching negative margin, so the visible layout does not move.
@@ -223,10 +233,10 @@ describe("blog figure captions", () => {
   // Captions were styled per post: two greys (one below AA), two alignments.
   // One shared component keeps them identical and readable.
   it.each(blogPostSlugs)("%s uses the shared FigureCaption", (slug) => {
-    const dir = join(root, "app", "blog", slug);
+    const dir = join(root, "app", "(en)", "blog", slug);
     const tsx = readdirSync(dir).filter((f) => f.endsWith(".tsx")).map((f) => readFileSync(join(dir, f), "utf8")).join("\n");
     expect(tsx).not.toMatch(/<figcaption\b/);
-    expect(read("app", "blog", slug, "page.module.css")).not.toMatch(localCaption);
+    expect(read("app", "(en)", "blog", slug, "page.module.css")).not.toMatch(localCaption);
   });
 
   // Charts draw their frame on the whole figure, so the caption sits inside
@@ -234,7 +244,7 @@ describe("blog figure captions", () => {
   it.each(["ai-made-starting-free-finishing-expensive", "ai-coding-agent-periphery-core", "diagnose-broken-engineering-delivery"])(
     "%s frames the whole image figure, caption included",
     (slug) => {
-      const css = read("app", "blog", slug, "page.module.css");
+      const css = read("app", "(en)", "blog", slug, "page.module.css");
       const figure = css.split(".figure {")[1]?.split("}")[0] ?? "";
       const image = css.split(".figureImage {")[1]?.split("}")[0] ?? "";
       expect(figure).toContain("border: 1px solid var(--border);");
@@ -251,8 +261,8 @@ describe("blog figure captions", () => {
 
 describe("/ai-vibecoding who-not-for list", () => {
   it("carries the same cross marker as the homepage 'Not a good fit'", () => {
-    const tsx = read("app", "ai-vibecoding", "page.tsx");
-    expect(tsx).toContain('<MarkList items={whoNotForItems} kind="x" />');
+    const tsx = read("app", "views", "ai-vibecoding", "AiVibecodingView.tsx");
+    expect(tsx).toContain('<MarkList items={whoNotFor.items} kind="x" />');
     expect(tsx).not.toContain("styles.whoNotForItem");
   });
 });
@@ -261,7 +271,7 @@ describe("homepage specialized offers", () => {
   // Two full-width cards left most of each frame empty on desktop; side by
   // side they fill the row, on the same breakpoint as Who I work with.
   it("sets the offer cards in two columns on wide screens", () => {
-    const wide = read("app", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "views", "home", "HomeView.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.specializationGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   });
 });
@@ -269,8 +279,8 @@ describe("homepage specialized offers", () => {
 describe("no duplicate navigation on the landings", () => {
   // The shared menu has Home on every page, so a "Back to main page" link
   // under it on the landings only repeated it.
-  it.each([["yii2"], ["ai-vibecoding"]])("/%s drops the back link", (page) => {
-    expect(read("app", page, "page.tsx")).not.toContain("Back to main page");
+  it.each([["yii2"], ["ai-vibecoding"]] as const)("/%s drops the back link", (page) => {
+    expect(read("app", ...landingView(page))).not.toContain("Back to main page");
   });
 
   it("removes the back-link styles from the shared landing stylesheet", () => {
@@ -278,21 +288,21 @@ describe("no duplicate navigation on the landings", () => {
   });
 
   it("drops the repeated 'Dedicated page' label from the offer cards", () => {
-    const page = read("app", "page.tsx");
+    const page = read("app", "views", "home", "HomeView.tsx");
     expect(page).not.toContain("Dedicated page");
-    expect(read("app", "page.module.css")).not.toContain(".specializationLabel");
+    expect(read("app", "views", "home", "HomeView.module.css")).not.toContain(".specializationLabel");
   });
 });
 
 describe("landing layout", () => {
-  const yii2 = read("app", "yii2", "page.tsx");
-  const ai = read("app", "ai-vibecoding", "page.tsx");
+  const yii2 = read("app", "views", "yii2", "Yii2View.tsx");
+  const ai = read("app", "views", "ai-vibecoding", "AiVibecodingView.tsx");
   const order = (src: string, names: string[]) => names.map((n) => src.indexOf(`<${n}`));
 
   // Quality and Speed were two identical 2x2 card grids back to back. One
   // section with two columns shows them as two stages of one plan.
   it("/yii2 shows Quality and Speed as two columns of one section", () => {
-    const block = yii2.split("function LeversSection() {")[1]?.split("\n}\n")[0] ?? "";
+    const block = yii2.split("function LeversSection(")[1]?.split("\n}\n")[0] ?? "";
     expect(block).toContain('id="quality"');
     expect(block).toContain('id="speed"');
     expect(block).toContain("className={landing.stageColumns}");
@@ -315,44 +325,44 @@ describe("landing layout", () => {
   });
 
   it("/ai-vibecoding's featured essay card shows a link arrow", () => {
-    const block = ai.split("function FeaturedEssaySection() {")[1]?.split("\n}\n")[0] ?? "";
+    const block = ai.split("function FeaturedEssaySection(")[1]?.split("\n}\n")[0] ?? "";
     expect(block).toContain("<Icon icon={ArrowRight} className={styles.featuredEssayArrow} />");
   });
 });
 
 describe("channel links", () => {
-  const home = read("app", "page.tsx");
-  const yii2 = read("app", "yii2", "page.tsx");
+  const home = read("app", "views", "home", "HomeView.tsx");
+  const yii2 = read("app", "views", "yii2", "Yii2View.tsx");
 
   // One quiet channel line, shared, so it looks the same wherever it appears.
   it.each([["home", home], ["yii2", yii2]])("%s renders the shared ChannelLinks", (_name, src) => {
-    expect(src).toMatch(/<ChannelLinks items=\{\w+\} ariaLabel="[^"]+" \/>/);
+    expect(src).toMatch(/<ChannelLinks items=\{writingChannelLinks\} ariaLabel=\{\w+\.channelsAriaLabel\} \/>/);
   });
 
-  it.each([["home", home, "insightLinks"], ["yii2", yii2, "writingLinks"]])(
-    "%s channel data carries no descriptions",
-    (_name, src, list) => {
-      const block = src.split(`const ${list} = [`)[1]?.split("\n];")[0] ?? "";
-      expect(block).toContain("href:");
-      expect(block).not.toContain("description:");
+  // Both pages draw the one shared channel list from lib/brand.
+  it("channel data carries no descriptions", () => {
+    expect(writingChannelLinks.length).toBeGreaterThan(0);
+    for (const link of writingChannelLinks) {
+      expect(link.href).toMatch(/^https:\/\//);
+      expect("description" in link).toBe(false);
     }
-  );
+  });
 
   // Proof: the Yii2 talk is the evidence, so only it gets cards; the
   // channels drop to the quiet line under it.
   it("/yii2 Proof shows only the talk as cards, in two columns", () => {
-    const proof = yii2.split("function ProofSection() {")[1]?.split("\n}\n")[0] ?? "";
-    expect(proof).toContain("talkLinks.map(");
-    expect(proof).not.toContain("...writingLinks");
+    const proof = yii2.split("function ProofSection(")[1]?.split("\n}\n")[0] ?? "";
+    expect(proof).toContain("proof.talks.map(");
+    expect(proof).not.toContain("...writingChannelLinks");
     const wide = read("app", "styles", "landing.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.proofGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   });
 });
 
 describe("homepage Problem block", () => {
-  const page = read("app", "page.tsx");
-  const section = page.split("function ProblemSection() {")[1]?.split("\n}\n")[0] ?? "";
-  const css = read("app", "page.module.css");
+  const page = read("app", "views", "home", "HomeView.tsx");
+  const section = page.split("function ProblemSection(")[1]?.split("\n}\n")[0] ?? "";
+  const css = read("app", "views", "home", "HomeView.module.css");
 
   // Each stage opens with its conclusion as the headline; the symptoms follow
   // small. Unboxed under a rule, like the Writing cards, and the closing
@@ -367,32 +377,56 @@ describe("homepage Problem block", () => {
     expect(section).not.toContain("styles.card}");
     expect(section).not.toContain("styles.callout");
     expect(css).not.toMatch(/\.callout[\s,{]/);
-    expect(css).toMatch(/\.problemQuote \{[^}]*border-left: 3px solid var\(--color-primary\);/);
+    expect(css).toMatch(/\.pullQuote \{[^}]*border-left: 3px solid var\(--color-primary\);/);
+  });
+});
+
+describe("homepage How I work", () => {
+  const page = read("app", "views", "home", "HomeView.tsx");
+  const section = page.split("function ProcessSection(")[1]?.split("\n}\n")[0] ?? "";
+
+  // Same treatment as Problem: each step's result reads as its statement,
+  // the steps behind it small and muted, and the closing line as a pull
+  // quote instead of a lone muted sentence.
+  it("sets each step's result before its points, points small", () => {
+    expect(section.indexOf("styles.stepResult")).toBeGreaterThan(-1);
+    expect(section.indexOf("styles.stepResult")).toBeLessThan(section.indexOf("<MarkList"));
+    expect(section).toContain("className={styles.stepPoints}");
+  });
+
+  it("closes with the shared pull quote", () => {
+    expect(section).toContain("className={styles.pullQuote}");
+    expect(section).not.toContain("styles.processNote");
+    expect(page).not.toContain("styles.problemQuote");
   });
 });
 
 describe("one site menu", () => {
   const nav = read("app", "lib", "navigation.ts");
-  const items = nav.split("export const siteNavigationItems")[1]?.split("];")[0] ?? "";
+  const items = getSiteNavigationItems("en");
   const tsx = read("app", "components", "TopNavigation.tsx");
   const css = read("app", "components", "TopNavigation.module.css");
 
   // Every page shows the same menu from one list, so it cannot drift apart.
   it.each([
-    ["home", ["page.tsx"]],
-    ["yii2", ["yii2", "page.tsx"]],
-    ["ai-vibecoding", ["ai-vibecoding", "page.tsx"]],
-    ["blog index", ["blog", "page.tsx"]]
+    ["home", ["views", "home", "HomeView.tsx"]],
+    ["yii2", ["views", "yii2", "Yii2View.tsx"]],
+    ["ai-vibecoding", ["views", "ai-vibecoding", "AiVibecodingView.tsx"]],
+    ["blog index", ["views", "blog-index", "BlogIndexView.tsx"]]
   ])("%s renders the shared SiteNav", (_name, parts) => {
     const page = read("app", ...parts);
-    expect(page).toMatch(/<SiteNav current="\/[^"]*" \/>/);
+    expect(page).toMatch(/<SiteNav locale(="en"|=\{locale\}) current=(?:"\/[^"]*"|\{pagePath\(locale, "[a-z0-9-]+"\)\}) \/>/);
     expect(page).not.toContain("<TopNavigation");
     expect(page).not.toContain("navigationItems");
   });
 
   it("is navigation only: pages, no in-page anchors, no Contact", () => {
-    expect(items).not.toMatch(/href: "#/);
-    expect(items).not.toContain("Contact");
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.href.startsWith("/") && item.href.endsWith("/")).toBe(true);
+      expect(item.href).not.toContain("#");
+      expect(item.label).not.toContain("Contact");
+    }
     expect(nav).not.toContain("mobilePinned");
   });
 

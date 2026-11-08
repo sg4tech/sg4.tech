@@ -1,544 +1,548 @@
 /* ─── Hero base ────────────────────────────────────────────────────────────── */
 
-.hero {
-  scroll-margin-top: var(--scroll-offset);
-  padding: 2.4rem 0 var(--section-pad-y);
-}
+@layer base, primitives, components, landing, views;
 
-.hero h1 {
-  margin: 0;
-  color: var(--text-strong);
-  font-size: var(--text-h1);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.035em;
-  text-wrap: balance;
-}
-
-/* Two-tone headline: the setup clause is muted so the eye lands on the
-   payoff (which keeps the strong ink). Tonal contrast only — ember stays
-   reserved for the action layer (stats + CTA). */
-.heroLeadIn {
-  color: var(--muted);
-}
-
-/* ─── Hero panel & layout ──────────────────────────────────────────────────── */
-
-.heroPanel {
-  position: relative;
-  overflow: hidden;
-  padding: 1.4rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-2xl);
-  background:
-    radial-gradient(circle at top left, rgba(17, 17, 17, 0.06), transparent 32%),
-    linear-gradient(180deg, var(--viz-warm-bg) 0%, var(--surface) 58%);
-}
-
-.heroLayout {
-  display: grid;
-  gap: var(--space-3);
-}
-
-.heroMain {
-  display: grid;
-  gap: 1.15rem;
-}
-
-.heroAction {
-  margin: 0.6rem 0 0;
-  color: var(--text-strong);
-  font-size: var(--text-hero-action);
-  font-weight: 700;
-  line-height: var(--leading-snug);
-  letter-spacing: -0.025em;
-  text-wrap: balance;
-}
-
-.heroStatement {
-  max-width: 29rem;
-  margin: 1.4rem 0 0;
-  color: var(--text-strong);
-  font-size: var(--text-lg);
-  line-height: var(--leading-loose);
-}
-
-.heroPromise {
-  max-width: 29rem;
-  margin: 0.85rem 0 0;
-  padding-left: 0.9rem;
-  border-left: 2px solid var(--border-strong);
-  color: var(--text-strong);
-  font-size: var(--text-lg);
-  font-weight: 600;
-  line-height: var(--leading-relaxed);
-}
-
-.heroOutcome {
-  max-width: 29rem;
-  margin: 0.85rem 0 0;
-  padding-left: 0.9rem;
-  border-left: 2px solid var(--viz-cool);
-  color: var(--text-strong);
-  font-size: var(--text-lg);
-  font-style: italic;
-  line-height: var(--leading-relaxed);
-}
-
-.heroAside {
-  max-width: 39rem;
-}
-
-/* Hero signals: see app/components/HeroSignals.{tsx,module.css} (shared). */
-
-/* ─── Metric list ──────────────────────────────────────────────────────────── */
-
-.metricList {
-  margin: 1.25rem 0 0;
-  line-height: var(--leading-loose);
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
-  max-width: none;
-  padding-left: 0;
-  font-weight: 600;
-  list-style: none;
-}
-
-/* Each cell stretches its inner Stat card to equal height; the card styling
-   lives in app/components/Stat.module.css (variant="card"). */
-.metricList li {
-  display: flex;
-}
-
-/* ─── Actions row ──────────────────────────────────────────────────────────── */
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 1.6rem;
-}
-
-/* ─── Stage columns (Quality → Speed) ───────────────────────────────────── */
-
-.stageColumns {
-  display: grid;
-  gap: var(--space-5);
-}
-
-/* The second column is an anchor target too (#speed). */
-.stageAnchor {
-  scroll-margin-top: var(--scroll-offset);
-}
-
-/* ─── Icon list ────────────────────────────────────────────────────────────── */
-
-.iconList {
-  display: grid;
-  gap: 0.85rem;
-  max-width: 50rem;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.iconList li {
-  display: grid;
-  grid-template-columns: 1.6rem 1fr;
-  gap: 0.7rem;
-  align-items: start;
-  line-height: var(--leading-relaxed);
-  color: var(--text);
-}
-
-.iconList .cardIcon {
-  margin-top: 0.1rem;
-  width: 1.4rem;
-  height: 1.4rem;
-}
-
-.iconList[data-tone="cool"] .cardIcon {
-  color: var(--viz-cool-strong);
-}
-
-.iconList[data-tone="warm"] .cardIcon {
-  color: var(--viz-warm-strong);
-}
-
-/* ─── Callout ──────────────────────────────────────────────────────────────── */
-
-.callout {
-  padding: var(--space-2) 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface-alt);
-  color: var(--text-strong);
-  font-weight: 600;
-}
-
-/* ─── Card grids ───────────────────────────────────────────────────────────── */
-
-.cardGrid,
-.linkGrid {
-  display: grid;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-.cardGrid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-
-
-
-
-/* ─── Cards ────────────────────────────────────────────────────────────────── */
-
-.card,
-.profileCard,
-.profileBody,
-.linkCard {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  padding: 1.2rem;
-}
-
-.card p {
-  margin-top: 0;
-}
-
-.cardHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.cardHeader h3 {
-  margin: 0;
-}
-
-.card .output {
-  margin: 0;
-}
-
-.cardIcon {
-  width: 1.6rem;
-  height: 1.6rem;
-  color: var(--text-strong);
-  opacity: 0.7;
-  flex: 0 0 auto;
-}
-
-
-
-/* ─── Why-me grid ──────────────────────────────────────────────────────────── */
-
-.whyGrid {
-  display: grid;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-/* ─── Why surface & profile card ───────────────────────────────────────────── */
-
-/* Dark "Why me" — the design system's ink feature block. Shared across all
-   landings; light text is scoped to within the panel so other usages of
-   .profileName / .cardIcon stay unaffected. */
-.whySurface {
-  padding: var(--space-2);
-  border: 1px solid var(--border-inverse);
-  border-radius: var(--radius-xl);
-  background: var(--surface-inverse);
-}
-
-.whySurface .profileCard,
-.whySurface .profileBody {
-  background: transparent;
-  border-color: transparent;
-}
-
-.whySurface .profileName {
-  color: var(--text-on-dark);
-}
-
-.whySurface .profileRole {
-  color: var(--text-on-dark-muted);
-}
-
-.whySurface .iconList li {
-  color: var(--text-on-dark);
-}
-
-.whySurface .iconList .cardIcon {
-  color: var(--color-primary);
-  opacity: 1;
-}
-
-.profileCard {
-  padding: 1.25rem;
-  background: var(--surface-alt);
-}
-
-.profilePhoto {
-  display: block;
-  width: 7.5rem;
-  height: 7.5rem;
-  margin-bottom: 0.9rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  object-fit: cover;
-}
-
-.profileName {
-  margin: 0;
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--text-strong);
-}
-
-.profileRole {
-  margin-top: 0.35rem;
-}
-
-.profileBody {
-  padding: 1.25rem;
-}
-
-.profileBody .problemList {
-  margin-top: 0;
-}
-
-/* ─── Link cards ───────────────────────────────────────────────────────────── */
-
-.linkGrid {
-  grid-template-columns: 1fr;
-}
-
-.linkCard {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  /* Cards in a row stretch to equal height; without this the extra height
-     went to the header row unevenly and the titles fell out of line. */
-  align-content: start;
-  gap: 0.55rem;
-  padding: 1.05rem 1.1rem;
-  border-color: var(--border-strong);
-  transition:
-    border-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard),
-    transform var(--duration-base) var(--ease-standard);
-}
-
-.linkCard:hover,
-.linkCard:focus-visible {
-  border-color: var(--border-strong);
-  color: var(--text-strong);
-  transform: translateY(-1px);
-}
-
-.linkHeader {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.brandIcon {
-  display: inline-flex;
-  width: 1rem;
-  height: 1rem;
-  color: var(--text-strong);
-  flex: 0 0 auto;
-}
-
-.brandIcon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.linkLabel {
-  font-size: var(--text-md);
-  font-weight: 700;
-  color: var(--text-strong);
-}
-
-.linkDescription {
-  margin-top: 0;
-}
-
-/* ─── Proof grid ───────────────────────────────────────────────────────────── */
-
-/* Text in the first column; the link arrow in its own, centred on the rows. */
-.linkCard > span {
-  grid-column: 1;
-}
-
-.linkArrow {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--muted);
-  transition:
-    transform var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
-}
-
-.linkCard:hover .linkArrow,
-.linkCard:focus-visible .linkArrow {
-  color: var(--text-strong);
-  transform: translateX(3px);
-}
-
-.proofGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-/* ─── Shared text helpers ──────────────────────────────────────────────────── */
-
-.card p,
-.callout,
-.linkDescription,
-.profileRole {
-  margin: var(--space-2) 0 0;
-  color: var(--muted);
-  line-height: var(--leading-loose);
-}
-
-
-/* One-line gist or duration under a Steps title, before its point list. */
-.stepSummary {
-  margin: var(--space-1) 0 0;
-  color: var(--muted);
-  line-height: var(--leading-relaxed);
-}
-
-.output,
-.processNote {
-  margin: var(--space-2) 0 0;
-  color: var(--muted);
-  font-weight: 600;
-  line-height: var(--leading-loose);
-}
-
-
-/* ─── Expectation box ──────────────────────────────────────────────────────── */
-
-.expectationBox {
-  margin-top: 1.25rem;
-  padding: 1.1rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface-alt);
-}
-
-.expectationBox h3,
-.card h3 {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
-}
-
-/* ─── Responsive ───────────────────────────────────────────────────────────── */
-
-@media (max-width: 860px) {
-  .cardGrid,
-  .linkGrid,
-  .proofGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
+@layer landing {
   .hero {
-    padding: var(--space-3) 0;
+    scroll-margin-top: var(--scroll-offset);
+    padding: 2.4rem 0 var(--section-pad-y);
   }
+
+  .hero h1 {
+    margin: 0;
+    color: var(--text-strong);
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  /* Two-tone headline: the setup clause is muted so the eye lands on the
+     payoff (which keeps the strong ink). Tonal contrast only — ember stays
+     reserved for the action layer (stats + CTA). */
+  .heroLeadIn {
+    color: var(--muted);
+  }
+
+  /* ─── Hero panel & layout ──────────────────────────────────────────────────── */
 
   .heroPanel {
-    padding: var(--space-2);
-    border-radius: var(--radius-xl);
-  }
-
-  .metricList {
-    grid-template-columns: 1fr;
-  }
-
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .heroStatement {
-    max-width: none;
-  }
-
-}
-
-@media (min-width: 1100px) {
-  /* Quality and Speed side by side; the column headings step down a size so
-     two long sentences fit their half width. */
-  .stageColumns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 0;
-  }
-
-  /* Heading, intro and list form three shared rows, so they line up across
-     the columns even when one heading wraps. */
-  .stageColumn {
-    display: grid;
-    grid-row: span 3;
-    grid-template-rows: subgrid;
-    align-content: start;
-  }
-
-  .stageHeading {
-    font-size: var(--text-2xl);
-    line-height: var(--leading-snug);
+    position: relative;
+    overflow: hidden;
+    padding: 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    background:
+      radial-gradient(circle at top left, rgba(17, 17, 17, 0.06), transparent 32%),
+      linear-gradient(180deg, var(--viz-warm-bg) 0%, var(--surface) 58%);
   }
 
   .heroLayout {
-    grid-template-columns: minmax(0, 1.06fr) minmax(20rem, 0.94fr);
-    align-items: start;
-    gap: 3.25rem;
-  }
-
-  .heroAside {
-    padding-top: 0.9rem;
-  }
-
-  .heroPanel {
-    padding: 1.8rem 1.8rem 1.65rem;
+    display: grid;
+    gap: var(--space-3);
   }
 
   .heroMain {
-    gap: 1.45rem;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .heroAction {
+    margin: 0.6rem 0 0;
+    color: var(--text-strong);
+    font-size: var(--text-hero-action);
+    font-weight: 700;
+    line-height: var(--leading-snug);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
   .heroStatement {
-    max-width: 31rem;
+    max-width: 29rem;
+    margin: 1.4rem 0 0;
+    color: var(--text-strong);
     font-size: var(--text-lg);
+    line-height: var(--leading-loose);
   }
+
+  .heroPromise {
+    max-width: 29rem;
+    margin: 0.85rem 0 0;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--border-strong);
+    color: var(--text-strong);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: var(--leading-relaxed);
+  }
+
+  .heroOutcome {
+    max-width: 29rem;
+    margin: 0.85rem 0 0;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--viz-cool);
+    color: var(--text-strong);
+    font-size: var(--text-lg);
+    font-style: italic;
+    line-height: var(--leading-relaxed);
+  }
+
+  .heroAside {
+    max-width: 39rem;
+  }
+
+  /* Hero signals: see app/components/HeroSignals.{tsx,module.css} (shared). */
+
+  /* ─── Metric list ──────────────────────────────────────────────────────────── */
+
+  .metricList {
+    margin: 1.25rem 0 0;
+    line-height: var(--leading-loose);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    max-width: none;
+    padding-left: 0;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  /* Each cell stretches its inner Stat card to equal height; the card styling
+     lives in app/components/Stat.module.css (variant="card"). */
+  .metricList li {
+    display: flex;
+  }
+
+  /* ─── Actions row ──────────────────────────────────────────────────────────── */
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+  }
+
+  /* ─── Stage columns (Quality → Speed) ───────────────────────────────────── */
+
+  .stageColumns {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  /* The second column is an anchor target too (#speed). */
+  .stageAnchor {
+    scroll-margin-top: var(--scroll-offset);
+  }
+
+  /* ─── Icon list ────────────────────────────────────────────────────────────── */
+
+  .iconList {
+    display: grid;
+    gap: 0.85rem;
+    max-width: 50rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .iconList li {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    gap: 0.7rem;
+    align-items: start;
+    line-height: var(--leading-relaxed);
+    color: var(--text);
+  }
+
+  .iconList .cardIcon {
+    margin-top: 0.1rem;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .iconList[data-tone="cool"] .cardIcon {
+    color: var(--viz-cool-strong);
+  }
+
+  .iconList[data-tone="warm"] .cardIcon {
+    color: var(--viz-warm-strong);
+  }
+
+  /* ─── Callout ──────────────────────────────────────────────────────────────── */
+
+  .callout {
+    padding: var(--space-2) 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface-alt);
+    color: var(--text-strong);
+    font-weight: 600;
+  }
+
+  /* ─── Card grids ───────────────────────────────────────────────────────────── */
+
+  .cardGrid,
+  .linkGrid {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+
+
+
+
+  /* ─── Cards ────────────────────────────────────────────────────────────────── */
+
+  .card,
+  .profileCard,
+  .profileBody,
+  .linkCard {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.2rem;
+  }
+
+  .card p {
+    margin-top: 0;
+  }
+
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .cardHeader h3 {
+    margin: 0;
+  }
+
+  .card .output {
+    margin: 0;
+  }
+
+  .cardIcon {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--text-strong);
+    opacity: 0.7;
+    flex: 0 0 auto;
+  }
+
+
+
+  /* ─── Why-me grid ──────────────────────────────────────────────────────────── */
 
   .whyGrid {
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
-    align-items: start;
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
   }
 
-  /* Proof: the two talk cards side by side; the channels follow as a
-     quiet line, not as more cards. */
+  /* ─── Why surface & profile card ───────────────────────────────────────────── */
+
+  /* Dark "Why me" — the design system's ink feature block. Shared across all
+     landings; light text is scoped to within the panel so other usages of
+     .profileName / .cardIcon stay unaffected. */
+  .whySurface {
+    padding: var(--space-2);
+    border: 1px solid var(--border-inverse);
+    border-radius: var(--radius-xl);
+    background: var(--surface-inverse);
+  }
+
+  .whySurface .profileCard,
+  .whySurface .profileBody {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .whySurface .profileName {
+    color: var(--text-on-dark);
+  }
+
+  .whySurface .profileRole {
+    color: var(--text-on-dark-muted);
+  }
+
+  .whySurface .iconList li {
+    color: var(--text-on-dark);
+  }
+
+  .whySurface .iconList .cardIcon {
+    color: var(--color-primary);
+    opacity: 1;
+  }
+
+  .profileCard {
+    padding: 1.25rem;
+    background: var(--surface-alt);
+  }
+
+  .profilePhoto {
+    display: block;
+    width: 7.5rem;
+    height: 7.5rem;
+    margin-bottom: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+  }
+
+  .profileName {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+
+  .profileRole {
+    margin-top: 0.35rem;
+  }
+
+  .profileBody {
+    padding: 1.25rem;
+  }
+
+  .profileBody .problemList {
+    margin-top: 0;
+  }
+
+  /* ─── Link cards ───────────────────────────────────────────────────────────── */
+
+  .linkGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .linkCard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    /* Cards in a row stretch to equal height; without this the extra height
+       went to the header row unevenly and the titles fell out of line. */
+    align-content: start;
+    gap: 0.55rem;
+    padding: 1.05rem 1.1rem;
+    border-color: var(--border-strong);
+    transition:
+      border-color var(--duration-base) var(--ease-standard),
+      color var(--duration-base) var(--ease-standard),
+      transform var(--duration-base) var(--ease-standard);
+  }
+
+  .linkCard:hover,
+  .linkCard:focus-visible {
+    border-color: var(--border-strong);
+    color: var(--text-strong);
+    transform: translateY(-1px);
+  }
+
+  .linkHeader {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .brandIcon {
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
+    color: var(--text-strong);
+    flex: 0 0 auto;
+  }
+
+  .brandIcon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .linkLabel {
+    font-size: var(--text-md);
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+
+  .linkDescription {
+    margin-top: 0;
+  }
+
+  /* ─── Proof grid ───────────────────────────────────────────────────────────── */
+
+  /* Text in the first column; the link arrow in its own, centred on the rows. */
+  .linkCard > span {
+    grid-column: 1;
+  }
+
+  .linkArrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--muted);
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      color var(--duration-base) var(--ease-standard);
+  }
+
+  .linkCard:hover .linkArrow,
+  .linkCard:focus-visible .linkArrow {
+    color: var(--text-strong);
+    transform: translateX(3px);
+  }
+
   .proofGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  /* ─── Shared text helpers ──────────────────────────────────────────────────── */
+
+  .card p,
+  .callout,
+  .linkDescription,
+  .profileRole {
+    margin: var(--space-2) 0 0;
+    color: var(--muted);
+    line-height: var(--leading-loose);
+  }
+
+
+  /* One-line gist or duration under a Steps title, before its point list. */
+  .stepSummary {
+    margin: var(--space-1) 0 0;
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  .output,
+  .processNote {
+    margin: var(--space-2) 0 0;
+    color: var(--muted);
+    font-weight: 600;
+    line-height: var(--leading-loose);
+  }
+
+
+  /* ─── Expectation box ──────────────────────────────────────────────────────── */
+
+  .expectationBox {
+    margin-top: 1.25rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface-alt);
+  }
+
+  .expectationBox h3,
+  .card h3 {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
+  }
+
+  /* ─── Responsive ───────────────────────────────────────────────────────────── */
+
+  @media (max-width: 860px) {
+    .cardGrid,
+    .linkGrid,
+    .proofGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: var(--space-3) 0;
+    }
+
+    .heroPanel {
+      padding: var(--space-2);
+      border-radius: var(--radius-xl);
+    }
+
+    .metricList {
+      grid-template-columns: 1fr;
+    }
+
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .heroStatement {
+      max-width: none;
+    }
+
+  }
+
+  @media (min-width: 1100px) {
+    /* Quality and Speed side by side; the column headings step down a size so
+       two long sentences fit their half width. */
+    .stageColumns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 0;
+    }
+
+    /* Heading, intro and list form three shared rows, so they line up across
+       the columns even when one heading wraps. */
+    .stageColumn {
+      display: grid;
+      grid-row: span 3;
+      grid-template-rows: subgrid;
+      align-content: start;
+    }
+
+    .stageHeading {
+      font-size: var(--text-2xl);
+      line-height: var(--leading-snug);
+    }
+
+    .heroLayout {
+      grid-template-columns: minmax(0, 1.06fr) minmax(20rem, 0.94fr);
+      align-items: start;
+      gap: 3.25rem;
+    }
+
+    .heroAside {
+      padding-top: 0.9rem;
+    }
+
+    .heroPanel {
+      padding: 1.8rem 1.8rem 1.65rem;
+    }
+
+    .heroMain {
+      gap: 1.45rem;
+    }
+
+    .heroStatement {
+      max-width: 31rem;
+      font-size: var(--text-lg);
+    }
+
+    .whyGrid {
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      align-items: start;
+    }
+
+    /* Proof: the two talk cards side by side; the channels follow as a
+       quiet line, not as more cards. */
+    .proofGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+    }
   }
 }

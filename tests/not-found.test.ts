@@ -1,11 +1,13 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getDictionary } from "@/app/lib/i18n/dictionary";
 
-const file = join(process.cwd(), "app", "not-found.tsx");
+const file = join(process.cwd(), "app", "global-not-found.tsx");
 
-// Without app/not-found.tsx, the static export ships Next's default black
-// 404: no brand, no nav, no way back to the site.
+// Without a custom 404, the static export ships Next's default black page: no
+// brand, no nav, no way back to the site. With one root layout per locale the
+// 404 is app/global-not-found.tsx.
 describe("custom 404 page", () => {
   it("exists", () => {
     expect(existsSync(file)).toBe(true);
@@ -13,18 +15,24 @@ describe("custom 404 page", () => {
 
   const source = existsSync(file) ? readFileSync(file, "utf8") : "";
 
-  it.each([
-    "Page not found",
-    "The page you&apos;re looking for doesn&apos;t exist or has moved.",
-    "Back to home"
-  ])("shows the approved copy: %s", (text) => {
-    expect(source).toContain(text);
+  it("keeps the approved English copy", () => {
+    expect(getDictionary("en").notFound).toEqual({
+      title: "Page not found",
+      text: "The page you're looking for doesn't exist or has moved.",
+      backHome: "Back to home"
+    });
+  });
+
+  it("renders the copy from the dictionary", () => {
+    for (const field of ["notFound.title", "notFound.text", "notFound.backHome"]) {
+      expect(source).toContain(`{${field}}`);
+    }
   });
 
   it("uses the site nav and footer and links home", () => {
-    expect(source).toContain("<SiteNav />");
-    expect(source).toContain("<SiteFooter />");
-    expect(source).toMatch(/<Button href="\/">/);
+    expect(source).toContain("<SiteNav locale={locale} />");
+    expect(source).toContain("<SiteFooter locale={locale} />");
+    expect(source).toMatch(/<Button href=\{pagePath\(locale, "home"\)\}>/);
   });
 
   it("keeps the page out of search results", () => {

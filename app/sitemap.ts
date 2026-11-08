@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "./lib/blog/posts";
-import { SITE_URL } from "./lib/brand";
+import { postLanguageAlternates } from "./lib/blog/post-metadata";
+import { blogPosts, getBlogLastModifiedAt, getPostUrl, parsePostDate } from "./lib/blog/posts";
+import { absoluteUrl } from "./lib/brand";
+import { LOCALES } from "./lib/i18n/locales";
+import { pageLanguageAlternates, pageLocales, pagePath, type PageKey } from "./lib/i18n/pages";
 
 export const dynamic = "force-static";
 
@@ -14,64 +17,68 @@ export const dynamic = "force-static";
 // /blog index isn't listed here because its modifiedAt is auto-derived from
 // the most recently modified post — no manual maintenance needed.
 // Tighter shape than the MetadataRoute.Sitemap entry:
-// - `path` must start AND end with "/" via template literal type:
-//   next.config.mjs sets trailingSlash: true, so the trailing-slash URL is
-//   the served form and the slash-less variant is a 301 — a sitemap must
-//   list final URLs, not redirects
+// - `page` is a page-registry key; its served paths (trailing slash, under
+//   each published locale) come from the registry, so the sitemap lists final
+//   URLs, not redirects, and only languages that actually exist
 // - `priority` is a literal union of the sitemap-protocol values we
 //   actually use, blocking accidental NaN / out-of-range / typos
 //   (sitemap.org defines priority as 0.0 to 1.0; we use a discrete
 //   subset to encode landing weight)
 type Landing = {
-  path: "/" | `/${string}/`;
+  page: Extract<PageKey, "home" | "yii2" | "ai-vibecoding">;
   modifiedAt: string;
   changeFrequency: "monthly" | "weekly";
   priority: 0.6 | 0.7 | 0.8 | 1;
 };
 
 const landings: ReadonlyArray<Landing> = [
-  { path: "/", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 1 },
-  { path: "/yii2/", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/ai-vibecoding/", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 0.8 }
+  { page: "home", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 1 },
+  { page: "yii2", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 0.8 },
+  { page: "ai-vibecoding", modifiedAt: "2026-11-08", changeFrequency: "monthly", priority: 0.8 }
 ];
 
-// Newest post's modifiedAt, used as the /blog index lastmod. Caller must
-// guard blogPosts.length > 0 — see sitemap() below. ISO-8601 YYYY-MM-DD
-// strings sort lexically the same as chronologically, so a plain .sort()
-// suffices (no Date object comparison needed).
-function latestBlogModifiedAt(): string {
-  return blogPosts.map((post) => post.modifiedAt).sort().at(-1)!;
+// Sitemap `alternates` only for pages with more than one language version.
+function withAlternates(languages: Record<string, string> | undefined): Pick<MetadataRoute.Sitemap[number], "alternates"> {
+  return languages ? { alternates: { languages } } : {};
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const landingEntries: MetadataRoute.Sitemap = landings.map((landing) => ({
-    url: `${SITE_URL}${landing.path}`,
-    lastModified: new Date(landing.modifiedAt),
-    changeFrequency: landing.changeFrequency,
-    priority: landing.priority
-  }));
+  const landingEntries: MetadataRoute.Sitemap = landings.flatMap((landing) =>
+    pageLocales(landing.page).map((locale) => ({
+      url: absoluteUrl(pagePath(locale, landing.page)),
+      lastModified: new Date(landing.modifiedAt),
+      changeFrequency: landing.changeFrequency,
+      priority: landing.priority,
+      ...withAlternates(pageLanguageAlternates(landing.page))
+    }))
+  );
 
-  // /blog index is only advertised when there's at least one post. An empty
-  // blog index with a stale hardcoded date would be a worse SEO signal than
-  // simply omitting the URL until content exists.
-  const blogIndex: MetadataRoute.Sitemap =
-    blogPosts.length === 0
-      ? []
-      : [
-          {
-            url: `${SITE_URL}/blog/`,
-            lastModified: new Date(latestBlogModifiedAt()),
-            changeFrequency: "weekly",
-            priority: 0.7
-          }
-        ];
+  // A locale's blog index is only advertised when it has at least one post. An
+  // empty blog index with a stale hardcoded date would be a worse SEO signal
+  // than simply omitting the URL until content exists.
+  const blogIndexes: MetadataRoute.Sitemap = LOCALES.flatMap((locale) => {
+    const lastModified = getBlogLastModifiedAt(locale);
+    if (lastModified === undefined || !pageLocales("blog").includes(locale)) {
+      return [];
+    }
+    return [
+      {
+        url: absoluteUrl(pagePath(locale, "blog")),
+        lastModified: parsePostDate(lastModified),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+        ...withAlternates(pageLanguageAlternates("blog"))
+      }
+    ];
+  });
 
   const posts: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}/`,
-    lastModified: new Date(post.modifiedAt),
+    url: getPostUrl(post.slug),
+    lastModified: parsePostDate(post.modifiedAt),
     changeFrequency: "monthly",
-    priority: 0.6
+    priority: 0.6,
+    ...withAlternates(postLanguageAlternates(post.slug))
   }));
 
-  return [...landingEntries, ...blogIndex, ...posts];
+  return [...landingEntries, ...blogIndexes, ...posts];
 }

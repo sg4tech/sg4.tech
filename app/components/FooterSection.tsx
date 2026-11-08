@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BrandIcon } from "./BrandIcon";
-import type { FooterDisclaimer, FooterLink, LegalLink } from "../lib/navigation";
+import type { FooterDisclaimer } from "../lib/i18n/types";
+import type { FooterLink, LegalLink } from "../lib/navigation";
 import styles from "./FooterSection.module.css";
 
 type FooterSectionProps = {
@@ -8,17 +9,26 @@ type FooterSectionProps = {
   copyright: string;
   legalLinks?: ReadonlyArray<LegalLink>;
   disclaimers?: ReadonlyArray<FooterDisclaimer>;
+  ariaLabel: string;
+  legalAriaLabel: string;
 };
 
-export function FooterSection({ links, copyright, legalLinks, disclaimers }: FooterSectionProps) {
+export function FooterSection({
+  links,
+  copyright,
+  legalLinks,
+  disclaimers,
+  ariaLabel,
+  legalAriaLabel
+}: FooterSectionProps) {
   return (
-    <footer className={styles.footer} aria-label="Footer">
+    <footer className={styles.footer} aria-label={ariaLabel}>
       <div className={styles.footerTop}>
         <div className={styles.footerMeta}>
           <span aria-hidden className={styles.footerMark} />
           <p className={styles.footerCopy}>{copyright}</p>
           {legalLinks && legalLinks.length > 0 ? (
-            <nav className={styles.footerLegal} aria-label="Legal">
+            <nav className={styles.footerLegal} aria-label={legalAriaLabel}>
               {legalLinks.map((link) => (
                 <Link key={link.label} href={link.href} className={styles.footerLegalLink}>
                   {link.label}

@@ -1,11 +1,14 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import type { Metadata } from "next";
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
-import { SITE_URL } from "@/app/lib/brand";
+import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS, type PostSlug } from "@/app/lib/blog/posts";
+import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
+import { PAGE_KEYS, pagePath, type PageKey } from "@/app/lib/i18n/pages";
+import { englishLandings } from "./support/landings";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -53,45 +56,139 @@ describe("sitemap", () => {
   });
 });
 
+describe("home metadata", () => {
+  // The root layout's title template does not apply to the page in its own
+  // segment, so the home page applies the same format itself.
+  it("formats the home search title like every other page", async () => {
+    const { metadata } = await import("@/app/(en)/page");
+    const pageTitle = metadata.openGraph?.title;
+    if (typeof pageTitle !== "string") {
+      throw new Error("home openGraph.title must be a plain string");
+    }
+
+    expect(metadata.title).toBe(withSiteName(pageTitle));
+  });
+});
+
+// Lengths search results show before truncating. Past these, Google and Bing
+// cut the snippet mid-phrase (Bing also flags the title in Webmaster Tools).
+const SEARCH_TITLE_MAX = 60;
+const SEARCH_DESCRIPTION_MAX = 160;
+
+describe("search snippet lengths", () => {
+  // Landing titles get the site-name suffix from the layout template (the home
+  // page applies it itself), so the length that counts is the suffixed one.
+  const pages = [
+    { name: "/", load: () => import("@/app/(en)/page"), suffixed: true },
+    { name: "/yii2/", load: () => import("@/app/(en)/yii2/page"), suffixed: false },
+    { name: "/ai-vibecoding/", load: () => import("@/app/(en)/ai-vibecoding/page"), suffixed: false },
+    { name: "/blog/", load: () => import("@/app/(en)/blog/page"), suffixed: false }
+  ];
+
+  for (const page of pages) {
+    it(`keeps the ${page.name} title and description within result limits`, async () => {
+      const { metadata } = await page.load();
+      if (typeof metadata.title !== "string" || typeof metadata.description !== "string") {
+        throw new Error(`${page.name} must declare a plain-string title and description`);
+      }
+      const shownTitle = page.suffixed ? metadata.title : withSiteName(metadata.title);
+
+      expect(shownTitle.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
+      expect(metadata.description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
+    });
+  }
+
+  for (const slug of POST_SLUGS) {
+    it(`keeps the "${slug}" description within result limits`, () => {
+      expect(getPostBySlug(slug).description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
+    });
+  }
+
+  // Results truncate by pixel width; the character limit is a proxy for it.
+  // This title is one character over but set in narrow letters, so it fits
+  // the width and is kept as written rather than reworded for the proxy.
+  const titleLengthExceptions: ReadonlySet<PostSlug> = new Set(["diagnose-broken-engineering-delivery"]);
+
+  for (const slug of POST_SLUGS.filter((s) => !titleLengthExceptions.has(s))) {
+    it(`keeps the "${slug}" search title within result limits`, () => {
+      const { title } = buildPostMetadata(slug);
+      if (typeof title !== "object" || title === null || !("absolute" in title)) {
+        throw new Error(`"${slug}" must set an absolute search title`);
+      }
+
+      expect(title.absolute.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
+    });
+  }
+});
+
+describe("page URLs", () => {
+  // One English page module per registry page; the coverage test fails if a
+  // page is added to the registry without being added here.
+  const pages: ReadonlyArray<{ page: PageKey; load: () => Promise<{ metadata: Metadata }> }> = [
+    { page: "home", load: () => import("@/app/(en)/page") },
+    { page: "yii2", load: () => import("@/app/(en)/yii2/page") },
+    { page: "ai-vibecoding", load: () => import("@/app/(en)/ai-vibecoding/page") },
+    { page: "blog", load: () => import("@/app/(en)/blog/page") },
+    { page: "privacy", load: () => import("@/app/(en)/privacy/page") }
+  ];
+
+  it("covers every page in the registry", () => {
+    expect(pages.map((entry) => entry.page).sort()).toEqual([...PAGE_KEYS].sort());
+  });
+
+  // Without og:url, share scrapers fall back to whatever URL was shared
+  // (with tracking params or a slash-less variant) as the card's identity.
+  for (const { page, load } of pages) {
+    it(`gives ${page} a canonical and og:url from the page registry`, async () => {
+      const { metadata } = await load();
+      const path = pagePath("en", page);
+
+      expect(metadata.alternates?.canonical).toBe(path);
+      expect(metadata.openGraph?.url).toBe(absoluteUrl(path));
+    });
+  }
+
+  it("lists every landing in the sitemap", () => {
+    const urls = sitemap().map((entry) => entry.url);
+
+    for (const page of ["home", "yii2", "ai-vibecoding"] as const) {
+      expect(urls).toContain(absoluteUrl(pagePath("en", page)));
+    }
+  });
+});
+
 describe("canonical metadata", () => {
-  it("declares the home page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/"/);
-  });
-
-  it("declares the yii2 page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "yii2", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2\/"/);
-  });
-
-  it("declares the ai-vibecoding page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "ai-vibecoding", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/ai-vibecoding\/"/);
-  });
-
-  it("declares the blog index canonical", () => {
-    const filePath = join(process.cwd(), "app", "blog", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/blog\/"/);
+  it("serves the blog index from the page registry", () => {
+    expect(pagePath("en", "blog")).toBe("/blog/");
   });
 
   // Every post page takes its metadata from the shared builder, so the checks
   // on buildPostMetadata below cover each post, including ones added later.
   for (const slug of POST_SLUGS) {
     it(`builds the "${slug}" metadata with buildPostMetadata`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
     });
   }
+});
+
+describe("post URLs", () => {
+  it("serves posts at their trailing-slash path under /blog/", () => {
+    expect(getPostPath("diagnose-broken-engineering-delivery")).toBe(
+      "/blog/diagnose-broken-engineering-delivery/"
+    );
+    expect(getPostUrl("diagnose-broken-engineering-delivery")).toBe(
+      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
+    );
+  });
+
+  it("dates the blog by its newest post change", () => {
+    const newest = POST_SLUGS.map((slug) => getPostBySlug(slug).modifiedAt).sort().at(-1);
+
+    expect(getBlogLastModifiedAt("en")).toBe(newest);
+  });
 });
 
 describe("buildPostMetadata", () => {
@@ -119,24 +216,25 @@ describe("llms.txt", () => {
     expect(content).toContain("https://t.me/sg4tech");
   });
 
-  it("advertises the blog index and the cornerstone article", () => {
+  it("advertises the blog index", () => {
     const filePath = join(process.cwd(), "public", "llms.txt");
     const content = readFileSync(filePath, "utf8");
 
     expect(content).toContain("https://sg4.tech/blog/");
-    expect(content).toContain(
-      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/forecast-delivery-with-percentiles/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/vibecoded-mvp-stopped-shipping/"
-    );
-    expect(content).toContain(
-      "https://sg4.tech/blog/ai-made-starting-free-finishing-expensive/"
-    );
   });
+
+  // Answer engines read llms.txt as the site's table of contents, so a post
+  // without its own entry is invisible to them even though it is live and in
+  // the sitemap. A bare URL mention elsewhere (e.g. a playbook link) does not count.
+  for (const slug of POST_SLUGS) {
+    it(`lists the "${slug}" post as its own entry`, () => {
+      const filePath = join(process.cwd(), "public", "llms.txt");
+      const lines = readFileSync(filePath, "utf8").split("\n");
+      const entryLink = `](${SITE_URL}/blog/${slug}/)`;
+
+      expect(lines.some((line) => line.startsWith("- [") && line.includes(entryLink))).toBe(true);
+    });
+  }
 });
 
 describe("landing schema", () => {
@@ -144,15 +242,16 @@ describe("landing schema", () => {
   // with it (Q&A markup is among the most-cited structures for AI engines).
   // The founder edge links the page's ProfessionalService node to the shared
   // Person @id — without it the two nodes sit in the same graph unconnected.
-  for (const landing of ["yii2", "ai-vibecoding"] as const) {
+  for (const [landing, { page }] of [
+    ["yii2", englishLandings.yii2],
+    ["ai-vibecoding", englishLandings["ai-vibecoding"]]
+  ] as const) {
     it(`/${landing} renders FAQPage JSON-LD and links the service to the Person via founder`, () => {
-      const filePath = join(process.cwd(), "app", landing, "page.tsx");
-      const content = readFileSync(filePath, "utf8");
+      const graph = page.jsonLd;
 
-      expect(content).toContain('"@type": "FAQPage"');
-      expect(content).toMatch(
-        /founder:\s*{\s*"@id":\s*`\$\{SITE_URL\}\/#person`\s*}/
-      );
+      expect(graph.some((node) => node["@type"] === "FAQPage")).toBe(true);
+      const service = graph.find((node) => node["@type"] === "ProfessionalService");
+      expect(service?.founder).toEqual({ "@id": `${SITE_URL}/#person` });
     });
   }
 });
@@ -162,7 +261,7 @@ describe("article schema", () => {
   // built by buildPostStructuredData (covered in post-schema.test.ts).
   for (const slug of POST_SLUGS) {
     it(`renders "${slug}" through BlogPostLayout`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("<BlogPostLayout");
