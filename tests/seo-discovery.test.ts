@@ -1,20 +1,14 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import type { Metadata } from "next";
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import {
-  BLOG_INDEX_PATH,
-  getBlogLastModifiedAt,
-  getPostBySlug,
-  getPostPath,
-  getPostUrl,
-  POST_SLUGS,
-  type PostSlug
-} from "@/app/lib/blog/posts";
+import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS, type PostSlug } from "@/app/lib/blog/posts";
 import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
-import { LANDING_PATHS } from "@/app/lib/landings";
+import { PAGE_KEYS, pagePath, type PageKey } from "@/app/lib/i18n/pages";
+import { englishLandings } from "./support/landings";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -66,7 +60,7 @@ describe("home metadata", () => {
   // The root layout's title template does not apply to the page in its own
   // segment, so the home page applies the same format itself.
   it("formats the home search title like every other page", async () => {
-    const { metadata } = await import("@/app/page");
+    const { metadata } = await import("@/app/(en)/page");
     const pageTitle = metadata.openGraph?.title;
     if (typeof pageTitle !== "string") {
       throw new Error("home openGraph.title must be a plain string");
@@ -85,10 +79,10 @@ describe("search snippet lengths", () => {
   // Landing titles get the site-name suffix from the layout template (the home
   // page applies it itself), so the length that counts is the suffixed one.
   const pages = [
-    { name: "/", load: () => import("@/app/page"), suffixed: true },
-    { name: "/yii2/", load: () => import("@/app/yii2/page"), suffixed: false },
-    { name: "/ai-vibecoding/", load: () => import("@/app/ai-vibecoding/page"), suffixed: false },
-    { name: "/blog/", load: () => import("@/app/blog/page"), suffixed: false }
+    { name: "/", load: () => import("@/app/(en)/page"), suffixed: true },
+    { name: "/yii2/", load: () => import("@/app/(en)/yii2/page"), suffixed: false },
+    { name: "/ai-vibecoding/", load: () => import("@/app/(en)/ai-vibecoding/page"), suffixed: false },
+    { name: "/blog/", load: () => import("@/app/(en)/blog/page"), suffixed: false }
   ];
 
   for (const page of pages) {
@@ -127,51 +121,52 @@ describe("search snippet lengths", () => {
   }
 });
 
-describe("landing page URLs", () => {
-  // One entry per landing in LANDING_PATHS; the coverage test below fails if a
-  // landing is added there without being added here.
-  const landingPages = [
-    { path: LANDING_PATHS.home, load: () => import("@/app/page") },
-    { path: LANDING_PATHS.yii2, load: () => import("@/app/yii2/page") },
-    { path: LANDING_PATHS.aiVibecoding, load: () => import("@/app/ai-vibecoding/page") }
+describe("page URLs", () => {
+  // One English page module per registry page; the coverage test fails if a
+  // page is added to the registry without being added here.
+  const pages: ReadonlyArray<{ page: PageKey; load: () => Promise<{ metadata: Metadata }> }> = [
+    { page: "home", load: () => import("@/app/(en)/page") },
+    { page: "yii2", load: () => import("@/app/(en)/yii2/page") },
+    { page: "ai-vibecoding", load: () => import("@/app/(en)/ai-vibecoding/page") },
+    { page: "blog", load: () => import("@/app/(en)/blog/page") },
+    { page: "privacy", load: () => import("@/app/(en)/privacy/page") }
   ];
 
-  it("covers every landing", () => {
-    expect(landingPages.map((page) => page.path).sort()).toEqual(Object.values(LANDING_PATHS).sort());
+  it("covers every page in the registry", () => {
+    expect(pages.map((entry) => entry.page).sort()).toEqual([...PAGE_KEYS].sort());
   });
 
   // Without og:url, share scrapers fall back to whatever URL was shared
   // (with tracking params or a slash-less variant) as the card's identity.
-  for (const page of landingPages) {
-    it(`gives ${page.path} a matching canonical and og:url`, async () => {
-      const { metadata } = await page.load();
+  for (const { page, load } of pages) {
+    it(`gives ${page} a canonical and og:url from the page registry`, async () => {
+      const { metadata } = await load();
+      const path = pagePath("en", page);
 
-      expect(metadata.alternates?.canonical).toBe(page.path);
-      expect(metadata.openGraph?.url).toBe(absoluteUrl(page.path));
+      expect(metadata.alternates?.canonical).toBe(path);
+      expect(metadata.openGraph?.url).toBe(absoluteUrl(path));
     });
   }
 
   it("lists every landing in the sitemap", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    for (const path of Object.values(LANDING_PATHS)) {
-      expect(urls).toContain(absoluteUrl(path));
+    for (const page of ["home", "yii2", "ai-vibecoding"] as const) {
+      expect(urls).toContain(absoluteUrl(pagePath("en", page)));
     }
   });
 });
 
 describe("canonical metadata", () => {
-  it("declares the blog index canonical", async () => {
-    const { metadata } = await import("@/app/blog/page");
-
-    expect(metadata.alternates?.canonical).toBe(BLOG_INDEX_PATH);
+  it("serves the blog index from the page registry", () => {
+    expect(pagePath("en", "blog")).toBe("/blog/");
   });
 
   // Every post page takes its metadata from the shared builder, so the checks
   // on buildPostMetadata below cover each post, including ones added later.
   for (const slug of POST_SLUGS) {
     it(`builds the "${slug}" metadata with buildPostMetadata`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
@@ -192,7 +187,7 @@ describe("post URLs", () => {
   it("dates the blog by its newest post change", () => {
     const newest = POST_SLUGS.map((slug) => getPostBySlug(slug).modifiedAt).sort().at(-1);
 
-    expect(getBlogLastModifiedAt()).toBe(newest);
+    expect(getBlogLastModifiedAt("en")).toBe(newest);
   });
 });
 
@@ -247,15 +242,16 @@ describe("landing schema", () => {
   // with it (Q&A markup is among the most-cited structures for AI engines).
   // The founder edge links the page's ProfessionalService node to the shared
   // Person @id — without it the two nodes sit in the same graph unconnected.
-  for (const landing of ["yii2", "ai-vibecoding"] as const) {
+  for (const [landing, { page }] of [
+    ["yii2", englishLandings.yii2],
+    ["ai-vibecoding", englishLandings["ai-vibecoding"]]
+  ] as const) {
     it(`/${landing} renders FAQPage JSON-LD and links the service to the Person via founder`, () => {
-      const filePath = join(process.cwd(), "app", landing, "page.tsx");
-      const content = readFileSync(filePath, "utf8");
+      const graph = page.jsonLd;
 
-      expect(content).toContain('"@type": "FAQPage"');
-      expect(content).toMatch(
-        /founder:\s*{\s*"@id":\s*`\$\{SITE_URL\}\/#person`\s*}/
-      );
+      expect(graph.some((node) => node["@type"] === "FAQPage")).toBe(true);
+      const service = graph.find((node) => node["@type"] === "ProfessionalService");
+      expect(service?.founder).toEqual({ "@id": `${SITE_URL}/#person` });
     });
   }
 });
@@ -265,7 +261,7 @@ describe("article schema", () => {
   // built by buildPostStructuredData (covered in post-schema.test.ts).
   for (const slug of POST_SLUGS) {
     it(`renders "${slug}" through BlogPostLayout`, () => {
-      const filePath = join(process.cwd(), "app", "blog", slug, "page.tsx");
+      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("<BlogPostLayout");

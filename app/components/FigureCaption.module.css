@@ -1,7 +1,11 @@
-.caption {
-  margin: var(--space-1) 0 0;
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  text-align: left;
+@layer base, primitives, components, landing, views;
+
+@layer components {
+  .caption {
+    margin: var(--space-1) 0 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    text-align: left;
+  }
 }

@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getSiteNavigationItems } from "@/app/lib/navigation";
 
 describe("responsive layout guardrails", () => {
   it("keeps the dedicated mobile navigation and CTA rules", () => {
@@ -8,7 +9,8 @@ describe("responsive layout guardrails", () => {
     const navTsxPath = join(process.cwd(), "app", "components", "TopNavigation.tsx");
     const navCssPath = join(process.cwd(), "app", "components", "TopNavigation.module.css");
 
-    const pageCss = readFileSync(buttonCssPath, "utf8");
+    // Leading indentation dropped: rules read the same inside a cascade layer block.
+    const pageCss = readFileSync(buttonCssPath, "utf8").replace(/^[ \t]+/gm, "");
     const navTsx = readFileSync(navTsxPath, "utf8");
     const navCss = readFileSync(navCssPath, "utf8");
 
@@ -17,9 +19,9 @@ describe("responsive layout guardrails", () => {
     const pageMobileSection = pageCss.split("@media (max-width: 640px)")[1] ?? "";
 
     // Nav data shape: items carry mobileNav role + the component honours it via data-attr.
-    const navData = readFileSync(join(process.cwd(), "app", "lib", "navigation.ts"), "utf8");
-    expect(navData).toContain('mobileNav: "primary"');
-    expect(navData).toContain('mobileNav: "secondary"');
+    const mobileNav = getSiteNavigationItems("en").map((item) => item.mobileNav);
+    expect(mobileNav).toContain("primary");
+    expect(mobileNav).toContain("secondary");
     expect(navTsx).toContain("data-mobile-nav={item.mobileNav}");
 
     // Below desktop the nav is one row: logo plus a few pills, never a tile grid
@@ -34,7 +36,7 @@ describe("responsive layout guardrails", () => {
     expect(navMobileSection).toContain(".brand {");
 
     // Button component collapse rules live in Button.module.css.
-    expect(pageMobileSection).toContain(".primary {\n    width: 100%;");
-    expect(pageMobileSection).toContain(".secondary {\n    width: auto;");
+    expect(pageMobileSection).toContain(".primary {\nwidth: 100%;");
+    expect(pageMobileSection).toContain(".secondary {\nwidth: auto;");
   });
 });

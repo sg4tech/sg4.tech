@@ -1,14 +1,12 @@
 import { absoluteUrl, personSchema } from "../brand";
-import { BLOG_INDEX_PATH, getPostBySlug, getPostUrl, type PostSlug } from "./posts";
+import { getLocaleConfig } from "../i18n/locales";
+import { pagePath } from "../i18n/pages";
+import { getNavigationLabel } from "../navigation";
+import { buildFaqPageSchema, type FaqSchemaEntry } from "../structured-data";
+import { getPostBySlug, getPostPath, getPostUrl, type PostSlug } from "./posts";
 
 // One builder for every post's JSON-LD graph (Person, Article, FAQPage,
 // BreadcrumbList), so posts differ only in their data, not in schema shape.
-
-export type FaqSchemaEntry = {
-  question: string;
-  /** Plain-text answer; must mirror the rendered answer word-for-word so an AI snippet matches the page. */
-  answer: string;
-};
 
 type PostSchemaOptions = {
   /** Article headline when the on-page H1 differs from the registry title. */
@@ -21,23 +19,23 @@ const articleId = (slug: PostSlug): string => `${getPostUrl(slug)}#article`;
 
 function buildArticleSchema(slug: PostSlug, options: PostSchemaOptions) {
   const post = getPostBySlug(slug);
-  const postUrl = getPostUrl(slug);
+  const url = getPostUrl(slug);
 
   return {
     "@type": "Article",
     "@id": articleId(slug),
-    mainEntityOfPage: postUrl,
-    url: postUrl,
+    mainEntityOfPage: url,
+    url,
     headline: options.headline ?? post.title,
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.modifiedAt,
-    inLanguage: "en",
+    inLanguage: getLocaleConfig(post.locale).htmlLang,
     // Image required for Google Article rich-result cards; reuse the generated OG
     // PNG so the schema asset always matches the one used by social scrapers.
     image: {
       "@type": "ImageObject",
-      url: `${postUrl}opengraph-image.png`,
+      url: `${url}opengraph-image.png`,
       width: 1200,
       height: 630
     },
@@ -50,32 +48,19 @@ function buildArticleSchema(slug: PostSlug, options: PostSchemaOptions) {
   };
 }
 
-function buildFaqPageSchema(slug: PostSlug, faqItems: ReadonlyArray<FaqSchemaEntry>) {
-  return {
-    "@type": "FAQPage",
-    "@id": `${getPostUrl(slug)}#faq`,
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer
-      }
-    }))
-  };
-}
-
+// Crumbs reuse the locale's menu labels and the page registry's paths, so the
+// trail reads like the nav and never points at a page missing in that locale.
 function buildBreadcrumbSchema(slug: PostSlug) {
-  const post = getPostBySlug(slug);
-  const postUrl = getPostUrl(slug);
+  const { locale, title } = getPostBySlug(slug);
+  const url = getPostUrl(slug);
 
   return {
     "@type": "BreadcrumbList",
-    "@id": `${postUrl}#breadcrumb`,
+    "@id": `${url}#breadcrumb`,
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl(BLOG_INDEX_PATH) },
-      { "@type": "ListItem", position: 3, name: post.title, item: postUrl }
+      { "@type": "ListItem", position: 1, name: getNavigationLabel(locale, "home"), item: absoluteUrl(pagePath(locale, "home")) },
+      { "@type": "ListItem", position: 2, name: getNavigationLabel(locale, "blog"), item: absoluteUrl(pagePath(locale, "blog")) },
+      { "@type": "ListItem", position: 3, name: title, item: url }
     ]
   };
 }
@@ -90,7 +75,7 @@ export function buildPostStructuredData(
     "@graph": [
       personSchema,
       buildArticleSchema(slug, options),
-      buildFaqPageSchema(slug, faqItems),
+      buildFaqPageSchema(getPostPath(slug), faqItems),
       buildBreadcrumbSchema(slug)
     ]
   };

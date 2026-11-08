@@ -65,6 +65,22 @@ Use this when a change could be affected by anything that differs between `next 
 - Image optimization (none in this project's `output: export`, but worth knowing)
 - Static asset hashing and chunk boundaries
 
+### Cascade layers decide CSS order
+
+In the production build, Turbopack merges CSS modules into shared chunks in an order derived from imports, which no single file controls. When two rules of equal specificity target the same element — a page passing its class to a shared component, a component restyling another — the winner would depend on that bundle order. It did once: pages kept identical HTML while their spacing changed.
+
+So every stylesheet sits in an explicit cascade layer, and the layer order — not the bundle — decides:
+
+- `base` — `app/globals.css` (tokens and tag defaults)
+- `primitives` — shared components that other components restyle via a class prop
+- `components` — the other shared components
+- `landing` — `app/styles/landing.module.css`
+- `views` — page views and route stylesheets
+
+Each stylesheet starts with the full layer-order statement, so the order holds whichever chunk the browser loads first. `tests/css-layers.test.ts` enforces where each stylesheet sits and that a component which passes its class to another component is in a later layer than it. A new override between components that breaks this fails the test: move the overridden one to `primitives`.
+
+For a refactor that moves components, routes, or stylesheets, compare the built pages against the previous build by computed style, not only by HTML.
+
 The dev server uses port 3000; preview uses 3001, so both can run in parallel.
 
 With several checkouts or worktrees on one machine, port 3001 may be served from a different folder. Before trusting a screenshot, confirm which checkout's `out/` is being served (`lsof -iTCP:3001 -sTCP:LISTEN` and that process's working directory).

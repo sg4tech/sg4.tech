@@ -1,54 +1,58 @@
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  align-items: flex-start;
-}
+@layer base, primitives, components, landing, views;
 
-/* Inline before the figure, so a qualified figure stays on its neighbours'
-   line instead of being pushed down by a stacked overline. */
-.note {
-  color: var(--text-3);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  line-height: var(--leading-tight);
-}
+@layer components {
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-start;
+  }
 
-.header {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.4rem;
-}
+  /* Inline before the figure, so a qualified figure stays on its neighbours'
+     line instead of being pushed down by a stacked overline. */
+  .note {
+    color: var(--text-3);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+  }
 
-/* leading anchor when a figure is present — quiet, neutral */
-.icon {
-  width: 1.4rem;
-  height: 1.4rem;
-  color: var(--text-strong);
-  opacity: 0.55;
-  flex: 0 0 auto;
-}
+  .header {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.4rem;
+  }
 
-/* the ember "proof" number */
-.figure {
-  color: var(--color-primary);
-  font-size: var(--text-hero-metric);
-  font-weight: 800;
-  line-height: var(--leading-none);
-  letter-spacing: var(--tracking-tight);
-  font-variant-numeric: tabular-nums;
-}
+  /* leading anchor when a figure is present — quiet, neutral */
+  .icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    color: var(--text-strong);
+    opacity: 0.55;
+    flex: 0 0 auto;
+  }
 
-/* qualitative metric (no number): the icon itself becomes the ember anchor */
-.figureIcon {
-  width: 2rem;
-  height: 2rem;
-  color: var(--color-primary);
-}
+  /* the ember "proof" number */
+  .figure {
+    color: var(--color-primary);
+    font-size: var(--text-hero-metric);
+    font-weight: 800;
+    line-height: var(--leading-none);
+    letter-spacing: var(--tracking-tight);
+    font-variant-numeric: tabular-nums;
+  }
 
-.label {
-  color: var(--text-3);
-  font-size: var(--text-base);
-  line-height: var(--leading-snug);
+  /* qualitative metric (no number): the icon itself becomes the ember anchor */
+  .figureIcon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-primary);
+  }
+
+  .label {
+    color: var(--text-3);
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+  }
 }

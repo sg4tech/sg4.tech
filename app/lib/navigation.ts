@@ -1,3 +1,9 @@
+import { getDictionary } from "./i18n/dictionary";
+import type { Locale } from "./i18n/locales";
+import { isPagePublished, pagePath } from "./i18n/pages";
+import type { SiteDictionary } from "./i18n/types";
+import { createLookup } from "./lookup";
+
 export type NavigationItem = {
   href: string;
   label: string;
@@ -17,19 +23,49 @@ export type LegalLink = {
   href: string;
 };
 
-// Fine-print legal disclaimers rendered as small muted text at the foot of every
-// page. `label` is the bold lead-in; `body` is the running text after it.
-export type FooterDisclaimer = {
-  label: string;
-  body: string;
-};
+type NavigationKey = SiteDictionary["navigation"]["items"][number]["key"];
+
+// How each menu item behaves on phones. Where it points comes from the page
+// registry; labels and their order come from the locale's dictionary.
+const getMobileNav = createLookup<NavigationKey, NavigationItem["mobileNav"]>({
+  home: "primary",
+  blog: "primary",
+  yii2: "secondary",
+  "ai-vibecoding": "secondary"
+});
+
+// Menu entries whose page exists in the locale; a page not yet translated
+// drops out of that locale's menu instead of linking to a 404.
+export function keepPublishedItems<Item extends { key: NavigationKey }>(
+  items: ReadonlyArray<Item>,
+  isPublished: (key: NavigationKey) => boolean
+): Item[] {
+  return items.filter((item) => isPublished(item.key));
+}
 
 // The one site menu, rendered on every page via <SiteNav />. Navigation only:
 // pages, no in-page anchors and no Contact (each page has its own CTAs).
 // "secondary" items are hidden on phones, where four pills do not fit.
-export const siteNavigationItems: NavigationItem[] = [
-  { href: "/", label: "Home", mobileNav: "primary" },
-  { href: "/blog/", label: "Blog", mobileNav: "primary" },
-  { href: "/yii2/", label: "Yii2", mobileNav: "secondary" },
-  { href: "/ai-vibecoding/", label: "AI vibecoding", mobileNav: "secondary" }
-];
+export function getSiteNavigationItems(locale: Locale): NavigationItem[] {
+  const items = keepPublishedItems(getDictionary(locale).navigation.items, (key) => isPagePublished(locale, key));
+  return items.map(({ key, label }) => ({
+    href: pagePath(locale, key),
+    label,
+    mobileNav: getMobileNav(key)
+  }));
+}
+
+// The menu label for one page, e.g. for breadcrumbs that should read like the nav.
+export function getNavigationLabel(locale: Locale, key: NavigationKey): string {
+  const item = getDictionary(locale).navigation.items.find((entry) => entry.key === key);
+  if (!item) {
+    throw new Error(`[navigation] the ${locale} dictionary has no menu label for "${key}"`);
+  }
+  return item.label;
+}
+
+// Internal legal/utility links in the footer. Trailing-slash paths match
+// next.config trailingSlash: true (the slash-less form 301-redirects).
+export function getLegalLinks(locale: Locale): LegalLink[] {
+  return [{ label: getDictionary(locale).footer.privacyLabel, href: pagePath(locale, "privacy") }];
+}

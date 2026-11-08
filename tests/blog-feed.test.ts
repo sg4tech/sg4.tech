@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { BLOG_FEED_URL, buildBlogFeed } from "@/app/lib/blog/feed";
-import { blogFeedAlternates, buildPostMetadata } from "@/app/lib/blog/post-metadata";
+import { blogIndexContent } from "@/app/(en)/blog/content";
+import { blogFeedAlternates, blogFeedUrl, buildBlogFeed } from "@/app/lib/blog/feed";
+import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
+import { pagePath } from "@/app/lib/i18n/pages";
 import {
-  BLOG_INDEX_PATH,
   getBlogLastModifiedAt,
   getLatestPosts,
   getPostUrl,
@@ -59,22 +60,31 @@ describe("RSS renderer", () => {
 });
 
 describe("blog RSS feed", () => {
-  const feed = buildBlogFeed();
+  const feed = buildBlogFeed("en", {
+    title: blogIndexContent.meta.socialTitle,
+    description: blogIndexContent.meta.description
+  });
 
   it("is the blog index channel and points at its own published URL", () => {
-    expect(feed).toContain(`<link>${absoluteUrl(BLOG_INDEX_PATH)}</link>`);
-    expect(feed).toContain(`<atom:link href="${BLOG_FEED_URL}" rel="self"`);
+    expect(feed).toContain(`<link>${absoluteUrl(pagePath("en", "blog"))}</link>`);
+    expect(feed).toContain(`<atom:link href="${blogFeedUrl("en")}" rel="self"`);
+    expect(blogFeedUrl("en")).toBe("https://sg4.tech/blog/feed.xml");
+  });
+
+  it("describes the blog in the locale's own words and language", () => {
+    expect(feed).toContain("<title>Blog — Victor Demin</title>");
+    expect(feed).toContain("<language>en</language>");
   });
 
   it("has one item per post, newest first", () => {
     const links = [...feed.matchAll(/<item>[\s\S]*?<link>([^<]+)<\/link>/g)].map((m) => m[1]);
 
-    expect(links).toEqual(getLatestPosts().map((post) => getPostUrl(post.slug)));
+    expect(links).toEqual(getLatestPosts("en").map((post) => getPostUrl(post.slug)));
     expect(links).toHaveLength(POST_SLUGS.length);
   });
 
   it("is dated by the newest post change", () => {
-    const lastModified = getBlogLastModifiedAt();
+    const lastModified = getBlogLastModifiedAt("en");
     if (lastModified === undefined) {
       throw new Error("the blog has posts, so it must have a last-modified date");
     }
@@ -85,18 +95,18 @@ describe("blog RSS feed", () => {
 
 describe("blog RSS feed discovery", () => {
   it("advertises the published feed URL", () => {
-    expect(blogFeedAlternates).toEqual({ "application/rss+xml": BLOG_FEED_URL });
+    expect(blogFeedAlternates("en")).toEqual({ "application/rss+xml": blogFeedUrl("en") });
   });
 
   it("is advertised from every post", () => {
     for (const slug of POST_SLUGS) {
-      expect(buildPostMetadata(slug).alternates?.types).toEqual(blogFeedAlternates);
+      expect(buildPostMetadata(slug).alternates?.types).toEqual(blogFeedAlternates("en"));
     }
   });
 
   it("is advertised from the blog index", async () => {
-    const { metadata } = await import("@/app/blog/page");
+    const { metadata } = await import("@/app/(en)/blog/page");
 
-    expect(metadata.alternates?.types).toEqual(blogFeedAlternates);
+    expect(metadata.alternates?.types).toEqual(blogFeedAlternates("en"));
   });
 });

@@ -1,12 +1,16 @@
-.caption {
-  margin: var(--space-2) 0 0;
-  color: var(--muted);
-  font-size: var(--text-xs);
-  line-height: var(--leading-relaxed);
-  text-wrap: pretty;
-}
+@layer base, primitives, components, landing, views;
 
-/* Inside --surface-inverse panels (the dark "Why me" block). */
-.onDark {
-  color: var(--text-on-dark-muted);
+@layer components {
+  .caption {
+    margin: var(--space-2) 0 0;
+    color: var(--muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    text-wrap: pretty;
+  }
+
+  /* Inside --surface-inverse panels (the dark "Why me" block). */
+  .onDark {
+    color: var(--text-on-dark-muted);
+  }
 }

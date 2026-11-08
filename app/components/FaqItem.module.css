@@ -1,105 +1,109 @@
-.faqItem {
-  padding: 1.1rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
+@layer base, primitives, components, landing, views;
 
-.summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  min-height: 2.75rem;
-  margin: -0.5rem 0;
-  list-style: none;
-  cursor: pointer;
-}
-
-.summary::-webkit-details-marker {
-  display: none;
-}
-
-.question {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
-}
-
-/* Plus turns into a cross when the answer is open. */
-.toggle {
-  flex: 0 0 auto;
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--muted);
-  transition: transform var(--duration-base) var(--ease-standard);
-}
-
-.faqItem[open] .toggle {
-  transform: rotate(45deg);
-}
-
-.summary:hover .toggle,
-.summary:focus-visible .toggle {
-  color: var(--text-strong);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .toggle {
-    transition: none;
+@layer components {
+  .faqItem {
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
   }
-}
 
-.answer {
-  margin: 0.7rem 0 0;
-  color: var(--muted);
-  line-height: var(--leading-loose);
-}
+  .summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    margin: -0.5rem 0;
+    list-style: none;
+    cursor: pointer;
+  }
 
-/* Two-rule rhythm pattern: kill default vertical margins on every direct
-   child, then add a single inter-element gap via the adjacent-sibling
-   selector. Both rules share specificity (0,1,0) so the source order wins
-   for subsequent children — the first child keeps margin-top:0 from the
-   reset, later children pick up the 0.85rem from the next rule. Using a
-   type selector (e.g. `.answer > p`) for the reset would outweigh the
-   gap rule and silently zero out the spacing — which is the bug we hit
-   the first time. */
-.answer > * {
-  margin: 0;
-}
+  .summary::-webkit-details-marker {
+    display: none;
+  }
 
-.answer > * + * {
-  margin-top: 0.85rem;
-}
+  .question {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
+  }
 
-.answer strong {
-  color: var(--text-strong);
-}
+  /* Plus turns into a cross when the answer is open. */
+  .toggle {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--muted);
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
 
-.answer dl {
-  display: grid;
-  gap: 0.55rem;
-}
+  .faqItem[open] .toggle {
+    transform: rotate(45deg);
+  }
 
-.answer dt {
-  color: var(--text-strong);
-  font-weight: 600;
-  font-size: var(--text-base);
-  line-height: var(--leading-snug);
-}
+  .summary:hover .toggle,
+  .summary:focus-visible .toggle {
+    color: var(--text-strong);
+  }
 
-.answer dd {
-  margin: 0.15rem 0 0;
-}
+  @media (prefers-reduced-motion: reduce) {
+    .toggle {
+      transition: none;
+    }
+  }
 
-.answer ol,
-.answer ul {
-  padding-left: 1.4rem;
-  display: grid;
-  gap: 0.4rem;
-}
+  .answer {
+    margin: 0.7rem 0 0;
+    color: var(--muted);
+    line-height: var(--leading-loose);
+  }
 
-.answer ol li::marker {
-  color: var(--text-strong);
-  font-weight: 600;
+  /* Two-rule rhythm pattern: kill default vertical margins on every direct
+     child, then add a single inter-element gap via the adjacent-sibling
+     selector. Both rules share specificity (0,1,0) so the source order wins
+     for subsequent children — the first child keeps margin-top:0 from the
+     reset, later children pick up the 0.85rem from the next rule. Using a
+     type selector (e.g. `.answer > p`) for the reset would outweigh the
+     gap rule and silently zero out the spacing — which is the bug we hit
+     the first time. */
+  .answer > * {
+    margin: 0;
+  }
+
+  .answer > * + * {
+    margin-top: 0.85rem;
+  }
+
+  .answer strong {
+    color: var(--text-strong);
+  }
+
+  .answer dl {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .answer dt {
+    color: var(--text-strong);
+    font-weight: 600;
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+  }
+
+  .answer dd {
+    margin: 0.15rem 0 0;
+  }
+
+  .answer ol,
+  .answer ul {
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .answer ol li::marker {
+    color: var(--text-strong);
+    font-weight: 600;
+  }
 }

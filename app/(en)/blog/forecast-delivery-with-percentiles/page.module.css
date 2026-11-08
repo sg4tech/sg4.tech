@@ -1,0 +1,220 @@
+@layer base, primitives, components, landing, views;
+
+@layer views {
+  .body {
+    max-width: 42rem;
+  }
+
+  .body h2 {
+    margin: var(--space-4) 0 0;
+    color: var(--text-strong);
+    font-size: var(--text-h2);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.015em;
+    text-wrap: pretty;
+    scroll-margin-top: var(--scroll-offset);
+  }
+
+  .body h2:first-child {
+    margin-top: var(--space-3);
+  }
+
+  /* Direct-child selectors so prose styles don't leak into <aside> blocks (CTA,
+     Related) which sit on accent backgrounds. */
+  .body > p {
+    margin: var(--space-2) 0 0;
+    color: var(--text);
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    text-wrap: pretty;
+  }
+
+  .body strong {
+    color: var(--text-strong);
+  }
+
+  .body a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .body > ul {
+    margin: var(--space-2) 0 0;
+    padding-left: 1.4rem;
+    color: var(--text);
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+  }
+
+  .body > ul > li {
+    margin: 0.4rem 0 0;
+  }
+
+  .body > ul > li:first-child {
+    margin-top: 0;
+  }
+
+  /* `.body > .pullquote` (specificity 0,2,0) beats `.body > p` (0,1,1) when the
+     pullquote renders as <p>. */
+  .body > .pullquote {
+    margin: var(--space-3) 0 0;
+    padding: var(--space-2) var(--space-3);
+    border-left: 3px solid var(--accent);
+    background: var(--surface-alt);
+    color: var(--text-strong);
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    font-weight: 600;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .numericExample {
+    display: grid;
+    gap: 0.4rem;
+    margin: var(--space-3) 0 0;
+    padding: var(--space-2) var(--space-3);
+    background: var(--surface-alt);
+    border-radius: var(--radius-sm);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-size: var(--text-base);
+    color: var(--text);
+    line-height: var(--leading-relaxed);
+  }
+
+  .numericExample p {
+    margin: 0;
+    font-size: var(--text-base);
+    font-family: inherit;
+    line-height: inherit;
+  }
+
+  /* 2-column "what you see / what it means" table. Mobile (<640px) stacks cells
+     as block to stay readable without horizontal scroll. */
+  .body > .diagnosticTable {
+    width: 100%;
+    margin: var(--space-3) 0 0;
+    border-collapse: collapse;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--text);
+  }
+
+  .diagnosticTable thead th {
+    padding: 0.6rem var(--space-2);
+    background: var(--surface-strong);
+    color: var(--text-strong);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .diagnosticTable tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .diagnosticTable tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .diagnosticTable tbody th {
+    padding: var(--space-2);
+    color: var(--text-strong);
+    font-weight: 600;
+    text-align: left;
+    vertical-align: top;
+    width: 40%;
+  }
+
+  .diagnosticTable tbody td {
+    padding: var(--space-2);
+    vertical-align: top;
+  }
+
+  @media (max-width: 640px) {
+    .diagnosticTable thead {
+      display: none;
+    }
+
+    .diagnosticTable tbody tr {
+      display: block;
+      padding: var(--space-2) 0;
+    }
+
+    .diagnosticTable tbody th,
+    .diagnosticTable tbody td {
+      display: block;
+      width: 100%;
+      padding: 0.25rem 0;
+    }
+  }
+
+  /* Emphasised single-line callout inside a FAQ answer — accent-left treatment
+     scaled for the FAQ card. */
+  .faqHighlight {
+    display: block;
+    padding: 0.5rem 0.85rem;
+    background: var(--surface-alt);
+    color: var(--text-strong);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-weight: 600;
+  }
+
+  /* Right-skewed lead-time distribution (section 3). Same wrapper treatment as
+     the cornerstone's SVG diagrams; element fills/strokes use design tokens so
+     the chart tracks the palette and passes the CSS-literal lint. */
+  .distChart {
+    margin: var(--space-3) 0 0;
+    padding: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .distChart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .distChart .dcBar {
+    fill: var(--gray-400);
+  }
+
+  .distChart .dcAxis {
+    stroke: var(--border-strong);
+    stroke-width: 1;
+  }
+
+  .distChart .dcTick,
+  .distChart .dcAxisLabel {
+    fill: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  .distChart .dcMedian {
+    stroke: var(--text);
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+  }
+
+  .distChart .dcMean {
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .distChart .dcMedianLabel {
+    fill: var(--text-strong);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .distChart .dcMeanLabel {
+    fill: var(--accent);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+}

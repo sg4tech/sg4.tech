@@ -1,5 +1,9 @@
-.faqList {
-  display: grid;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
+@layer base, primitives, components, landing, views;
+
+@layer primitives {
+  .faqList {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
 }

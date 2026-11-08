@@ -1,41 +1,45 @@
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
+@layer base, primitives, components, landing, views;
 
-.list li {
-  display: flex;
-  gap: 0.6rem;
-  color: var(--text-2);
-  line-height: var(--leading-base);
-}
+@layer components {
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
 
-.check,
-.cross {
-  width: 1.1rem;
-  height: 1.1rem;
-  flex: 0 0 auto;
-  /* em, not rem: the offset follows the list's own font size. */
-  margin-top: 0.15em;
-}
+  .list li {
+    display: flex;
+    gap: 0.6rem;
+    color: var(--text-2);
+    line-height: var(--leading-base);
+  }
 
-.check {
-  color: var(--green-600);
-}
+  .check,
+  .cross {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: 0 0 auto;
+    /* em, not rem: the offset follows the list's own font size. */
+    margin-top: 0.15em;
+  }
 
-.cross {
-  color: var(--text-4);
-}
+  .check {
+    color: var(--green-600);
+  }
 
-.dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  flex: 0 0 auto;
-  margin-top: 0.55em;
-  border-radius: var(--radius-pill);
-  background: var(--gray-400);
+  .cross {
+    color: var(--text-4);
+  }
+
+  .dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    flex: 0 0 auto;
+    margin-top: 0.55em;
+    border-radius: var(--radius-pill);
+    background: var(--gray-400);
+  }
 }

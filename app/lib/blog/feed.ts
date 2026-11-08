@@ -1,19 +1,27 @@
 import { absoluteUrl } from "../brand";
+import { getLocaleConfig, type Locale } from "../i18n/locales";
+import { pagePath } from "../i18n/pages";
 import { renderRss, type RssItem } from "../rss";
-import {
-  BLOG_DESCRIPTION,
-  BLOG_INDEX_PATH,
-  BLOG_TITLE,
-  type BlogPost,
-  getBlogLastModifiedAt,
-  getLatestPosts,
-  getPostUrl,
-  parsePostDate
-} from "./posts";
+import { type BlogPost, getBlogLastModifiedAt, getLatestPosts, getPostUrl, parsePostDate } from "./posts";
 
-// The blog's RSS feed: which posts go in and how they map to feed items.
-// Served by app/blog/feed.xml/route.ts at BLOG_FEED_URL.
-export const BLOG_FEED_URL = `${absoluteUrl(BLOG_INDEX_PATH)}feed.xml`;
+// A locale's blog RSS feed: which posts go in and how they map to feed items.
+// Served next to that locale's blog index (app/(en)/blog/feed.xml for English).
+
+/** The feed's published URL, next to the locale's blog index. */
+export function blogFeedUrl(locale: Locale): string {
+  return `${absoluteUrl(pagePath(locale, "blog"))}feed.xml`;
+}
+
+/** Advertises the locale's feed via <link rel="alternate"> (alternates.types). */
+export function blogFeedAlternates(locale: Locale) {
+  return { "application/rss+xml": blogFeedUrl(locale) };
+}
+
+/** What the feed channel says about the blog; the blog index content supplies it. */
+export type BlogFeedChannel = {
+  title: string;
+  description: string;
+};
 
 function toFeedItem(post: BlogPost): RssItem {
   return {
@@ -24,19 +32,19 @@ function toFeedItem(post: BlogPost): RssItem {
   };
 }
 
-export function buildBlogFeed(): string {
-  const lastModified = getBlogLastModifiedAt();
+export function buildBlogFeed(locale: Locale, channel: BlogFeedChannel): string {
+  const lastModified = getBlogLastModifiedAt(locale);
 
   return renderRss(
     {
-      title: BLOG_TITLE,
-      link: absoluteUrl(BLOG_INDEX_PATH),
-      description: BLOG_DESCRIPTION,
-      language: "en",
-      selfUrl: BLOG_FEED_URL,
+      title: channel.title,
+      link: absoluteUrl(pagePath(locale, "blog")),
+      description: channel.description,
+      language: getLocaleConfig(locale).htmlLang,
+      selfUrl: blogFeedUrl(locale),
       // The newest content change, not the time of the build, so rebuilds stay identical.
       lastBuildDate: lastModified === undefined ? undefined : parsePostDate(lastModified)
     },
-    getLatestPosts().map(toFeedItem)
+    getLatestPosts(locale).map(toFeedItem)
   );
 }

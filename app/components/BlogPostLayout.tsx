@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { buildPostStructuredData } from "../lib/blog/post-schema";
 import { getPostBySlug, type PostSlug } from "../lib/blog/posts";
+import { getDictionary } from "../lib/i18n/dictionary";
+import { pagePath } from "../lib/i18n/pages";
 import { BlogPostHeader } from "./BlogPostHeader";
 import { Eyebrow } from "./Eyebrow";
 import { FaqSection, type FaqItemData } from "./FaqSection";
@@ -36,6 +38,9 @@ export function BlogPostLayout({
   children
 }: BlogPostLayoutProps) {
   const post = getPostBySlug(slug);
+  // A post is written in one language; the registry says which.
+  const { locale } = post;
+  const blogPath = pagePath(locale, "blog");
   const structuredData = buildPostStructuredData(slug, faqItems, { headline, partOf });
 
   return (
@@ -44,13 +49,14 @@ export function BlogPostLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav current="/blog/" />
+      <SiteNav locale={locale} current={blogPath} />
       <Section className={styles.article}>
-        <Link href="/blog/" className={styles.backLink}>
-          ← Blog
+        <Link href={blogPath} className={styles.backLink}>
+          {getDictionary(locale).blog.backLink}
         </Link>
         <Eyebrow>{eyebrow}</Eyebrow>
         <BlogPostHeader
+          locale={locale}
           title={headline ?? post.title}
           publishedAt={post.publishedAt}
           readingMinutes={post.readingMinutes}
@@ -58,8 +64,8 @@ export function BlogPostLayout({
         />
         {children}
       </Section>
-      <FaqSection items={faqItems} contentWrapperClassName={styles.faqColumn} />
-      <SiteFooter />
+      <FaqSection locale={locale} items={faqItems} contentWrapperClassName={styles.faqColumn} />
+      <SiteFooter locale={locale} />
     </Page>
   );
 }

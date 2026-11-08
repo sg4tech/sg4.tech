@@ -5,7 +5,7 @@ import styles from "./MarkList.module.css";
 type MarkKind = "check" | "x" | "dot";
 
 type MarkListProps = {
-  items: string[];
+  items: ReadonlyArray<string>;
   // check → green tick (positive / best fit), x → muted cross (negative /
   // not a fit), dot → neutral marker (plain symptoms). Replaces bare disc
   // bullets so every marketing list carries a visual anchor, per the DS.
