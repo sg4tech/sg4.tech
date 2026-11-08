@@ -10,7 +10,8 @@ import {
   getPostBySlug,
   getPostPath,
   getPostUrl,
-  POST_SLUGS
+  POST_SLUGS,
+  type PostSlug
 } from "@/app/lib/blog/posts";
 import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
 import { LANDING_PATHS } from "@/app/lib/landings";
@@ -106,6 +107,22 @@ describe("search snippet lengths", () => {
   for (const slug of POST_SLUGS) {
     it(`keeps the "${slug}" description within result limits`, () => {
       expect(getPostBySlug(slug).description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
+    });
+  }
+
+  // Results truncate by pixel width; the character limit is a proxy for it.
+  // This title is one character over but set in narrow letters, so it fits
+  // the width and is kept as written rather than reworded for the proxy.
+  const titleLengthExceptions: ReadonlySet<PostSlug> = new Set(["diagnose-broken-engineering-delivery"]);
+
+  for (const slug of POST_SLUGS.filter((s) => !titleLengthExceptions.has(s))) {
+    it(`keeps the "${slug}" search title within result limits`, () => {
+      const { title } = buildPostMetadata(slug);
+      if (typeof title !== "object" || title === null || !("absolute" in title)) {
+        throw new Error(`"${slug}" must set an absolute search title`);
+      }
+
+      expect(title.absolute.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
     });
   }
 });

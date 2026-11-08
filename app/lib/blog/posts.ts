@@ -84,6 +84,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   {
     slug: "ai-made-starting-free-finishing-expensive",
     title: "AI made starting work nearly free. Finishing is still expensive.",
+    seoTitle: "AI made starting work free. Finishing is still expensive.",
     description:
       "AI-assisted teams start more work than ever and ship about the same. Little's Law applied to agents, and the case for one-thread-one-task and WIP limits.",
     publishedAt: "2026-07-11",
@@ -94,6 +95,7 @@ export const blogPosts: ReadonlyArray<BlogPost> = [
   {
     slug: "ai-coding-agent-periphery-core",
     title: "AI coding agents: give them the periphery, keep humans on the core",
+    seoTitle: "What to delegate to AI coding agents: periphery vs core",
     description:
       "AI coding agents are brilliant at some work and dangerous at other work. What to delegate: give them the periphery, keep humans on the core.",
     publishedAt: "2026-07-12",
