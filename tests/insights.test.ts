@@ -1,7 +1,9 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { blogPosts, getLatestPosts } from "@/app/lib/blog/posts";
+import { blogPosts, formatPostDate, getLatestPosts } from "@/app/lib/blog/posts";
+import { writingChannelLinks } from "@/app/lib/brand";
+import { englishLandings } from "./support/landings";
 
 const read = (...parts: string[]) => readFileSync(join(process.cwd(), ...parts), "utf8");
 
@@ -21,39 +23,49 @@ describe("getLatestPosts", () => {
 // posts (so it never goes stale), one link to the blog, and the writing
 // channels as compact pills.
 describe("homepage Insights block", () => {
-  const page = read("app", "(en)", "page.tsx");
-  const section = page.split("function InsightsSection() {")[1]?.split("\n}\n")[0] ?? "";
+  const { page: home, view, css } = englishLandings.home;
+  const source = read(view.replace(`${process.cwd()}/`, ""));
+  const section = source.split("function InsightsSection(")[1]?.split("\n}\n")[0] ?? "";
+  const block = home.html.split('id="insights"')[1]?.split("</section>")[0] ?? "";
 
   it("lists the latest posts from the blog data", () => {
     expect(section).toContain("getLatestPosts(3)");
-    expect(section).toContain('formatPostDate(post.publishedAt, "en")');
+    for (const post of getLatestPosts(3)) {
+      // next/link drops the trailing slash outside a Next build (no next.config).
+      const href = `/blog/${post.slug}`;
+      expect(block.includes(`href="${href}/"`) || block.includes(`href="${href}"`)).toBe(true);
+      expect(block).toContain(formatPostDate(post.publishedAt, "en"));
+    }
   });
 
   it("links to the blog index with the approved label", () => {
-    expect(section).toMatch(/<Link href="\/blog\/"[^>]*>\s*All posts/);
+    expect(block).toMatch(/<a [^>]*href="\/blog\/?"[^>]*>All posts/);
   });
 
   it("drops the removed copy and the featured-essay card", () => {
-    for (const gone of ["Not theory", "Or browse the full collection", "featuredEssay", "insightDescription"]) {
-      expect(page).not.toContain(gone);
+    for (const gone of ["Not theory", "Or browse the full collection", "Featured essay"]) {
+      expect(home.shows(gone), gone).toBe(false);
+    }
+    for (const gone of ["featuredEssay", "insightDescription"]) {
+      expect(source).not.toContain(gone);
     }
   });
 
   it("keeps every channel, as pills without descriptions", () => {
-    const links = page.split("const insightLinks = [")[1]?.split("\n];")[0] ?? "";
+    const channels = block.split('aria-label="Writing channels"')[1]?.split("</ul>")[0] ?? "";
     for (const url of ["habr.com/users/sg4tech", "t.me/cto_lifehacks", "medium.com/@sg4tech", "linkedin"]) {
-      expect(links.toLowerCase()).toContain(url.toLowerCase());
+      expect(channels.toLowerCase()).toContain(url.toLowerCase());
     }
-    expect(links).not.toContain("description:");
-    expect(section).toContain("<ChannelLinks items={insightLinks}");
+    expect(writingChannelLinks.every((link) => !("description" in link))).toBe(true);
+    expect(section).toContain("<ChannelLinks items={writingChannelLinks}");
   });
 
   // Editorial layout: one heading with the "All posts" link beside it, the
   // posts as a row of three typographic cards on wide screens, and the
   // channels as a quiet line of same-size monochrome icons.
   it("titles the block Writing with All posts beside the heading", () => {
-    expect(section).toContain('title="Writing"');
-    expect(section).toMatch(/<div className=\{styles\.writingHeader\}>[\s\S]*?<SectionHeader[\s\S]*?All posts[\s\S]*?<\/div>/);
+    expect(block).toMatch(/<h2[^>]*>Writing<\/h2>/);
+    expect(section).toMatch(/<div className=\{styles\.writingHeader\}>[\s\S]*?<SectionHeader[\s\S]*?allPostsLabel[\s\S]*?<\/div>/);
   });
 
   // The arrow rides at the end of the title, glued to its last word, instead
@@ -63,7 +75,7 @@ describe("homepage Insights block", () => {
   });
 
   it("sets the posts in three columns on wide screens", () => {
-    const wide = read("app", "(en)", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read(css.replace(`${process.cwd()}/`, "")).split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.latestPosts \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
   });
 

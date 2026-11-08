@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { englishLandings } from "./support/landings";
 
-// Source-level assertions for app/yii2/page.tsx.
+// Assertions on the rendered /yii2 landing (copy in app/(en)/yii2/content.tsx,
+// structure in app/views/yii2/Yii2View.tsx).
 //
 // Intent: lock in the *structural contract* of the Yii2 landing — the things
 // that, if absent, either silently break analytics / external links, or mean
@@ -59,33 +60,29 @@ const requiredCopy = [
   // Analytics / CTA tracking — must be exact or analytics silently breaks
   "https://t.me/sg4tech?start=site_yii2_hero",
   "https://t.me/sg4tech?start=site_yii2_final",
-  "cta_click",
-
-  // Home is reachable through the shared site menu (Home + logo)
-  '<SiteNav locale="en" current="/yii2/" />'
 ];
 
 describe("yii2 landing page", () => {
-  it("keeps the dedicated Yii2 offer, proof points, and CTA structure", () => {
-    // Read the page + the shared FaqSection + WhyMeSection: the #faq and
-    // #why-me anchors live in app/components/FaqSection.tsx and
-    // app/components/WhyMeSection.tsx (the FAQ and the "Why me" identity block
-    // were extracted into shared components), but the assertions still belong
-    // here because removing either anchor would break in-page nav on the Yii2
-    // landing.
-    const sources = [
-      join(process.cwd(), "app", "(en)", "yii2", "page.tsx"),
-      join(process.cwd(), "app", "components", "FaqSection.tsx"),
-      join(process.cwd(), "app", "components", "WhyMeSection.tsx")
-    ];
-    const content = sources.map((path) => readFileSync(path, "utf8")).join("\n");
+  const { page, view } = englishLandings.yii2;
 
+  it("keeps the dedicated Yii2 offer, proof points, and CTA structure", () => {
+    // The #faq and #why-me anchors come from the shared FaqSection and
+    // WhyMeSection; asserting on the rendered page keeps them covered here,
+    // because removing either would break in-page nav on the Yii2 landing.
     for (const anchor of requiredAnchors) {
-      expect(content).toContain(anchor);
+      expect(page.html).toContain(anchor);
     }
 
     for (const phrase of requiredCopy) {
-      expect(content).toContain(phrase);
+      expect(page.shows(phrase), phrase).toBe(true);
     }
+  });
+
+  it("tracks both contact actions as cta_click and reaches Home via the shared menu", () => {
+    // The event fires from the click handler, so it is not in the HTML.
+    const source = readFileSync(view, "utf8");
+    expect(source).toMatch(/eventName="cta_click"\s+payload=\{\{ location: "yii2_hero" \}\}/);
+    expect(source).toMatch(/eventName: "cta_click",\s+payload: \{ location: "yii2_final" \}/);
+    expect(source).toContain("<SiteNav locale={locale} current={localizePath(locale, PATH)} />");
   });
 });

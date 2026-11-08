@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { homeContent } from "@/app/(en)/content";
 
 const read = (...parts: string[]) => readFileSync(join(process.cwd(), ...parts), "utf8");
 
@@ -27,8 +28,7 @@ describe("collapsible FAQ", () => {
 // The homepage's "right fit" / "not the right fit" answers repeated the
 // "Who I work with" section on the same page.
 describe("homepage FAQ", () => {
-  const page = read("app", "(en)", "page.tsx");
-  const faq = page.split("const faqItems = [")[1]?.split("\n];")[0] ?? "";
+  const faq = homeContent.faq.map((item) => item.question);
 
   it.each(["When are you the right fit?", "When are you not the right fit?"])("drops the duplicate: %s", (q) => {
     expect(faq).not.toContain(q);

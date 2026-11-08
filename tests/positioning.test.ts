@@ -8,18 +8,16 @@ import { describe, expect, it } from "vitest";
 // a "fractional CTO" service. Past CTO roles stay as facts of experience; that
 // wording is allowed.
 const positioningSurfaces = [
-  ["app", "(en)", "page.tsx"],
+  // Landing copy (page text and link-preview cards) lives in each route's content.tsx.
+  ["app", "(en)", "content.tsx"],
   ["app", "lib", "brand.ts"],
   // Shared UI strings: footer fine print, byline, blog CTA label.
   ["app", "lib", "i18n", "en.ts"],
   ["app", "(en)", "layout.tsx"],
-  ["app", "(en)", "opengraph-image.tsx"],
   ["app", "components", "BlogCta.tsx"],
   ["public", "llms.txt"],
-  ["app", "(en)", "yii2", "page.tsx"],
-  ["app", "(en)", "yii2", "opengraph-image.tsx"],
-  ["app", "(en)", "ai-vibecoding", "page.tsx"],
-  ["app", "(en)", "ai-vibecoding", "opengraph-image.tsx"],
+  ["app", "(en)", "yii2", "content.tsx"],
+  ["app", "(en)", "ai-vibecoding", "content.tsx"],
   // Post descriptions render on landings (related-post cards) and as blog meta.
   ["app", "lib", "blog", "posts.ts"]
 ];

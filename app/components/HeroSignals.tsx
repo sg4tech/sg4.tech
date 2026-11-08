@@ -1,27 +1,13 @@
 import Image from "next/image";
 import { getDictionary } from "../lib/i18n/dictionary";
 import type { Locale } from "../lib/i18n/locales";
+import type { HeroSignal } from "../lib/proof";
 import { BrandIcon } from "./BrandIcon";
 import styles from "./HeroSignals.module.css";
 
-export type HeroSignal = {
-  label: string;
-  // A client/event logo (SVG in /public/logos). When present, the label is
-  // hidden (the logo speaks for itself) unless `labelAfterLogo` is set.
-  logo?: string;
-  logoWidth?: number;
-  logoHeight?: number;
-  // A brand-icon path (simple-icons) rendered via BrandIcon, shown with its
-  // label — used for "wrote about this on <platform>" style signals.
-  iconPath?: string;
-  // Optional external link wrapping the whole pill.
-  href?: string;
-  labelAfterLogo?: boolean;
-};
-
 type HeroSignalsProps = {
   locale: Locale;
-  signals: HeroSignal[];
+  signals: ReadonlyArray<HeroSignal>;
   className?: string;
 };
 

@@ -84,7 +84,7 @@ function requiredDeclaration(css: string, selector: string, property: string): s
 const panel = parseColor(
   requiredDeclaration(read("app", "styles", "landing.module.css"), ".whySurface", "background")
 );
-const pageCss = read("app", "(en)", "ai-vibecoding", "page.module.css");
+const pageCss = read("app", "views", "ai-vibecoding", "AiVibecodingView.module.css");
 const captionCss = read("app", "components", "ResultsCaption.module.css");
 
 function textContrast(css: string, selector: string): number {
@@ -108,7 +108,7 @@ describe("/ai-vibecoding 'Why me' panel contrast", () => {
   });
 
   it("renders the results caption in its dark-panel tone", () => {
-    expect(read("app", "(en)", "ai-vibecoding", "page.tsx")).toContain('<ResultsCaption locale="en" tone="onDark" />');
+    expect(read("app", "views", "ai-vibecoding", "AiVibecodingView.tsx")).toContain('<ResultsCaption locale={locale} tone="onDark" />');
   });
 });
 

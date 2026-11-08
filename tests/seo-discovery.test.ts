@@ -6,6 +6,10 @@ import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
 import { SITE_URL } from "@/app/lib/brand";
+import { metadata as aiVibecodingMetadata } from "@/app/(en)/ai-vibecoding/page";
+import { metadata as homeMetadata } from "@/app/(en)/page";
+import { metadata as yii2Metadata } from "@/app/(en)/yii2/page";
+import { englishLandings } from "./support/landings";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -54,25 +58,12 @@ describe("sitemap", () => {
 });
 
 describe("canonical metadata", () => {
-  it("declares the home page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "(en)", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/"/);
-  });
-
-  it("declares the yii2 page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "(en)", "yii2", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2\/"/);
-  });
-
-  it("declares the ai-vibecoding page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "(en)", "ai-vibecoding", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/ai-vibecoding\/"/);
+  it.each([
+    ["home", homeMetadata, "/"],
+    ["yii2", yii2Metadata, "/yii2/"],
+    ["ai-vibecoding", aiVibecodingMetadata, "/ai-vibecoding/"]
+  ] as const)("declares the %s page canonical relative to metadataBase", (_name, metadata, path) => {
+    expect(metadata.alternates?.canonical).toBe(path);
   });
 
   it("declares the blog index canonical", () => {
@@ -144,15 +135,16 @@ describe("landing schema", () => {
   // with it (Q&A markup is among the most-cited structures for AI engines).
   // The founder edge links the page's ProfessionalService node to the shared
   // Person @id — without it the two nodes sit in the same graph unconnected.
-  for (const landing of ["yii2", "ai-vibecoding"] as const) {
+  for (const [landing, { page }] of [
+    ["yii2", englishLandings.yii2],
+    ["ai-vibecoding", englishLandings["ai-vibecoding"]]
+  ] as const) {
     it(`/${landing} renders FAQPage JSON-LD and links the service to the Person via founder`, () => {
-      const filePath = join(process.cwd(), "app", "(en)", landing, "page.tsx");
-      const content = readFileSync(filePath, "utf8");
+      const graph = page.jsonLd;
 
-      expect(content).toContain('"@type": "FAQPage"');
-      expect(content).toMatch(
-        /founder:\s*{\s*"@id":\s*`\$\{SITE_URL\}\/#person`\s*}/
-      );
+      expect(graph.some((node) => node["@type"] === "FAQPage")).toBe(true);
+      const service = graph.find((node) => node["@type"] === "ProfessionalService");
+      expect(service?.founder).toEqual({ "@id": `${SITE_URL}/#person` });
     });
   }
 });

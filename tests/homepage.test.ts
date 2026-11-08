@@ -1,6 +1,11 @@
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { englishLandings } from "./support/landings";
+
+// Asserted against the rendered page: the copy lives in app/(en)/content.tsx,
+// the structure in app/views/home/HomeView.tsx, the footer in shared
+// components — the contract is what a visitor receives.
+const home = englishLandings.home.page;
 
 const requiredAnchors = ['id="problem"', 'id="results"', 'id="process"', 'id="fit"', 'id="insights"', 'id="final-cta"'];
 
@@ -14,7 +19,6 @@ const requiredCopy = [
   "https://t.me/sg4tech",
   "https://t.me/sg4tech?start=site_hero",
   "https://t.me/sg4tech?start=site_final",
-  "cta_click",
   "https://habr.com/users/sg4tech/",
   "https://t.me/cto_lifehacks",
   "https://medium.com/@sg4tech",
@@ -59,26 +63,25 @@ const requiredCopy = [
 
 describe("homepage landing page", () => {
   it("keeps the core lead-generation structure on the homepage", () => {
-    // Read the page + the shared brand module: footer links + copyright live
-    // in app/lib/brand.ts, but the contract is still that they end up rendered
-    // on the homepage.
-    const pagePath = join(process.cwd(), "app", "(en)", "page.tsx");
-    const brandPath = join(process.cwd(), "app", "lib", "brand.ts");
-    const content = `${readFileSync(pagePath, "utf8")}\n${readFileSync(brandPath, "utf8")}`;
-
     for (const anchor of requiredAnchors) {
-      expect(content).toContain(anchor);
+      expect(home.html).toContain(anchor);
     }
 
     for (const phrase of requiredCopy) {
-      expect(content).toContain(phrase);
+      expect(home.shows(phrase), phrase).toBe(true);
     }
+  });
+
+  it("tracks both contact actions as cta_click (hero and final)", () => {
+    // The event fires from the click handler, so it is not in the HTML.
+    const view = readFileSync(englishLandings.home.view, "utf8");
+    expect(view).toMatch(/eventName="cta_click"\s+payload=\{\{ location: "hero" \}\}/);
+    expect(view).toMatch(/eventName: "cta_click",\s+payload: \{ location: "final" \}/);
   });
 
   it("does not repeat blocks that duplicate other sections", () => {
     // "What to expect" repeated the FAQ answer, "Why this works" repeated
     // "Why me", and the bare topic list repeated the writing links below it.
-    const content = readFileSync(join(process.cwd(), "app", "(en)", "page.tsx"), "utf8");
     for (const phrase of [
       "What to expect",
       "Why this works",
@@ -89,21 +92,19 @@ describe("homepage landing page", () => {
       "#solution",
       "Typical triggers"
     ]) {
-      expect(content).not.toContain(phrase);
+      expect(home.shows(phrase), phrase).toBe(false);
     }
   });
 
   it("ends with a single contact action", () => {
     // By the final CTA the visitor has already scrolled past How I work, so
     // "See how I work" belongs only to the hero.
-    const content = readFileSync(join(process.cwd(), "app", "(en)", "page.tsx"), "utf8");
-    expect(content.split("See how I work").length - 1).toBe(1);
+    expect(home.text.split("See how I work").length - 1).toBe(1);
   });
 
   it("does not deny process work that the results section shows", () => {
     // The case studies describe delivery and process changes, so the Problem
     // bridge must not claim that process rarely helps.
-    const content = readFileSync(join(process.cwd(), "app", "(en)", "page.tsx"), "utf8");
-    expect(content).not.toContain("more process rarely");
+    expect(home.shows("more process rarely")).toBe(false);
   });
 });

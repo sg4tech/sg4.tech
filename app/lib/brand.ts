@@ -1,4 +1,5 @@
 import type { FooterLink } from "./navigation";
+import { siHabr, siMedium, siTelegram } from "simple-icons";
 import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-icons";
 
 // Single source of truth for the brand's canonical site URL and short name.
@@ -8,6 +9,15 @@ import { GITHUB_SVG_PATH, LINKEDIN_SVG_PATH, TELEGRAM_SVG_PATH } from "./social-
 export const SITE_URL = "https://sg4.tech";
 export const BRAND_NAME = "sg4.tech";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/victor-demin/";
+
+// Where Victor writes, as the quiet channel line under a landing's writing or
+// proof section. Brand names, so the same in every locale.
+export const writingChannelLinks: FooterLink[] = [
+  { label: "Habr", href: "https://habr.com/users/sg4tech/", iconPath: siHabr.path },
+  { label: "Telegram", href: "https://t.me/cto_lifehacks", iconPath: siTelegram.path },
+  { label: "Medium", href: "https://medium.com/@sg4tech", iconPath: siMedium.path },
+  { label: "LinkedIn", href: LINKEDIN_URL, iconPath: LINKEDIN_SVG_PATH }
+];
 
 export const footerLinks: FooterLink[] = [
   { label: "GitHub", href: "https://github.com/sg4tech/", iconPath: GITHUB_SVG_PATH },

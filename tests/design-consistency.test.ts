@@ -1,6 +1,9 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { homeContent } from "@/app/(en)/content";
+import { writingChannelLinks } from "@/app/lib/brand";
+import { getSiteNavigationItems } from "@/app/lib/navigation";
 
 const root = process.cwd();
 const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
@@ -10,6 +13,10 @@ const blogPostSlugs = readdirSync(join(root, "app", "(en)", "blog"), { withFileT
   .map((entry) => entry.name);
 
 const landingPages = ["yii2", "ai-vibecoding"] as const;
+// Each landing renders through a shared view in app/views (copy per locale
+// lives next to the route), so structural checks read the view.
+const landingView = (page: (typeof landingPages)[number]) =>
+  page === "yii2" ? ["views", "yii2", "Yii2View.tsx"] : ["views", "ai-vibecoding", "AiVibecodingView.tsx"];
 
 describe("blog article headings", () => {
   it("finds the blog posts", () => {
@@ -33,7 +40,7 @@ describe("landing 'How I work' section", () => {
   // pattern as the homepage — instead of a summary strip followed by cards
   // that repeat the same step titles.
   it.each(landingPages)("/%s renders its process steps once, via Steps", (page) => {
-    const tsx = read("app", "(en)", page, "page.tsx");
+    const tsx = read("app", ...landingView(page));
 
     expect(tsx).toMatch(/from "(\.\.\/)+components\/Steps"/);
     // Carded steps keep the landing's visual anchor while sharing the pattern.
@@ -44,7 +51,7 @@ describe("landing 'How I work' section", () => {
 
   // Bare browser disc bullets read as unstyled; MarkList carries the DS marker.
   it.each(landingPages)("/%s uses MarkList instead of bare bullet lists", (page) => {
-    const tsx = read("app", "(en)", page, "page.tsx");
+    const tsx = read("app", ...landingView(page));
 
     expect(tsx).toMatch(/from "(\.\.\/)+components\/MarkList"/);
     expect(tsx).not.toContain("landing.problemList");
@@ -63,14 +70,15 @@ describe("Steps component", () => {
 });
 
 describe("homepage case studies", () => {
-  const tsx = read("app", "(en)", "page.tsx");
-  const caseStudies = tsx.split("const caseStudies = [")[1]?.split("\n];")[0] ?? "";
-  const resultsSection = tsx.split("function ResultsSection() {")[1]?.split("\n}\n")[0] ?? "";
+  const tsx = read("app", "views", "home", "HomeView.tsx");
+  const { cases } = homeContent.results;
+  const resultsSection = tsx.split("function ResultsSection(")[1]?.split("\n}\n")[0] ?? "";
 
   // The numbers are the proof: they lead each case as Stat figures instead of
   // sitting third in a checklist next to qualitative outcomes.
   it("leads each case with Stat headline metrics", () => {
-    expect(caseStudies.match(/metrics: \[/g)).toHaveLength(3);
+    expect(cases).toHaveLength(3);
+    expect(cases.every((study) => study.metrics.some((metric) => "figure" in metric))).toBe(true);
     expect(resultsSection).toContain("<Stat figure={metric.figure}");
   });
 
@@ -84,7 +92,7 @@ describe("homepage case studies", () => {
     expect(resultsSection).toContain("<dl className={styles.caseDetails}>");
     expect(resultsSection).toContain('{study.problem.join(" · ")}');
     expect(resultsSection).toContain('{study.work.join(" · ")}');
-    const css = read("app", "(en)", "page.module.css");
+    const css = read("app", "views", "home", "HomeView.module.css");
     expect(css).toMatch(/\.caseDetails dd \{[^}]*color: var\(--muted\);/);
     expect(css).not.toContain(".caseGrid");
   });
@@ -93,7 +101,7 @@ describe("homepage case studies", () => {
   // three cases sit side by side with outcomes stacked, and subgrid lines up
   // header, outcomes and details across the row even when a title wraps.
   it("lays the cases out in three aligned columns on wide screens", () => {
-    const wide = read("app", "(en)", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "views", "home", "HomeView.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.stack \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);/);
     expect(wide).toMatch(/\.caseStudy \{[^}]*grid-template-rows: subgrid;/);
     expect(wide).toMatch(/\.caseMetrics \{[^}]*flex-direction: column;/);
@@ -102,9 +110,9 @@ describe("homepage case studies", () => {
   });
 
   it("keeps every outcome in the metrics row, with no separate Result column", () => {
-    expect(caseStudies).not.toContain("result: [");
+    expect(cases.every((study) => !("result" in study))).toBe(true);
     expect(resultsSection).not.toContain("<h4>Result</h4>");
-    expect(resultsSection).toContain("icon={metric.icon}");
+    expect(resultsSection).toContain("<Stat icon={caseMetricIcon(metric.icon)}");
   });
 });
 
@@ -132,7 +140,7 @@ describe("contrast of secondary graphics", () => {
 });
 
 describe("homepage hero layout", () => {
-  const css = read("app", "(en)", "page.module.css");
+  const css = read("app", "views", "home", "HomeView.module.css");
   const wide = css.split("@media (min-width: 1100px)").slice(1).join("");
 
   // The one-line headline left the left column mostly empty. On wide screens
@@ -161,7 +169,7 @@ describe("Stat note placement", () => {
 describe("homepage link cards", () => {
   // Offer and featured-essay cards are links; an arrow says so at a glance.
   it("marks every specialization card with an arrow", () => {
-    const tsx = read("app", "(en)", "page.tsx");
+    const tsx = read("app", "views", "home", "HomeView.tsx");
     const cards = tsx.match(/className=\{styles\.specializationCard\}/g) ?? [];
     const arrows = tsx.match(/<Icon icon=\{ArrowRight\} className=\{styles\.specializationArrow\} \/>/g) ?? [];
     expect(cards.length).toBeGreaterThan(0);
@@ -251,8 +259,8 @@ describe("blog figure captions", () => {
 
 describe("/ai-vibecoding who-not-for list", () => {
   it("carries the same cross marker as the homepage 'Not a good fit'", () => {
-    const tsx = read("app", "(en)", "ai-vibecoding", "page.tsx");
-    expect(tsx).toContain('<MarkList items={whoNotForItems} kind="x" />');
+    const tsx = read("app", "views", "ai-vibecoding", "AiVibecodingView.tsx");
+    expect(tsx).toContain('<MarkList items={whoNotFor.items} kind="x" />');
     expect(tsx).not.toContain("styles.whoNotForItem");
   });
 });
@@ -261,7 +269,7 @@ describe("homepage specialized offers", () => {
   // Two full-width cards left most of each frame empty on desktop; side by
   // side they fill the row, on the same breakpoint as Who I work with.
   it("sets the offer cards in two columns on wide screens", () => {
-    const wide = read("app", "(en)", "page.module.css").split("@media (min-width: 1100px)").slice(1).join("");
+    const wide = read("app", "views", "home", "HomeView.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.specializationGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   });
 });
@@ -269,8 +277,8 @@ describe("homepage specialized offers", () => {
 describe("no duplicate navigation on the landings", () => {
   // The shared menu has Home on every page, so a "Back to main page" link
   // under it on the landings only repeated it.
-  it.each([["yii2"], ["ai-vibecoding"]])("/%s drops the back link", (page) => {
-    expect(read("app", "(en)", page, "page.tsx")).not.toContain("Back to main page");
+  it.each([["yii2"], ["ai-vibecoding"]] as const)("/%s drops the back link", (page) => {
+    expect(read("app", ...landingView(page))).not.toContain("Back to main page");
   });
 
   it("removes the back-link styles from the shared landing stylesheet", () => {
@@ -278,21 +286,21 @@ describe("no duplicate navigation on the landings", () => {
   });
 
   it("drops the repeated 'Dedicated page' label from the offer cards", () => {
-    const page = read("app", "(en)", "page.tsx");
+    const page = read("app", "views", "home", "HomeView.tsx");
     expect(page).not.toContain("Dedicated page");
-    expect(read("app", "(en)", "page.module.css")).not.toContain(".specializationLabel");
+    expect(read("app", "views", "home", "HomeView.module.css")).not.toContain(".specializationLabel");
   });
 });
 
 describe("landing layout", () => {
-  const yii2 = read("app", "(en)", "yii2", "page.tsx");
-  const ai = read("app", "(en)", "ai-vibecoding", "page.tsx");
+  const yii2 = read("app", "views", "yii2", "Yii2View.tsx");
+  const ai = read("app", "views", "ai-vibecoding", "AiVibecodingView.tsx");
   const order = (src: string, names: string[]) => names.map((n) => src.indexOf(`<${n}`));
 
   // Quality and Speed were two identical 2x2 card grids back to back. One
   // section with two columns shows them as two stages of one plan.
   it("/yii2 shows Quality and Speed as two columns of one section", () => {
-    const block = yii2.split("function LeversSection() {")[1]?.split("\n}\n")[0] ?? "";
+    const block = yii2.split("function LeversSection(")[1]?.split("\n}\n")[0] ?? "";
     expect(block).toContain('id="quality"');
     expect(block).toContain('id="speed"');
     expect(block).toContain("className={landing.stageColumns}");
@@ -315,35 +323,35 @@ describe("landing layout", () => {
   });
 
   it("/ai-vibecoding's featured essay card shows a link arrow", () => {
-    const block = ai.split("function FeaturedEssaySection() {")[1]?.split("\n}\n")[0] ?? "";
+    const block = ai.split("function FeaturedEssaySection(")[1]?.split("\n}\n")[0] ?? "";
     expect(block).toContain("<Icon icon={ArrowRight} className={styles.featuredEssayArrow} />");
   });
 });
 
 describe("channel links", () => {
-  const home = read("app", "(en)", "page.tsx");
-  const yii2 = read("app", "(en)", "yii2", "page.tsx");
+  const home = read("app", "views", "home", "HomeView.tsx");
+  const yii2 = read("app", "views", "yii2", "Yii2View.tsx");
 
   // One quiet channel line, shared, so it looks the same wherever it appears.
   it.each([["home", home], ["yii2", yii2]])("%s renders the shared ChannelLinks", (_name, src) => {
-    expect(src).toMatch(/<ChannelLinks items=\{\w+\} ariaLabel="[^"]+" \/>/);
+    expect(src).toMatch(/<ChannelLinks items=\{writingChannelLinks\} ariaLabel=\{\w+\.channelsAriaLabel\} \/>/);
   });
 
-  it.each([["home", home, "insightLinks"], ["yii2", yii2, "writingLinks"]])(
-    "%s channel data carries no descriptions",
-    (_name, src, list) => {
-      const block = src.split(`const ${list} = [`)[1]?.split("\n];")[0] ?? "";
-      expect(block).toContain("href:");
-      expect(block).not.toContain("description:");
+  // Both pages draw the one shared channel list from lib/brand.
+  it("channel data carries no descriptions", () => {
+    expect(writingChannelLinks.length).toBeGreaterThan(0);
+    for (const link of writingChannelLinks) {
+      expect(link.href).toMatch(/^https:\/\//);
+      expect("description" in link).toBe(false);
     }
-  );
+  });
 
   // Proof: the Yii2 talk is the evidence, so only it gets cards; the
   // channels drop to the quiet line under it.
   it("/yii2 Proof shows only the talk as cards, in two columns", () => {
-    const proof = yii2.split("function ProofSection() {")[1]?.split("\n}\n")[0] ?? "";
-    expect(proof).toContain("talkLinks.map(");
-    expect(proof).not.toContain("...writingLinks");
+    const proof = yii2.split("function ProofSection(")[1]?.split("\n}\n")[0] ?? "";
+    expect(proof).toContain("proof.talks.map(");
+    expect(proof).not.toContain("...writingChannelLinks");
     const wide = read("app", "styles", "landing.module.css").split("@media (min-width: 1100px)").slice(1).join("");
     expect(wide).toMatch(/\.proofGrid \{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   });
@@ -351,26 +359,30 @@ describe("channel links", () => {
 
 describe("one site menu", () => {
   const nav = read("app", "lib", "navigation.ts");
-  const items = nav.split("export const siteNavigationItems")[1]?.split("];")[0] ?? "";
+  const items = getSiteNavigationItems("en");
   const tsx = read("app", "components", "TopNavigation.tsx");
   const css = read("app", "components", "TopNavigation.module.css");
 
   // Every page shows the same menu from one list, so it cannot drift apart.
   it.each([
-    ["home", ["page.tsx"]],
-    ["yii2", ["yii2", "page.tsx"]],
-    ["ai-vibecoding", ["ai-vibecoding", "page.tsx"]],
-    ["blog index", ["blog", "page.tsx"]]
+    ["home", ["views", "home", "HomeView.tsx"]],
+    ["yii2", ["views", "yii2", "Yii2View.tsx"]],
+    ["ai-vibecoding", ["views", "ai-vibecoding", "AiVibecodingView.tsx"]],
+    ["blog index", ["(en)", "blog", "page.tsx"]]
   ])("%s renders the shared SiteNav", (_name, parts) => {
-    const page = read("app", "(en)", ...parts);
-    expect(page).toMatch(/<SiteNav locale="en" current="\/[^"]*" \/>/);
+    const page = read("app", ...parts);
+    expect(page).toMatch(/<SiteNav locale(="en"|=\{locale\}) current=(?:"\/[^"]*"|\{localizePath\(locale, PATH\)\}) \/>/);
     expect(page).not.toContain("<TopNavigation");
     expect(page).not.toContain("navigationItems");
   });
 
   it("is navigation only: pages, no in-page anchors, no Contact", () => {
-    expect(items).not.toMatch(/href: "#/);
-    expect(items).not.toContain("Contact");
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.href.startsWith("/") && item.href.endsWith("/")).toBe(true);
+      expect(item.href).not.toContain("#");
+      expect(item.label).not.toContain("Contact");
+    }
     expect(nav).not.toContain("mobilePinned");
   });
 
