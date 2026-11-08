@@ -1,3 +1,5 @@
+import { absoluteUrl, type SitePath, VICTOR_NAME } from "../brand";
+
 // Single source of truth for blog posts. Referenced by:
 // - /blog index page (post list)
 // - /blog/[slug] page metadata (title, description, dates)
@@ -12,6 +14,13 @@
 // is derived from it, so any string passed to getPostBySlug() is checked at
 // compile time — a slug typo in a route file fails the build instead of
 // crashing at runtime. blogPosts entries must use one of these slugs.
+// Blog-level name and summary, shared by the blog index metadata, its JSON-LD,
+// and the RSS feed channel.
+export const BLOG_INDEX_PATH = "/blog/" satisfies SitePath;
+export const BLOG_TITLE = `Blog — ${VICTOR_NAME}`;
+export const BLOG_DESCRIPTION =
+  "Long-form essays on engineering delivery systems, metrics, bottlenecks, and the operator practices behind predictable shipping.";
+
 export const POST_SLUGS = [
   "diagnose-broken-engineering-delivery",
   "forecast-delivery-with-percentiles",
@@ -22,7 +31,7 @@ export const POST_SLUGS = [
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
-type BlogPost = {
+export type BlogPost = {
   slug: PostSlug;
   title: string;
   /** Search-result title for the <title> tag when it should name the searched-for topic more
@@ -130,10 +139,29 @@ export function getPostBySlug(slug: PostSlug): BlogPost {
 // pulling in a date library. Centralized here to avoid the previous shape
 // where every page that rendered a post date had its own copy.
 export function formatPostDate(iso: string): string {
-  const [year, month, day] = iso.split("-").map((part) => Number.parseInt(part, 10));
-  const monthName = new Date(Date.UTC(year, month - 1, day)).toLocaleString("en-US", {
-    month: "long",
-    timeZone: "UTC"
-  });
-  return `${monthName} ${day}, ${year}`;
+  const date = parsePostDate(iso);
+  const monthName = date.toLocaleString("en-US", { month: "long", timeZone: "UTC" });
+  return `${monthName} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
+}
+
+// Post dates are calendar days (YYYY-MM-DD); pinned to UTC midnight so every
+// consumer (display, sitemap, feed) reads the same day regardless of time zone.
+export function parsePostDate(iso: string): Date {
+  return new Date(`${iso}T00:00:00Z`);
+}
+
+// Where a post is served. Every link, canonical, schema @id, sitemap entry,
+// and feed item derives its URL from here.
+export function getPostPath(slug: PostSlug): SitePath {
+  return `/blog/${slug}/`;
+}
+
+export function getPostUrl(slug: PostSlug): string {
+  return absoluteUrl(getPostPath(slug));
+}
+
+// The blog's last content change: the newest post modifiedAt. ISO-8601 dates
+// sort lexically the same as chronologically. Undefined only with no posts.
+export function getBlogLastModifiedAt(): string | undefined {
+  return blogPosts.map((post) => post.modifiedAt).sort().at(-1);
 }

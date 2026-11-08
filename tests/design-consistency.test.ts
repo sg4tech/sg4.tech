@@ -2,12 +2,14 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
+import { POST_SLUGS } from "@/app/lib/blog/posts";
+
 const root = process.cwd();
 const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
 
-const blogPostSlugs = readdirSync(join(root, "app", "blog"), { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name);
+// The post registry, not the folder listing: app/blog also holds non-post
+// routes such as the RSS feed.
+const blogPostSlugs = POST_SLUGS;
 
 const landingPages = ["yii2", "ai-vibecoding"] as const;
 

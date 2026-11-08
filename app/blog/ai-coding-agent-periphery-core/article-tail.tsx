@@ -7,7 +7,7 @@
 import type { ReactNode } from "react";
 import { BlogCta } from "../../components/BlogCta";
 import { BlogRelated } from "../../components/BlogRelated";
-import { getPostBySlug } from "../../lib/blog/posts";
+import { getPostBySlug, getPostPath } from "../../lib/blog/posts";
 
 const CTA_HREF = "https://t.me/sg4tech?start=site_blog_periphery";
 
@@ -27,7 +27,7 @@ const relatedLinks = [
       "When an agent-built codebase reaches the “afraid to change anything” stage — and the junior-developer practices that fix it."
   },
   {
-    href: `/blog/${entropyPost.slug}/`,
+    href: getPostPath(entropyPost.slug),
     title: entropyPost.title,
     description: entropyPost.description
   },

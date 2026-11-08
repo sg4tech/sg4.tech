@@ -4,8 +4,16 @@ import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import { getPostBySlug, POST_SLUGS } from "@/app/lib/blog/posts";
-import { SITE_URL, withSiteName } from "@/app/lib/brand";
+import {
+  BLOG_INDEX_PATH,
+  getBlogLastModifiedAt,
+  getPostBySlug,
+  getPostPath,
+  getPostUrl,
+  POST_SLUGS
+} from "@/app/lib/blog/posts";
+import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
+import { LANDING_PATHS } from "@/app/lib/landings";
 
 describe("sitemap", () => {
   it("lists every live public route on the canonical domain", () => {
@@ -67,33 +75,44 @@ describe("home metadata", () => {
   });
 });
 
+describe("landing page URLs", () => {
+  // One entry per landing in LANDING_PATHS; the coverage test below fails if a
+  // landing is added there without being added here.
+  const landingPages = [
+    { path: LANDING_PATHS.home, load: () => import("@/app/page") },
+    { path: LANDING_PATHS.yii2, load: () => import("@/app/yii2/page") },
+    { path: LANDING_PATHS.aiVibecoding, load: () => import("@/app/ai-vibecoding/page") }
+  ];
+
+  it("covers every landing", () => {
+    expect(landingPages.map((page) => page.path).sort()).toEqual(Object.values(LANDING_PATHS).sort());
+  });
+
+  // Without og:url, share scrapers fall back to whatever URL was shared
+  // (with tracking params or a slash-less variant) as the card's identity.
+  for (const page of landingPages) {
+    it(`gives ${page.path} a matching canonical and og:url`, async () => {
+      const { metadata } = await page.load();
+
+      expect(metadata.alternates?.canonical).toBe(page.path);
+      expect(metadata.openGraph?.url).toBe(absoluteUrl(page.path));
+    });
+  }
+
+  it("lists every landing in the sitemap", () => {
+    const urls = sitemap().map((entry) => entry.url);
+
+    for (const path of Object.values(LANDING_PATHS)) {
+      expect(urls).toContain(absoluteUrl(path));
+    }
+  });
+});
+
 describe("canonical metadata", () => {
-  it("declares the home page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
+  it("declares the blog index canonical", async () => {
+    const { metadata } = await import("@/app/blog/page");
 
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/"/);
-  });
-
-  it("declares the yii2 page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "yii2", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/yii2\/"/);
-  });
-
-  it("declares the ai-vibecoding page canonical relative to metadataBase", () => {
-    const filePath = join(process.cwd(), "app", "ai-vibecoding", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/ai-vibecoding\/"/);
-  });
-
-  it("declares the blog index canonical", () => {
-    const filePath = join(process.cwd(), "app", "blog", "page.tsx");
-    const content = readFileSync(filePath, "utf8");
-
-    expect(content).toMatch(/alternates:\s*{\s*canonical:\s*"\/blog\/"/);
+    expect(metadata.alternates?.canonical).toBe(BLOG_INDEX_PATH);
   });
 
   // Every post page takes its metadata from the shared builder, so the checks
@@ -106,6 +125,23 @@ describe("canonical metadata", () => {
       expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
     });
   }
+});
+
+describe("post URLs", () => {
+  it("serves posts at their trailing-slash path under /blog/", () => {
+    expect(getPostPath("diagnose-broken-engineering-delivery")).toBe(
+      "/blog/diagnose-broken-engineering-delivery/"
+    );
+    expect(getPostUrl("diagnose-broken-engineering-delivery")).toBe(
+      "https://sg4.tech/blog/diagnose-broken-engineering-delivery/"
+    );
+  });
+
+  it("dates the blog by its newest post change", () => {
+    const newest = POST_SLUGS.map((slug) => getPostBySlug(slug).modifiedAt).sort().at(-1);
+
+    expect(getBlogLastModifiedAt()).toBe(newest);
+  });
 });
 
 describe("buildPostMetadata", () => {

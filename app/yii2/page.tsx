@@ -41,7 +41,8 @@ import { Steps } from "../components/Steps";
 import { SiteNav } from "../components/SiteNav";
 import { Button } from "../components/Button";
 import { WhyMeSection, type WhyMePoint } from "../components/WhyMeSection";
-import { BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL } from "../lib/brand";
+import { absoluteUrl, BRAND_NAME, LINKEDIN_URL, personSchema, SITE_URL } from "../lib/brand";
+import { LANDING_PATHS } from "../lib/landings";
 import { LINKEDIN_SVG_PATH } from "../lib/social-icons";
 import landing from "../styles/landing.module.css";
 import styles from "./page.module.css";
@@ -274,7 +275,7 @@ export const metadata: Metadata = {
   description:
     "A dedicated landing page for Yii2 projects: I help teams remove delivery bottlenecks through guardrails, CI/CD, monitoring, delivery metrics, and AI.",
   alternates: {
-    canonical: "/yii2/"
+    canonical: LANDING_PATHS.yii2
   },
   openGraph: {
     title: "Yii2 Development for Faster Delivery and Better Quality",
@@ -282,7 +283,8 @@ export const metadata: Metadata = {
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting.",
     type: "website",
     siteName: BRAND_NAME,
-    locale: "en_US"
+    locale: "en_US",
+    url: absoluteUrl(LANDING_PATHS.yii2)
   },
   twitter: {
     card: "summary_large_image",
