@@ -46,7 +46,13 @@
 - Labels, kickers, eyebrows, table headers, and stat captions use **sentence case** — never all-caps tracked text (`text-transform: uppercase` + `letter-spacing`). The design system bans all-caps tracked labels (they read generic). If a label needs a technical feel, set it in mono at its natural case, not in caps.
 - UI icons come from `lucide-react` via `<Icon icon={LucideIcon}>` from `app/components/Icon.tsx`, which forwards `strokeWidth=1.6` and `aria-hidden`. Don't inline raw SVG path strings for UI icons — pick a lucide icon by name. Brand/social logos are the exception: they come from `simple-icons` or the named constants in `app/lib/social-icons.ts`, rendered via `<BrandIcon>`.
 - Brand and social-network SVG paths must live as named constants in `app/lib/social-icons.ts`. Never inline a brand icon path inside a page or component file.
-- Page-specific data arrays (case studies, FAQ, nav items) stay inside the page TSX. Only promote them to `app/content/` if multiple pages start sharing the same content.
+- Routes live in one route group per locale (`app/(en)/…`); each group has its own root layout, rendered through `RootDocument`, so `<html lang>` is real. The 404 is `app/global-not-found.tsx`.
+- `app/views/<page>/` — one view per page, shared by every locale: the JSX, its stylesheet, and the typed shape of its content. A route renders its view with that locale's content; it holds no JSX of its own.
+- Page copy lives in a per-locale `content.tsx` next to the route (`app/(en)/yii2/content.tsx`), typed by the view's content type. Translating a page means adding a content file, never copying a view.
+- Content items carry ids; the view maps ids to icons and visual treatment, so design stays in one place and a translation cannot drift from it.
+- `app/lib/i18n/` — locales and their config, the shared UI dictionary (strings that shared components render), and the page registry (each page's path and the locales it exists in). Paths come from the registry, never from string literals; hreflang and the sitemap read it.
+- Blog posts are per-locale documents, not translated views: the post registry records each post's locale and, for a translation, the original it translates (`translationOf`).
+- Shared components that render text take a required `locale` prop — no default, so a page that forgets it fails to compile instead of showing English.
 - Do not create empty placeholder directories under `app/`. A directory without a `page.tsx` produces no route and just clutters the tree — leave a TODO in `docs/` instead if a future route is planned.
 
 ### Pre-commit local checks
