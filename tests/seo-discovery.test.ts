@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS } from "@/app/lib/blog/posts";
+import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS, type PostSlug } from "@/app/lib/blog/posts";
 import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
 import { PAGE_KEYS, pagePath, type PageKey } from "@/app/lib/i18n/pages";
 import { englishLandings } from "./support/landings";
@@ -68,6 +68,57 @@ describe("home metadata", () => {
 
     expect(metadata.title).toBe(withSiteName(pageTitle));
   });
+});
+
+// Lengths search results show before truncating. Past these, Google and Bing
+// cut the snippet mid-phrase (Bing also flags the title in Webmaster Tools).
+const SEARCH_TITLE_MAX = 60;
+const SEARCH_DESCRIPTION_MAX = 160;
+
+describe("search snippet lengths", () => {
+  // Landing titles get the site-name suffix from the layout template (the home
+  // page applies it itself), so the length that counts is the suffixed one.
+  const pages = [
+    { name: "/", load: () => import("@/app/(en)/page"), suffixed: true },
+    { name: "/yii2/", load: () => import("@/app/(en)/yii2/page"), suffixed: false },
+    { name: "/ai-vibecoding/", load: () => import("@/app/(en)/ai-vibecoding/page"), suffixed: false },
+    { name: "/blog/", load: () => import("@/app/(en)/blog/page"), suffixed: false }
+  ];
+
+  for (const page of pages) {
+    it(`keeps the ${page.name} title and description within result limits`, async () => {
+      const { metadata } = await page.load();
+      if (typeof metadata.title !== "string" || typeof metadata.description !== "string") {
+        throw new Error(`${page.name} must declare a plain-string title and description`);
+      }
+      const shownTitle = page.suffixed ? metadata.title : withSiteName(metadata.title);
+
+      expect(shownTitle.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
+      expect(metadata.description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
+    });
+  }
+
+  for (const slug of POST_SLUGS) {
+    it(`keeps the "${slug}" description within result limits`, () => {
+      expect(getPostBySlug(slug).description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
+    });
+  }
+
+  // Results truncate by pixel width; the character limit is a proxy for it.
+  // This title is one character over but set in narrow letters, so it fits
+  // the width and is kept as written rather than reworded for the proxy.
+  const titleLengthExceptions: ReadonlySet<PostSlug> = new Set(["diagnose-broken-engineering-delivery"]);
+
+  for (const slug of POST_SLUGS.filter((s) => !titleLengthExceptions.has(s))) {
+    it(`keeps the "${slug}" search title within result limits`, () => {
+      const { title } = buildPostMetadata(slug);
+      if (typeof title !== "object" || title === null || !("absolute" in title)) {
+        throw new Error(`"${slug}" must set an absolute search title`);
+      }
+
+      expect(title.absolute.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
+    });
+  }
 });
 
 describe("page URLs", () => {

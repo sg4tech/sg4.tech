@@ -1,13 +1,13 @@
 import type { OgCardContent } from "../../_og/render";
 import type { Yii2Content } from "../../views/yii2/yii2-content";
 
-const title = "Yii2 Development for Faster Delivery and Better Quality";
 
 export const yii2Content: Yii2Content = {
   meta: {
-    title,
+    title: "Yii2 Development: Faster Releases, Fewer Bugs",
     description:
-      "A dedicated landing page for Yii2 projects: I help teams remove delivery bottlenecks through guardrails, CI/CD, monitoring, delivery metrics, and AI.",
+      "Your Yii2 project is slowing your business. I find what's broken in the code and delivery, fix it, and leave a system that ships predictably without me.",
+    socialTitle: "Yii2 Development for Faster Delivery and Better Quality",
     socialDescription:
       "I help companies running Yii2 projects improve quality, uptime, and delivery speed without chaos or endless firefighting."
   },

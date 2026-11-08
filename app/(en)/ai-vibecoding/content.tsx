@@ -1,12 +1,16 @@
 import type { OgCardContent } from "../../_og/render";
 import type { AiVibecodingContent } from "../../views/ai-vibecoding/ai-vibecoding-content";
 
-const title = "AI Vibecoding Cleanup: From Stuck MVP to Shipping Business";
-const description =
-  "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code.";
 
 export const aiVibecodingContent: AiVibecodingContent = {
-  meta: { title, description },
+  meta: {
+    title: "AI Vibecoding Cleanup: Get Your MVP Shipping",
+    description:
+      "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never shipped.",
+    socialTitle: "AI Vibecoding Cleanup: From Stuck MVP to Shipping Business",
+    socialDescription:
+      "Your vibecoded MVP isn't broken — the delivery system around it is missing. I build the guardrails, tests, pipeline, and architecture AI never ships with the code."
+  },
   service: {
     name: "AI Vibecoding Cleanup",
     serviceType: "Software development for AI-built MVPs",
