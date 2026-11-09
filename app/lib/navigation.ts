@@ -1,6 +1,6 @@
 import { getDictionary } from "./i18n/dictionary";
 import type { Locale } from "./i18n/locales";
-import { isPagePublished, pagePath } from "./i18n/pages";
+import { isPagePublished, pagePath, pagePathOrDefault } from "./i18n/pages";
 import type { SiteDictionary } from "./i18n/types";
 import { createLookup } from "./lookup";
 
@@ -64,8 +64,9 @@ export function getNavigationLabel(locale: Locale, key: NavigationKey): string {
   return item.label;
 }
 
-// Internal legal/utility links in the footer. Trailing-slash paths match
-// next.config trailingSlash: true (the slash-less form 301-redirects).
+// Internal legal/utility links in the footer, in English until the page is
+// translated. Trailing-slash paths match next.config trailingSlash: true (the
+// slash-less form 301-redirects).
 export function getLegalLinks(locale: Locale): LegalLink[] {
-  return [{ label: getDictionary(locale).footer.privacyLabel, href: pagePath(locale, "privacy") }];
+  return [{ label: getDictionary(locale).footer.privacyLabel, href: pagePathOrDefault(locale, "privacy") }];
 }

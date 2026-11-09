@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { formatPostDate } from "@/app/lib/blog/posts";
 import { getDictionary } from "@/app/lib/i18n/dictionary";
@@ -73,15 +75,21 @@ describe("author name", () => {
   });
 });
 
+// The page's route folders under app/(ru)/: its English path behind the /ru prefix.
+function pagePathSegments(page: (typeof PAGE_KEYS)[number]): string[] {
+  return ["ru", ...pagePath("en", page).split("/").filter(Boolean)];
+}
+
 describe("ru locale", () => {
   it("serves under /ru with Russian document settings", () => {
     expect(getLocaleConfig("ru")).toEqual({ htmlLang: "ru", intlTag: "ru-RU", ogLocale: "ru_RU", pathPrefix: "/ru" });
   });
 
-  it("publishes no pages until their Russian content exists", () => {
-    for (const page of PAGE_KEYS) {
-      expect(isPagePublished("ru", page)).toBe(false);
-    }
+  // The registry is what hreflang, the sitemap and the menu read, so a page
+  // listed as Russian must have its Russian route, and every route must be listed.
+  it.each(PAGE_KEYS)("lists %s as Russian exactly when its /ru route exists", (page) => {
+    const route = join(process.cwd(), "app", "(ru)", ...pagePathSegments(page), "page.tsx");
+    expect(isPagePublished("ru", page)).toBe(existsSync(route));
   });
 });
 
