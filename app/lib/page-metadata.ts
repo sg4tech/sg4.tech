@@ -14,7 +14,7 @@ export type PageMeta = {
 };
 
 type PageMetadataOptions = {
-  /** The <title> when the layout's title template does not apply to the page. */
+  /** A complete <title>, used as is: no layout's title template is applied to it. */
   searchTitle?: string;
   /** Extra <link rel="alternate"> types, e.g. the blog's RSS feed. */
   feed?: Record<string, string>;
@@ -34,7 +34,7 @@ export function buildPageMetadata(
   const socialTitle = meta.socialTitle ?? meta.title;
   const socialDescription = meta.socialDescription ?? meta.description;
   return {
-    title: options.searchTitle ?? meta.title,
+    title: options.searchTitle === undefined ? meta.title : { absolute: options.searchTitle },
     description: meta.description,
     alternates: {
       canonical: path,

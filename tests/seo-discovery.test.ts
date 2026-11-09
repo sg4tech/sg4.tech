@@ -58,16 +58,19 @@ describe("sitemap", () => {
 });
 
 describe("home metadata", () => {
-  // The root layout's title template does not apply to the page in its own
-  // segment, so the home page applies the same format itself.
-  it("formats the home search title like every other page", async () => {
-    const { metadata } = await import("@/app/(en)/page");
+  // The home page applies the site-name format itself, as a complete title, so
+  // a layout's title template cannot add the name a second time.
+  it.each([
+    ["en", () => import("@/app/(en)/page")],
+    ["ru", () => import("@/app/(ru)/ru/page")]
+  ] as const)("formats the %s home search title like every other page", async (locale, load) => {
+    const { metadata } = await load();
     const pageTitle = metadata.openGraph?.title;
     if (typeof pageTitle !== "string") {
       throw new Error("home openGraph.title must be a plain string");
     }
 
-    expect(metadata.title).toBe(withSiteName("en", pageTitle));
+    expect(metadata.title).toEqual({ absolute: withSiteName(locale, pageTitle) });
   });
 });
 
@@ -80,22 +83,35 @@ describe("search snippet lengths", () => {
   // Landing titles get the site-name suffix from the layout template (the home
   // page applies it itself), so the length that counts is the suffixed one.
   const pages = [
-    { name: "/", load: () => import("@/app/(en)/page"), suffixed: true },
-    { name: "/yii2/", load: () => import("@/app/(en)/yii2/page"), suffixed: false },
-    { name: "/ai-vibecoding/", load: () => import("@/app/(en)/ai-vibecoding/page"), suffixed: false },
-    { name: "/blog/", load: () => import("@/app/(en)/blog/page"), suffixed: false }
-  ];
+    { name: "/", locale: "en", load: () => import("@/app/(en)/page") },
+    { name: "/yii2/", locale: "en", load: () => import("@/app/(en)/yii2/page") },
+    { name: "/ai-vibecoding/", locale: "en", load: () => import("@/app/(en)/ai-vibecoding/page") },
+    { name: "/blog/", locale: "en", load: () => import("@/app/(en)/blog/page") },
+    { name: "/ru/", locale: "ru", load: () => import("@/app/(ru)/ru/page") },
+    { name: "/ru/yii2/", locale: "ru", load: () => import("@/app/(ru)/ru/yii2/page") }
+  ] as const;
 
   for (const page of pages) {
     it(`keeps the ${page.name} title and description within result limits`, async () => {
       const { metadata } = await page.load();
-      if (typeof metadata.title !== "string" || typeof metadata.description !== "string") {
-        throw new Error(`${page.name} must declare a plain-string title and description`);
+      const { title, description } = metadata;
+      if (typeof description !== "string") {
+        throw new Error(`${page.name} must declare a plain-string description`);
       }
-      const shownTitle = page.suffixed ? metadata.title : withSiteName("en", metadata.title);
+      // A complete (absolute) title is shown as is; a plain one gets the
+      // layout template's site-name suffix.
+      const shownTitle =
+        typeof title === "string"
+          ? withSiteName(page.locale, title)
+          : title !== null && typeof title === "object" && "absolute" in title
+            ? title.absolute
+            : undefined;
+      if (shownTitle === undefined) {
+        throw new Error(`${page.name} must declare a plain or absolute title`);
+      }
 
       expect(shownTitle.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
-      expect(metadata.description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
+      expect(description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);
     });
   }
 

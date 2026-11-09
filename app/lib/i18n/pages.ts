@@ -79,7 +79,7 @@ export function createPageRegistry<L extends string>(
 
 const registry = createPageRegistry<Locale>(
   {
-    home: { path: "/", locales: ["en"] },
+    home: { path: "/", locales: ["en", "ru"] },
     yii2: { path: "/yii2/", locales: ["en", "ru"] },
     "ai-vibecoding": { path: "/ai-vibecoding/", locales: ["en"] },
     blog: { path: "/blog/", locales: ["en"] },
