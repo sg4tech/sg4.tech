@@ -31,6 +31,11 @@ export type SiteDictionary = {
     resultsCaption: string;
     heroSignalsAriaLabel: string;
   };
+  author: {
+    /** The author's name as readers of this language spell it. Structured
+     * data keeps the canonical entity name from lib/brand. */
+    name: string;
+  };
   whyMe: {
     heading: string;
     /** Human-facing tagline under the name in the identity card — distinct

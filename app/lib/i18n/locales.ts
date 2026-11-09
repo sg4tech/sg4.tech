@@ -3,7 +3,7 @@ import { createLookup } from "../lookup";
 // The languages the site is published in. Adding a locale here makes the type
 // system demand everything that locale needs: a dictionary, a config entry, and
 // content for every page that is translated into it.
-export const LOCALES = ["en"] as const;
+export const LOCALES = ["en", "ru"] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE = "en" satisfies Locale;
@@ -20,5 +20,6 @@ type LocaleConfig = {
 };
 
 export const getLocaleConfig = createLookup<Locale, LocaleConfig>({
-  en: { htmlLang: "en", intlTag: "en-US", ogLocale: "en_US", pathPrefix: "" }
+  en: { htmlLang: "en", intlTag: "en-US", ogLocale: "en_US", pathPrefix: "" },
+  ru: { htmlLang: "ru", intlTag: "ru-RU", ogLocale: "ru_RU", pathPrefix: "/ru" }
 });
