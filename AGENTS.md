@@ -18,9 +18,10 @@
 
 ## Content Language
 
-- All public-facing project content must be in English.
-- Do not add Russian copy to routes, metadata, CTAs, structured data, or public UI text unless the user explicitly approves a bilingual or non-English exception.
-- Treat language choice as a product decision: default to English across pages, docs that describe the public site, and marketing assets in this repo.
+- English is the site's default language, and the language of every doc that describes the site.
+- Russian is published only under `/ru`, as a version of a page that exists in English. Its copy, metadata, CTAs, and structured data live in that locale's content files and dictionary — never in shared code or English routes.
+- Russian copy follows the Content Approval Protocol like any other copy: agree the text with the user before it goes into code.
+- Any other language, or Russian outside `/ru`, is a product decision that needs the user's explicit approval.
 
 ## Project Conventions (sg4tech)
 

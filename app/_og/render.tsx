@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
-import { VICTOR_NAME } from "../lib/brand";
+import type { Locale } from "../lib/i18n/locales";
 import { OgCard, type OgCardProps } from "./Card";
 import { loadOgFonts } from "./fonts";
+import { ogCardFooter } from "./footer";
 import { loadLogoDataUrl } from "./logo";
 
 // Every route's opengraph-image assigns these to its `size` / `contentType`
@@ -9,7 +10,8 @@ import { loadLogoDataUrl } from "./logo";
 export const ogImageSize = { width: 1200, height: 630 };
 export const ogImageContentType = "image/png";
 
-// The footer defaults to the author's name; posts add their reading time.
+// The footer defaults to the author's name in the card's language; posts add
+// their reading time.
 type OgCardText = Omit<OgCardProps, "logoSrc" | "footer"> & { footer?: string };
 
 // The text on a route's link-preview card, plus its alt text.
@@ -17,14 +19,14 @@ export type OgCardContent = OgCardText & {
   alt: string;
 };
 
-export async function renderOgCard(card: OgCardText): Promise<ImageResponse> {
+export async function renderOgCard(locale: Locale, card: OgCardText): Promise<ImageResponse> {
   const [logoSrc, fonts] = await Promise.all([loadLogoDataUrl(), loadOgFonts()]);
   return new ImageResponse(
     <OgCard
       eyebrow={card.eyebrow}
       title={card.title}
       subtitle={card.subtitle}
-      footer={card.footer ?? VICTOR_NAME}
+      footer={card.footer ?? ogCardFooter(locale)}
       logoSrc={logoSrc}
     />,
     { ...ogImageSize, fonts }

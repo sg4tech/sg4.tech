@@ -7,5 +7,5 @@ export const size = ogImageSize;
 export const contentType = ogImageContentType;
 
 export default function OpengraphImage() {
-  return renderOgCard(aiVibecodingOgCard);
+  return renderOgCard("en", aiVibecodingOgCard);
 }

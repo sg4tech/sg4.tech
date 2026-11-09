@@ -1,3 +1,4 @@
+import { VICTOR_NAME } from "../brand";
 import type { SiteDictionary } from "./types";
 
 export const en: SiteDictionary = {
@@ -41,6 +42,9 @@ export const en: SiteDictionary = {
     resultsCaption:
       "Historical results from specific roles and projects. Actual outcomes vary and are not guaranteed.",
     heroSignalsAriaLabel: "Selected credibility signals"
+  },
+  author: {
+    name: VICTOR_NAME
   },
   whyMe: {
     heading: "Why me",

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
-import { VICTOR_NAME, VICTOR_PHOTO_PATH } from "../lib/brand";
+import { VICTOR_PHOTO_PATH } from "../lib/brand";
 import { getDictionary } from "../lib/i18n/dictionary";
 import type { Locale } from "../lib/i18n/locales";
 import landing from "../styles/landing.module.css";
@@ -40,7 +40,7 @@ type WhyMeSectionProps = {
 };
 
 export function WhyMeSection({ locale, intro, introClassName, points }: WhyMeSectionProps) {
-  const { whyMe } = getDictionary(locale);
+  const { author, whyMe } = getDictionary(locale);
   return (
     <Section id="why-me">
       <SectionHeader title={whyMe.heading} intro={intro} introClassName={introClassName} />
@@ -48,13 +48,13 @@ export function WhyMeSection({ locale, intro, introClassName, points }: WhyMeSec
         <div className={landing.profileCard}>
           <Image
             src={VICTOR_PHOTO_PATH}
-            alt={VICTOR_NAME}
+            alt={author.name}
             width={120}
             height={120}
             className={landing.profilePhoto}
             unoptimized
           />
-          <p className={landing.profileName}>{VICTOR_NAME}</p>
+          <p className={landing.profileName}>{author.name}</p>
           <p className={landing.profileRole}>{whyMe.roleLine}</p>
         </div>
         <div className={landing.profileBody}>
