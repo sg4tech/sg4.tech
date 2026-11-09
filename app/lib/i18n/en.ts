@@ -43,6 +43,10 @@ export const en: SiteDictionary = {
       "Historical results from specific roles and projects. Actual outcomes vary and are not guaranteed.",
     heroSignalsAriaLabel: "Selected credibility signals"
   },
+  language: {
+    code: "EN",
+    versionLabel: "English version"
+  },
   author: {
     name: VICTOR_NAME
   },

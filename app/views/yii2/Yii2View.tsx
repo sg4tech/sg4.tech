@@ -44,7 +44,6 @@ import { Button } from "../../components/Button";
 import { iconTextPoints, WhyMeSection } from "../../components/WhyMeSection";
 import { writingChannelLinks } from "../../lib/brand";
 import type { Locale } from "../../lib/i18n/locales";
-import { pagePath } from "../../lib/i18n/pages";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals, PHP_RUSSIA_LOGO } from "../../lib/proof";
 import landing from "../../styles/landing.module.css";
@@ -371,7 +370,7 @@ export function Yii2View({ locale, content }: SectionProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildYii2StructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={pagePath(locale, "yii2")} />
+      <SiteNav locale={locale} page="yii2" />
       <HeroSection locale={locale} content={content} />
       <TransformationSection locale={locale} content={content} />
       <ProblemSection locale={locale} content={content} />

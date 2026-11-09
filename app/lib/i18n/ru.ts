@@ -38,6 +38,10 @@ export const ru: SiteDictionary = {
     resultsCaption: "Результаты из прошлых ролей и проектов. В вашем случае итог может отличаться и не гарантируется.",
     heroSignalsAriaLabel: "Факты об опыте"
   },
+  language: {
+    code: "RU",
+    versionLabel: "Русская версия"
+  },
   author: {
     name: "Виктор Демин"
   },

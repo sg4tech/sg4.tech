@@ -22,7 +22,7 @@ describe("responsive layout guardrails", () => {
     const mobileNav = getSiteNavigationItems("en").map((item) => item.mobileNav);
     expect(mobileNav).toContain("primary");
     expect(mobileNav).toContain("secondary");
-    expect(navTsx).toContain("data-mobile-nav={item.mobileNav}");
+    expect(navTsx).toContain("data-mobile-nav={mobileNav(item)}");
 
     // Below desktop the nav is one row: logo plus a few pills, never a tile grid
     // that pushes the hero out of the first screen.

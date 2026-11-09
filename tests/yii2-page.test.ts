@@ -85,6 +85,6 @@ describe("yii2 landing page", () => {
     expect(source).toContain('<ContactCta cta={finalCta} location="yii2_final" />');
     // The shared closing block reports the click with the location it is given.
     expect(readFileSync("app/components/ContactCta.tsx", "utf8")).toMatch(/eventName: "cta_click",\s+payload: \{ location \}/);
-    expect(source).toContain('<SiteNav locale={locale} current={pagePath(locale, "yii2")} />');
+    expect(source).toContain('<SiteNav locale={locale} page="yii2" />');
   });
 });

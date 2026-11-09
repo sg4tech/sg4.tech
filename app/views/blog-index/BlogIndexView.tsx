@@ -7,7 +7,6 @@ import { SiteNav } from "../../components/SiteNav";
 import { formatPostDate, getLatestPosts, getPostPath } from "../../lib/blog/posts";
 import { getDictionary } from "../../lib/i18n/dictionary";
 import type { Locale } from "../../lib/i18n/locales";
-import { pagePath } from "../../lib/i18n/pages";
 import type { BlogIndexContent } from "./blog-index-content";
 import { buildBlogIndexStructuredData } from "./blog-index-seo";
 import styles from "./BlogIndexView.module.css";
@@ -28,7 +27,7 @@ export function BlogIndexView({ locale, content }: BlogIndexViewProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBlogIndexStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={pagePath(locale, "blog")} />
+      <SiteNav locale={locale} page="blog" />
       <Section className={styles.intro}>
         <SectionHeader level="h1" title={content.heading} intro={content.intro} />
         <ul className={styles.list}>

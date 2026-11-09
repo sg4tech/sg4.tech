@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { createPageRegistry, isPagePublished, pagePath } from "@/app/lib/i18n/pages";
-import { getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
+import { getLanguageVersions, getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
+import { SiteNav } from "@/app/components/SiteNav";
+import { renderView } from "./support/render";
 
 describe("page registry", () => {
   it("knows which locales a page is published in", () => {
@@ -82,5 +84,44 @@ describe("page registry with two published locales", () => {
   it("gives an untranslated page no alternates and refuses its missing version", () => {
     expect(twoLocale.pageLanguageAlternates("blog")).toBeUndefined();
     expect(() => twoLocale.pagePath("ru", "blog")).toThrow('"blog" is not published in ru');
+  });
+});
+
+describe("language switch", () => {
+  it.each([
+    ["en", "yii2", [{ href: "/ru/yii2/", code: "RU", label: "Русская версия", lang: "ru" }]],
+    ["ru", "yii2", [{ href: "/yii2/", code: "EN", label: "English version", lang: "en" }]],
+    ["en", "blog", []]
+  ] as const)("on %s %s links %j", (locale, page, expected) => {
+    expect(getLanguageVersions(locale, page)).toEqual(expected);
+  });
+
+  const nav = (props: Parameters<typeof SiteNav>[0]) => renderView(SiteNav, props);
+
+  it("shows the other language in the menu of a translated page", () => {
+    const html = nav({ locale: "en", page: "yii2" });
+    expect(html).toContain('href="/ru/yii2/"');
+    expect(html).toContain('hrefLang="ru"');
+    expect(html).toContain('lang="ru"');
+    expect(html).toContain('aria-label="Русская версия"');
+    expect(html).toContain(">RU<");
+  });
+
+  it("marks the shown page as current", () => {
+    expect(nav({ locale: "en", page: "yii2" })).toContain('href="/yii2/" data-mobile-nav="secondary" aria-current="page"');
+  });
+
+  // On phones the logo, two page pills and the switch do not fit one row; the
+  // Home pill goes, since the logo already leads home.
+  it.each([
+    ["en", "yii2", "secondary"],
+    ["en", "home", "primary"]
+  ] as const)("on %s %s keeps the Home pill %s on phones", (locale, page, mobileNav) => {
+    expect(nav({ locale, page })).toContain(`href="/" data-mobile-nav="${mobileNav}"`);
+  });
+
+  it("shows no switch on a page with one language", () => {
+    expect(nav({ locale: "en", page: "home" })).not.toContain("hrefLang");
+    expect(nav({ locale: "en" })).not.toContain("hrefLang");
   });
 });
