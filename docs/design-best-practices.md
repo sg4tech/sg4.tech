@@ -406,6 +406,11 @@ Rules this site has settled on, each with its reason and where it lives. Section
 - **FAQ comes last, right before the final CTA.** Proof, fit ("who it's for") and featured reading go above it; FAQ is secondary and closes the page.
 - **Don't repeat what the menu or a neighbouring section already says.** A "Back to home" link under a menu that has Home, a label repeated on every card, or an FAQ answer that restates the "who it's for" section above it are cut, not restyled.
 
+### Typography
+- **English sets in Hanken Grotesk, Russian in IBM Plex Sans.** Hanken has no Cyrillic. Of the OFL candidates, Plex comes closest to Hanken's width and x-height, so a Russian page sizes and wraps like its English twin without its own type tuning. Manrope was tried as one face for both languages and reverted: it did not fit the brand.
+- **Each locale's root layout loads its own face into the brand font variable,** not `RootDocument`. A font loaded in shared code is preloaded on every page, so English pages would download the Cyrillic face.
+- **Plex stops at bold.** Weights above it (the ember figures) render at bold on Russian pages; that is accepted, not a reason to synthesise a heavier weight.
+
 ### Buttons and contrast
 - **Primary buttons use an ink label on ember, never white.** White on the brand ember fails §9 contrast at button text size; ink passes, and the ember fill stays the brand colour. The hover state **lightens** the fill, because darkening it would drop ink below AA. Lives in `--color-primary-contrast` / `--color-primary-hover`; guarded by `tests/dark-surface-contrast.test.ts`.
 - **Small text sets in `--text-3` or darker, not `--text-4`,** wherever it carries meaning (captions, qualifiers, notes). `--text-4` is for placeholders and decoration only.
