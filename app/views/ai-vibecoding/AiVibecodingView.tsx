@@ -42,7 +42,6 @@ import { Button } from "../../components/Button";
 import { WhyMeSection } from "../../components/WhyMeSection";
 import { getPostBySlug, getPostPath } from "../../lib/blog/posts";
 import type { Locale } from "../../lib/i18n/locales";
-import { pagePath } from "../../lib/i18n/pages";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals } from "../../lib/proof";
 import landing from "../../styles/landing.module.css";
@@ -385,7 +384,7 @@ export function AiVibecodingView({ locale, content }: SectionProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildAiVibecodingStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={pagePath(locale, "ai-vibecoding")} />
+      <SiteNav locale={locale} page="ai-vibecoding" />
       <HeroSection locale={locale} content={content} />
       <ProblemSection locale={locale} content={content} />
       <GuardrailsSection locale={locale} content={content} />

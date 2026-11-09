@@ -1,6 +1,6 @@
 import { getDictionary } from "./i18n/dictionary";
-import type { Locale } from "./i18n/locales";
-import { isPagePublished, pagePath, pagePathOrDefault } from "./i18n/pages";
+import { getLocaleConfig, LOCALES, type Locale } from "./i18n/locales";
+import { isPagePublished, type PageKey, pagePath, pagePathOrDefault } from "./i18n/pages";
 import type { SiteDictionary } from "./i18n/types";
 import { createLookup } from "./lookup";
 
@@ -21,6 +21,14 @@ export type FooterLink = {
 export type LegalLink = {
   label: string;
   href: string;
+};
+
+// A link to the page shown, in another language, labelled in that language.
+export type LanguageVersion = {
+  href: string;
+  code: string;
+  label: string;
+  lang: string;
 };
 
 type NavigationKey = SiteDictionary["navigation"]["items"][number]["key"];
@@ -69,4 +77,18 @@ export function getNavigationLabel(locale: Locale, key: NavigationKey): string {
 // slash-less form 301-redirects).
 export function getLegalLinks(locale: Locale): LegalLink[] {
   return [{ label: getDictionary(locale).footer.privacyLabel, href: pagePathOrDefault(locale, "privacy") }];
+}
+
+// The page's versions in the other languages it is published in; empty for a
+// page that exists in one language, so the switch never links to a 404.
+export function getLanguageVersions(locale: Locale, page: PageKey): LanguageVersion[] {
+  return LOCALES.filter((other) => other !== locale && isPagePublished(other, page)).map((other) => {
+    const { language } = getDictionary(other);
+    return {
+      href: pagePath(other, page),
+      code: language.code,
+      label: language.versionLabel,
+      lang: getLocaleConfig(other).htmlLang
+    };
+  });
 }

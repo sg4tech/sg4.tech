@@ -325,7 +325,7 @@ export function HomeView({ locale, content }: SectionProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildHomeStructuredData(locale, content)) }}
       />
-      <SiteNav locale={locale} current={pagePath(locale, "home")} />
+      <SiteNav locale={locale} page="home" />
       <HeroSection locale={locale} content={content} />
       <ProblemSection locale={locale} content={content} />
       <TrustSection locale={locale} content={content} />

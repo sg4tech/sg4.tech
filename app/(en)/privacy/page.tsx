@@ -19,7 +19,7 @@ export const metadata: Metadata = buildPageMetadata("en", "privacy", {
 export default function PrivacyPage() {
   return (
     <Page>
-      <SiteNav locale="en" />
+      <SiteNav locale="en" page="privacy" />
       <Section className={styles.article}>
         <Link href={pagePath("en", "home")} className={styles.backLink}>
           ← Home

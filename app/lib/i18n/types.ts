@@ -31,6 +31,12 @@ export type SiteDictionary = {
     resultsCaption: string;
     heroSignalsAriaLabel: string;
   };
+  /** How this language names itself in the language switch of a page in
+   * another language. */
+  language: {
+    code: string;
+    versionLabel: string;
+  };
   author: {
     /** The author's name as readers of this language spell it. Structured
      * data keeps the canonical entity name from lib/brand. */
