@@ -1,21 +1,18 @@
 import { describe, expect, it } from "vitest";
-import type { Locale } from "@/app/lib/i18n/locales";
 import { createPageRegistry, isPagePublished, pagePath } from "@/app/lib/i18n/pages";
 import { getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
-
-// A locale the registry does not publish anything in yet.
-const unpublished = "ru" as Locale;
 
 describe("page registry", () => {
   it("knows which locales a page is published in", () => {
     expect(isPagePublished("en", "yii2")).toBe(true);
-    expect(isPagePublished(unpublished, "yii2")).toBe(false);
+    expect(isPagePublished("ru", "yii2")).toBe(true);
+    expect(isPagePublished("ru", "blog")).toBe(false);
   });
 
   // A link to a page that has no version in this language would be a 404.
   // Failing the build makes whoever adds the link decide where it goes.
   it("refuses a path to a page that is not published in the locale", () => {
-    expect(() => pagePath(unpublished, "privacy")).toThrow('"privacy" is not published in ru');
+    expect(() => pagePath("ru", "privacy")).toThrow('"privacy" is not published in ru');
   });
 });
 
@@ -69,6 +66,17 @@ describe("page registry with two published locales", () => {
       ru: "https://sg4.tech/ru/yii2/",
       "x-default": "https://sg4.tech/yii2/"
     });
+  });
+
+  // Links that every page carries (the logo, the footer's legal links) fall
+  // back to the default language until the page is translated.
+  it.each([
+    ["ru", "yii2", "/ru/yii2/"],
+    ["ru", "blog", "/blog/"],
+    ["ru", "privacy", "/privacy/"],
+    ["en", "privacy", "/privacy/"]
+  ] as const)("links %s %s at %s, falling back to English", (locale, page, path) => {
+    expect(twoLocale.pagePathOrDefault(locale, page)).toBe(path);
   });
 
   it("gives an untranslated page no alternates and refuses its missing version", () => {

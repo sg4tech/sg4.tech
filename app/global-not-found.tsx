@@ -7,6 +7,7 @@ import { RootDocument } from "./components/RootDocument";
 import { Section } from "./components/Section";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteNav } from "./components/SiteNav";
+import { hankenGrotesk } from "./lib/fonts/hanken";
 import { getDictionary } from "./lib/i18n/dictionary";
 import { DEFAULT_LOCALE, getLocaleConfig, LOCALES } from "./lib/i18n/locales";
 import { isPagePublished, pagePath } from "./lib/i18n/pages";
@@ -34,7 +35,7 @@ export const viewport: Viewport = siteViewport;
 // with the site's nav, a way home, and the footer.
 export default function NotFound() {
   return (
-    <RootDocument locale={locale}>
+    <RootDocument locale={locale} brandFontClassName={hankenGrotesk.variable}>
       <Page>
         <SiteNav locale={locale} />
         <Section className={styles.notFound}>

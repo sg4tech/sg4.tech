@@ -1,7 +1,7 @@
 import { TopNavigation } from "./TopNavigation";
 import { getDictionary } from "../lib/i18n/dictionary";
 import type { Locale } from "../lib/i18n/locales";
-import { pagePath } from "../lib/i18n/pages";
+import { pagePathOrDefault } from "../lib/i18n/pages";
 import { getSiteNavigationItems } from "../lib/navigation";
 
 type SiteNavProps = {
@@ -16,7 +16,7 @@ export function SiteNav({ locale, current }: SiteNavProps) {
     <TopNavigation
       items={getSiteNavigationItems(locale)}
       ariaLabel={getDictionary(locale).navigation.ariaLabel}
-      homeHref={pagePath(locale, "home")}
+      homeHref={pagePathOrDefault(locale, "home")}
       current={current}
     />
   );

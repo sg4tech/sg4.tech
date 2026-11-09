@@ -3,6 +3,7 @@ import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { RootDocument } from "../components/RootDocument";
+import { hankenGrotesk } from "../lib/fonts/hanken";
 import { buildSiteMetadata, siteViewport } from "../lib/site-metadata";
 
 export const metadata: Metadata = buildSiteMetadata("en");
@@ -14,7 +15,7 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <RootDocument locale="en">
+    <RootDocument locale="en" brandFontClassName={hankenGrotesk.variable}>
       {children}
     </RootDocument>
   );

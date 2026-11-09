@@ -54,6 +54,13 @@ export function createPageRegistry<L extends string>(
     return localizePath(locale, getPageSpec(page).path);
   }
 
+  /** The page's path in `locale`, or in the default locale while it has no
+   * version there. For links every page carries (the logo, the footer's legal
+   * links); a link that must stay in the reader's language uses pagePath. */
+  function pagePathOrDefault(locale: L, page: PageKey): SitePath {
+    return pagePath(isPagePublished(locale, page) ? locale : defaultLocale, page);
+  }
+
   /** The locales the page is published in. */
   function pageLocales(page: PageKey): ReadonlyArray<L> {
     return getPageSpec(page).locales;
@@ -67,13 +74,13 @@ export function createPageRegistry<L extends string>(
     );
   }
 
-  return { isPagePublished, pagePath, pageLocales, pageLanguageAlternates };
+  return { isPagePublished, pagePath, pagePathOrDefault, pageLocales, pageLanguageAlternates };
 }
 
 const registry = createPageRegistry<Locale>(
   {
     home: { path: "/", locales: ["en"] },
-    yii2: { path: "/yii2/", locales: ["en"] },
+    yii2: { path: "/yii2/", locales: ["en", "ru"] },
     "ai-vibecoding": { path: "/ai-vibecoding/", locales: ["en"] },
     blog: { path: "/blog/", locales: ["en"] },
     privacy: { path: "/privacy/", locales: ["en"] }
@@ -82,4 +89,4 @@ const registry = createPageRegistry<Locale>(
   DEFAULT_LOCALE
 );
 
-export const { isPagePublished, pagePath, pageLocales, pageLanguageAlternates } = registry;
+export const { isPagePublished, pagePath, pagePathOrDefault, pageLocales, pageLanguageAlternates } = registry;

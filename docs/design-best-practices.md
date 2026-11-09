@@ -408,7 +408,7 @@ Rules this site has settled on, each with its reason and where it lives. Section
 
 ### Typography
 - **English sets in Hanken Grotesk, Russian in IBM Plex Sans.** Hanken has no Cyrillic. Of the OFL candidates, Plex comes closest to Hanken's width and x-height, so a Russian page sizes and wraps like its English twin without its own type tuning. Manrope was tried as one face for both languages and reverted: it did not fit the brand.
-- **Each locale's root layout loads its own face into the brand font variable,** not `RootDocument`. A font loaded in shared code is preloaded on every page, so English pages would download the Cyrillic face.
+- **Each locale's root layout sets its own face into the brand font variable** (`app/lib/fonts/`), so a page renders in its language's face. That alone does not keep faces apart: Turbopack bundles the font CSS of every root layout together and preloads all of it on every page. So every face except the default locale's sets `preload: false`, and the browser fetches it only on pages that use it. `scripts/postbuild-font-preloads.mjs` fails the build if a page preloads another language's face.
 - **Plex stops at bold.** Weights above it (the ember figures) render at bold on Russian pages; that is accepted, not a reason to synthesise a heavier weight.
 
 ### Buttons and contrast

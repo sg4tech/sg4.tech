@@ -5,9 +5,12 @@ import { metadata as aiVibecodingMetadata } from "@/app/(en)/ai-vibecoding/page"
 import { metadata as blogIndexMetadata } from "@/app/(en)/blog/page";
 import { metadata as homeMetadata } from "@/app/(en)/page";
 import { metadata as yii2Metadata } from "@/app/(en)/yii2/page";
+import { metadata as ruYii2Metadata } from "@/app/(ru)/ru/yii2/page";
+import { absoluteUrl } from "@/app/lib/brand";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { POST_SLUGS, validateTranslations } from "@/app/lib/blog/posts";
 import { buildLanguageAlternates } from "@/app/lib/i18n/alternates";
+import { PAGE_KEYS, type PageKey, pageLanguageAlternates, pageLocales, pagePath } from "@/app/lib/i18n/pages";
 
 describe("buildLanguageAlternates", () => {
   it("emits nothing for a page that exists in one language", () => {
@@ -56,24 +59,42 @@ describe("buildLanguageAlternates", () => {
   });
 });
 
-// No page is translated yet, so no page may advertise a language version that
-// does not exist: an hreflang pointing at a 404 is worse than none.
-describe("untranslated site", () => {
-  const pages: ReadonlyArray<readonly [string, Metadata]> = [
+// A page links its language versions exactly when it has more than one, so no
+// hreflang ever points at a 404. Pages from the registry carry the same set on
+// every language version; posts are covered by their own translation links.
+describe("language alternates follow the registry", () => {
+  const pages: ReadonlyArray<readonly [PageKey, Metadata]> = [
     ["home", homeMetadata],
     ["yii2", yii2Metadata],
     ["ai-vibecoding", aiVibecodingMetadata],
-    ["blog index", blogIndexMetadata],
-    ...POST_SLUGS.map((slug) => [slug, buildPostMetadata(slug)] as const)
+    ["blog", blogIndexMetadata]
   ];
 
-  it.each(pages)("%s declares no language alternates", (_name, metadata) => {
-    expect(metadata.alternates?.languages).toBeUndefined();
+  it.each(pages)("%s declares alternates only when translated", (page, metadata) => {
+    expect(metadata.alternates?.languages).toEqual(pageLanguageAlternates(page));
   });
 
-  it("lists no language alternates in the sitemap", () => {
+  it("gives the Russian /yii2 the same set as the English one", () => {
+    expect(ruYii2Metadata.alternates?.languages).toEqual({
+      en: "https://sg4.tech/yii2/",
+      ru: "https://sg4.tech/ru/yii2/",
+      "x-default": "https://sg4.tech/yii2/"
+    });
+    expect(yii2Metadata.alternates?.languages).toEqual(ruYii2Metadata.alternates?.languages);
+  });
+
+  it.each(POST_SLUGS)("post %s declares no alternates while it has no translation", (slug) => {
+    expect(buildPostMetadata(slug).alternates?.languages).toBeUndefined();
+  });
+
+  it("lists alternates in the sitemap only for translated pages", () => {
+    const translated = new Set(
+      PAGE_KEYS.filter((page) => pageLocales(page).length > 1).flatMap((page) =>
+        pageLocales(page).map((locale) => absoluteUrl(pagePath(locale, page)))
+      )
+    );
     for (const entry of sitemap()) {
-      expect(entry.alternates).toBeUndefined();
+      expect(entry.alternates !== undefined, entry.url).toBe(translated.has(entry.url));
     }
   });
 });

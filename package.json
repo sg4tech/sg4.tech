@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/postbuild-og.mjs && node scripts/postbuild-inline-spacing.mjs",
+    "build": "next build && node scripts/postbuild-og.mjs && node scripts/postbuild-inline-spacing.mjs && node scripts/postbuild-font-preloads.mjs",
     "start": "next start",
     "preview": "npm run build && serve out -l 3001",
     "lint": "npm run lint:js && npm run lint:css",

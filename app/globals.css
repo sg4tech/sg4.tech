@@ -181,7 +181,7 @@
     /* ---- Type identity: families, weights, tracking ----
        Size scale & line-heights stay on the project's scales below. */
     --font-sans:
-      var(--font-hanken), -apple-system, "BlinkMacSystemFont", "Segoe UI",
+      var(--font-brand), -apple-system, "BlinkMacSystemFont", "Segoe UI",
       sans-serif;
     --font-mono:
       var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", "Menlo",
