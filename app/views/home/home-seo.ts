@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { VICTOR_SAME_AS, withSiteName } from "../../lib/brand";
+import { VICTOR_SAME_AS } from "../../lib/brand";
+import { withSiteName } from "../../lib/i18n/site-name";
 import type { Locale } from "../../lib/i18n/locales";
 import { buildPageMetadata } from "../../lib/page-metadata";
 import { buildLandingStructuredData } from "../../lib/structured-data";
@@ -9,7 +10,7 @@ import type { HomeContent } from "./home-content";
 // title template does not apply, so its search title carries the site name
 // itself. Link previews keep the bare title.
 export function buildHomeMetadata(locale: Locale, content: HomeContent): Metadata {
-  return buildPageMetadata(locale, "home", content.meta, { searchTitle: withSiteName(content.meta.title) });
+  return buildPageMetadata(locale, "home", content.meta, { searchTitle: withSiteName(locale, content.meta.title) });
 }
 
 export function buildHomeStructuredData(locale: Locale, content: HomeContent) {

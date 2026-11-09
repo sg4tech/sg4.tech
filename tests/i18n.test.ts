@@ -2,7 +2,12 @@ import { describe, expect, it } from "vitest";
 import { formatPostDate } from "@/app/lib/blog/posts";
 import { getDictionary } from "@/app/lib/i18n/dictionary";
 import { BlogPostHeader } from "@/app/components/BlogPostHeader";
+import { SiteFooter } from "@/app/components/SiteFooter";
 import { WhyMeSection } from "@/app/components/WhyMeSection";
+import { ogCardFooter } from "@/app/_og/footer";
+import { LINKEDIN_URL } from "@/app/lib/brand";
+import { copyrightLine, withSiteName } from "@/app/lib/i18n/site-name";
+import { buildSiteMetadata } from "@/app/lib/site-metadata";
 import { DEFAULT_LOCALE, getLocaleConfig, LOCALES, type Locale } from "@/app/lib/i18n/locales";
 import { isPagePublished, PAGE_KEYS, pagePath } from "@/app/lib/i18n/pages";
 import { createLookup } from "@/app/lib/lookup";
@@ -77,5 +82,26 @@ describe("ru locale", () => {
     for (const page of PAGE_KEYS) {
       expect(isPagePublished("ru", page)).toBe(false);
     }
+  });
+});
+
+describe("author name in titles, footer and previews", () => {
+  it.each([
+    ["en", "Victor Demin"],
+    ["ru", "Виктор Демин"]
+  ] as const)("uses the %s spelling", (locale, name) => {
+    const metadata = buildSiteMetadata(locale);
+    expect(metadata.title).toEqual({ default: name, template: `%s | ${name}` });
+    expect(metadata.authors).toEqual([{ name, url: LINKEDIN_URL }]);
+    expect(metadata.creator).toBe(name);
+    expect(metadata.publisher).toBe(name);
+    expect(withSiteName(locale, "Page")).toBe(`Page | ${name}`);
+    expect(copyrightLine(locale)).toBe(`© 2026 ${name}`);
+    expect(ogCardFooter(locale)).toBe(name);
+    expect(ogCardFooter(locale, "7 min")).toBe(`${name} · 7 min`);
+  });
+
+  it("puts the copyright line in the footer", () => {
+    expect(renderView(SiteFooter, { locale: "en" })).toContain(copyrightLine("en"));
   });
 });

@@ -40,16 +40,6 @@ export const footerLinks: FooterLink[] = [
 // Keep in sync with public/llms.txt.
 export const VICTOR_NAME = "Victor Demin";
 
-export const BRAND_COPYRIGHT = `© 2026 ${VICTOR_NAME}`;
-
-// Search-title format for every page: each root layout's title.template, and
-// withSiteName() where the template does not apply — the home page, which sits
-// in its layout's own segment, and the global 404, which has no layout.
-export const SITE_TITLE_TEMPLATE = `%s | ${VICTOR_NAME}`;
-
-export function withSiteName(title: string): string {
-  return SITE_TITLE_TEMPLATE.replace("%s", title);
-}
 const VICTOR_JOB_TITLE = "Software engineer & engineering leader";
 
 // Portrait shown in the "Why me" / trust block on every landing AND referenced as

@@ -10,7 +10,7 @@ import { SiteNav } from "./components/SiteNav";
 import { getDictionary } from "./lib/i18n/dictionary";
 import { DEFAULT_LOCALE, getLocaleConfig, LOCALES } from "./lib/i18n/locales";
 import { isPagePublished, pagePath } from "./lib/i18n/pages";
-import { withSiteName } from "./lib/brand";
+import { withSiteName } from "./lib/i18n/site-name";
 import { buildSiteMetadata, siteViewport } from "./lib/site-metadata";
 import styles from "./not-found.module.css";
 
@@ -25,7 +25,7 @@ const otherHomes = LOCALES.filter((other) => other !== locale && isPagePublished
 
 export const metadata: Metadata = {
   ...buildSiteMetadata(locale),
-  title: withSiteName(notFound.title),
+  title: withSiteName(locale, notFound.title),
   robots: { index: false, follow: true }
 };
 export const viewport: Viewport = siteViewport;

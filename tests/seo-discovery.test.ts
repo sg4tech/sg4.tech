@@ -6,7 +6,8 @@ import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS, type PostSlug } from "@/app/lib/blog/posts";
-import { absoluteUrl, SITE_URL, withSiteName } from "@/app/lib/brand";
+import { absoluteUrl, SITE_URL } from "@/app/lib/brand";
+import { withSiteName } from "@/app/lib/i18n/site-name";
 import { PAGE_KEYS, pagePath, type PageKey } from "@/app/lib/i18n/pages";
 import { englishLandings } from "./support/landings";
 
@@ -66,7 +67,7 @@ describe("home metadata", () => {
       throw new Error("home openGraph.title must be a plain string");
     }
 
-    expect(metadata.title).toBe(withSiteName(pageTitle));
+    expect(metadata.title).toBe(withSiteName("en", pageTitle));
   });
 });
 
@@ -91,7 +92,7 @@ describe("search snippet lengths", () => {
       if (typeof metadata.title !== "string" || typeof metadata.description !== "string") {
         throw new Error(`${page.name} must declare a plain-string title and description`);
       }
-      const shownTitle = page.suffixed ? metadata.title : withSiteName(metadata.title);
+      const shownTitle = page.suffixed ? metadata.title : withSiteName("en", metadata.title);
 
       expect(shownTitle.length).toBeLessThanOrEqual(SEARCH_TITLE_MAX);
       expect(metadata.description.length).toBeLessThanOrEqual(SEARCH_DESCRIPTION_MAX);

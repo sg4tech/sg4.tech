@@ -7,5 +7,5 @@ export const size = ogImageSize;
 export const contentType = ogImageContentType;
 
 export default function OpengraphImage() {
-  return renderOgCard(blogIndexOgCard);
+  return renderOgCard("en", blogIndexOgCard);
 }
