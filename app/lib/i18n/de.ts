@@ -70,7 +70,7 @@ export const de: SiteDictionary = {
     tocHeading: "Inhalt",
     relatedHeading: "Weiterlesen",
     relatedIntro: "Was als Nächstes passt, hängt davon ab, woran Sie gerade arbeiten.",
-    ctaButton: "Projekt auf Telegram besprechen"
+    ctaButton: "Projekt per Telegram besprechen"
   },
   notFound: {
     title: "Seite nicht gefunden",

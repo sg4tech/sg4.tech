@@ -6,7 +6,7 @@ const description =
 
 export const aiVibecodingContent: AiVibecodingContent = {
   meta: {
-    title: "Remettre d’aplomb un MVP en vibe coding",
+    title: "Votre MVP en vibe coding, enfin livrable",
     description,
     socialTitle: "D’un MVP en vibe coding à une activité qui tourne",
     socialDescription: description
@@ -179,7 +179,7 @@ export const aiVibecodingContent: AiVibecodingContent = {
         output: "Un code que l’on peut mettre en production sans risque, des bugs critiques corrigés, une IA qui travaille dans un cadre"
       },
       {
-        title: "Passage à l’échelle",
+        title: "Changement d’échelle",
         duration: "Ensuite, sur plusieurs mois",
         points: [
           "Je définis l’architecture cible et j’y amène le code sans risque",

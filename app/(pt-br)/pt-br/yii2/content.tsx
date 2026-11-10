@@ -33,7 +33,7 @@ export const yii2Content: Yii2Content = {
     ]
   },
   transformation: {
-    title: "De releases na sorte a um desenvolvimento sob controle",
+    title: "De releases no improviso a um desenvolvimento sob controle",
     intro: "Dá para conviver com código legado. O que trava o negócio são releases pouco confiáveis.",
     fireFighting: {
       title: "Modo apagar incêndio",

@@ -11,11 +11,11 @@ export const homeContent: HomeContent = {
   },
   service: {
     name: "Victor Demin, développement logiciel",
-    serviceType: "Développement logiciel et leadership technique",
+    serviceType: "Ingénierie logicielle et leadership technique",
     description
   },
   hero: {
-    eyebrow: "Développement logiciel et leadership technique",
+    eyebrow: "Ingénierie logicielle et leadership technique",
     headline: "Je construis des systèmes qui fonctionnent.",
     phpRussiaLabel: "Intervenant à PHP Russia",
     lead: "Un produit livré dans les délais, fiable en production, qui tient le choc de la croissance.",
@@ -55,7 +55,7 @@ export const homeContent: HomeContent = {
       },
       {
         id: "scale",
-        title: "Passage à l’échelle",
+        title: "Changement d’échelle",
         points: [
           "Chaque modification touche trop de parties du système",
           "La coordination ralentit tout le travail",
@@ -249,8 +249,8 @@ export const homeContent: HomeContent = {
 };
 
 export const homeOgCard: OgCardContent = {
-  alt: "Victor Demin, développement logiciel et leadership technique",
-  eyebrow: "Développement logiciel et leadership technique",
+  alt: "Victor Demin, ingénierie logicielle et leadership technique",
+  eyebrow: "Ingénierie logicielle et leadership technique",
   title: "Je construis des systèmes qui fonctionnent.",
   subtitle: "Des logiciels livrés dans les délais et fiables en production"
 };

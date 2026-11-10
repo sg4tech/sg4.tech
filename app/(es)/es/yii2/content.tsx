@@ -33,7 +33,7 @@ export const yii2Content: Yii2Content = {
     ]
   },
   transformation: {
-    title: "De lanzar a la suerte a un desarrollo bajo control",
+    title: "De lanzamientos a ciegas a un desarrollo bajo control",
     intro: "Con el código legado se puede vivir. Lo que frena el negocio son los lanzamientos poco fiables.",
     fireFighting: {
       title: "Modo apagafuegos",

@@ -18,7 +18,7 @@ export const homeContent: HomeContent = {
     eyebrow: "Softwareentwicklung & technische Leitung",
     headline: "Ich baue Systeme, die funktionieren.",
     phpRussiaLabel: "Speaker auf der PHP Russia",
-    lead: "Software, die pünktlich erscheint, im Betrieb stabil läuft und beim Wachstum nicht auseinanderfällt.",
+    lead: "Software, die termingerecht live geht, im Betrieb stabil läuft und beim Wachstum nicht auseinanderfällt.",
     text: "Mit Systemdenken, Entwicklungsmetriken und KI gelingt das schneller und mit weniger Chaos.",
     primaryCta: { label: "Projekt besprechen", href: "https://t.me/sg4tech?start=site_de_hero" },
     secondaryCtaLabel: "So arbeite ich",

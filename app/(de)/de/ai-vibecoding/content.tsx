@@ -33,7 +33,7 @@ export const aiVibecodingContent: AiVibecodingContent = {
       { id: "teams", figure: "14+", label: "Teams, deren Entwicklung ich beschleunigt habe" }
     ],
     primaryCta: {
-      label: "Schildern Sie Ihre Lage auf Telegram",
+      label: "Schildern Sie Ihre Lage per Telegram",
       href: "https://t.me/sg4tech?start=site_de_ai_vibecoding_hero"
     },
     secondaryCtaLabel: "So funktioniert es",
