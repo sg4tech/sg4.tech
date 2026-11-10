@@ -47,6 +47,10 @@ export const en: SiteDictionary = {
     code: "EN",
     versionLabel: "English version"
   },
+  untranslated: {
+    pageNote: "Page in English",
+    linkNote: "in English"
+  },
   author: {
     name: VICTOR_NAME
   },

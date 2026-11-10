@@ -42,6 +42,10 @@ export const ru: SiteDictionary = {
     code: "RU",
     versionLabel: "Русская версия"
   },
+  untranslated: {
+    pageNote: "Страница на английском",
+    linkNote: "на английском"
+  },
   author: {
     name: "Виктор Демин"
   },

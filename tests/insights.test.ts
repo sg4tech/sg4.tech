@@ -33,7 +33,7 @@ describe("homepage Insights block", () => {
   const block = home.html.split('id="insights"')[1]?.split("</section>")[0] ?? "";
 
   it("lists the latest posts from the blog data", () => {
-    expect(section).toContain("getLatestPosts(locale, 3)");
+    expect(section).toContain("getLatestPostsOrDefault(locale, 3)");
     for (const post of getLatestPosts("en", 3)) {
       // next/link drops the trailing slash outside a Next build (no next.config).
       const href = `/blog/${post.slug}`;
@@ -75,7 +75,7 @@ describe("homepage Insights block", () => {
   // The arrow rides at the end of the title, glued to its last word, instead
   // of hanging alone on its own line under every card.
   it("keeps the arrow on the title's last line", () => {
-    expect(section).toMatch(/<span className=\{styles\.latestPostTitle\}>[\s\S]*?<span className=\{styles\.titleTail\}>[\s\S]*?<Icon icon=\{ArrowRight\} className=\{styles\.latestPostArrow\} \/>[\s\S]*?<\/span>\s*<\/span>/);
+    expect(section).toMatch(/<span\s+className=\{styles\.latestPostTitle\}[\s\S]*?>[\s\S]*?<span className=\{styles\.titleTail\}>[\s\S]*?<Icon icon=\{ArrowRight\} className=\{styles\.latestPostArrow\} \/>[\s\S]*?<\/span>\s*<\/span>/);
   });
 
   it("sets the posts in three columns on wide screens", () => {

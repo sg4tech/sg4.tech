@@ -37,6 +37,14 @@ export type SiteDictionary = {
     code: string;
     versionLabel: string;
   };
+  /** Marks a link to a page that has no version in this language yet, so
+   * the reader knows the next page is in the default language. */
+  untranslated: {
+    /** A note on a card that leads to such a page. */
+    pageNote: string;
+    /** A short note after a link's label. */
+    linkNote: string;
+  };
   author: {
     /** The author's name as readers of this language spell it. Structured
      * data keeps the canonical entity name from lib/brand. */

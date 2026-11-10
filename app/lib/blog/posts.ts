@@ -1,5 +1,5 @@
 import { absoluteUrl, type SitePath } from "../brand";
-import { getLocaleConfig, type Locale } from "../i18n/locales";
+import { DEFAULT_LOCALE, getLocaleConfig, type Locale } from "../i18n/locales";
 import { pagePath } from "../i18n/pages";
 
 // Single source of truth for blog posts. Referenced by:
@@ -133,6 +133,13 @@ export function getLatestPosts(locale: Locale, limit?: number): ReadonlyArray<Bl
     .filter((post) => post.locale === locale)
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
   return limit === undefined ? sorted : sorted.slice(0, limit);
+}
+
+/** A locale's latest posts, or the default locale's while it has none — for
+ * blocks that should not sit empty before the first translated post. */
+export function getLatestPostsOrDefault(locale: Locale, limit?: number): ReadonlyArray<BlogPost> {
+  const own = getLatestPosts(locale, limit);
+  return own.length > 0 ? own : getLatestPosts(DEFAULT_LOCALE, limit);
 }
 
 /** Every language version of a post (the original and its translations). */

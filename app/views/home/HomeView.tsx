@@ -33,11 +33,11 @@ import { Steps } from "../../components/Steps";
 import { SiteNav } from "../../components/SiteNav";
 import { Button } from "../../components/Button";
 import { iconTextPoints, WhyMeSection } from "../../components/WhyMeSection";
-import { formatPostDate, getLatestPosts, getPostPath } from "../../lib/blog/posts";
+import { formatPostDate, getLatestPostsOrDefault, getPostPath } from "../../lib/blog/posts";
 import { writingChannelLinks } from "../../lib/brand";
 import { getDictionary } from "../../lib/i18n/dictionary";
-import type { Locale } from "../../lib/i18n/locales";
-import { pagePath } from "../../lib/i18n/pages";
+import { getLocaleConfig, type Locale } from "../../lib/i18n/locales";
+import { isPagePublished, pagePathOrDefault } from "../../lib/i18n/pages";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals, PHP_RUSSIA_LOGO } from "../../lib/proof";
 import type {
@@ -248,6 +248,7 @@ function FitSection({ content: { fit } }: SectionProps) {
 }
 
 function SpecializationSection({ locale, content: { specializations } }: SectionProps) {
+  const { untranslated } = getDictionary(locale);
   return (
     <Section>
       <SectionHeader title={specializations.title} intro={specializations.intro} />
@@ -255,11 +256,18 @@ function SpecializationSection({ locale, content: { specializations } }: Section
         {specializations.links.map((link) => (
           <Link
             key={link.target}
-            href={pagePath(locale, link.target)}
+            href={pagePathOrDefault(locale, link.target)}
             className={styles.specializationCard}
           >
             <span className={styles.specializationTitle}>{link.title}</span>
-            <span className={styles.specializationDescription}>{link.description}</span>
+            {/* The note stays inside the description, so the card keeps its two
+                rows and the arrow stays centred across them. */}
+            <span className={styles.specializationDescription}>
+              {link.description}
+              {isPagePublished(locale, link.target) ? null : (
+                <span className={styles.untranslatedNote}>{untranslated.pageNote}</span>
+              )}
+            </span>
             <Icon icon={ArrowRight} className={styles.specializationArrow} />
           </Link>
         ))}
@@ -279,25 +287,29 @@ function titleTail(title: string): string {
 }
 
 function InsightsSection({ locale, content: { writing } }: SectionProps) {
-  const { blog } = getDictionary(locale);
+  const { blog, untranslated } = getDictionary(locale);
   return (
     <Section id="insights">
       <div className={styles.writingHeader}>
         <SectionHeader title={writing.title} intro={writing.intro} introClassName={styles.writingIntro} />
-        <Link href={pagePath(locale, "blog")} className={styles.allPostsLink}>
+        <Link href={pagePathOrDefault(locale, "blog")} className={styles.allPostsLink}>
           {writing.allPostsLabel}
+          {isPagePublished(locale, "blog") ? null : ` (${untranslated.linkNote})`}
           <Icon icon={ArrowRight} className={styles.allPostsArrow} />
         </Link>
       </div>
       <ul className={styles.latestPosts}>
-        {getLatestPosts(locale, 3).map((post) => (
+        {getLatestPostsOrDefault(locale, 3).map((post) => (
           <li key={post.slug} className={styles.latestPostItem}>
             <Link href={getPostPath(post.slug)} className={styles.latestPost}>
               <span className={styles.latestPostMeta}>
                 <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt, locale)}</time> ·{" "}
                 {blog.readingTime(post.readingMinutes)}
               </span>
-              <span className={styles.latestPostTitle}>
+              <span
+                className={styles.latestPostTitle}
+                lang={post.locale === locale ? undefined : getLocaleConfig(post.locale).htmlLang}
+              >
                 {titleHead(post.title)}
                 <span className={styles.titleTail}>
                   {titleTail(post.title)}
