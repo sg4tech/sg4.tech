@@ -1,27 +1,10 @@
 import type { Metadata } from "next";
 import { ArticleToc } from "../../../../components/ArticleToc";
-import { BlogPostLayout } from "../../../../components/BlogPostLayout";
+import { PostArticle } from "../../../../components/PostArticle";
 import { buildPostMetadata } from "../../../../lib/blog/post-metadata";
 import type { PostSlug } from "../../../../lib/blog/posts";
-import {
-  ArticleLede,
-  IntroSection,
-  SectionCountTasks,
-  SectionDecomposeT2M,
-  SectionLeadTimeCycleTime,
-  SectionLittlesLaw,
-  SectionSymptoms,
-  SectionWhereStuck,
-  SectionWip,
-  SectionWipLimits
-} from "./article-content";
-import {
-  ArticleCta,
-  ArticleRelated,
-  SectionClosing,
-  SectionFullSystemView,
-  SectionIntroduceWipLimits
-} from "./article-tail";
+import * as content from "./article-content";
+import * as tail from "./article-tail";
 import styles from "../../../../views/posts/diagnose-broken-engineering-delivery.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
@@ -148,37 +131,19 @@ const faqItems = [
 
 export const metadata: Metadata = buildPostMetadata(SLUG);
 
-function ArticleBody() {
-  return (
-    <div className={styles.body}>
-      <IntroSection />
-      <ArticleToc post={SLUG} items={tocItems} />
-      <SectionSymptoms />
-      <SectionDecomposeT2M />
-      <SectionLeadTimeCycleTime />
-      <SectionWhereStuck />
-      <SectionCountTasks />
-      <SectionWip />
-      <SectionLittlesLaw />
-      <SectionWipLimits />
-      <SectionIntroduceWipLimits />
-      <SectionFullSystemView />
-      <SectionClosing />
-      <ArticleCta />
-      <ArticleRelated />
-    </div>
-  );
+function TableOfContents() {
+  return <ArticleToc post={SLUG} items={tocItems} />;
 }
 
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <PostArticle
+      original="diagnose-broken-engineering-delivery"
       slug={SLUG}
       eyebrow="Software-Delivery"
-      lede={<ArticleLede />}
       faqItems={faqItems}
-    >
-      <ArticleBody />
-    </BlogPostLayout>
+      sections={{ ...content, ...tail, TableOfContents }}
+      bodyClassName={styles.body}
+    />
   );
 }

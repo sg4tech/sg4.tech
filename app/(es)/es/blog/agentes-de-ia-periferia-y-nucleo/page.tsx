@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { BlogPostLayout } from "../../../../components/BlogPostLayout";
+import { PostArticle } from "../../../../components/PostArticle";
 import { buildPostMetadata } from "../../../../lib/blog/post-metadata";
 import type { PostSlug } from "../../../../lib/blog/posts";
-import {
-  ArticleLede,
-  IntroSection,
-  SectionBarrier,
-  SectionRule,
-  SectionWhatNot,
-  SectionWhatWorks
-} from "./article-content";
-import { ArticleCta, ArticleRelated } from "./article-tail";
+import * as content from "./article-content";
+import * as tail from "./article-tail";
 import styles from "../../../../views/posts/ai-coding-agent-periphery-core.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
@@ -74,30 +67,16 @@ const faqItems = [
 
 export const metadata: Metadata = buildPostMetadata(SLUG);
 
-function ArticleBody() {
-  return (
-    <div className={styles.body}>
-      <IntroSection />
-      <SectionBarrier />
-      <SectionWhatWorks />
-      <SectionWhatNot />
-      <SectionRule />
-      <ArticleCta />
-      <ArticleRelated />
-    </div>
-  );
-}
-
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <PostArticle
+      original="ai-coding-agent-periphery-core"
       slug={SLUG}
       eyebrow="Agentes de IA"
-      lede={<ArticleLede />}
       faqItems={faqItems}
       partOf="donde-falla-la-entrega-de-software"
-    >
-      <ArticleBody />
-    </BlogPostLayout>
+      sections={{ ...content, ...tail }}
+      bodyClassName={styles.body}
+    />
   );
 }

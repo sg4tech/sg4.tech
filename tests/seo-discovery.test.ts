@@ -290,14 +290,14 @@ describe("landing schema", () => {
 });
 
 describe("article schema", () => {
-  // Every post renders through BlogPostLayout, which emits the JSON-LD graph
-  // built by buildPostStructuredData (covered in post-schema.test.ts).
+  // Every post renders through PostArticle, whose BlogPostLayout emits the
+  // JSON-LD graph built by buildPostStructuredData (covered in post-schema.test.ts).
   for (const slug of POST_SLUGS) {
-    it(`renders "${slug}" through BlogPostLayout`, () => {
+    it(`renders "${slug}" through PostArticle`, () => {
       const filePath = join(postRouteDir(slug), "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
-      expect(content).toContain("<BlogPostLayout");
+      expect(content).toContain("<PostArticle");
       expect(content).toContain("slug={SLUG}");
     });
   }

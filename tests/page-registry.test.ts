@@ -11,7 +11,7 @@ describe("page registry", () => {
   it("knows which locales a page is published in", () => {
     expect(isPagePublished("en", "yii2")).toBe(true);
     expect(isPagePublished("ru", "yii2")).toBe(true);
-    expect(isPagePublished("ru", "blog")).toBe(false);
+    expect(isPagePublished("ru", "privacy")).toBe(false);
   });
 
   // A link to a page that has no version in this language would be a 404.

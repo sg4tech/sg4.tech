@@ -13,7 +13,7 @@ import { SiteFooter } from "./SiteFooter";
 import { SiteNav } from "./SiteNav";
 import styles from "./BlogPostLayout.module.css";
 
-type BlogPostLayoutProps = {
+export type BlogPostLayoutProps = {
   slug: PostSlug;
   eyebrow: string;
   lede: ReactNode;

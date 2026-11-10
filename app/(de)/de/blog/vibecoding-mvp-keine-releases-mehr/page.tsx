@@ -1,18 +1,9 @@
 import type { Metadata } from "next";
-import { BlogPostLayout } from "../../../../components/BlogPostLayout";
+import { PostArticle } from "../../../../components/PostArticle";
 import { buildPostMetadata } from "../../../../lib/blog/post-metadata";
 import type { PostSlug } from "../../../../lib/blog/posts";
-import {
-  ArticleLede,
-  IntroSection,
-  SectionCase,
-  SectionFailedFixes,
-  SectionJunior,
-  SectionMapping,
-  SectionRestart,
-  SectionStall
-} from "./article-content";
-import { ArticleCta, ArticleRelated } from "./article-tail";
+import * as content from "./article-content";
+import * as tail from "./article-tail";
 import styles from "../../../../views/posts/vibecoded-mvp-stopped-shipping.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
@@ -87,32 +78,16 @@ const faqItems = [
 
 export const metadata: Metadata = buildPostMetadata(SLUG);
 
-function ArticleBody() {
-  return (
-    <div className={styles.body}>
-      <IntroSection />
-      <SectionStall />
-      <SectionJunior />
-      <SectionCase />
-      <SectionMapping />
-      <SectionFailedFixes />
-      <SectionRestart />
-      <ArticleCta />
-      <ArticleRelated />
-    </div>
-  );
-}
-
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <PostArticle
+      original="vibecoded-mvp-stopped-shipping"
       slug={SLUG}
       eyebrow="KI-Vibecoding"
-      lede={<ArticleLede />}
       faqItems={faqItems}
       headline={H1_TITLE}
-    >
-      <ArticleBody />
-    </BlogPostLayout>
+      sections={{ ...content, ...tail }}
+      bodyClassName={styles.body}
+    />
   );
 }

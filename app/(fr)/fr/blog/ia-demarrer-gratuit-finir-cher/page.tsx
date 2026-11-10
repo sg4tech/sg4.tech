@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { BlogPostLayout } from "../../../../components/BlogPostLayout";
+import { PostArticle } from "../../../../components/PostArticle";
 import { buildPostMetadata } from "../../../../lib/blog/post-metadata";
 import type { PostSlug } from "../../../../lib/blog/posts";
-import {
-  ArticleLede,
-  IntroSection,
-  SectionConstraintMoved,
-  SectionCostVisible,
-  SectionMetricsSurvive,
-  SectionOneThread,
-  SectionParallelTasks
-} from "./article-content";
-import { ArticleCta, ArticleRelated } from "./article-tail";
+import * as content from "./article-content";
+import * as tail from "./article-tail";
 import styles from "../../../../views/posts/ai-made-starting-free-finishing-expensive.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
@@ -68,31 +60,16 @@ const faqItems = [
 
 export const metadata: Metadata = buildPostMetadata(SLUG);
 
-function ArticleBody() {
-  return (
-    <div className={styles.body}>
-      <IntroSection />
-      <SectionCostVisible />
-      <SectionMetricsSurvive />
-      <SectionParallelTasks />
-      <SectionOneThread />
-      <SectionConstraintMoved />
-      <ArticleCta />
-      <ArticleRelated />
-    </div>
-  );
-}
-
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <PostArticle
+      original="ai-made-starting-free-finishing-expensive"
       slug={SLUG}
       eyebrow="Livraison assistée par l’IA"
-      lede={<ArticleLede />}
       faqItems={faqItems}
       partOf="diagnostiquer-livraison-logicielle"
-    >
-      <ArticleBody />
-    </BlogPostLayout>
+      sections={{ ...content, ...tail }}
+      bodyClassName={styles.body}
+    />
   );
 }

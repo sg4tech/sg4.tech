@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { BlogPostLayout } from "../../../../components/BlogPostLayout";
+import { PostArticle } from "../../../../components/PostArticle";
 import { buildPostMetadata } from "../../../../lib/blog/post-metadata";
 import type { PostSlug } from "../../../../lib/blog/posts";
-import {
-  ArticleLede,
-  IntroSection,
-  LevelLadder,
-  SectionArchitectureAndRules,
-  SectionBottomLine,
-  SectionCheapLevels,
-  SectionComplexity,
-  SectionTemplate,
-  SectionToolTable
-} from "./article-content";
-import { ArticleCta, ArticleRelated } from "./article-tail";
+import * as content from "./article-content";
+import * as tail from "./article-tail";
 import styles from "../../../../views/posts/code-entropy-ci-checks-ai-legacy.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
@@ -52,33 +42,16 @@ const faqItems = [
 
 export const metadata: Metadata = buildPostMetadata(SLUG);
 
-function ArticleBody() {
-  return (
-    <div className={styles.body}>
-      <IntroSection />
-      <LevelLadder />
-      <SectionCheapLevels />
-      <SectionComplexity />
-      <SectionArchitectureAndRules />
-      <SectionToolTable />
-      <SectionBottomLine />
-      <SectionTemplate />
-      <ArticleCta />
-      <ArticleRelated />
-    </div>
-  );
-}
-
 export default function ArticlePage() {
   return (
-    <BlogPostLayout
+    <PostArticle
+      original="code-entropy-ci-checks-ai-legacy"
       slug={SLUG}
       eyebrow="KI-Coding-Agenten"
-      lede={<ArticleLede />}
       faqItems={faqItems}
       partOf="engpaesse-in-der-entwicklung-finden"
-    >
-      <ArticleBody />
-    </BlogPostLayout>
+      sections={{ ...content, ...tail }}
+      bodyClassName={styles.body}
+    />
   );
 }
