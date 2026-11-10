@@ -40,8 +40,9 @@ import { Steps } from "../../components/Steps";
 import { SiteNav } from "../../components/SiteNav";
 import { Button } from "../../components/Button";
 import { WhyMeSection } from "../../components/WhyMeSection";
-import { getPostBySlug, getPostPath } from "../../lib/blog/posts";
-import type { Locale } from "../../lib/i18n/locales";
+import { getPostInLocaleOrOriginal, getPostPath } from "../../lib/blog/posts";
+import { getDictionary } from "../../lib/i18n/dictionary";
+import { getLocaleConfig, type Locale } from "../../lib/i18n/locales";
 import { createLookup } from "../../lib/lookup";
 import { clientLogoSignals } from "../../lib/proof";
 import landing from "../../styles/landing.module.css";
@@ -360,15 +361,23 @@ function FinalCtaSection({ content: { finalCta } }: SectionProps) {
 // Hub ⇄ spoke backlink: this landing is the hub for the vibecoding blog spoke.
 // Title/description come from the post registry so the card never drifts from
 // the article's own metadata.
-function FeaturedEssaySection({ content: { featuredEssay } }: SectionProps) {
-  const post = getPostBySlug(featuredEssay.slug);
+function FeaturedEssaySection({ locale, content: { featuredEssay } }: SectionProps) {
+  const post = getPostInLocaleOrOriginal(featuredEssay.slug, locale);
+  const inOtherLanguage = post.locale !== locale;
+  const { untranslated } = getDictionary(locale);
   return (
     <Section aria-label={featuredEssay.label}>
       <div className={styles.featuredEssayGrid}>
         <Link href={getPostPath(post.slug)} className={styles.featuredEssayCard}>
           <span className={styles.featuredEssayLabel}>{featuredEssay.label}</span>
-          <span className={styles.featuredEssayTitle}>{post.title}</span>
-          <span className={styles.featuredEssayDescription}>{post.description}</span>
+          <span className={styles.featuredEssayTitle} lang={inOtherLanguage ? getLocaleConfig(post.locale).htmlLang : undefined}>
+            {post.title}
+          </span>
+          {/* The note stays inside the description, so the card keeps its rows. */}
+          <span className={styles.featuredEssayDescription}>
+            <span lang={inOtherLanguage ? getLocaleConfig(post.locale).htmlLang : undefined}>{post.description}</span>
+            {inOtherLanguage ? <span className={styles.untranslatedNote}>{untranslated.pageNote}</span> : null}
+          </span>
           <Icon icon={ArrowRight} className={styles.featuredEssayArrow} />
         </Link>
       </div>

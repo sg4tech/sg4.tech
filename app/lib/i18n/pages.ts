@@ -81,7 +81,7 @@ const registry = createPageRegistry<Locale>(
   {
     home: { path: "/", locales: ["en", "ru"] },
     yii2: { path: "/yii2/", locales: ["en", "ru"] },
-    "ai-vibecoding": { path: "/ai-vibecoding/", locales: ["en"] },
+    "ai-vibecoding": { path: "/ai-vibecoding/", locales: ["en", "ru"] },
     blog: { path: "/blog/", locales: ["en"] },
     privacy: { path: "/privacy/", locales: ["en"] }
   },

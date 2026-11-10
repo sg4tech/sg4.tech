@@ -440,4 +440,11 @@
     color: var(--muted);
     line-height: var(--leading-relaxed);
   }
+
+  /* Says the essay is in another language. */
+  .untranslatedNote {
+    display: block;
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+  }
 }

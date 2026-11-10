@@ -4,6 +4,16 @@ import { describe, expect, it } from "vitest";
 import { getSiteNavigationItems } from "@/app/lib/navigation";
 
 describe("responsive layout guardrails", () => {
+  // A hero signal pill is sized by its label, and labels differ in length
+  // between languages: a pill wider than the row must wrap its label instead of
+  // pushing the hero past a narrow phone's edge.
+  it("lets a hero signal wrap its label when it is wider than the row", () => {
+    const css = readFileSync(join(process.cwd(), "app", "components", "HeroSignals.module.css"), "utf8");
+    const rule = (selector: string) => css.split(`${selector} {`)[1]?.split("}")[0] ?? "";
+    expect(rule(".signal")).toContain("max-width: 100%;");
+    expect(rule(".label")).not.toContain("nowrap");
+  });
+
   it("keeps the dedicated mobile navigation and CTA rules", () => {
     const buttonCssPath = join(process.cwd(), "app", "components", "Button.module.css");
     const navTsxPath = join(process.cwd(), "app", "components", "TopNavigation.tsx");
