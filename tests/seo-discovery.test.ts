@@ -88,7 +88,8 @@ describe("search snippet lengths", () => {
     { name: "/ai-vibecoding/", locale: "en", load: () => import("@/app/(en)/ai-vibecoding/page") },
     { name: "/blog/", locale: "en", load: () => import("@/app/(en)/blog/page") },
     { name: "/ru/", locale: "ru", load: () => import("@/app/(ru)/ru/page") },
-    { name: "/ru/yii2/", locale: "ru", load: () => import("@/app/(ru)/ru/yii2/page") }
+    { name: "/ru/yii2/", locale: "ru", load: () => import("@/app/(ru)/ru/yii2/page") },
+    { name: "/ru/ai-vibecoding/", locale: "ru", load: () => import("@/app/(ru)/ru/ai-vibecoding/page") }
   ] as const;
 
   for (const page of pages) {

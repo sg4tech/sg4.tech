@@ -142,6 +142,16 @@ export function getLatestPostsOrDefault(locale: Locale, limit?: number): Readonl
   return own.length > 0 ? own : getLatestPosts(DEFAULT_LOCALE, limit);
 }
 
+/** The post's version in `locale`, or the original while it has none there. */
+export function getPostInLocaleOrOriginal(slug: PostSlug, locale: Locale): BlogPost {
+  const translations = getPostTranslations(slug);
+  return (
+    translations.find((post) => post.locale === locale) ??
+    translations.find((post) => post.translationOf === undefined) ??
+    getPostBySlug(slug)
+  );
+}
+
 /** Every language version of a post (the original and its translations). */
 export function getPostTranslations(slug: PostSlug): ReadonlyArray<BlogPost> {
   const original = getPostBySlug(slug).translationOf ?? slug;

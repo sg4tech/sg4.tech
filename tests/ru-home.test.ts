@@ -8,34 +8,23 @@ import { HomeView } from "@/app/views/home/HomeView";
 import { homeContent as enHomeContent } from "@/app/(en)/content";
 import { renderView } from "./support/render";
 import { englishLandings, toRenderedPage } from "./support/landings";
+import { bodyLinkTo as linkTo } from "./support/links";
 
 const ru = toRenderedPage(renderView(HomeView, { locale: "ru", content: ruHomeContent }));
 const en = englishLandings.home.page;
 
-// next/link drops the trailing slash outside a Next build (no next.config).
-// The first link to `path` inside the page body (the menu has its own links).
-const linkTo = (html: string, path: string) => {
-  const bare = path.replace(/\/$/, "");
-  const body = html.split("</nav>").slice(1).join("</nav>");
-  const links = body.split("<a ").slice(1).map((chunk) => chunk.split("</a>")[0] ?? "");
-  return links.find((link) => link.includes(`href="${bare}"`) || link.includes(`href="${bare}/"`)) ?? "";
-};
-
 // A link that leaves the reader's language says so, and the note disappears by
 // itself once the target page is translated (it follows the page registry).
-describe("Russian home: links to pages that exist only in English", () => {
+describe("Russian home: links to other pages", () => {
   const { untranslated } = getDictionary("ru");
 
-  it("keeps a translated page's card in Russian, with no note", () => {
-    const card = linkTo(ru.html, "/ru/yii2/");
-    expect(card).toContain("Проект на Yii2");
+  it.each([
+    ["/ru/yii2/", "Проект на Yii2"],
+    ["/ru/ai-vibecoding/", "MVP после вайбкодинга"]
+  ])("keeps a translated page's card in Russian (%s), with no note", (path, title) => {
+    const card = linkTo(ru.html, path);
+    expect(card).toContain(title);
     expect(card).not.toContain(untranslated.pageNote);
-  });
-
-  it("points an untranslated page's card at the English page and marks it", () => {
-    const card = linkTo(ru.html, "/ai-vibecoding/");
-    expect(card).toContain("MVP после вайбкодинга");
-    expect(card).toContain(untranslated.pageNote);
   });
 
   it("points the blog link at the English blog and marks it", () => {
