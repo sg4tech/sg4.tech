@@ -11,6 +11,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
+    /* Never wider than the row: a long label wraps inside the pill. */
+    max-width: 100%;
     min-height: 2rem;
     padding: 0.35rem 0.85rem;
     border: 1px solid var(--border);
@@ -42,7 +44,7 @@
 
   .label {
     display: inline-block;
-    white-space: nowrap;
+    min-width: 0;
   }
 
   .signal:hover .logo,
