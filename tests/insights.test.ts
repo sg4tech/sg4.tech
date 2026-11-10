@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { blogPosts, formatPostDate, getLatestPosts } from "@/app/lib/blog/posts";
+import { formatPostDate, getLatestPosts } from "@/app/lib/blog/posts";
+import { enPosts } from "@/app/lib/blog/registry/en";
 import { writingChannelLinks } from "@/app/lib/brand";
 import { englishLandings } from "./support/landings";
 
@@ -11,7 +12,7 @@ describe("getLatestPosts", () => {
   it("returns posts newest first", () => {
     const dates = getLatestPosts("en").map((p) => p.publishedAt);
     expect(dates).toEqual([...dates].sort().reverse());
-    expect(dates).toHaveLength(blogPosts.length);
+    expect(dates).toHaveLength(enPosts.length);
   });
 
   it("keeps each locale's posts apart", () => {
@@ -19,7 +20,7 @@ describe("getLatestPosts", () => {
   });
 
   it("limits to the requested count", () => {
-    expect(getLatestPosts("en", 3)).toHaveLength(Math.min(3, blogPosts.length));
+    expect(getLatestPosts("en", 3)).toHaveLength(Math.min(3, enPosts.length));
   });
 });
 

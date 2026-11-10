@@ -11,9 +11,9 @@
 // group segment is matched separately so `$1` below is the route folder alone.
 const sharedLayers = "^app/(lib|components|_og|styles|views)/";
 const routeGroup = "[(][a-z-]+[)]/";
-// The feed route of a locale's blog; $1 is the locale (without parentheses, so
+// The feed route of a locale's blog (behind the locale's prefix folder, if any); $1 is the locale (without parentheses, so
 // it can be substituted back into a pattern safely).
-const blogFeedRoute = "^app/[(]([a-z-]+)[)]/blog/feed[.]xml/route[.]ts$";
+const blogFeedRoute = "^app/[(]([a-z-]+)[)]/([a-z-]+/blog|blog)/feed[.]xml/route[.]ts$";
 
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
@@ -66,7 +66,7 @@ module.exports = {
       comment: "A locale's RSS feed route takes the channel title and description from that locale's blog index content, and nothing else from routes.",
       severity: "error",
       from: { path: blogFeedRoute },
-      to: { path: "^app/", pathNot: [sharedLayers, "^app/[(]$1[)]/blog/content[.]ts$"] }
+      to: { path: "^app/", pathNot: [sharedLayers, "^app/[(]$1[)]/($1/blog|blog)/content[.]ts$"] }
     },
     {
       name: "no-root-route-to-nested-route",

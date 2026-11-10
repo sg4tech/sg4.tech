@@ -151,13 +151,13 @@ describe("language menu", () => {
   // Home pill goes, since the logo already leads home.
   it.each([
     ["en", "yii2", "secondary"],
-    ["en", "blog", "primary"]
+    ["en", "privacy", "primary"]
   ] as const)("on %s %s keeps the Home pill %s on phones", (locale, page, mobileNav) => {
     expect(nav({ locale, page })).toContain(`href="/" data-mobile-nav="${mobileNav}"`);
   });
 
   it("shows no language menu on a page with one language", () => {
-    expect(nav({ locale: "en", page: "blog" })).not.toContain("<details");
+    expect(nav({ locale: "en", page: "privacy" })).not.toContain("<details");
     expect(nav({ locale: "en" })).not.toContain("<details");
   });
 });

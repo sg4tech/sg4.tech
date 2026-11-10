@@ -10,13 +10,14 @@
 //
 // Chars allowed to follow a closing inline tag without a space: punctuation
 // that legitimately hugs the tag (sentence period after a linked phrase,
-// comma, closing paren, etc.) and HTML entities.
+// comma, closing paren, etc.), a no-break space (French sets one before
+// : ; ? !), and HTML entities.
 
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const OUT_DIR = join(process.cwd(), "out");
-const ALLOWED_AFTER_TAG = new Set([" ", ".", ",", ";", ":", ")", "?", "!", "…", "’", '"']);
+const ALLOWED_AFTER_TAG = new Set([" ", "\u00a0", ".", ",", ";", ":", ")", "?", "!", "…", "’", '"']);
 
 const pages = readdirSync(OUT_DIR, { recursive: true })
   .map(String)
