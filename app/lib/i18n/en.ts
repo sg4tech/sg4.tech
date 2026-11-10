@@ -9,6 +9,7 @@ export const en: SiteDictionary = {
   },
   navigation: {
     ariaLabel: "Site navigation",
+    languageMenuLabel: "Language",
     items: [
       { key: "home", label: "Home" },
       { key: "blog", label: "Blog" },
@@ -45,7 +46,7 @@ export const en: SiteDictionary = {
   },
   language: {
     code: "EN",
-    versionLabel: "English version"
+    name: "English"
   },
   untranslated: {
     pageNote: "Page in English",

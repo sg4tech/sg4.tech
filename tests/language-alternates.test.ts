@@ -78,6 +78,10 @@ describe("language alternates follow the registry", () => {
     expect(ruYii2Metadata.alternates?.languages).toEqual({
       en: "https://sg4.tech/yii2/",
       ru: "https://sg4.tech/ru/yii2/",
+      de: "https://sg4.tech/de/yii2/",
+      "pt-BR": "https://sg4.tech/pt-br/yii2/",
+      fr: "https://sg4.tech/fr/yii2/",
+      es: "https://sg4.tech/es/yii2/",
       "x-default": "https://sg4.tech/yii2/"
     });
     expect(yii2Metadata.alternates?.languages).toEqual(ruYii2Metadata.alternates?.languages);

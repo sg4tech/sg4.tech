@@ -8,6 +8,7 @@ export const ru: SiteDictionary = {
   },
   navigation: {
     ariaLabel: "Навигация по сайту",
+    languageMenuLabel: "Язык",
     items: [
       { key: "home", label: "Главная" },
       { key: "blog", label: "Блог" },
@@ -40,7 +41,7 @@ export const ru: SiteDictionary = {
   },
   language: {
     code: "RU",
-    versionLabel: "Русская версия"
+    name: "Русский"
   },
   untranslated: {
     pageNote: "Страница на английском",

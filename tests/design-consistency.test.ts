@@ -432,7 +432,7 @@ describe("one site menu", () => {
 
   it("marks the current page", () => {
     expect(tsx).toContain('aria-current={item.href === current ? "page" : undefined}');
-    expect(css).toMatch(/\.navLinks a\[aria-current="page"\] \{[^}]*color: var\(--text-strong\);/);
+    expect(css).toMatch(/\.navLinks > a\[aria-current="page"\] \{[^}]*color: var\(--text-strong\);/);
   });
 
   // Four pages fit one row on a tablet; only phones drop the secondary ones.
@@ -440,6 +440,6 @@ describe("one site menu", () => {
     const tablet = css.split("@media (max-width: 860px)")[1]?.split("@media")[0] ?? "";
     const phone = css.split("@media (max-width: 640px)")[1]?.split("@media")[0] ?? "";
     expect(tablet).not.toContain('data-mobile-nav="secondary"');
-    expect(phone).toContain('.navLinks a[data-mobile-nav="secondary"]');
+    expect(phone).toContain('.navLinks > a[data-mobile-nav="secondary"]');
   });
 });

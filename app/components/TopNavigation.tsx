@@ -1,23 +1,32 @@
-import { Globe } from "lucide-react";
 import Link from "next/link";
 import type { LanguageVersion, NavigationItem } from "../lib/navigation";
-import { Icon } from "./Icon";
 import styles from "./TopNavigation.module.css";
+import { TopNavigationLanguageMenu } from "./TopNavigationLanguageMenu";
 
 type TopNavigationProps = {
   items: ReadonlyArray<NavigationItem>;
   ariaLabel: string;
+  // Accessible name of the language menu button.
+  languageMenuLabel: string;
   // Home page of the current locale, linked from the brand mark.
   homeHref: string;
   // href of the page being shown, marked with aria-current.
   current?: string;
-  // The shown page in other languages; rendered after the page links.
+  // Every language version of the shown page, the shown one included; empty
+  // hides the language menu.
   languageVersions: ReadonlyArray<LanguageVersion>;
 };
 
-export function TopNavigation({ items, ariaLabel, homeHref, current, languageVersions }: TopNavigationProps) {
-  // On phones the logo, two page pills and the language switch do not fit one
-  // row, so a page with a switch drops the Home pill there: the logo leads home.
+export function TopNavigation({
+  items,
+  ariaLabel,
+  languageMenuLabel,
+  homeHref,
+  current,
+  languageVersions
+}: TopNavigationProps) {
+  // On phones the logo, two page pills and the language menu do not fit one
+  // row, so a page with a menu drops the Home pill there: the logo leads home.
   const mobileNav = (item: NavigationItem) =>
     languageVersions.length > 0 && item.href === homeHref ? "secondary" : item.mobileNav;
   return (
@@ -40,19 +49,9 @@ export function TopNavigation({ items, ariaLabel, homeHref, current, languageVer
               {item.label}
             </a>
           ))}
-          {languageVersions.map((version) => (
-            <a
-              key={version.href}
-              href={version.href}
-              hrefLang={version.lang}
-              lang={version.lang}
-              aria-label={version.label}
-              className={styles.languageSwitch}
-            >
-              <Icon icon={Globe} className={styles.languageIcon} />
-              {version.code}
-            </a>
-          ))}
+          {languageVersions.length > 0 ? (
+            <TopNavigationLanguageMenu label={languageMenuLabel} versions={languageVersions} />
+          ) : null}
         </div>
       </div>
     </nav>

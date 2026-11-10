@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { createPageRegistry, isPagePublished, pagePath } from "@/app/lib/i18n/pages";
-import { getLanguageVersions, getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
+import { getDictionary } from "@/app/lib/i18n/dictionary";
+import { getLocaleConfig, LOCALES } from "@/app/lib/i18n/locales";
+import { createPageRegistry, isPagePublished, PAGE_KEYS, pagePath } from "@/app/lib/i18n/pages";
+import { getLanguageMenu, getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
 import { SiteNav } from "@/app/components/SiteNav";
 import { renderView } from "./support/render";
 
@@ -87,24 +89,40 @@ describe("page registry with two published locales", () => {
   });
 });
 
-describe("language switch", () => {
-  it.each([
-    ["en", "yii2", [{ href: "/ru/yii2/", code: "RU", label: "Русская версия", lang: "ru" }]],
-    ["ru", "yii2", [{ href: "/yii2/", code: "EN", label: "English version", lang: "en" }]],
-    ["en", "blog", []]
-  ] as const)("on %s %s links %j", (locale, page, expected) => {
-    expect(getLanguageVersions(locale, page)).toEqual(expected);
-  });
+describe("language menu", () => {
+  // Every language the page is published in, in the site's locale order, each
+  // named in its own language; empty while the page has one language.
+  it.each(PAGE_KEYS.flatMap((page) => LOCALES.map((locale) => [locale, page] as const)))(
+    "on %s %s lists the page's language versions",
+    (locale, page) => {
+      const published = LOCALES.filter((other) => isPagePublished(other, page));
+      const expected =
+        published.length < 2
+          ? []
+          : published.map((other) => ({
+              href: pagePath(other, page),
+              code: getDictionary(other).language.code,
+              name: getDictionary(other).language.name,
+              lang: getLocaleConfig(other).htmlLang,
+              current: other === locale
+            }));
+      expect(getLanguageMenu(locale, page)).toEqual(expected);
+    }
+  );
 
   const nav = (props: Parameters<typeof SiteNav>[0]) => renderView(SiteNav, props);
 
-  it("shows the other language in the menu of a translated page", () => {
+  it("offers the other languages of a translated page in a menu", () => {
     const html = nav({ locale: "en", page: "yii2" });
-    expect(html).toContain('href="/ru/yii2/"');
-    expect(html).toContain('hrefLang="ru"');
-    expect(html).toContain('lang="ru"');
-    expect(html).toContain('aria-label="Русская версия"');
-    expect(html).toContain(">RU<");
+    expect(html).toContain("<details");
+    expect(html).toContain(`aria-label="${getDictionary("en").navigation.languageMenuLabel}"`);
+    expect(html).toContain('href="/ru/yii2/" hrefLang="ru" lang="ru"');
+    expect(html).toContain(">Русский<");
+    expect(html).toContain('href="/yii2/" hrefLang="en" lang="en" aria-current="true"');
+  });
+
+  it("shows the current language's code on the menu button", () => {
+    expect(nav({ locale: "ru", page: "yii2" })).toMatch(/<summary[^>]*>[\s\S]*?RU<\/summary>/);
   });
 
   it("marks the shown page as current", () => {
@@ -120,8 +138,8 @@ describe("language switch", () => {
     expect(nav({ locale, page })).toContain(`href="/" data-mobile-nav="${mobileNav}"`);
   });
 
-  it("shows no switch on a page with one language", () => {
-    expect(nav({ locale: "en", page: "blog" })).not.toContain("hrefLang");
-    expect(nav({ locale: "en" })).not.toContain("hrefLang");
+  it("shows no language menu on a page with one language", () => {
+    expect(nav({ locale: "en", page: "blog" })).not.toContain("<details");
+    expect(nav({ locale: "en" })).not.toContain("<details");
   });
 });
