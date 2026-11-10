@@ -22,7 +22,7 @@ import {
   SectionFullSystemView,
   SectionIntroduceWipLimits
 } from "./article-tail";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/diagnose-broken-engineering-delivery.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "diagnose-broken-engineering-delivery";

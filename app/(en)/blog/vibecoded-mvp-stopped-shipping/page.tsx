@@ -13,7 +13,7 @@ import {
   SectionStall
 } from "./article-content";
 import { ArticleCta, ArticleRelated } from "./article-tail";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/vibecoded-mvp-stopped-shipping.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "vibecoded-mvp-stopped-shipping";

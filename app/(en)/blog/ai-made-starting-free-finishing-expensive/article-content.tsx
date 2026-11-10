@@ -10,7 +10,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/ai-made-starting-free-finishing-expensive.module.css";
 import { FigureCaption } from "../../../components/FigureCaption";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";

@@ -11,7 +11,7 @@ import {
   SectionWhatWorks
 } from "./article-content";
 import { ArticleCta, ArticleRelated } from "./article-tail";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/ai-coding-agent-periphery-core.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "ai-coding-agent-periphery-core";

@@ -9,7 +9,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/code-entropy-ci-checks-ai-legacy.module.css";
 import { FigureCaption } from "../../../components/FigureCaption";
 
 const VIBECODED_HREF = "/blog/vibecoded-mvp-stopped-shipping/";

@@ -7,7 +7,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/forecast-delivery-with-percentiles.module.css";
 import { FigureCaption } from "../../../components/FigureCaption";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";

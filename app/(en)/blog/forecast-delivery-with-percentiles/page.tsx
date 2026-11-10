@@ -12,7 +12,7 @@ import {
   SectionPredictability
 } from "./article-content";
 import { ArticleCta, ArticleRelated } from "./article-tail";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/forecast-delivery-with-percentiles.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "forecast-delivery-with-percentiles";

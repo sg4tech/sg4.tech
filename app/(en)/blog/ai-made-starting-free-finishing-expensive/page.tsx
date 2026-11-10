@@ -12,7 +12,7 @@ import {
   SectionParallelTasks
 } from "./article-content";
 import { ArticleCta, ArticleRelated } from "./article-tail";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/ai-made-starting-free-finishing-expensive.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "ai-made-starting-free-finishing-expensive";

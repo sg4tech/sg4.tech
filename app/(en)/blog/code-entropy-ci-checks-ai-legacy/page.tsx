@@ -14,7 +14,7 @@ import {
   SectionToolTable
 } from "./article-content";
 import { ArticleCta, ArticleRelated } from "./article-tail";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/code-entropy-ci-checks-ai-legacy.module.css";
 
 // PostSlug-typed: a slug typo here fails the build, not the page at runtime.
 const SLUG: PostSlug = "code-entropy-ci-checks-ai-legacy";

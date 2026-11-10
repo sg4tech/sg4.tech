@@ -1,5 +1,6 @@
+import { getPostPath, getPostTranslations, type PostSlug } from "./blog/posts";
 import { getDictionary } from "./i18n/dictionary";
-import { getLocaleConfig, LOCALES, type Locale } from "./i18n/locales";
+import { DEFAULT_LOCALE, getLocaleConfig, LOCALES, type Locale } from "./i18n/locales";
 import { isPagePublished, type PageKey, pagePath, pagePathOrDefault } from "./i18n/pages";
 import type { SiteDictionary } from "./i18n/types";
 import { createLookup } from "./lookup";
@@ -84,18 +85,39 @@ export function getLegalLinks(locale: Locale): LegalLink[] {
 // Every language the page is published in, for the language menu; empty for a
 // page that exists in one language, so the menu never links to a 404.
 export function getLanguageMenu(locale: Locale, page: PageKey): LanguageVersion[] {
-  const published = LOCALES.filter((other) => isPagePublished(other, page));
-  if (published.length < 2) {
+  const versions = LOCALES.filter((other) => isPagePublished(other, page)).map((other) => ({
+    locale: other,
+    href: pagePath(other, page)
+  }));
+  return toLanguageMenu(locale, versions);
+}
+
+// The same menu for a blog post, from its translations in the post registry.
+export function getPostLanguageMenu(slug: PostSlug): LanguageVersion[] {
+  const translations = getPostTranslations(slug);
+  const locale = translations.find((post) => post.slug === slug)?.locale ?? DEFAULT_LOCALE;
+  const versions = LOCALES.flatMap((other) =>
+    translations.filter((post) => post.locale === other).map((post) => ({ locale: other, href: getPostPath(post.slug) }))
+  );
+  return toLanguageMenu(locale, versions);
+}
+
+// Names each version in its own language; empty while there is only one.
+function toLanguageMenu(
+  locale: Locale,
+  versions: ReadonlyArray<{ locale: Locale; href: string }>
+): LanguageVersion[] {
+  if (versions.length < 2) {
     return [];
   }
-  return published.map((other) => {
-    const { language } = getDictionary(other);
+  return versions.map((version) => {
+    const { language } = getDictionary(version.locale);
     return {
-      href: pagePath(other, page),
+      href: version.href,
       code: language.code,
       name: language.name,
-      lang: getLocaleConfig(other).htmlLang,
-      current: other === locale
+      lang: getLocaleConfig(version.locale).htmlLang,
+      current: version.locale === locale
     };
   });
 }
