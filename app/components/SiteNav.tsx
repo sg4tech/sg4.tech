@@ -2,7 +2,7 @@ import { TopNavigation } from "./TopNavigation";
 import { getDictionary } from "../lib/i18n/dictionary";
 import type { Locale } from "../lib/i18n/locales";
 import { type PageKey, pagePath, pagePathOrDefault } from "../lib/i18n/pages";
-import { getLanguageVersions, getSiteNavigationItems } from "../lib/navigation";
+import { getLanguageMenu, getSiteNavigationItems } from "../lib/navigation";
 
 type SiteNavProps = {
   locale: Locale;
@@ -20,9 +20,10 @@ export function SiteNav({ locale, page, current }: SiteNavProps) {
     <TopNavigation
       items={getSiteNavigationItems(locale)}
       ariaLabel={getDictionary(locale).navigation.ariaLabel}
+      languageMenuLabel={getDictionary(locale).navigation.languageMenuLabel}
       homeHref={pagePathOrDefault(locale, "home")}
       current={current ?? (page === undefined ? undefined : pagePath(locale, page))}
-      languageVersions={page === undefined ? [] : getLanguageVersions(locale, page)}
+      languageVersions={page === undefined ? [] : getLanguageMenu(locale, page)}
     />
   );
 }

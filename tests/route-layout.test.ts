@@ -26,7 +26,7 @@ describe("route layout", () => {
   });
 
   it.each(files)("%s sits inside a locale route group", (file) => {
-    const group = /^\(([a-z]+)\)\//.exec(file)?.[1];
+    const group = /^\(([a-z-]+)\)\//.exec(file)?.[1];
     expect(group, `${file} is outside app/(<locale>)/`).toBeDefined();
     expect(LOCALES as ReadonlyArray<string>).toContain(group);
   });

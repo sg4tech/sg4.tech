@@ -75,22 +75,37 @@ describe("author name", () => {
   });
 });
 
-// The page's route folders under app/(ru)/: its English path behind the /ru prefix.
-function pagePathSegments(page: (typeof PAGE_KEYS)[number]): string[] {
-  return ["ru", ...pagePath("en", page).split("/").filter(Boolean)];
+const TRANSLATED_LOCALES = LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
+
+// The page's route folders under app/(<locale>)/: its default-locale path behind
+// the locale's prefix.
+function pagePathSegments(locale: Locale, page: (typeof PAGE_KEYS)[number]): string[] {
+  const prefix = getLocaleConfig(locale).pathPrefix.split("/").filter(Boolean);
+  return [...prefix, ...pagePath(DEFAULT_LOCALE, page).split("/").filter(Boolean)];
 }
 
 describe("ru locale", () => {
   it("serves under /ru with Russian document settings", () => {
     expect(getLocaleConfig("ru")).toEqual({ htmlLang: "ru", intlTag: "ru-RU", ogLocale: "ru_RU", pathPrefix: "/ru" });
   });
+});
+
+describe("translated locales", () => {
+  // A locale's route group is named after it, and its URLs sit behind a prefix
+  // of the same name, so a route's folder says which language it serves.
+  it.each(TRANSLATED_LOCALES)("%s serves under its own prefix", (locale) => {
+    expect(getLocaleConfig(locale).pathPrefix).toBe(`/${locale}`);
+  });
 
   // The registry is what hreflang, the sitemap and the menu read, so a page
-  // listed as Russian must have its Russian route, and every route must be listed.
-  it.each(PAGE_KEYS)("lists %s as Russian exactly when its /ru route exists", (page) => {
-    const route = join(process.cwd(), "app", "(ru)", ...pagePathSegments(page), "page.tsx");
-    expect(isPagePublished("ru", page)).toBe(existsSync(route));
-  });
+  // listed in a locale must have its route there, and every route must be listed.
+  it.each(TRANSLATED_LOCALES.flatMap((locale) => PAGE_KEYS.map((page) => [locale, page] as const)))(
+    "lists %s %s exactly when its route exists",
+    (locale, page) => {
+      const route = join(process.cwd(), "app", `(${locale})`, ...pagePathSegments(locale, page), "page.tsx");
+      expect(isPagePublished(locale, page)).toBe(existsSync(route));
+    }
+  );
 });
 
 describe("author name in titles, footer and previews", () => {

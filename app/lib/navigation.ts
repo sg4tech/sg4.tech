@@ -23,12 +23,14 @@ export type LegalLink = {
   href: string;
 };
 
-// A link to the page shown, in another language, labelled in that language.
+// One language version of the page shown, named in that language.
 export type LanguageVersion = {
   href: string;
   code: string;
-  label: string;
+  name: string;
   lang: string;
+  /** The version being shown. */
+  current: boolean;
 };
 
 type NavigationKey = SiteDictionary["navigation"]["items"][number]["key"];
@@ -79,16 +81,21 @@ export function getLegalLinks(locale: Locale): LegalLink[] {
   return [{ label: getDictionary(locale).footer.privacyLabel, href: pagePathOrDefault(locale, "privacy") }];
 }
 
-// The page's versions in the other languages it is published in; empty for a
-// page that exists in one language, so the switch never links to a 404.
-export function getLanguageVersions(locale: Locale, page: PageKey): LanguageVersion[] {
-  return LOCALES.filter((other) => other !== locale && isPagePublished(other, page)).map((other) => {
+// Every language the page is published in, for the language menu; empty for a
+// page that exists in one language, so the menu never links to a 404.
+export function getLanguageMenu(locale: Locale, page: PageKey): LanguageVersion[] {
+  const published = LOCALES.filter((other) => isPagePublished(other, page));
+  if (published.length < 2) {
+    return [];
+  }
+  return published.map((other) => {
     const { language } = getDictionary(other);
     return {
       href: pagePath(other, page),
       code: language.code,
-      label: language.versionLabel,
-      lang: getLocaleConfig(other).htmlLang
+      name: language.name,
+      lang: getLocaleConfig(other).htmlLang,
+      current: other === locale
     };
   });
 }

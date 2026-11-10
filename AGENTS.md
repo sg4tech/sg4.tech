@@ -19,9 +19,10 @@
 ## Content Language
 
 - English is the site's default language, and the language of every doc that describes the site.
-- Russian is published only under `/ru`, as a version of a page that exists in English. Its copy, metadata, CTAs, and structured data live in that locale's content files and dictionary — never in shared code or English routes.
+- The translated languages are the ones in `LOCALES` (`app/lib/i18n/locales.ts`). Each is published only under its own prefix, as a version of a page that exists in English. Its copy, metadata, CTAs, and structured data live in that locale's content files and dictionary — never in shared code or English routes.
 - Russian copy follows the Content Approval Protocol like any other copy: agree the text with the user before it goes into code.
-- Any other language, or Russian outside `/ru`, is a product decision that needs the user's explicit approval.
+- Copy in the other translated languages is written and reviewed by the agent, without the user's approval (the user's decision): score every string 1–10 for naturalness, accuracy and persuasion, and rewrite anything below 9. The same copy rules apply as for Russian — the reader's polite form of address, no rhetorical questions in headings, no "not X, but Y" constructions.
+- Adding a language, or publishing a language outside its prefix, is a product decision that needs the user's explicit approval.
 
 ## Project Conventions (sg4tech)
 

@@ -52,7 +52,10 @@
     font-size: var(--text-md);
   }
 
-  .navLinks a {
+  /* Page links and the language menu button share one look; the links inside
+     the language list are styled on their own. */
+  .navLinks > a,
+  .languageSwitch {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -60,20 +63,68 @@
     border-radius: var(--radius-sm);
   }
 
-  .navLinks a:hover,
-  .navLinks a:focus-visible {
+  .navLinks > a:hover,
+  .navLinks > a:focus-visible,
+  .languageSwitch:hover,
+  .languageSwitch:focus-visible {
     color: var(--text-strong);
   }
 
-  .navLinks a[aria-current="page"] {
+  .navLinks > a[aria-current="page"] {
     color: var(--text-strong);
     font-weight: 600;
   }
 
-  /* The other-language link: quieter than the page links, set apart by its icon. */
+  /* The language menu: quieter than the page links, set apart by its icon. */
+  .languageMenu {
+    position: relative;
+  }
+
   .languageSwitch {
     gap: 0.35rem;
     font-size: var(--text-sm);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .languageSwitch::-webkit-details-marker {
+    display: none;
+  }
+
+  .languageList {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    z-index: 20;
+    min-width: 12rem;
+    margin: 0;
+    padding: 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    list-style: none;
+  }
+
+  .languageList a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .languageList a:hover,
+  .languageList a:focus-visible {
+    background: var(--surface-alt);
+    color: var(--text-strong);
+  }
+
+  .languageList a[aria-current="true"] {
+    color: var(--text-strong);
+    font-weight: 600;
   }
 
   .languageIcon {
@@ -83,8 +134,10 @@
 
   /* Below desktop: one row, logo plus the page pills. */
   @media (max-width: 860px) {
+    /* Scrolls away with the page, but stays a stacking context, so the
+       language list opens above the content below the menu. */
     .nav {
-      position: static;
+      position: relative;
       padding-bottom: 0.75rem;
     }
 
@@ -93,7 +146,8 @@
       gap: var(--space-1);
     }
 
-    .navLinks a {
+    .navLinks > a,
+    .languageSwitch {
       min-height: 2.75rem;
       padding: 0.45rem 0.75rem;
       border: 1px solid var(--border);
@@ -102,8 +156,10 @@
       white-space: nowrap;
     }
 
-    .navLinks a:hover,
-    .navLinks a:focus-visible {
+    .navLinks > a:hover,
+    .navLinks > a:focus-visible,
+    .languageSwitch:hover,
+    .languageSwitch:focus-visible {
       background: var(--surface-alt);
     }
   }
@@ -119,7 +175,7 @@
     }
 
     /* Four pills do not fit next to the logo on a phone. */
-    .navLinks a[data-mobile-nav="secondary"] {
+    .navLinks > a[data-mobile-nav="secondary"] {
       display: none;
     }
   }
@@ -146,7 +202,8 @@
       gap: 0.4rem;
     }
 
-    .navLinks a {
+    .navLinks > a,
+    .languageSwitch {
       padding-inline: 0.6rem;
     }
 

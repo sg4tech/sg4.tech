@@ -16,6 +16,8 @@ export type SiteDictionary = {
   };
   navigation: {
     ariaLabel: string;
+    /** Accessible name of the language menu button. */
+    languageMenuLabel: string;
     items: ReadonlyArray<{ key: "home" | "blog" | "yii2" | "ai-vibecoding"; label: string }>;
   };
   footer: {
@@ -31,11 +33,13 @@ export type SiteDictionary = {
     resultsCaption: string;
     heroSignalsAriaLabel: string;
   };
-  /** How this language names itself in the language switch of a page in
-   * another language. */
+  /** How this language names itself in the language menu, so a reader finds
+   * their language whatever page they are on. */
   language: {
+    /** Short code on the menu button, e.g. "EN". */
     code: string;
-    versionLabel: string;
+    /** The language's own name, e.g. "Deutsch". */
+    name: string;
   };
   /** Marks a link to a page that has no version in this language yet, so
    * the reader knows the next page is in the default language. */

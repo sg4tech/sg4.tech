@@ -89,7 +89,19 @@ describe("search snippet lengths", () => {
     { name: "/blog/", locale: "en", load: () => import("@/app/(en)/blog/page") },
     { name: "/ru/", locale: "ru", load: () => import("@/app/(ru)/ru/page") },
     { name: "/ru/yii2/", locale: "ru", load: () => import("@/app/(ru)/ru/yii2/page") },
-    { name: "/ru/ai-vibecoding/", locale: "ru", load: () => import("@/app/(ru)/ru/ai-vibecoding/page") }
+    { name: "/ru/ai-vibecoding/", locale: "ru", load: () => import("@/app/(ru)/ru/ai-vibecoding/page") },
+    { name: "/de/", locale: "de", load: () => import("@/app/(de)/de/page") },
+    { name: "/de/yii2/", locale: "de", load: () => import("@/app/(de)/de/yii2/page") },
+    { name: "/de/ai-vibecoding/", locale: "de", load: () => import("@/app/(de)/de/ai-vibecoding/page") },
+    { name: "/pt-br/", locale: "pt-br", load: () => import("@/app/(pt-br)/pt-br/page") },
+    { name: "/pt-br/yii2/", locale: "pt-br", load: () => import("@/app/(pt-br)/pt-br/yii2/page") },
+    { name: "/pt-br/ai-vibecoding/", locale: "pt-br", load: () => import("@/app/(pt-br)/pt-br/ai-vibecoding/page") },
+    { name: "/fr/", locale: "fr", load: () => import("@/app/(fr)/fr/page") },
+    { name: "/fr/yii2/", locale: "fr", load: () => import("@/app/(fr)/fr/yii2/page") },
+    { name: "/fr/ai-vibecoding/", locale: "fr", load: () => import("@/app/(fr)/fr/ai-vibecoding/page") },
+    { name: "/es/", locale: "es", load: () => import("@/app/(es)/es/page") },
+    { name: "/es/yii2/", locale: "es", load: () => import("@/app/(es)/es/yii2/page") },
+    { name: "/es/ai-vibecoding/", locale: "es", load: () => import("@/app/(es)/es/ai-vibecoding/page") }
   ] as const;
 
   for (const page of pages) {
