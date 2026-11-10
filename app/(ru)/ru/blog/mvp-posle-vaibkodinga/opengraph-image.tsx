@@ -3,7 +3,7 @@ import { renderPostOgCard } from "../../../../_og/post";
 
 export const dynamic = "force-static";
 export const alt =
-  "Ваш MVP после вайбкодинга перестал выходить в релиз — как и любой код, написанный джунами. Виктор Демин";
+  "Ваш MVP после вайбкодинга перестал выходить в релиз. Так рано или поздно бывает с любым кодом джунов. Виктор Демин";
 export const size = ogImageSize;
 export const contentType = ogImageContentType;
 

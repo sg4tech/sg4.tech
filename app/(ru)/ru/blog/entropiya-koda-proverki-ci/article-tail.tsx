@@ -32,9 +32,9 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta post="entropiya-koda-proverki-ci" heading="Агенты пишут код быстрее, чем вы успеваете его ревьюить" href={CTA_HREF}>
-      Первый созвон — 30 минут в Telegram. Расскажите, что сейчас проверяет ваш CI, и я помогу
-      понять, каких уровней не хватает и в каком порядке их добавлять.
+    <BlogCta post="entropiya-koda-proverki-ci" heading="Агенты пишут код быстрее, чем вы успеваете его проверять" href={CTA_HREF}>
+      Первый созвон — 30 минут в Telegram. Расскажите, что сейчас проверяет ваш CI, а я подскажу,
+      каких уровней не хватает и в каком порядке их добавлять.
     </BlogCta>
   );
 }

@@ -10,6 +10,6 @@ export default function OpengraphImage() {
   return renderPostOgCard("prognoz-srokov-percentili", {
     eyebrow: "Метрики разработки",
     title: "Средний Lead Time вам врёт",
-    subtitle: "Прогнозируйте сроки по медиане, разбросу и перцентилю p95 вместо точечной оценки."
+    subtitle: "Называйте сроки по медиане, разбросу и перцентилю p95."
   });
 }

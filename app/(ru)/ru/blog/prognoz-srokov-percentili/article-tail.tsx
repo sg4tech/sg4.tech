@@ -18,7 +18,7 @@ const finishingPost = getPostBySlug("nachat-deshevo-zakonchit-dorogo");
 const relatedLinks = [
   {
     href: getPostPathInLocale("diagnose-broken-engineering-delivery", "ru"),
-    title: "Где на самом деле ломается разработка",
+    title: "Где ломается разработка и как найти узкое место",
     description:
       "Метрики, на которых строится эта статья: разложение T2M на Lead Time и Cycle Time, WIP и закон Литтла."
   },
@@ -37,9 +37,9 @@ const relatedLinks = [
 
 export function ArticleCta(): ReactNode {
   return (
-    <BlogCta post="prognoz-srokov-percentili" heading="Сроки съезжают, а причина непонятна" href={CTA_HREF}>
-      Первый диагностический созвон — 30 минут в Telegram. Опишите симптомы, и я помогу найти, где
-      ломается распределение, а вместе с ним и система.
+    <BlogCta post="prognoz-srokov-percentili" heading="Сроки съезжают, и непонятно почему" href={CTA_HREF}>
+      Первый диагностический созвон — 30 минут в Telegram. Опишите симптомы, и вместе найдём, где
+      ломается распределение, а с ним и система.
     </BlogCta>
   );
 }
