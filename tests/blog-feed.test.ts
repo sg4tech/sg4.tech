@@ -6,12 +6,14 @@ import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
 import { pagePath } from "@/app/lib/i18n/pages";
 import {
   getBlogLastModifiedAt,
+  getPostBySlug,
   getLatestPosts,
   getPostUrl,
   parsePostDate,
   POST_SLUGS
 } from "@/app/lib/blog/posts";
 import { absoluteUrl } from "@/app/lib/brand";
+import { EN_POST_SLUGS } from "@/app/lib/blog/registry/en";
 import { escapeXml, renderRss } from "@/app/lib/rss";
 
 describe("RSS renderer", () => {
@@ -80,7 +82,7 @@ describe("blog RSS feed", () => {
     const links = [...feed.matchAll(/<item>[\s\S]*?<link>([^<]+)<\/link>/g)].map((m) => m[1]);
 
     expect(links).toEqual(getLatestPosts("en").map((post) => getPostUrl(post.slug)));
-    expect(links).toHaveLength(POST_SLUGS.length);
+    expect(links).toHaveLength(EN_POST_SLUGS.length);
   });
 
   it("is dated by the newest post change", () => {
@@ -100,7 +102,8 @@ describe("blog RSS feed discovery", () => {
 
   it("is advertised from every post", () => {
     for (const slug of POST_SLUGS) {
-      expect(buildPostMetadata(slug).alternates?.types).toEqual(blogFeedAlternates("en"));
+      const { locale } = getPostBySlug(slug);
+      expect(buildPostMetadata(slug).alternates?.types).toEqual(blogFeedAlternates(locale));
     }
   });
 

@@ -9,7 +9,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/vibecoded-mvp-stopped-shipping.module.css";
 
 const PILLAR_HREF = "/blog/diagnose-broken-engineering-delivery/";
 const HUB_HREF = "/ai-vibecoding/";

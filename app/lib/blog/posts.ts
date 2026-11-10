@@ -1,6 +1,13 @@
 import { absoluteUrl, type SitePath } from "../brand";
 import { DEFAULT_LOCALE, getLocaleConfig, type Locale } from "../i18n/locales";
 import { pagePath } from "../i18n/pages";
+import { DE_POST_SLUGS, dePosts } from "./registry/de";
+import { EN_POST_SLUGS, enPosts } from "./registry/en";
+import { ES_POST_SLUGS, esPosts } from "./registry/es";
+import { FR_POST_SLUGS, frPosts } from "./registry/fr";
+import { PT_BR_POST_SLUGS, ptBrPosts } from "./registry/pt-br";
+import { RU_POST_SLUGS, ruPosts } from "./registry/ru";
+import type { PostEntry } from "./registry/types";
 
 // Single source of truth for blog posts. Referenced by:
 // - /blog index page (post list)
@@ -8,119 +15,26 @@ import { pagePath } from "../i18n/pages";
 // - sitemap.ts (URL list)
 //
 // Adding a new post:
-// 1. Add the slug to POST_SLUGS below (type-narrows callers via PostSlug)
-// 2. Append the post object to blogPosts
-// 3. Create app/blog/<slug>/page.tsx that renders BlogPostLayout with that slug
+// 1. Add the slug and entry to the locale's file in ./registry/ (a translation
+//    sets translationOf to the English original)
+// 2. Create app/(<locale>)/…/blog/<slug>/page.tsx that renders BlogPostLayout with that slug
 
-// POST_SLUGS is the source of truth for which routes exist. The PostSlug type
-// is derived from it, so any string passed to getPostBySlug() is checked at
-// compile time — a slug typo in a route file fails the build instead of
-// crashing at runtime. blogPosts entries must use one of these slugs.
+// Every locale's posts. Each locale's registry file (./registry/) owns its
+// slugs; the union below is what routes and links are type-checked against,
+// so a slug typo in a route file fails the build instead of crashing at runtime.
 export const POST_SLUGS = [
-  "diagnose-broken-engineering-delivery",
-  "forecast-delivery-with-percentiles",
-  "vibecoded-mvp-stopped-shipping",
-  "ai-made-starting-free-finishing-expensive",
-  "ai-coding-agent-periphery-core",
-  "code-entropy-ci-checks-ai-legacy"
+  ...EN_POST_SLUGS,
+  ...RU_POST_SLUGS,
+  ...DE_POST_SLUGS,
+  ...PT_BR_POST_SLUGS,
+  ...FR_POST_SLUGS,
+  ...ES_POST_SLUGS
 ] as const;
 export type PostSlug = (typeof POST_SLUGS)[number];
 
-export type BlogPost = {
-  slug: PostSlug;
-  /** The language the post is written in; it is published under that locale's blog. */
-  locale: Locale;
-  /** For a translation: the slug of the original post. Links the language
-   * versions for hreflang; leave unset on originals. */
-  translationOf?: PostSlug;
-  title: string;
-  /** Search-result title for the <title> tag when it should name the searched-for topic more
-   * plainly than the on-page headline. Falls back to `title`; H1, Open Graph, and schema
-   * headline always use `title`. */
-  seoTitle?: string;
-  description: string;
-  /** ISO-8601 date string (YYYY-MM-DD). Used for Article schema datePublished. */
-  publishedAt: string;
-  /** ISO-8601 date string. Same as publishedAt unless content has been materially revised. */
-  modifiedAt: string;
-  /** Approximate reading time in minutes, rounded. */
-  readingMinutes: number;
-  /** Short topical tags. Surfaced on index card; not part of schema. */
-  tags: ReadonlyArray<string>;
-};
+export type BlogPost = PostEntry<PostSlug, PostSlug>;
 
-export const blogPosts: ReadonlyArray<BlogPost> = [
-  {
-    slug: "diagnose-broken-engineering-delivery",
-    locale: "en",
-    title: "How to diagnose where engineering delivery is actually broken",
-    description:
-      "An engineering leader's metrics playbook: split T2M into Lead Time and Cycle Time, find the WIP bottleneck with Little's Law, and set WIP limits.",
-    publishedAt: "2026-05-22",
-    modifiedAt: "2026-05-22",
-    readingMinutes: 18,
-    tags: ["engineering metrics", "delivery", "WIP", "Theory of Constraints"]
-  },
-  {
-    slug: "forecast-delivery-with-percentiles",
-    locale: "en",
-    title: "Average lead time is lying to you — how to forecast delivery with percentiles",
-    seoTitle: "Average lead time is lying: forecast with percentiles",
-    description:
-      "Average lead time hides what your delivery system really does. Forecast with median, spread, and p85/p95 percentiles to commit to dates you can actually hit.",
-    publishedAt: "2026-05-29",
-    modifiedAt: "2026-05-29",
-    readingMinutes: 7,
-    tags: ["delivery forecasting", "lead time", "percentiles", "predictability", "flow metrics"]
-  },
-  {
-    slug: "vibecoded-mvp-stopped-shipping",
-    locale: "en",
-    title: "Vibecoded MVP stopped shipping? Manage your AI like a junior",
-    description:
-      "A vibecoded MVP stalls the way junior-built codebases always have. Manage AI coding agents with junior-developer practices — a real rescue case with numbers.",
-    publishedAt: "2026-06-11",
-    modifiedAt: "2026-06-11",
-    readingMinutes: 8,
-    tags: ["vibecoding", "AI-generated code", "guardrails", "delivery system"]
-  },
-  {
-    slug: "ai-made-starting-free-finishing-expensive",
-    locale: "en",
-    title: "AI made starting work nearly free. Finishing is still expensive.",
-    seoTitle: "AI made starting work free. Finishing is still expensive.",
-    description:
-      "AI-assisted teams start more work than ever and ship about the same. Little's Law applied to agents, and the case for one-thread-one-task and WIP limits.",
-    publishedAt: "2026-07-11",
-    modifiedAt: "2026-07-11",
-    readingMinutes: 7,
-    tags: ["AI-assisted delivery", "WIP", "Little's Law", "context switching", "delivery metrics"]
-  },
-  {
-    slug: "ai-coding-agent-periphery-core",
-    locale: "en",
-    title: "AI coding agents: give them the periphery, keep humans on the core",
-    seoTitle: "What to delegate to AI coding agents: periphery vs core",
-    description:
-      "AI coding agents are brilliant at some work and dangerous at other work. What to delegate: give them the periphery, keep humans on the core.",
-    publishedAt: "2026-07-12",
-    modifiedAt: "2026-07-12",
-    readingMinutes: 5,
-    tags: ["AI coding agents", "enterprise AI", "self-hosted AI", "engineering delivery"]
-  },
-  {
-    slug: "code-entropy-ci-checks-ai-legacy",
-    locale: "en",
-    title: "Code entropy: how CI checks keep AI from piling up legacy",
-    seoTitle: "Prevent AI-generated technical debt with CI checks",
-    description:
-      "Code entropy grows on its own, and AI coding agents speed it up. Seven levels of CI checks that stop legacy piling up, with tools for Python, PHP, and JS/TS.",
-    publishedAt: "2026-10-08",
-    modifiedAt: "2026-10-08",
-    readingMinutes: 6,
-    tags: ["AI coding agents", "AI-generated code", "CI guardrails", "code quality", "software architecture"]
-  }
-];
+export const blogPosts: ReadonlyArray<BlogPost> = [...enPosts, ...ruPosts, ...dePosts, ...ptBrPosts, ...frPosts, ...esPosts];
 
 // Returns BlogPost (not undefined) because PostSlug is type-narrowed. The
 // throw is a defensive guard for the case where POST_SLUGS and blogPosts
@@ -150,6 +64,12 @@ export function getPostInLocaleOrOriginal(slug: PostSlug, locale: Locale): BlogP
     translations.find((post) => post.translationOf === undefined) ??
     getPostBySlug(slug)
   );
+}
+
+/** Where a link to the post goes for a reader of `locale`: its translation
+ * there, or the original while it has none. */
+export function getPostPathInLocale(slug: PostSlug, locale: Locale): SitePath {
+  return getPostPath(getPostInLocaleOrOriginal(slug, locale).slug);
 }
 
 /** Every language version of a post (the original and its translations). */

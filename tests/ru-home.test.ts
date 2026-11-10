@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { homeContent as ruHomeContent } from "@/app/(ru)/ru/content";
 import { getLatestPostsOrDefault } from "@/app/lib/blog/posts";
 import { getDictionary } from "@/app/lib/i18n/dictionary";
+import { isPagePublished, pagePathOrDefault } from "@/app/lib/i18n/pages";
 import { withSiteName } from "@/app/lib/i18n/site-name";
 import { buildHomeMetadata } from "@/app/views/home/home-seo";
 import { HomeView } from "@/app/views/home/HomeView";
@@ -14,7 +15,7 @@ const ru = toRenderedPage(renderView(HomeView, { locale: "ru", content: ruHomeCo
 const en = englishLandings.home.page;
 
 // A link that leaves the reader's language says so, and the note disappears by
-// itself once the target page is translated (it follows the page registry).
+// itself once the target is translated (it follows the registries).
 describe("Russian home: links to other pages", () => {
   const { untranslated } = getDictionary("ru");
 
@@ -27,20 +28,23 @@ describe("Russian home: links to other pages", () => {
     expect(card).not.toContain(untranslated.pageNote);
   });
 
-  it("points the blog link at the English blog and marks it", () => {
-    const link = linkTo(ru.html, "/blog/");
+  // The blog follows the page and post registries: Russian while it has
+  // Russian posts, the English blog marked as English otherwise.
+  it("points the blog link at the blog in the reader's language, else marks it", () => {
+    const inRussian = isPagePublished("ru", "blog");
+    const link = linkTo(ru.html, pagePathOrDefault("ru", "blog"));
     expect(link).toContain("Все статьи");
-    expect(link).toContain(untranslated.linkNote);
+    expect(link.includes(untranslated.linkNote)).toBe(!inRussian);
   });
 
-  it("lists the English posts while there are no Russian ones, marked as English", () => {
+  it("lists the latest posts in the reader's language, else the English ones marked as English", () => {
     const block = ru.html.split('id="insights"')[1]?.split("</section>")[0] ?? "";
     const posts = getLatestPostsOrDefault("ru", 3);
     expect(posts.length).toBeGreaterThan(0);
     for (const post of posts) {
       expect(block).toContain(post.slug);
     }
-    expect(block).toContain('lang="en"');
+    expect(block.includes('lang="en"')).toBe(posts.some((post) => post.locale !== "ru"));
   });
 });
 

@@ -12,7 +12,7 @@
 
 import Image from "next/image";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/diagnose-broken-engineering-delivery.module.css";
 import { FigureCaption } from "../../../components/FigureCaption";
 
 export function ArticleLede(): ReactNode {

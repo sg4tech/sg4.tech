@@ -8,7 +8,8 @@ import { metadata as yii2Metadata } from "@/app/(en)/yii2/page";
 import { metadata as ruYii2Metadata } from "@/app/(ru)/ru/yii2/page";
 import { absoluteUrl } from "@/app/lib/brand";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
-import { POST_SLUGS, validateTranslations } from "@/app/lib/blog/posts";
+import { getPostTranslations, getPostUrl, POST_SLUGS, validateTranslations } from "@/app/lib/blog/posts";
+import { getLocaleConfig } from "@/app/lib/i18n/locales";
 import { buildLanguageAlternates } from "@/app/lib/i18n/alternates";
 import { PAGE_KEYS, type PageKey, pageLanguageAlternates, pageLocales, pagePath } from "@/app/lib/i18n/pages";
 
@@ -87,16 +88,29 @@ describe("language alternates follow the registry", () => {
     expect(yii2Metadata.alternates?.languages).toEqual(ruYii2Metadata.alternates?.languages);
   });
 
-  it.each(POST_SLUGS)("post %s declares no alternates while it has no translation", (slug) => {
-    expect(buildPostMetadata(slug).alternates?.languages).toBeUndefined();
+  // A post links its language versions from the post registry; a post with
+  // no translation declares none.
+  it.each(POST_SLUGS)("post %s declares its translations as alternates", (slug) => {
+    const versions = getPostTranslations(slug);
+    const languages = buildPostMetadata(slug).alternates?.languages;
+    if (versions.length < 2) {
+      expect(languages).toBeUndefined();
+      return;
+    }
+    const original = versions.find((post) => post.translationOf === undefined);
+    expect(languages).toEqual({
+      ...Object.fromEntries(versions.map((post) => [getLocaleConfig(post.locale).htmlLang, getPostUrl(post.slug)])),
+      "x-default": original === undefined ? undefined : getPostUrl(original.slug)
+    });
   });
 
-  it("lists alternates in the sitemap only for translated pages", () => {
-    const translated = new Set(
-      PAGE_KEYS.filter((page) => pageLocales(page).length > 1).flatMap((page) =>
+  it("lists alternates in the sitemap only for translated pages and posts", () => {
+    const translated = new Set([
+      ...PAGE_KEYS.filter((page) => pageLocales(page).length > 1).flatMap((page) =>
         pageLocales(page).map((locale) => absoluteUrl(pagePath(locale, page)))
-      )
-    );
+      ),
+      ...POST_SLUGS.filter((slug) => getPostTranslations(slug).length > 1).map((slug) => getPostUrl(slug))
+    ]);
     for (const entry of sitemap()) {
       expect(entry.alternates !== undefined, entry.url).toBe(translated.has(entry.url));
     }

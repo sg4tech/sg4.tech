@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getPostSections } from "@/app/lib/blog/post-sections";
 import { getDictionary } from "@/app/lib/i18n/dictionary";
 
 const dir = join(process.cwd(), "app", "(en)", "blog", "diagnose-broken-engineering-delivery");
@@ -28,8 +29,15 @@ describe("diagnose post table of contents", () => {
     expect(tocItems).toEqual(headings);
   });
 
+  // The post's section order puts the contents right after the intro, and the
+  // page renders it from its own heading list.
   it("renders the contents after the intro", () => {
-    expect(page).toMatch(/<IntroSection \/>\s*<ArticleToc post="diagnose-broken-engineering-delivery" items=\{tocItems\} \/>\s*<SectionSymptoms \/>/);
+    expect(getPostSections("diagnose-broken-engineering-delivery").slice(0, 3)).toEqual([
+      "IntroSection",
+      "TableOfContents",
+      "SectionSymptoms"
+    ]);
+    expect(page).toMatch(/function TableOfContents\(\) \{\s*return <ArticleToc post=\{SLUG\} items=\{tocItems\} \/>;/);
   });
 
   it("labels the list with the approved heading", () => {

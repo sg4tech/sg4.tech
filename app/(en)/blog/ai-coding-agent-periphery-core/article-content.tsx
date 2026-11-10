@@ -11,7 +11,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import styles from "./page.module.css";
+import styles from "../../../views/posts/ai-coding-agent-periphery-core.module.css";
 import { FigureCaption } from "../../../components/FigureCaption";
 
 const STARTING_CHEAP_HREF = "/blog/ai-made-starting-free-finishing-expensive/";

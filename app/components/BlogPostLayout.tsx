@@ -13,7 +13,7 @@ import { SiteFooter } from "./SiteFooter";
 import { SiteNav } from "./SiteNav";
 import styles from "./BlogPostLayout.module.css";
 
-type BlogPostLayoutProps = {
+export type BlogPostLayoutProps = {
   slug: PostSlug;
   eyebrow: string;
   lede: ReactNode;
@@ -49,7 +49,7 @@ export function BlogPostLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <SiteNav locale={locale} current={blogPath} />
+      <SiteNav locale={locale} post={slug} current={blogPath} />
       <Section className={styles.article}>
         <Link href={blogPath} className={styles.backLink}>
           {getDictionary(locale).blog.backLink}

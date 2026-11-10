@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 import { getDictionary } from "@/app/lib/i18n/dictionary";
 import { getLocaleConfig, LOCALES } from "@/app/lib/i18n/locales";
 import { createPageRegistry, isPagePublished, PAGE_KEYS, pagePath } from "@/app/lib/i18n/pages";
-import { getLanguageMenu, getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
+import { getPostPath, getPostTranslations, POST_SLUGS } from "@/app/lib/blog/posts";
+import { getLanguageMenu, getPostLanguageMenu, getSiteNavigationItems, keepPublishedItems } from "@/app/lib/navigation";
 import { SiteNav } from "@/app/components/SiteNav";
 import { renderView } from "./support/render";
 
@@ -10,7 +11,7 @@ describe("page registry", () => {
   it("knows which locales a page is published in", () => {
     expect(isPagePublished("en", "yii2")).toBe(true);
     expect(isPagePublished("ru", "yii2")).toBe(true);
-    expect(isPagePublished("ru", "blog")).toBe(false);
+    expect(isPagePublished("ru", "privacy")).toBe(false);
   });
 
   // A link to a page that has no version in this language would be a 404.
@@ -110,6 +111,23 @@ describe("language menu", () => {
     }
   );
 
+  // A post's menu lists its translations from the post registry, the same way.
+  it.each(POST_SLUGS)("on post %s lists the post's language versions", (slug) => {
+    const translations = getPostTranslations(slug);
+    const own = translations.find((post) => post.slug === slug);
+    const expected =
+      translations.length < 2
+        ? []
+        : LOCALES.flatMap((locale) => translations.filter((post) => post.locale === locale)).map((post) => ({
+            href: getPostPath(post.slug),
+            code: getDictionary(post.locale).language.code,
+            name: getDictionary(post.locale).language.name,
+            lang: getLocaleConfig(post.locale).htmlLang,
+            current: post.locale === own?.locale
+          }));
+    expect(getPostLanguageMenu(slug)).toEqual(expected);
+  });
+
   const nav = (props: Parameters<typeof SiteNav>[0]) => renderView(SiteNav, props);
 
   it("offers the other languages of a translated page in a menu", () => {
@@ -133,13 +151,13 @@ describe("language menu", () => {
   // Home pill goes, since the logo already leads home.
   it.each([
     ["en", "yii2", "secondary"],
-    ["en", "blog", "primary"]
+    ["en", "privacy", "primary"]
   ] as const)("on %s %s keeps the Home pill %s on phones", (locale, page, mobileNav) => {
     expect(nav({ locale, page })).toContain(`href="/" data-mobile-nav="${mobileNav}"`);
   });
 
   it("shows no language menu on a page with one language", () => {
-    expect(nav({ locale: "en", page: "blog" })).not.toContain("<details");
+    expect(nav({ locale: "en", page: "privacy" })).not.toContain("<details");
     expect(nav({ locale: "en" })).not.toContain("<details");
   });
 });

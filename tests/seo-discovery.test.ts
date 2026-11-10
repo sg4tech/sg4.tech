@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { buildPostMetadata } from "@/app/lib/blog/post-metadata";
+import { EN_POST_SLUGS } from "@/app/lib/blog/registry/en";
+import { postRouteDir } from "./support/posts";
 import { getBlogLastModifiedAt, getPostBySlug, getPostPath, getPostUrl, POST_SLUGS, type PostSlug } from "@/app/lib/blog/posts";
 import { absoluteUrl, SITE_URL } from "@/app/lib/brand";
 import { withSiteName } from "@/app/lib/i18n/site-name";
@@ -196,7 +198,7 @@ describe("canonical metadata", () => {
   // on buildPostMetadata below cover each post, including ones added later.
   for (const slug of POST_SLUGS) {
     it(`builds the "${slug}" metadata with buildPostMetadata`, () => {
-      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
+      const filePath = join(postRouteDir(slug), "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
       expect(content).toContain("export const metadata: Metadata = buildPostMetadata(SLUG);");
@@ -215,7 +217,7 @@ describe("post URLs", () => {
   });
 
   it("dates the blog by its newest post change", () => {
-    const newest = POST_SLUGS.map((slug) => getPostBySlug(slug).modifiedAt).sort().at(-1);
+    const newest = EN_POST_SLUGS.map((slug) => getPostBySlug(slug).modifiedAt).sort().at(-1);
 
     expect(getBlogLastModifiedAt("en")).toBe(newest);
   });
@@ -227,10 +229,10 @@ describe("buildPostMetadata", () => {
       const post = getPostBySlug(slug);
       const metadata = buildPostMetadata(slug);
 
-      expect(metadata.alternates?.canonical).toBe(`/blog/${slug}/`);
+      expect(metadata.alternates?.canonical).toBe(getPostPath(slug));
       expect(metadata.title).toEqual({ absolute: post.seoTitle ?? post.title });
       expect(metadata.openGraph?.title).toBe(post.title);
-      expect(metadata.openGraph?.url).toBe(`${SITE_URL}/blog/${slug}/`);
+      expect(metadata.openGraph?.url).toBe(getPostUrl(slug));
     });
   }
 });
@@ -256,7 +258,8 @@ describe("llms.txt", () => {
   // Answer engines read llms.txt as the site's table of contents, so a post
   // without its own entry is invisible to them even though it is live and in
   // the sitemap. A bare URL mention elsewhere (e.g. a playbook link) does not count.
-  for (const slug of POST_SLUGS) {
+  // llms.txt is the English table of contents, so it lists the English originals.
+  for (const slug of EN_POST_SLUGS) {
     it(`lists the "${slug}" post as its own entry`, () => {
       const filePath = join(process.cwd(), "public", "llms.txt");
       const lines = readFileSync(filePath, "utf8").split("\n");
@@ -287,14 +290,14 @@ describe("landing schema", () => {
 });
 
 describe("article schema", () => {
-  // Every post renders through BlogPostLayout, which emits the JSON-LD graph
-  // built by buildPostStructuredData (covered in post-schema.test.ts).
+  // Every post renders through PostArticle, whose BlogPostLayout emits the
+  // JSON-LD graph built by buildPostStructuredData (covered in post-schema.test.ts).
   for (const slug of POST_SLUGS) {
-    it(`renders "${slug}" through BlogPostLayout`, () => {
-      const filePath = join(process.cwd(), "app", "(en)", "blog", slug, "page.tsx");
+    it(`renders "${slug}" through PostArticle`, () => {
+      const filePath = join(postRouteDir(slug), "page.tsx");
       const content = readFileSync(filePath, "utf8");
 
-      expect(content).toContain("<BlogPostLayout");
+      expect(content).toContain("<PostArticle");
       expect(content).toContain("slug={SLUG}");
     });
   }

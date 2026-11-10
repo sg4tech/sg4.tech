@@ -5,14 +5,16 @@ import { homeContent } from "@/app/(en)/content";
 import { writingChannelLinks } from "@/app/lib/brand";
 import { getSiteNavigationItems } from "@/app/lib/navigation";
 
-import { POST_SLUGS } from "@/app/lib/blog/posts";
+import { EN_POST_SLUGS } from "@/app/lib/blog/registry/en";
 
 const root = process.cwd();
 const read = (...parts: string[]) => readFileSync(join(root, ...parts), "utf8");
 
 // The post registry, not the folder listing: the blog folder also holds non-post
 // routes such as the RSS feed.
-const blogPostSlugs = POST_SLUGS;
+// The English originals own the post stylesheets and figures; translations
+// render the same components with the original's stylesheet.
+const blogPostSlugs = EN_POST_SLUGS;
 
 const landingPages = ["yii2", "ai-vibecoding"] as const;
 // Each landing renders through a shared view in app/views (copy per locale
@@ -29,7 +31,7 @@ describe("blog article headings", () => {
   // heading visibly narrower than the reading column. `pretty` fills the first
   // line and only guards against a lone last word.
   it.each(blogPostSlugs)("%s body h2 fills the reading column", (slug) => {
-    const css = read("app", "(en)", "blog", slug, "page.module.css");
+    const css = read("app", "views", "posts", `${slug}.module.css`);
     const h2Rule = css.split(".body h2 {")[1]?.split("}")[0] ?? "";
 
     expect(h2Rule).toContain("text-wrap: pretty;");
@@ -136,7 +138,7 @@ describe("contrast of secondary graphics", () => {
   });
 
   it("draws the lead-time histogram bars visibly against the card", () => {
-    const css = read("app", "(en)", "blog", "forecast-delivery-with-percentiles", "page.module.css");
+    const css = read("app", "views", "posts", "forecast-delivery-with-percentiles.module.css");
     expect(css.split(".distChart .dcBar {")[1]?.split("}")[0]).toContain("fill: var(--gray-400);");
   });
 });
@@ -236,7 +238,7 @@ describe("blog figure captions", () => {
     const dir = join(root, "app", "(en)", "blog", slug);
     const tsx = readdirSync(dir).filter((f) => f.endsWith(".tsx")).map((f) => readFileSync(join(dir, f), "utf8")).join("\n");
     expect(tsx).not.toMatch(/<figcaption\b/);
-    expect(read("app", "(en)", "blog", slug, "page.module.css")).not.toMatch(localCaption);
+    expect(read("app", "views", "posts", `${slug}.module.css`)).not.toMatch(localCaption);
   });
 
   // Charts draw their frame on the whole figure, so the caption sits inside
@@ -244,7 +246,7 @@ describe("blog figure captions", () => {
   it.each(["ai-made-starting-free-finishing-expensive", "ai-coding-agent-periphery-core", "diagnose-broken-engineering-delivery"])(
     "%s frames the whole image figure, caption included",
     (slug) => {
-      const css = read("app", "(en)", "blog", slug, "page.module.css");
+      const css = read("app", "views", "posts", `${slug}.module.css`);
       const figure = css.split(".figure {")[1]?.split("}")[0] ?? "";
       const image = css.split(".figureImage {")[1]?.split("}")[0] ?? "";
       expect(figure).toContain("border: 1px solid var(--border);");
