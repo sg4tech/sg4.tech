@@ -26,11 +26,11 @@
     "check": "npm run lint && npm run security:audit && npm run security:code && npm run typecheck && npm run test && npm run knip && npm run depcruise && npm run jscpd && npm run build"
   },
   "dependencies": {
-    "lucide-react": "^1.69.0",
-    "next": "^16.4.5",
+    "lucide-react": "^1.72.0",
+    "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "simple-icons": "^16.36.0"
+    "simple-icons": "^16.37.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
